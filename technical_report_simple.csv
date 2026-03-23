@@ -1,0 +1,4 @@
+num_gears,avg_teeth,min_teeth,max_teeth,total_area,example,torque_ratio,space_utilization
+4,17.333333333333332,10,25,1520.53084433746,Example1,1:2,0.5
+6,18.25,10,28,2346.7697122315753,Example2,1:2,0.5
+4,20.166666666666668,10,31,2207.754237310227,Example3,1:2,0.5
