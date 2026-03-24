@@ -1,0 +1,4 @@
+example,num_gears,min_teeth_actual,max_teeth_actual,min_constraint,max_constraint,min_violation,max_violation,actual_torque_ratio,target_torque_ratio,ratio_error_percent,ratio_valid,compound_gears
+Example1,4,10,25,15,50,True,False,1.3157894736842106,0.5,163.15789473684214,False,2
+Example2,6,10,28,15,50,True,False,1.2173913043478262,0.5,143.47826086956525,False,2
+Example3,4,10,31,15,50,True,False,0.967741935483871,0.5,93.5483870967742,False,2
