@@ -194,7 +194,7 @@ All components follow consistent interfaces:
 ## Experimental Data Visualization Patterns
 
 ### 8. Experimental Data Visualization
-The `ExperimentalDataVisualizer` class in `.kilo/skills/experimental_visualization_skills.py` provides comprehensive tools for analyzing experimental results:
+The `ExperimentalDataVisualizer` class in `Visualization/experimental_visualizer.py` provides comprehensive tools for analyzing experimental results:
 
 - **Training Metrics Plotting**: Visualize reward, success_rate, and constraint_violations over time
 - **Layout Evolution**: Track how generated gear layouts improve during training  
@@ -206,7 +206,7 @@ The `ExperimentalDataVisualizer` class in `.kilo/skills/experimental_visualizati
 # Add .kilo to path
 import sys
 sys.path.append('.kilo')
-from skills.experimental_visualization_skills import ExperimentalDataVisualizer
+from Visualization.experimental_visualizer import ExperimentalDataVisualizer
 
 # Initialize with experimental data directory  
 visualizer = ExperimentalDataVisualizer('data/exp')

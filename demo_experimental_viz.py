@@ -8,7 +8,7 @@ import os
 sys.path.append('.')
 sys.path.append('.kilo')
 
-from skills.experimental_visualization_skills import ExperimentalDataVisualizer
+from Visualization.experimental_visualizer import ExperimentalDataVisualizer
 
 def main():
     """Run demonstration of experimental visualization capabilities."""
