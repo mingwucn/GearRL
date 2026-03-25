@@ -104,6 +104,21 @@ All data models support bidirectional JSON serialization:
 - Pathfinding falls back to shortest path if smoothing fails
 - Gear generation uses closest valid tooth count when approximating diameter
 
+
+### 8. Experimental Data Visualization
+The  class in  provides comprehensive tools for analyzing experimental results:
+
+- **Training Metrics Plotting**: Visualize reward, success rate, and constraint violations over time
+- **Layout Evolution**: Track how generated gear layouts improve during training  
+- **Experiment Comparison**: Compare performance across multiple experimental runs
+- **Automated Reporting**: Generate structured markdown reports with key metrics
+
+**Usage Pattern**:
+
+
+Expected experimental data structure:
+
+
 ## Testing and Validation Patterns
 
 ### 1. Unit Testing Structure
@@ -176,3 +191,41 @@ All components follow consistent interfaces:
 8. **Use meaningful variable names** that reflect physical meaning
 9. **Separate concerns** rigorously between components
 10. **Profile performance** bottlenecks in geometry-heavy operations
+## Experimental Data Visualization Patterns
+
+### 8. Experimental Data Visualization
+The `ExperimentalDataVisualizer` class in `.kilo/skills/experimental_visualization_skills.py` provides comprehensive tools for analyzing experimental results:
+
+- **Training Metrics Plotting**: Visualize reward, success_rate, and constraint_violations over time
+- **Layout Evolution**: Track how generated gear layouts improve during training  
+- **Experiment Comparison**: Compare performance across multiple experimental runs
+- **Automated Reporting**: Generate structured markdown reports with key metrics
+
+**Usage Pattern**:
+```python
+# Add .kilo to path
+import sys
+sys.path.append('.kilo')
+from skills.experimental_visualization_skills import ExperimentalDataVisualizer
+
+# Initialize with experimental data directory  
+visualizer = ExperimentalDataVisualizer('data/exp')
+
+# Plot training metrics
+visualizer.plot_training_metrics('experiment_name', 'metrics.png')
+
+# Generate comprehensive report  
+report = visualizer.generate_experiment_report('experiment_name')
+```
+
+Expected experimental data structure:
+```
+data/exp/{experiment_name}/
+├── metrics.csv              # Training metrics (reward, success_rate, etc.)
+├── results.json             # Final experiment results
+├── constraints.json         # Experiment-specific constraints  
+└── layouts/                 # Generated gear layouts over time
+    ├── layout_001.json
+    ├── layout_050.json
+    └── ...
+```

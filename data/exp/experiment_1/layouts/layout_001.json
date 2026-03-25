@@ -1,0 +1,36 @@
+[
+  {
+    "id": "gear_input",
+    "center": {
+      "x": 30,
+      "y": 0
+    },
+    "teeth_count": [
+      25
+    ],
+    "module": 1.0
+  },
+  {
+    "id": "gear_1",
+    "center": {
+      "x": 15,
+      "y": 0
+    },
+    "teeth_count": [
+      12,
+      18
+    ],
+    "module": 1.0
+  },
+  {
+    "id": "gear_output",
+    "center": {
+      "x": 0,
+      "y": 0
+    },
+    "teeth_count": [
+      20
+    ],
+    "module": 1.0
+  }
+]

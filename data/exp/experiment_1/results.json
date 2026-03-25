@@ -1,0 +1,7 @@
+{
+  "final_reward": 4.95,
+  "success_rate": 1.0,
+  "avg_constraint_violations": 0.0,
+  "total_episodes": 1000,
+  "training_time_hours": 2.5
+}
