@@ -105,19 +105,6 @@ All data models support bidirectional JSON serialization:
 - Gear generation uses closest valid tooth count when approximating diameter
 
 
-### 8. Experimental Data Visualization
-The  class in  provides comprehensive tools for analyzing experimental results:
-
-- **Training Metrics Plotting**: Visualize reward, success rate, and constraint violations over time
-- **Layout Evolution**: Track how generated gear layouts improve during training  
-- **Experiment Comparison**: Compare performance across multiple experimental runs
-- **Automated Reporting**: Generate structured markdown reports with key metrics
-
-**Usage Pattern**:
-
-
-Expected experimental data structure:
-
 
 ## Testing and Validation Patterns
 
