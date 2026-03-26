@@ -1,0 +1,7 @@
+{
+    "is_valid": false,
+    "errors": [
+        "Gear 0 too close to boundary: Distance 13.6924 < required 20.0000",
+        "Gear 1 too close to boundary: Distance 10.3402 < required 30.0000"
+    ]
+}
