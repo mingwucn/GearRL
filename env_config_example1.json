@@ -1,0 +1,8 @@
+{
+  "json_path": "data/intermediate/Example1_processed.json",
+  "module": 1.0,
+  "clearance_margin": 2.0,
+  "initial_gear_teeth": 20,
+  "min_gear_teeth": 15,
+  "max_gear_teeth": 50
+}
