@@ -158,7 +158,8 @@ The clean-environment attestation is stored at
 `data/results/clean-environment-v1`. It was produced from a detached local clone
 of the recorded commit in a newly created `/tmp` prefix using
 `environment-ai.lock` plus the hash-pinned pip requirements. The full test suite
-and all six frozen-artifact verifiers passed there. The report binds the source
+and seven acyclic scientific verification targets passed there, including both
+robustness draw bundles. The report binds the source
 tree, explicit Conda inventory, pip inventory, commands, outputs, and runtimes.
 This is an independent locked-prefix reproduction, not a container execution;
 the host does not provide Docker or Podman.

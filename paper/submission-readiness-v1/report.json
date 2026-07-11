@@ -121,7 +121,7 @@
     {
       "description": "A detached committed source tree passes the full suite and all frozen artifact checks in an independently created locked prefix.",
       "evidence_path": "data/results/clean-environment-v1/report.json",
-      "evidence_sha256": "8558fa5f5e79c648c5ad33ae8a92802af742769e7b51da8c35ce71c19b72bb04",
+      "evidence_sha256": "0a54800793aa40c84cb666baf1c02928d02417b905ee2af7239cba4ff24195b0",
       "observed": true,
       "requirement_id": "locked-clean-environment-attestation",
       "status": "passed"
