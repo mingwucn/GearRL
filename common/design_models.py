@@ -176,3 +176,18 @@ class ValidationCertificate:
             "cae_reports": self.cae_reports,
             "model_version": self.model_version,
         }
+
+
+@dataclass(frozen=True)
+class ManufacturingArtifact:
+    """Traceable concept-manufacturing export bound to a validation certificate."""
+
+    artifact_id: str
+    svg_path: str
+    dxf_path: str
+    certificate: dict[str, Any]
+    step_path: str | None = None
+    physical_validation_complete: bool = False
+
+    def to_json(self) -> dict[str, Any]:
+        return asdict(self)
