@@ -2,7 +2,8 @@
 
 GearRL develops reproducible synthesis and validation workflows for planar,
 external-spur compound gear trains. The certified model checks full-train signed
-speed ratio, mesh center distances, axial layers, boundary clearance,
+speed ratio, finite inputs, compatible modules, standard unshifted undercut
+limits, transverse contact ratio, mesh center distances, axial layers, boundary clearance,
 interference, and optional in-house plane-stress tooth-root screening.
 
 The current publication path targets a fully digital *Advanced Engineering

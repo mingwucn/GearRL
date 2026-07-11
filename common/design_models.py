@@ -7,13 +7,27 @@ research interface without silently changing the behaviour of old demos.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+from math import isfinite
 from typing import Any, Mapping, Sequence
+
+
+class CanonicalNumericGuard:
+    """Central finite-number invariant for certificate-bearing domain objects."""
+
+    @staticmethod
+    def require_finite(**values: float | None) -> None:
+        invalid = [name for name, value in values.items() if value is not None and not isfinite(value)]
+        if invalid:
+            raise ValueError(f"Non-finite canonical values: {', '.join(sorted(invalid))}")
 
 
 @dataclass(frozen=True)
 class Point2D:
     x: float
     y: float
+
+    def __post_init__(self) -> None:
+        CanonicalNumericGuard.require_finite(x=self.x, y=self.y)
 
     @classmethod
     def from_json(cls, value: Mapping[str, Any]) -> "Point2D":
@@ -41,6 +55,14 @@ class DesignConstraints:
     transverse_backlash_allowance_mm: float = 0.0
 
     def __post_init__(self) -> None:
+        CanonicalNumericGuard.require_finite(
+            target_speed_ratio=self.target_speed_ratio,
+            ratio_tolerance=self.ratio_tolerance,
+            boundary_clearance=self.boundary_clearance,
+            pressure_angle_deg=self.pressure_angle_deg,
+            min_safety_factor=self.min_safety_factor,
+            transverse_backlash_allowance_mm=self.transverse_backlash_allowance_mm,
+        )
         if self.min_teeth < 1 or self.max_teeth < self.min_teeth:
             raise ValueError("Invalid tooth-count bounds")
         if self.ratio_tolerance < 0 or self.boundary_clearance < 0 or self.transverse_backlash_allowance_mm < 0:
@@ -60,6 +82,14 @@ class MaterialLoadCase:
     efficiency: float = 1.0
 
     def __post_init__(self) -> None:
+        CanonicalNumericGuard.require_finite(
+            input_torque_nm=self.input_torque_nm,
+            face_width_mm=self.face_width_mm,
+            youngs_modulus_mpa=self.youngs_modulus_mpa,
+            poisson_ratio=self.poisson_ratio,
+            allowable_stress_mpa=self.allowable_stress_mpa,
+            efficiency=self.efficiency,
+        )
         if self.input_torque_nm <= 0 or self.face_width_mm <= 0:
             raise ValueError("Torque and face width must be positive")
         if self.youngs_modulus_mpa <= 0 or self.allowable_stress_mpa <= 0:
@@ -79,6 +109,7 @@ class GearStage:
     axial_layers: tuple[int, ...] = ()
 
     def __post_init__(self) -> None:
+        CanonicalNumericGuard.require_finite(module_mm=self.module_mm)
         if not self.id or not self.teeth:
             raise ValueError("A gear stage requires an id and at least one member")
         if self.module_mm <= 0 or any(teeth <= 0 for teeth in self.teeth):
@@ -108,6 +139,7 @@ class MeshEdge:
     center_distance_tolerance_mm: float = 1e-6
 
     def __post_init__(self) -> None:
+        CanonicalNumericGuard.require_finite(center_distance_tolerance_mm=self.center_distance_tolerance_mm)
         if self.driver_stage_id == self.driven_stage_id:
             raise ValueError("A mesh must connect distinct shafts")
         if min(self.driver_member, self.driven_member) < 0:
@@ -166,7 +198,7 @@ class ValidationCertificate:
     signed_speed_ratio: float | None = None
     minimum_clearance_mm: float | None = None
     cae_reports: list[dict[str, Any]] = field(default_factory=list)
-    model_version: str = "certified-planar-v1"
+    model_version: str = "certified-planar-v2"
 
     def to_json(self) -> dict[str, Any]:
         return {

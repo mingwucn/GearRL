@@ -7,7 +7,7 @@ the declared design model directly and emits a serialisable certificate.
 from __future__ import annotations
 
 from collections import deque
-from math import hypot, isclose, radians, tan
+from math import ceil, cos, hypot, isclose, pi, radians, sin, sqrt, tan
 
 from common.design_models import (
     DesignProblem,
@@ -20,7 +20,7 @@ from common.design_models import (
 
 
 class ReferenceVerifier:
-    MODEL_VERSION = "certified-planar-v1"
+    MODEL_VERSION = "certified-planar-v2"
 
     @classmethod
     def verify(cls, problem: DesignProblem, train: GearTrain) -> ValidationCertificate:
@@ -188,6 +188,14 @@ class ReferenceVerifier:
                 continue
             if driver.layer(edge.driver_member) != driven.layer(edge.driven_member):
                 cls._add(issues, "axial_layer_mismatch", f"Mesh {key} connects different axial layers")
+            if not isclose(driver.module_mm, driven.module_mm, rel_tol=0.0, abs_tol=1e-12):
+                cls._add(
+                    issues,
+                    "mesh_module_mismatch",
+                    f"Mesh {key} connects modules {driver.module_mm:.6g} and {driven.module_mm:.6g} mm",
+                )
+                continue
+            cls._check_standard_tooth_geometry(problem, key, driver, edge.driver_member, driven, edge.driven_member, issues)
             expected = driver.pitch_radius_mm(edge.driver_member) + driven.pitch_radius_mm(edge.driven_member)
             actual = hypot(driver.center.x - driven.center.x, driver.center.y - driven.center.y)
             deviation = actual - expected
@@ -204,6 +212,52 @@ class ReferenceVerifier:
                     f"Mesh {key} requires {expected:.6g} mm, has {actual:.6g} mm; "
                     f"allowed expansion is {expansion_allowance:.6g} mm",
                 )
+
+    @classmethod
+    def _check_standard_tooth_geometry(
+        cls,
+        problem: DesignProblem,
+        key: tuple[str, int, str, int],
+        driver: GearStage,
+        driver_member: int,
+        driven: GearStage,
+        driven_member: int,
+        issues: list[ValidationIssue],
+    ) -> None:
+        """Check standard full-depth, unshifted external spur-gear geometry."""
+        pressure_angle = radians(problem.constraints.pressure_angle_deg)
+        minimum_teeth = ceil(2.0 / sin(pressure_angle) ** 2)
+        driver_teeth = driver.teeth[driver_member]
+        driven_teeth = driven.teeth[driven_member]
+        for stage, member, teeth in ((driver, driver_member, driver_teeth), (driven, driven_member, driven_teeth)):
+            if teeth < minimum_teeth:
+                cls._add(
+                    issues,
+                    "standard_undercut_risk",
+                    f"{stage.id}[{member}] has {teeth} teeth below the unshifted minimum {minimum_teeth} "
+                    f"at {problem.constraints.pressure_angle_deg:.6g} degrees",
+                )
+
+        module = driver.module_mm
+        driver_pitch = module * driver_teeth / 2.0
+        driven_pitch = module * driven_teeth / 2.0
+        driver_base = driver_pitch * cos(pressure_angle)
+        driven_base = driven_pitch * cos(pressure_angle)
+        driver_addendum = module * (driver_teeth + 2) / 2.0
+        driven_addendum = module * (driven_teeth + 2) / 2.0
+        path_of_contact = (
+            sqrt(max(0.0, driver_addendum ** 2 - driver_base ** 2))
+            + sqrt(max(0.0, driven_addendum ** 2 - driven_base ** 2))
+            - (driver_pitch + driven_pitch) * sin(pressure_angle)
+        )
+        base_pitch = pi * module * cos(pressure_angle)
+        contact_ratio = path_of_contact / base_pitch
+        if contact_ratio + 1e-12 < 1.0:
+            cls._add(
+                issues,
+                "insufficient_contact_ratio",
+                f"Mesh {key} has transverse contact ratio {contact_ratio:.6g} below 1",
+            )
 
     @classmethod
     def _propagate_ratio(
