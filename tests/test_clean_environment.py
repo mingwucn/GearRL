@@ -10,6 +10,9 @@ def test_source_tree_hash_is_path_and_content_sensitive(tmp_path: Path) -> None:
     (tmp_path / "a" / "value.txt").write_text("one")
     hasher = SourceTreeHasher()
     original = hasher.digest(tmp_path)
+    (tmp_path / ".git").mkdir()
+    (tmp_path / ".git" / "HEAD").write_text("changing metadata")
+    assert hasher.digest(tmp_path) == original
     (tmp_path / "a" / "value.txt").write_text("two")
     assert hasher.digest(tmp_path) != original
 

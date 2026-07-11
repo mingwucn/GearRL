@@ -6,9 +6,9 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import subprocess
-import tarfile
 from tempfile import TemporaryDirectory
 import time
 from typing import Sequence
@@ -56,26 +56,22 @@ class SubprocessCommandRunner(CommandRunner):
         return evidence, result.stdout, result.stderr
 
 
-class GitCommitExporter:
-    """Export only committed source, excluding the caller's working tree."""
+class GitCommitCheckout:
+    """Checkout a detached local clone, excluding the caller's working tree."""
 
     def __init__(self, runner: CommandRunner) -> None:
         self._runner = runner
 
-    def export(self, commit: str, repository: Path, destination: Path) -> CommandEvidence:
-        archive = destination.parent / "source.tar"
-        evidence, _, _ = self._runner.run("git-archive", ["git", "archive", "--format=tar", "--output", str(archive), commit], repository)
-        destination.mkdir(parents=True)
-        with tarfile.open(archive) as bundle:
-            bundle.extractall(destination, filter="data")
-        archive.unlink()
-        return evidence
+    def checkout(self, commit: str, repository: Path, destination: Path) -> tuple[CommandEvidence, CommandEvidence]:
+        clone, _, _ = self._runner.run("git-clone", ["git", "clone", "--quiet", "--no-hardlinks", "--no-checkout", str(repository), str(destination)], repository)
+        checkout, _, _ = self._runner.run("git-checkout", ["git", "checkout", "--quiet", "--detach", commit], destination)
+        return clone, checkout
 
 
 class SourceTreeHasher:
     def digest(self, root: Path) -> str:
         digest = sha256()
-        for path in sorted(item for item in root.rglob("*") if item.is_file()):
+        for path in sorted(item for item in root.rglob("*") if item.is_file() and ".git" not in item.relative_to(root).parts):
             digest.update(path.relative_to(root).as_posix().encode() + b"\0")
             digest.update(path.read_bytes())
         return digest.hexdigest()
@@ -107,10 +103,13 @@ class CleanEnvironmentAttestor:
         records.append(record)
         with TemporaryDirectory(prefix="gearrl-committed-source-") as temporary:
             source = Path(temporary) / "source"
-            records.append(GitCommitExporter(self._runner).export(config.source_commit, repository, source))
+            records.extend(GitCommitCheckout(self._runner).checkout(config.source_commit, repository, source))
             source_sha256 = SourceTreeHasher().digest(source)
+            clean_environment = os.environ.copy()
+            clean_environment["PATH"] = str(config.prefix / "bin") + os.pathsep + clean_environment.get("PATH", "")
+            clean_environment["PYTHONNOUSERSITE"] = "1"
             for command_id, arguments in self.VERIFICATIONS:
-                record, _, _ = self._runner.run(command_id, [str(python), *arguments], source)
+                record, _, _ = self._runner.run(command_id, [str(python), *arguments], source, clean_environment)
                 records.append(record)
         explicit, explicit_text, _ = self._runner.run("conda-explicit", [str(config.conda_executable), "list", "--explicit", "--prefix", str(config.prefix)], repository)
         records.append(explicit)
