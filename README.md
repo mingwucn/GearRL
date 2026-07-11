@@ -85,6 +85,19 @@ not binary-compatible with the PyTorch runtime in one process. Exact enumeration
 and CP-SAT can prove bounded negative cases. Differential evolution is an
 incomplete stochastic comparator and is reported as such.
 
+Run the predeclared scaling and anytime protocol over four tooth-domain sizes,
+four equal candidate budgets, and 30 differential-evolution seeds:
+
+```bash
+conda run -n ai python run_scaling_study.py \
+  --dataset data/benchmark/curated/requirements-first-50-v1 \
+  --output data/results/scaling-v1
+```
+
+The frozen manifest records source identity, environment hashes, hardware, and
+thread settings. Correct negative classification is reported separately from a
+complete infeasibility proof.
+
 Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):
 

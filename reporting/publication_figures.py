@@ -68,6 +68,19 @@ class SVGCanvas:
     def circle(self, x: float, y: float, radius: float, color: str) -> None:
         SubElement(self.root, "circle", {"cx": f"{x:.3f}", "cy": f"{y:.3f}", "r": f"{radius:.3f}", "fill": color, "stroke": "#FFFFFF", "stroke-width": "3"})
 
+    def polyline(self, points: tuple[tuple[float, float], ...], color: str, width: float) -> None:
+        SubElement(
+            self.root,
+            "polyline",
+            {
+                "points": " ".join(f"{x:.3f},{y:.3f}" for x, y in points),
+                "fill": "none",
+                "stroke": color,
+                "stroke-width": f"{width:.3f}",
+                "stroke-linejoin": "round",
+            },
+        )
+
     def line(self, x1: float, y1: float, x2: float, y2: float, color: str, width: float) -> None:
         SubElement(self.root, "line", {"x1": f"{x1:.3f}", "y1": f"{y1:.3f}", "x2": f"{x2:.3f}", "y2": f"{y2:.3f}", "stroke": color, "stroke-width": f"{width:.3f}"})
 
@@ -214,4 +227,50 @@ class StrengthCouplingFigure(PublicationFigure):
         for center, label, value, color in zip((310, 635, 960), labels, values, colors):
             canvas.bar(center, value, 8.0, 180, color, label)
             canvas.text(center, canvas.BOTTOM - (canvas.BOTTOM - canvas.TOP) * value / 8.0 - 18, str(value), 18, "middle", "#17212B", "600")
+        return canvas.bytes()
+
+
+class SolverScalingFigure(PublicationFigure):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def figure_id(self) -> str:
+        return "solver-anytime-largest-domain"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("requirements-scaling-v1-manifest", self._manifest),
+            EvidenceSource("requirements-scaling-v1-summary", self._summary),
+        )
+
+    def render(self) -> bytes:
+        records = self._json(self._summary)
+        largest = max(item["tooth_domain_size"] for item in records)
+        selected = [item for item in records if item["tooth_domain_size"] == largest]
+        budgets = sorted({item["candidate_budget"] for item in selected})
+        x_values = [log10(value) for value in budgets]
+        x_min, x_max = min(x_values), max(x_values)
+        canvas = SVGCanvas(
+            f"Anytime feasible recovery at {largest}^4 candidates",
+            "Candidate budget (log10)",
+            "Median feasible recovery",
+        )
+        canvas.axes(1.0, formatter=lambda value: f"{value:.1f}")
+        methods = sorted({item["method"] for item in selected})
+        for index, method in enumerate(methods):
+            method_records = {item["candidate_budget"]: item for item in selected if item["method"] == method}
+            points = []
+            for budget in budgets:
+                x = canvas.LEFT + (canvas.RIGHT - canvas.LEFT) * (log10(budget) - x_min) / (x_max - x_min)
+                y = canvas.BOTTOM - (canvas.BOTTOM - canvas.TOP) * method_records[budget]["feasible_recovery_median"]
+                points.append((x, y))
+                canvas.circle(x, y, 10, self.COLORS[index])
+                canvas.text(x, canvas.BOTTOM + 28, str(budget), 13, "middle", "#425466")
+            canvas.polyline(tuple(points), self.COLORS[index], 4)
+            legend_y = 95 + index * 30
+            canvas.line(900, legend_y, 945, legend_y, self.COLORS[index], 4)
+            canvas.text(958, legend_y + 5, method, 14, "start", "#263746", "600")
+        canvas.text(560, 102, "CP-SAT and exact enumeration overlap at 1.0", 14, "middle", "#425466", "600")
         return canvas.bytes()

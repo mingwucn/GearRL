@@ -12,6 +12,7 @@ from reporting.artifact_registry import (
     PublicationArtifactRegistry,
     PublicationReproducer,
     SolverComparisonTable,
+    SolverScalingTable,
     StrengthCouplingTable,
 )
 from reporting.publication_figures import (
@@ -19,6 +20,7 @@ from reporting.publication_figures import (
     SensitivityIndicesFigure,
     SolverComparisonFigure as SolverComparisonPlot,
     StrengthCouplingFigure,
+    SolverScalingFigure,
 )
 
 
@@ -40,6 +42,10 @@ class AEIPublicationTableFactory:
                 Path("data/results/strength-coupled-v1/manifest.json"),
                 Path("data/results/strength-coupled-v1/summary.json"),
             ),
+            SolverScalingTable(
+                Path("data/results/scaling-v1/manifest.json"),
+                Path("data/results/scaling-v1/summary.json"),
+            ),
         )
 
 
@@ -56,6 +62,10 @@ class AEIPublicationFigureFactory:
             FailureProbabilityFigure(uncertainty_manifest, uncertainty_results),
             SensitivityIndicesFigure(uncertainty_manifest, uncertainty_results),
             StrengthCouplingFigure(strength_manifest, strength_summary),
+            SolverScalingFigure(
+                Path("data/results/scaling-v1/manifest.json"),
+                Path("data/results/scaling-v1/summary.json"),
+            ),
         )
 
 

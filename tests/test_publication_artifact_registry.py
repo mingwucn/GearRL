@@ -11,12 +11,13 @@ def test_registry_builds_four_hash_bound_evidence_tables(tmp_path) -> None:
     registry = PublicationArtifactRegistry()
     registry.build(root, AEIPublicationTableFactory().create(), AEIPublicationFigureFactory().create())
     payload = registry.verify(root)
-    assert len(payload["tables"]) == 4
+    assert len(payload["tables"]) == 5
     assert {item["table_id"] for item in payload["tables"]} == {
-        "solver-comparison", "cae-verification", "load-uncertainty", "strength-coupling"
+        "solver-comparison", "cae-verification", "load-uncertainty", "strength-coupling",
+        "solver-scaling-largest-domain",
     }
     assert all(item["sources"] for item in payload["tables"])
-    assert len(payload["figures"]) == 4
+    assert len(payload["figures"]) == 5
     assert all((root / item["output"]).read_bytes().startswith(b'<?xml version="1.0"') for item in payload["figures"])
 
 

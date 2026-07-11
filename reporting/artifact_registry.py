@@ -152,6 +152,38 @@ class StrengthCouplingTable(PublicationTable):
         )
 
 
+class SolverScalingTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "solver-scaling-largest-domain"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("requirements-scaling-v1-manifest", self._manifest),
+            EvidenceSource("requirements-scaling-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        records = self._json(self._summary)
+        largest = max(item["tooth_domain_size"] for item in records)
+        selected = [item for item in records if item["tooth_domain_size"] == largest]
+        lines = [
+            "| Method | Budget | Runs | Feasible recovery median (min) | Accuracy median (min) | Negative proof rate | Median runtime (s) |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+        for item in sorted(selected, key=lambda value: (value["candidate_budget"], value["method"])):
+            lines.append(
+                f"| {item['method']} | {item['candidate_budget']} | {item['run_count']} | "
+                f"{item['feasible_recovery_median']:.3f} ({item['feasible_recovery_min']:.3f}) | "
+                f"{item['accuracy_median']:.3f} ({item['accuracy_min']:.3f}) | "
+                f"{item['negative_proof_rate']:.3f} | {item['median_runtime_s']:.6f} |"
+            )
+        return "\n".join(lines) + "\n"
+
 class PublicationArtifactRegistry:
     """Build a write-once table bundle with bidirectional hash traceability."""
 

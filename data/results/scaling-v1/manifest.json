@@ -1,0 +1,91 @@
+{
+  "case_count": 16,
+  "cases_sha256": "5beffbfb134827f8ad5d07c6ec11253ad81156acdec9992aaa69782c1253e432",
+  "observation_count": 2048,
+  "observations_sha256": "23aa66de9a28b6e811817493c2fc3e2f2fb90973cf0dab82add16159ad9925bd",
+  "protocol": {
+    "candidate_budgets": [
+      250,
+      1000,
+      7000,
+      100000
+    ],
+    "maximum_time_s": 10.0,
+    "minimum_teeth": 18,
+    "population_size": 12,
+    "stochastic_seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030,
+      2031,
+      2032,
+      2033,
+      2034,
+      2035,
+      2036,
+      2037,
+      2038,
+      2039,
+      2040,
+      2041,
+      2042,
+      2043,
+      2044,
+      2045,
+      2046,
+      2047,
+      2048,
+      2049,
+      2050,
+      2051,
+      2052,
+      2053,
+      2054,
+      2055
+    ],
+    "tooth_domain_sizes": [
+      5,
+      9,
+      13,
+      17
+    ]
+  },
+  "runtime_environment": {
+    "dirty_paths": [
+      "opencode.json",
+      "data/results/scaling-v1/"
+    ],
+    "environment": {
+      "combined_sha256": "40102366d42a62c24122a19192aca9ed37ea58771db316c1746dbc4a29db46a3",
+      "files": [
+        {
+          "path": "environment-ai.yml",
+          "sha256": "f891fe038b2c1e579ddf0cda259fb6ed5a15409ae5f2fa37ce7a4f9fa5572802"
+        },
+        {
+          "path": "requirements-ai-pip.txt",
+          "sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d"
+        }
+      ]
+    },
+    "git_commit": "e29e57c16f2fd7f47e64fe907f350d9e85855258",
+    "logical_cpu_count": 16,
+    "platform": "Linux-6.17.0-20-generic-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python_version": "3.11.15 (main, Mar 11 2026, 17:20:07) [GCC 14.3.0]",
+    "scientific_dirty_paths": [],
+    "scientific_source_dirty": false,
+    "thread_settings": {
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  },
+  "schema_version": "requirements-scaling-v1",
+  "summary_sha256": "9672541f11ce85d7d2eb1d020932223068e71e2510da7f0495e98cadfd6d8df4",
+  "template_index": "data/benchmark/curated/requirements-first-50-v1/index.json",
+  "template_index_sha256": "ce79afc76573134eacbfc4bffe4b5b9e49c0dddc0b72609938596ba9a640589c"
+}
