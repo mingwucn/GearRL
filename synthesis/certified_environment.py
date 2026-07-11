@@ -44,6 +44,8 @@ class CertifiedBranchOrderingEnvironment:
         self._current = edge.driven_stage_id
         self._visited.add(self._current)
         if self._current != self._graph.problem.output_stage_id:
+            if not self._actions.candidates(self._current, self._visited):
+                return self._state(-100.0, True, None)
             return self._state(-0.1, False, None)
         certificate = self._graph.certify_path(self._path)
         return self._state(100.0 if certificate["valid"] else -100.0, True, certificate)

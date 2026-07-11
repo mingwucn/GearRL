@@ -14,6 +14,6 @@ def test_policy_evaluator_reports_only_certificate_backed_results() -> None:
     batches = [collector.collect(CertifiedSynthesisGraph(item.problem, item.reference_train.stages, item.reference_train.meshes), 3) for item in instances]
     import numpy as np
     batch = type(batches[0])(np.concatenate([item.features for item in batches]), np.concatenate([item.action_indices for item in batches]))
-    BranchOrderingImitationTrainer(policy).train(batch, epochs=5)
+    BranchOrderingImitationTrainer(policy).train(batch, epochs=100)
     outcomes = LearnedPolicyEvaluator(3).evaluate(policy, instances)
     assert all(outcome.valid and outcome.certificate_json for outcome in outcomes)

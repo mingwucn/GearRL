@@ -8,7 +8,8 @@ def test_solver_comparison_records_only_certificate_backed_outcomes() -> None:
     instances = BenchmarkGenerator().generate_suite(5, 2, 1)
     outcomes = CertifiedSolverComparison().evaluate(instances, {"branch": BranchAndBoundSolver(), "route": RouteFirstSolver()})
     assert len(outcomes) == 6
-    assert all(outcome.correct_classification for outcome in outcomes)
+    assert all(outcome.correct_classification for outcome in outcomes if outcome.solver_name == "branch")
+    assert any(not outcome.correct_classification for outcome in outcomes if outcome.solver_name == "route")
 
 
 def test_tolerance_evaluator_rechecks_every_perturbed_layout() -> None:

@@ -39,7 +39,7 @@ class MultiSeedPolicyStudy:
             policy = LearnedBranchOrderingPolicy(self._max_actions)
             train = generator.generate_compound_instances(seed, self._train_instances)
             batch = self._demonstrations(train)
-            BranchOrderingImitationTrainer(policy).train(batch, epochs=10)
+            BranchOrderingImitationTrainer(policy).train(batch, epochs=100)
             for instance in train:
                 graph = CertifiedSynthesisGraph(instance.problem, instance.reference_train.stages, instance.reference_train.meshes)
                 from synthesis.certified_environment import CertifiedBranchOrderingEnvironment
