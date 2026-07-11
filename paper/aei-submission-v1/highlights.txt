@@ -1,0 +1,5 @@
+- Executable knowledge yields independently checkable synthesis certificates.
+- Complete bounded search distinguishes negative proofs from heuristic failure.
+- CP-SAT proves all scaled negative cases under every declared candidate budget.
+- Static tooth-root admission redesigns one case and rejects two bounded cases.
+- Every reported table and figure is hash-bound and byte-reproducible.

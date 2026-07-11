@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from reporting.manuscript import ManuscriptArtifactStore, ManuscriptClaimGuard
+from reporting.manuscript import ManuscriptArtifactStore, ManuscriptCitationResolver, ManuscriptClaimGuard
 
 
 def test_claim_guard_requires_scope_and_rejects_unsupported_claims() -> None:
@@ -12,6 +12,16 @@ def test_claim_guard_requires_scope_and_rejects_unsupported_claims() -> None:
         ManuscriptClaimGuard().validate(scope + " Learning improves every search.")
     with pytest.raises(ValueError, match="mandatory"):
         ManuscriptClaimGuard().validate("A broad unscoped result.")
+
+
+def test_citation_resolver_requires_coverage_and_rejects_unknown_ids() -> None:
+    methods = [{"id": "later", "year": 2025}, {"id": "earlier", "year": 2020}]
+    resolver = ManuscriptCitationResolver(methods)
+    assert resolver.resolve("Prior work [cite:later,earlier].") == "Prior work [1,2]."
+    with pytest.raises(ValueError, match="missing in-text citations"):
+        resolver.validate_coverage("Only [cite:earlier].")
+    with pytest.raises(ValueError, match="Unknown manuscript citation"):
+        resolver.resolve("Bad [cite:absent].")
 
 
 def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -> None:
@@ -28,6 +38,9 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     assert manifest["schema_version"] == "aei-manuscript-artifact-v1"
     assert "2,048 observations" in text
     assert "## References" in text
+    assert "[8,10]" in text
+    assert "## Data Availability" in text
+    assert "## Declaration of Generative AI" in text
     assert "solver-scaling-largest-domain" in text
     store.verify_reproduction(root)
 

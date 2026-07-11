@@ -17,15 +17,15 @@
       "title": "1. Introduction",
       "paragraphs": [
         "Automated mechanical design often combines domain rules, optimization, and simulation, yet the evidential boundary between a generated candidate and an independently supported engineering conclusion is frequently implicit. This is especially consequential for negative results: failure of a heuristic search is not evidence that a bounded design brief is infeasible.",
-        "Prior work already establishes knowledge-graph-driven architecture generation, graph-based transmission configuration synthesis, constrained simulation optimization, automated gearbox sizing, and learning-guided combinatorial design. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is a solver-hidden requirements benchmark, executable gear-domain knowledge, independent positive certificates and complete negative proofs, strength-coupled admission, and hash-bound reporting in one workflow.",
+        "Prior work already establishes knowledge-graph-driven architecture generation [cite:huang-2025,sun-2026], graph-based transmission configuration synthesis [cite:geng-2023], constrained simulation optimization [cite:cicconi-2020], automated gearbox sizing [cite:fuerst-2021], and learning-guided combinatorial design [cite:lin-2023]. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is a solver-hidden requirements benchmark, executable gear-domain knowledge, independent positive certificates and complete negative proofs, strength-coupled admission, and hash-bound reporting in one workflow.",
         "The contribution is evaluated in a deliberately bounded family: external involute spur gears on parallel shafts, simple input and output gears, one two-member compound stage, fixed 20-degree pressure angle, and declared module and tooth-count domains. This boundedness enables complete claims where completeness is stated and prevents extrapolation to unrestricted gearbox design."
       ]
     },
     {
       "title": "2. Related Work and Positioning",
       "paragraphs": [
-        "The closest-method audit covers explicit engineering-knowledge formalization, constraint-based design with simulation, gear and transmission synthesis, and constrained learning. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.",
-        "Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth."
+        "The closest-method audit covers explicit engineering-knowledge formalization [cite:hao-2021,bolognini-2022], constraint-based design with simulation [cite:cicconi-2020], gear and transmission synthesis [cite:fuerst-2021,geng-2023,kim-2026], evolutionary engineering optimization [cite:fetanat-2023], and constrained learning [cite:lin-2023]. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.",
+        "Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD [cite:huang-2025,sun-2026]. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family [cite:fuerst-2021,kim-2026]. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth."
       ],
       "tables": []
     },
@@ -81,6 +81,18 @@
       "paragraphs": [
         "GearRL demonstrates a fully digital engineering-informatics workflow in which requirements, domain knowledge, synthesis, independent adjudication, structural admission, and publication evidence remain machine traceable. The bounded study supports independently checkable positive and negative conclusions and shows that declared static-strength knowledge changes synthesized outcomes. It does not support broader operational or physical qualification claims.",
         "Future work should extend the canonical model to shafts, bearings, hubs, contact and fatigue standards, external industrial briefs, and broader topologies. Learning should be reconsidered only through a frozen requirements-first 30-seed protocol with validity preservation and a confidence interval exceeding the preregistered effect threshold."
+      ]
+    },
+    {
+      "title": "Data Availability",
+      "paragraphs": [
+        "The source code and versioned evidence bundles supporting this study are available in the GearRL repository at https://github.com/mingwucn/GearRL. A persistent archival dataset identifier must be added before submission."
+      ]
+    },
+    {
+      "title": "Declaration of Generative AI and AI-Assisted Technologies in the Manuscript Preparation Process",
+      "paragraphs": [
+        "During preparation of this work, the author used OpenAI Codex to assist with code implementation, evidence organization, and manuscript language. The author reviewed and edited the resulting content, independently checked the cited sources and computational evidence, and takes full responsibility for the content of the article. No generative AI was used to create or alter submitted scientific figures."
       ]
     }
   ]

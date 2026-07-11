@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
 from tempfile import TemporaryDirectory
 
 
@@ -38,6 +39,37 @@ class ManuscriptClaimGuard:
             raise ValueError(f"Manuscript contains prohibited claims: {', '.join(violations)}")
 
 
+class ManuscriptCitationResolver:
+    """Resolve stable literature IDs into numbered AEI citations."""
+
+    PATTERN = re.compile(r"\[cite:([^\]]+)\]")
+
+    def __init__(self, methods: list[dict]) -> None:
+        ordered = sorted(methods, key=lambda item: (item["year"], item["id"]))
+        self._numbers = {method["id"]: index for index, method in enumerate(ordered, 1)}
+
+    def resolve(self, text: str) -> str:
+        def replacement(match: re.Match[str]) -> str:
+            identifiers = [item.strip() for item in match.group(1).split(",")]
+            unknown = sorted(set(identifiers) - self._numbers.keys())
+            if unknown:
+                raise ValueError(f"Unknown manuscript citation IDs: {', '.join(unknown)}")
+            numbers = sorted({self._numbers[item] for item in identifiers})
+            return "[" + ",".join(str(number) for number in numbers) + "]"
+
+        return self.PATTERN.sub(replacement, text)
+
+    def validate_coverage(self, source_text: str) -> None:
+        cited = {
+            identifier.strip()
+            for match in self.PATTERN.finditer(source_text)
+            for identifier in match.group(1).split(",")
+        }
+        missing = sorted(self._numbers.keys() - cited)
+        if missing:
+            raise ValueError(f"Literature entries missing in-text citations: {', '.join(missing)}")
+
+
 class AEIManuscriptAssembler:
     """Compose prose, registered evidence assets, and DOI references."""
 
@@ -46,6 +78,8 @@ class AEIManuscriptAssembler:
         if manuscript["schema_version"] != "aei-manuscript-source-v1":
             raise ValueError("Unsupported manuscript source schema")
         literature_payload = json.loads(literature.read_text())
+        citation_resolver = ManuscriptCitationResolver(literature_payload["methods"])
+        citation_resolver.validate_coverage(json.dumps(manuscript))
         registry = json.loads((publication_root / "registry.json").read_text())
         tables = {item["table_id"]: publication_root / item["output"] for item in registry["tables"]}
         figures = {item["figure_id"]: publication_root / item["output"] for item in registry["figures"]}
@@ -53,7 +87,7 @@ class AEIManuscriptAssembler:
         for section in manuscript["sections"]:
             lines.extend([f"## {section['title']}", ""])
             for paragraph in section["paragraphs"]:
-                lines.extend([paragraph, ""])
+                lines.extend([citation_resolver.resolve(paragraph), ""])
             for table_id in section.get("tables", ()):
                 if table_id not in tables:
                     raise ValueError(f"Unknown manuscript table: {table_id}")

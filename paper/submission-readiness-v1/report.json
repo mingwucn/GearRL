@@ -2,7 +2,7 @@
   "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; external release actions are tracked but cannot be self-attested.",
   "blocking_requirements": [
     "independent-container-attestation",
-    "archival-release-doi"
+    "author-and-archival-metadata"
   ],
   "findings": [
     {
@@ -98,7 +98,7 @@
     {
       "description": "The manuscript contains the mandatory modeled-validity boundary.",
       "evidence_path": "paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md",
-      "evidence_sha256": "cd1bcd9c313f949e715a34984e3a03a0b8035da3b2b0ce25323d8c1dc5a39136",
+      "evidence_sha256": "9e650788f3841415d441f054a3671d3e5fa5e85008904a541f570833d060ab1a",
       "observed": true,
       "requirement_id": "bounded-manuscript-claim",
       "status": "passed"
@@ -120,11 +120,11 @@
       "status": "external_pending"
     },
     {
-      "description": "An archival release and DOI remain external pre-submission actions.",
-      "evidence_path": "TOP_JOURNAL_RESEARCH_PLAN.md",
-      "evidence_sha256": "24acddd99aeea4467a52be843d61c85b36ccce02cc717d8976d70f647b32dba5",
-      "observed": true,
-      "requirement_id": "archival-release-doi",
+      "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
+      "evidence_path": "paper/aei-submission-v1/validation.json",
+      "evidence_sha256": "b507b2c688487ceb2bdec461769ce963b9d3bf3fcffa31661bfd5324ff7af463",
+      "observed": false,
+      "requirement_id": "author-and-archival-metadata",
       "status": "external_pending"
     }
   ],

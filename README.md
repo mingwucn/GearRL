@@ -145,6 +145,15 @@ to submit: independent container execution and an archival release/DOI require
 external evidence, while the 400-case path-ranking benchmark is explicitly
 partial rather than requirements-first synthesis evidence.
 
+The provisional editable journal package is frozen at
+`paper/aei-submission-v1`. It contains an `elsarticle` LaTeX source, separate
+highlights, numbered figure files and captions, and a machine-readable
+validation report. The report enforces the current official AEI limits of a
+250-word abstract, 1-7 keywords, and 3-5 highlights of no more than 85
+characters. It intentionally remains `package_ready: false` until the authors
+provide authorship/contact metadata, funding and competing-interest statements,
+and a persistent archival dataset identifier.
+
 The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,

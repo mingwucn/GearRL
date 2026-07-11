@@ -1,29 +1,32 @@
-# Certificate-Bearing Requirements-First Synthesis of Compound Spur-Gear Layouts
-
-## An Executable Engineering-Knowledge and Reproducibility Workflow
-
-## Abstract
-
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{svg}
+\journal{Advanced Engineering Informatics}
+\begin{document}
+\begin{frontmatter}
+\title{Certificate-Bearing Requirements-First Synthesis of Compound Spur-Gear Layouts}
+\author{Author metadata required before submission}
+\begin{abstract}
 Engineering design synthesis requires more than recovering a plausible geometry: requirements, domain rules, solver decisions, validation evidence, and negative conclusions must remain traceable. This study presents an object-oriented engineering-informatics workflow for bounded requirements-first synthesis of external compound spur-gear layouts. Solver-facing briefs are physically separated from evaluator-only witnesses and labels. A directed mesh-graph schema represents kinematic and geometric knowledge, while an independent oracle and model-versioned verifier produce constructive certificates or complete bounded infeasibility proofs. Exact enumeration, process-isolated CP-SAT, and differential evolution are compared under frozen candidate budgets. A self-developed plane-stress tooth-root model is verified through patch, analytical, convergence, and independent root-stress checks, then coupled to candidate admission. Across a 16-case scaling protocol with 2,048 observations, CP-SAT recovered feasible cases and proved negative cases across all declared budgets; stochastic search recovered the feasible cases at adequate budgets but never proved infeasibility. Strength admission retained seven of ten designs, redesigned one, and made two exhaustively infeasible under the declared static model. The workflow is fully digital and supports claims only for validity under the declared kinematic, geometric, and static-strength model.
-
-**Keywords:** engineering informatics; requirements-first synthesis; gear train; knowledge representation; formal certificate; constraint programming; reproducible engineering
-
-## 1. Introduction
-
+\end{abstract}
+\begin{keyword}
+engineering informatics \sep requirements-first synthesis \sep gear train \sep knowledge representation \sep formal certificate \sep constraint programming \sep reproducible engineering
+\end{keyword}
+\end{frontmatter}
+\section{Introduction}
 Automated mechanical design often combines domain rules, optimization, and simulation, yet the evidential boundary between a generated candidate and an independently supported engineering conclusion is frequently implicit. This is especially consequential for negative results: failure of a heuristic search is not evidence that a bounded design brief is infeasible.
 
-Prior work already establishes knowledge-graph-driven architecture generation [8,10], graph-based transmission configuration synthesis [6], constrained simulation optimization [1], automated gearbox sizing [2], and learning-guided combinatorial design [7]. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is a solver-hidden requirements benchmark, executable gear-domain knowledge, independent positive certificates and complete negative proofs, strength-coupled admission, and hash-bound reporting in one workflow.
+Prior work already establishes knowledge-graph-driven architecture generation \cite{huang-2025,sun-2026}, graph-based transmission configuration synthesis \cite{geng-2023}, constrained simulation optimization \cite{cicconi-2020}, automated gearbox sizing \cite{fuerst-2021}, and learning-guided combinatorial design \cite{lin-2023}. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is a solver-hidden requirements benchmark, executable gear-domain knowledge, independent positive certificates and complete negative proofs, strength-coupled admission, and hash-bound reporting in one workflow.
 
 The contribution is evaluated in a deliberately bounded family: external involute spur gears on parallel shafts, simple input and output gears, one two-member compound stage, fixed 20-degree pressure angle, and declared module and tooth-count domains. This boundedness enables complete claims where completeness is stated and prevents extrapolation to unrestricted gearbox design.
 
-## 2. Related Work and Positioning
+\section{Related Work and Positioning}
+The closest-method audit covers explicit engineering-knowledge formalization \cite{hao-2021,bolognini-2022}, constraint-based design with simulation \cite{cicconi-2020}, gear and transmission synthesis \cite{fuerst-2021,geng-2023,kim-2026}, evolutionary engineering optimization \cite{fetanat-2023}, and constrained learning \cite{lin-2023}. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.
 
-The closest-method audit covers explicit engineering-knowledge formalization [3,4], constraint-based design with simulation [1], gear and transmission synthesis [2,6,9], evolutionary engineering optimization [5], and constrained learning [7]. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.
+Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD \cite{huang-2025,sun-2026}. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family \cite{fuerst-2021,kim-2026}. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth.
 
-Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD [8,10]. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family [2,9]. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth.
-
-## 3. Methods
-
+\section{Methods}
 The canonical specification separates the design brief from any constructed answer. It contains the enclosure polygon, prescribed input and output shafts, target signed speed ratio, module and tooth-count domains, obstacles, clearance rules, and an optional sourced material-load case. Solver payload guards reject evaluator fields such as expected feasibility, reference trains, certificates, and oracle versions.
 
 Candidate trains are directed mesh graphs. Each edge identifies driving and driven gear members and contributes a direction reversal, ratio term, center-distance equation, axial-layer relation, and directed efficiency factor. The production validator checks finite values, module compatibility, undercut, transverse contact ratio, mesh distances, graph connectivity, unintended collisions, enclosure clearance, axial stacking, and optional static root-strength admission. The exact oracle is a separate implementation with independent geometry predicates.
@@ -34,50 +37,60 @@ The owned CAE model uses linear triangular plane-stress elements on an involute 
 
 All experiments use immutable configurations, hashed frozen inputs, raw per-case records, and model-versioned outputs. Publication tables and vector figures are regenerated from their registered evidence sources and must be byte-identical to the committed bundle.
 
-**Registered table: `cae-verification`**
-
-| Verification gate | Result |
-| --- | ---: |
-| Constant-stress patch test | Pass |
-| Cantilever analytical convergence | Pass |
-| Involute tooth mesh convergence | Pass |
-| Independent root-stress agreement | Pass |
-
-## 4. Experimental Protocol
-
+\begin{table}[htbp]
+\centering
+\caption{Cae Verification}
+\small
+\begin{tabular}{ll}
+\textbf{Verification gate} & \textbf{Result} \\
+\hline
+Constant-stress patch test & Pass \\
+Cantilever analytical convergence & Pass \\
+Involute tooth mesh convergence & Pass \\
+Independent root-stress agreement & Pass \\
+\end{tabular}
+\end{table}
+\section{Experimental Protocol}
 The curated requirements-first benchmark contains 50 authored cases: ten constructive feasible cases and 40 negative cases with complete independent evidence. Solver inputs and evaluator evidence reside in separate directories. Exact enumeration, CP-SAT, and differential evolution use frozen candidate, time, population, seed, and environment declarations.
 
 The scaling protocol derives 16 solver-hidden cases across four tooth-domain sizes, from 5 to 17 values per tooth decision. Each size includes two feasible and two independently proven infeasible families. Candidate budgets are 250, 1,000, 7,000, and 100,000. Differential evolution uses 30 fixed seeds; deterministic solvers use one run. Feasible recovery, classification accuracy, proof rate, candidates, and runtime are reported separately.
 
 Static engineering sensitivity is evaluated with two sourced material conditions, torque from 1 to 3 N m, face width from 8 to 12 mm, and per-mesh efficiency from 0.95 to 0.98. A scrambled Sobol design propagates declared uniform operating ranges. Material strength is conditioned on sourced minimum values rather than assigned an invented probability distribution.
 
-**Registered table: `solver-comparison`**
-
-| Method | Runs | Minimum accuracy | Median candidates | Median runtime (s) |
-| --- | ---: | ---: | ---: | ---: |
-| cp-sat | 1 | 1.000 | 1.0 | 0.236929 |
-| differential-evolution | 5 | 1.000 | 1244.0 | 0.112440 |
-| exact-enumerator | 1 | 1.000 | 6561.0 | 0.000685 |
-
-**Registered table: `solver-scaling-largest-domain`**
-
-| Method | Budget | Runs | Feasible recovery median (min) | Accuracy median (min) | Negative proof rate | Median runtime (s) |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| cp-sat | 250 | 1 | 1.000 (1.000) | 1.000 (1.000) | 1.000 | 0.225302 |
-| differential-evolution | 250 | 30 | 0.500 (0.000) | 0.750 (0.500) | 0.000 | 0.008343 |
-| exact-enumerator | 250 | 1 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.000033 |
-| cp-sat | 1000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 1.000 | 0.228080 |
-| differential-evolution | 1000 | 30 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.028549 |
-| exact-enumerator | 1000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.000067 |
-| cp-sat | 7000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 1.000 | 0.228084 |
-| differential-evolution | 7000 | 30 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.083374 |
-| exact-enumerator | 7000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.000366 |
-| cp-sat | 100000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 1.000 | 0.227586 |
-| differential-evolution | 100000 | 30 | 1.000 (1.000) | 1.000 (1.000) | 0.000 | 0.085171 |
-| exact-enumerator | 100000 | 1 | 1.000 (1.000) | 1.000 (1.000) | 1.000 | 0.004090 |
-
-## 5. Results
-
+\begin{table}[htbp]
+\centering
+\caption{Solver Comparison}
+\small
+\begin{tabular}{lllll}
+\textbf{Method} & \textbf{Runs} & \textbf{Minimum accuracy} & \textbf{Median candidates} & \textbf{Median runtime (s)} \\
+\hline
+cp-sat & 1 & 1.000 & 1.0 & 0.236929 \\
+differential-evolution & 5 & 1.000 & 1244.0 & 0.112440 \\
+exact-enumerator & 1 & 1.000 & 6561.0 & 0.000685 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Solver Scaling Largest Domain}
+\small
+\begin{tabular}{lllllll}
+\textbf{Method} & \textbf{Budget} & \textbf{Runs} & \textbf{Feasible recovery median (min)} & \textbf{Accuracy median (min)} & \textbf{Negative proof rate} & \textbf{Median runtime (s)} \\
+\hline
+cp-sat & 250 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.225302 \\
+differential-evolution & 250 & 30 & 0.500 (0.000) & 0.750 (0.500) & 0.000 & 0.008343 \\
+exact-enumerator & 250 & 1 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.000033 \\
+cp-sat & 1000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.228080 \\
+differential-evolution & 1000 & 30 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.028549 \\
+exact-enumerator & 1000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.000067 \\
+cp-sat & 7000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.228084 \\
+differential-evolution & 7000 & 30 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.083374 \\
+exact-enumerator & 7000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.000366 \\
+cp-sat & 100000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.227586 \\
+differential-evolution & 100000 & 30 & 1.000 (1.000) & 1.000 (1.000) & 0.000 & 0.085171 \\
+exact-enumerator & 100000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.004090 \\
+\end{tabular}
+\end{table}
+\section{Results}
 All three solvers classified the fixed 50-case benchmark correctly at the reported budget, but their evidential status differs: exact enumeration and CP-SAT completed the 40 negative cases, whereas differential evolution returned unproven negative predictions.
 
 At the largest scaling domain, CP-SAT recovered both feasible cases and proved both negative cases at every declared budget. Exact enumeration recovered feasible cases throughout but required the 100,000-candidate budget to complete the negative proofs. Differential evolution showed median feasible recovery of 0.5 and worst-seed recovery of 0 at budget 250, reached full recovery by 1,000, and never proved a negative case.
@@ -86,64 +99,77 @@ The sourced static-load envelope is discriminating rather than universally passi
 
 Coupling the static screen to synthesis changes decisions. Seven baseline designs remain admitted, one is redesigned to cross the required screening factor, and two become exhaustively infeasible under the same bounded search space.
 
-**Registered table: `load-uncertainty`**
-
-| Material condition | Layouts | Samples | Failure probability | Layout-bootstrap 95% CI | Torque ST | Width ST | Efficiency ST |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| S355 (plate) | 24 | 8192 | 0.110 | [0.016, 0.223] | 0.888 | 0.123 | 0.001 |
-| Toolox 44 (plate) | 24 | 8192 | 0.000 | [0.000, 0.000] | 0.888 | 0.123 | 0.001 |
-
-**Registered table: `strength-coupling`**
-
-| Cases | Baseline strength-admissible | Retained | Redesigned | Rejected by complete search |
-| ---: | ---: | ---: | ---: | ---: |
-| 10 | 7 | 7 | 1 | 2 |
-
-![solver-anytime-largest-domain](../generated-v1/figures/solver-anytime-largest-domain.svg)
-
-![load-total-order-sensitivity](../generated-v1/figures/load-total-order-sensitivity.svg)
-
-![strength-coupling-outcomes](../generated-v1/figures/strength-coupling-outcomes.svg)
-
-## 6. Discussion
-
+\begin{table}[htbp]
+\centering
+\caption{Load Uncertainty}
+\small
+\begin{tabular}{llllllll}
+\textbf{Material condition} & \textbf{Layouts} & \textbf{Samples} & \textbf{Failure probability} & \textbf{Layout-bootstrap 95\% CI} & \textbf{Torque ST} & \textbf{Width ST} & \textbf{Efficiency ST} \\
+\hline
+S355 (plate) & 24 & 8192 & 0.110 & [0.016, 0.223] & 0.888 & 0.123 & 0.001 \\
+Toolox 44 (plate) & 24 & 8192 & 0.000 & [0.000, 0.000] & 0.888 & 0.123 & 0.001 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Strength Coupling}
+\small
+\begin{tabular}{lllll}
+\textbf{Cases} & \textbf{Baseline strength-admissible} & \textbf{Retained} & \textbf{Redesigned} & \textbf{Rejected by complete search} \\
+\hline
+10 & 7 & 7 & 1 & 2 \\
+\end{tabular}
+\end{table}
+\begin{figure}[htbp]
+\centering
+\includesvg[inkscapelatex=false,width=\linewidth]{Figure_1.svg}
+\caption{Feasible recovery and negative-proof rate on the largest declared tooth domain across candidate budgets. Stochastic negative classifications are not proofs.}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includesvg[inkscapelatex=false,width=\linewidth]{Figure_2.svg}
+\caption{Total-order sensitivity indices for the declared static-load uncertainty model. Torque dominates the modeled response; the distributions are study assumptions rather than measured duty data.}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includesvg[inkscapelatex=false,width=\linewidth]{Figure_3.svg}
+\caption{Outcome changes after static tooth-root admission is coupled to bounded synthesis. Retained, redesigned, and infeasible refer only to the declared digital model.}
+\end{figure}
+\section{Discussion}
 The main result is epistemic rather than a claim of universal optimizer speed. The workflow distinguishes candidate recovery, modeled validity, and proof of nonexistence. This distinction matters because a stochastic method can classify a negative case correctly without possessing evidence that the bounded space was exhausted.
 
 The executable schema makes domain knowledge operational: changing the load declaration and safety threshold can alter tooth counts or eliminate every candidate. The certificate and artifact registries then expose which model, data, and computation support each reported statement.
 
 CP-SAT performs strongly on the declared algebraic family, but its near-constant process-dominated runtime should not be generalized beyond these small structured cases. Exact enumeration remains useful as an independent completeness reference. Learning is excluded from the primary contribution because the available policy experiments rank paths in constructed reference graphs and do not establish a requirements-first advantage.
 
-## 7. Limitations
-
+\section{Limitations}
 The design family is restricted to one three-shaft compound topology and planar external spur gears. Shafts, bearings, hubs, lubrication, dynamics, thermal behavior, contact stress, fatigue life, noise, and production tolerances are not jointly designed. The static CAE model is a low-fidelity digital screen and the declared operating distributions are study assumptions rather than measured duty data.
 
 The benchmark is authored and procedural rather than an external industrial corpus. Runtime evidence comes from one recorded machine and fixed thread settings. The literature matrix is bounded by its documented cutoff and cannot establish universal priority. No physical experiment is part of the AEI claim.
 
 Accordingly, every accepted result is described only as valid under the declared kinematic, geometric, and static-strength model.
 
-## 8. Conclusions
-
+\section{Conclusions}
 GearRL demonstrates a fully digital engineering-informatics workflow in which requirements, domain knowledge, synthesis, independent adjudication, structural admission, and publication evidence remain machine traceable. The bounded study supports independently checkable positive and negative conclusions and shows that declared static-strength knowledge changes synthesized outcomes. It does not support broader operational or physical qualification claims.
 
 Future work should extend the canonical model to shafts, bearings, hubs, contact and fatigue standards, external industrial briefs, and broader topologies. Learning should be reconsidered only through a frozen requirements-first 30-seed protocol with validity preservation and a confidence interval exceeding the preregistered effect threshold.
 
-## Data Availability
+\section{Data Availability}
+The source code and versioned evidence bundles supporting this study are available in the GearRL repository at \url{https://github.com/mingwucn/GearRL}. A persistent archival dataset identifier must be added before submission.
 
-The source code and versioned evidence bundles supporting this study are available in the GearRL repository at https://github.com/mingwucn/GearRL. A persistent archival dataset identifier must be added before submission.
-
-## Declaration of Generative AI and AI-Assisted Technologies in the Manuscript Preparation Process
-
+\section{Declaration of Generative AI and AI-Assisted Technologies in the Manuscript Preparation Process}
 During preparation of this work, the author used OpenAI Codex to assist with code implementation, evidence organization, and manuscript language. The author reviewed and edited the resulting content, independently checked the cited sources and computational evidence, and takes full responsibility for the content of the article. No generative AI was used to create or alter submitted scientific figures.
 
-## References
-
-1. Integrating a constraint-based optimization approach into the design of oil & gas structures. *Advanced Engineering Informatics* (2020). https://doi.org/10.1016/j.aei.2020.101129
-2. Automation of gearbox design. *Forschung im Ingenieurwesen / Engineering Research* (2021). https://doi.org/10.1007/s10010-021-00517-3
-3. Integrating and navigating engineering design decision-related knowledge using decision knowledge graph. *Advanced Engineering Informatics* (2021). https://doi.org/10.1016/j.aei.2021.101366
-4. Engineering knowledge formalization and proposition for informatics development towards a CAD-integrated DfX system for product design. *Advanced Engineering Informatics* (2022). https://doi.org/10.1016/j.aei.2022.101537
-5. Portia spider algorithm: an evolutionary computation approach for engineering application. *Artificial Intelligence Review* (2023). https://doi.org/10.1007/s10462-023-10683-1
-6. Topological Graph Representation and Configuration Synthesis for Power-Split Hybrid Transmissions of Multi-Planetary Gear Trains. *Journal of Mechanical Design* (2023). https://doi.org/10.1115/1.4063287
-7. When architecture meets AI: A deep reinforcement learning approach for system of systems design. *Advanced Engineering Informatics* (2023). https://doi.org/10.1016/j.aei.2023.101965
-8. Knowledge graph-driven methodology for complex product architecture solution generation and simulation verification. *Advanced Engineering Informatics* (2025). https://doi.org/10.1016/j.aei.2025.103590
-9. Multi-objective macro-geometry optimization of a compound planetary geartrain for an electric tractor powertrain using NSGA-II. *Scientific Reports* (2026). https://doi.org/10.1038/s41598-026-43864-3
-10. Knowledge-driven automated design of industrial robots: A unified graph-based framework with multi-engine reasoning. *Advanced Engineering Informatics* (2026). https://doi.org/10.1016/j.aei.2025.103995
+\begin{thebibliography}{99}
+\bibitem{cicconi-2020}Integrating a constraint-based optimization approach into the design of oil \& gas structures. Advanced Engineering Informatics (2020). https://doi.org/10.1016/j.aei.2020.101129
+\bibitem{fuerst-2021}Automation of gearbox design. Forschung im Ingenieurwesen / Engineering Research (2021). https://doi.org/10.1007/s10010-021-00517-3
+\bibitem{hao-2021}Integrating and navigating engineering design decision-related knowledge using decision knowledge graph. Advanced Engineering Informatics (2021). https://doi.org/10.1016/j.aei.2021.101366
+\bibitem{bolognini-2022}Engineering knowledge formalization and proposition for informatics development towards a CAD-integrated DfX system for product design. Advanced Engineering Informatics (2022). https://doi.org/10.1016/j.aei.2022.101537
+\bibitem{fetanat-2023}Portia spider algorithm: an evolutionary computation approach for engineering application. Artificial Intelligence Review (2023). https://doi.org/10.1007/s10462-023-10683-1
+\bibitem{geng-2023}Topological Graph Representation and Configuration Synthesis for Power-Split Hybrid Transmissions of Multi-Planetary Gear Trains. Journal of Mechanical Design (2023). https://doi.org/10.1115/1.4063287
+\bibitem{lin-2023}When architecture meets AI: A deep reinforcement learning approach for system of systems design. Advanced Engineering Informatics (2023). https://doi.org/10.1016/j.aei.2023.101965
+\bibitem{huang-2025}Knowledge graph-driven methodology for complex product architecture solution generation and simulation verification. Advanced Engineering Informatics (2025). https://doi.org/10.1016/j.aei.2025.103590
+\bibitem{kim-2026}Multi-objective macro-geometry optimization of a compound planetary geartrain for an electric tractor powertrain using NSGA-II. Scientific Reports (2026). https://doi.org/10.1038/s41598-026-43864-3
+\bibitem{sun-2026}Knowledge-driven automated design of industrial robots: A unified graph-based framework with multi-engine reasoning. Advanced Engineering Informatics (2026). https://doi.org/10.1016/j.aei.2025.103995
+\end{thebibliography}
+\end{document}

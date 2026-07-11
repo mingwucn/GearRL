@@ -10,3 +10,4 @@ paper-verify:
 	$(PYTHON) run_literature_matrix.py --verify paper/literature-v1
 	$(PYTHON) run_manuscript.py --verify paper/manuscript-v1
 	$(PYTHON) run_submission_readiness.py --verify paper/submission-readiness-v1
+	$(PYTHON) run_aei_submission.py --verify paper/aei-submission-v1

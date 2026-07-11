@@ -14,7 +14,7 @@ class TestSubmissionReadinessAuditor:
         report = SubmissionReadinessAuditor().audit(SOURCE)
         assert report["ready_to_submit"] is False
         assert report["status_counts"] == {"passed": 11, "partial": 1, "external_pending": 2, "failed": 0}
-        assert report["blocking_requirements"] == ["independent-container-attestation", "archival-release-doi"]
+        assert report["blocking_requirements"] == ["independent-container-attestation", "author-and-archival-metadata"]
 
     def test_artifact_reproduces_and_detects_tampering(self, tmp_path):
         store = SubmissionReadinessArtifactStore()

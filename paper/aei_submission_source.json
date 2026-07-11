@@ -1,0 +1,31 @@
+{
+  "archival_dataset_identifier": null,
+  "authors": [],
+  "competing_interests_statement": null,
+  "corresponding_author": null,
+  "figure_captions": {
+    "load-total-order-sensitivity": "Total-order sensitivity indices for the declared static-load uncertainty model. Torque dominates the modeled response; the distributions are study assumptions rather than measured duty data.",
+    "solver-anytime-largest-domain": "Feasible recovery and negative-proof rate on the largest declared tooth domain across candidate budgets. Stochastic negative classifications are not proofs.",
+    "strength-coupling-outcomes": "Outcome changes after static tooth-root admission is coupled to bounded synthesis. Retained, redesigned, and infeasible refer only to the declared digital model."
+  },
+  "funding_statement": null,
+  "guide": {
+    "accessed": "2026-07-11",
+    "abstract_max_words": 250,
+    "highlight_count_max": 5,
+    "highlight_count_min": 3,
+    "highlight_max_characters": 85,
+    "keyword_count_max": 7,
+    "keyword_count_min": 1,
+    "url": "https://www.sciencedirect.com/journal/advanced-engineering-informatics/publish/guide-for-authors"
+  },
+  "highlights": [
+    "Executable knowledge yields independently checkable synthesis certificates.",
+    "Complete bounded search distinguishes negative proofs from heuristic failure.",
+    "CP-SAT proves all scaled negative cases under every declared candidate budget.",
+    "Static tooth-root admission redesigns one case and rejects two bounded cases.",
+    "Every reported table and figure is hash-bound and byte-reproducible."
+  ],
+  "schema_version": "aei-submission-source-v1",
+  "target": "Advanced Engineering Informatics"
+}

@@ -101,11 +101,12 @@
       "status_if_satisfied": "external_pending"
     },
     {
-      "check_type": "file_exists",
-      "description": "An archival release and DOI remain external pre-submission actions.",
-      "evidence_path": "TOP_JOURNAL_RESEARCH_PLAN.md",
-      "expected": true,
-      "requirement_id": "archival-release-doi",
+      "check_type": "json_pointer",
+      "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
+      "evidence_path": "paper/aei-submission-v1/validation.json",
+      "expected": false,
+      "pointer": "/package_ready",
+      "requirement_id": "author-and-archival-metadata",
       "status_if_satisfied": "external_pending"
     }
   ],
