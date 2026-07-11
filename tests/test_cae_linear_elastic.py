@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from cae.involute import InvoluteGeometry
+from cae.involute import InvoluteGeometry, InvoluteToothSectionFactory
 from cae.linear_elastic import PlaneStressMaterial, PlaneStressSolver, TriangularMesh
 
 
@@ -38,3 +38,15 @@ def test_involute_geometry_reaches_addendum_circle() -> None:
     flank = InvoluteGeometry.flank(module, teeth)
     assert flank.shape == (24, 2)
     assert np.linalg.norm(flank[-1]) == pytest.approx(InvoluteGeometry.pitch_radius(module, teeth) + module)
+
+
+@pytest.mark.parametrize("teeth", (18, 24, 44, 48))
+def test_tooth_section_preserves_standard_pitch_thickness_in_both_root_regimes(teeth: int) -> None:
+    module = 2.0
+    section = InvoluteToothSectionFactory().create(module, teeth)
+    expected = section.pitch_radius_mm * np.sin(np.pi / (2.0 * teeth))
+
+    assert section.pitch_half_width_mm == pytest.approx(expected)
+    assert section.root_width_mm > 0
+    assert section.fillet_radius_mm > 0
+    assert np.all(np.diff(section.radial_positions_mm) > 0)

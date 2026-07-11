@@ -17,4 +17,13 @@ def test_tooth_root_screen_has_independent_analytical_comparator() -> None:
     assert result.finite_element_stress_mpa > 0
     assert result.analytical_stress_mpa > 0
     assert result.gate_passed
+    assert result.analytical_method.startswith("Lewis")
     assert result.relative_difference < 0.25
+
+
+def test_involute_tooth_stress_converges_under_mesh_refinement() -> None:
+    result = PlaneStressVerificationSuite().gear_tooth_convergence()
+
+    assert len(result.element_counts) == 4
+    assert all(current > previous for previous, current in zip(result.element_counts, result.element_counts[1:]))
+    assert result.gate_passed

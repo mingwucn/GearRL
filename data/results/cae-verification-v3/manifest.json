@@ -1,0 +1,7 @@
+{
+  "all_gates_passed": true,
+  "dataset_id": "cae-verification-v3",
+  "model_version": "involute-tooth-root-plane-stress-v3",
+  "summary_sha256": "0f31383b43427c5529f9a1b185616f657f5b439b89aabb590871a3dff6a711b3",
+  "verification_sha256": "86b12eb3b5d32fc636e64f92ec708fee1ec9f67c4e35d914bab1f91dd653cc6f"
+}

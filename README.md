@@ -116,11 +116,16 @@ For the full frozen protocol, including the 400-instance mixed benchmark:
 scripts/reproduce_certified_run.sh
 ```
 
-Persist the preregistered 120-layout static-strength screening study:
+Persist the preregistered 120-layout v3 involute-tooth static-strength screening study:
 
 ```bash
 conda run -n ai python run_cae_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
 ```
+
+The frozen publication artifact is generated with
+`--frozen-output data/results/cae-study-v3`. It is an illustrative static
+bending screen under the declared 1 N m load case, not contact-fatigue or
+physical safety evidence.
 
 Persist the owned solver verification gates before using CAE screening results:
 

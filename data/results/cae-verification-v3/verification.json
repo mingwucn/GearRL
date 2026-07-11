@@ -1,0 +1,53 @@
+{
+  "cantilever_convergence": {
+    "analytical_displacement_mm": -0.23809523809523808,
+    "element_counts": [
+      40,
+      160,
+      640
+    ],
+    "relative_errors": [
+      0.4408382362372431,
+      0.1548859814656116,
+      0.026176158955670117
+    ],
+    "tip_displacements_mm": [
+      -0.13313375327684687,
+      -0.20121762346056865,
+      -0.231862819296269
+    ]
+  },
+  "gear_root_agreement": {
+    "agreement_limit": 0.25,
+    "analytical_method": "Lewis-20deg-full-depth",
+    "analytical_stress_mpa": 89.79885057471266,
+    "finite_element_stress_mpa": 92.35385928799671,
+    "gate_passed": true,
+    "relative_difference": 0.028452577031131212
+  },
+  "gear_tooth_convergence": {
+    "convergence_limit": 0.1,
+    "element_counts": [
+      132,
+      240,
+      528,
+      960
+    ],
+    "gate_passed": true,
+    "maximum_stresses_mpa": [
+      80.50482466018771,
+      92.35385928799671,
+      112.51967041910288,
+      121.45285509517261
+    ],
+    "relative_changes": [
+      0.12830037335915676,
+      0.17922031815410067,
+      0.07355269391624863
+    ]
+  },
+  "patch_test": {
+    "expected_stress_mpa": 10.0,
+    "maximum_relative_error": 1.0480505352461478e-14
+  }
+}

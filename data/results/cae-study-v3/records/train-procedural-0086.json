@@ -1,0 +1,68 @@
+{
+  "instance_id": "train-procedural-0086",
+  "minimum_safety_factor": 36.09305944582836,
+  "report_count": 4,
+  "reports": [
+    {
+      "fillet_radius_mm": 1.255812700559762,
+      "max_von_mises_mpa": 18.056803205053757,
+      "member": 0,
+      "mesh_element_count": 240,
+      "model_version": "involute-tooth-root-plane-stress-v3",
+      "pressure_angle_deg": 20.0,
+      "radial_force_n": 18.19851171331012,
+      "root_width_mm": 4.901921253366181,
+      "safety_factor": 44.30463083166876,
+      "section_height_mm": 4.326990558200347,
+      "stage_id": "input",
+      "tangential_force_n": 50.0,
+      "tooth_count": 20
+    },
+    {
+      "fillet_radius_mm": 1.0238198171021402,
+      "max_von_mises_mpa": 22.164926229119214,
+      "member": 0,
+      "mesh_element_count": 240,
+      "model_version": "involute-tooth-root-plane-stress-v3",
+      "pressure_angle_deg": 20.0,
+      "radial_force_n": 18.19851171331012,
+      "root_width_mm": 4.326534511097554,
+      "safety_factor": 36.09305944582836,
+      "section_height_mm": 4.361191140070961,
+      "stage_id": "compound",
+      "tangential_force_n": 50.0,
+      "tooth_count": 24
+    },
+    {
+      "fillet_radius_mm": 0.9067102515152783,
+      "max_von_mises_mpa": 20.252943961220833,
+      "member": 1,
+      "mesh_element_count": 240,
+      "model_version": "involute-tooth-root-plane-stress-v3",
+      "pressure_angle_deg": 20.0,
+      "radial_force_n": 16.798626196901647,
+      "root_width_mm": 4.036496275732578,
+      "safety_factor": 39.50043023531758,
+      "section_height_mm": 4.37379711459581,
+      "stage_id": "compound",
+      "tangential_force_n": 46.15384615384615,
+      "tooth_count": 26
+    },
+    {
+      "fillet_radius_mm": 0.9653392627532931,
+      "max_von_mises_mpa": 20.135142697203854,
+      "member": 0,
+      "mesh_element_count": 240,
+      "model_version": "involute-tooth-root-plane-stress-v3",
+      "pressure_angle_deg": 20.0,
+      "radial_force_n": 16.798626196901647,
+      "root_width_mm": 4.181670980908751,
+      "safety_factor": 39.73152870235656,
+      "section_height_mm": 4.367784580856462,
+      "stage_id": "output",
+      "tangential_force_n": 46.15384615384615,
+      "tooth_count": 25
+    }
+  ],
+  "valid": true
+}

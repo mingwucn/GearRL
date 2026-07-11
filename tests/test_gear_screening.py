@@ -28,3 +28,13 @@ def test_increasing_allowable_stress_increases_safety_factor() -> None:
     weak = screening.screen(stage, 0, _load_case(150.0))
     strong = screening.screen(stage, 0, _load_case(300.0))
     assert strong.safety_factor == weak.safety_factor * 2.0
+
+
+def test_production_geometry_depends_on_tooth_count() -> None:
+    screening = ToothRootScreeningAnalysis()
+    low_count = screening.screen(GearStage("low", Point2D(0, 0), (18,), 2.0), 0, _load_case())
+    high_count = screening.screen(GearStage("high", Point2D(0, 0), (40,), 2.0), 0, _load_case())
+
+    assert low_count.model_version == "involute-tooth-root-plane-stress-v3"
+    assert low_count.root_width_mm != high_count.root_width_mm
+    assert low_count.fillet_radius_mm != high_count.fillet_radius_mm

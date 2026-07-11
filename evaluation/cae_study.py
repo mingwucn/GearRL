@@ -15,6 +15,7 @@ class CAEStudyOutcome:
     valid: bool
     minimum_safety_factor: float | None
     report_count: int
+    reports: tuple[dict, ...] = ()
 
 
 class StratifiedCAEStudy:
@@ -34,7 +35,15 @@ class StratifiedCAEStudy:
             problem = replace(instance.problem, constraints=constraints, load_case=self._load_case)
             certificate = ReferenceVerifier.verify_with_cae(problem, self._solution_train(instance))
             safety = [float(report["safety_factor"]) for report in certificate.cae_reports]
-            outcomes.append(CAEStudyOutcome(instance.instance_id, certificate.valid, min(safety) if safety else None, len(safety)))
+            outcomes.append(
+                CAEStudyOutcome(
+                    instance.instance_id,
+                    certificate.valid,
+                    min(safety) if safety else None,
+                    len(safety),
+                    tuple(certificate.cae_reports),
+                )
+            )
         return outcomes
 
     @staticmethod

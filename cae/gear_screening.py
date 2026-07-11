@@ -8,11 +8,12 @@ it is not a replacement for contact, fatigue, or full gearbox CAE.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import pi, radians, tan
+from math import radians, tan
 
 import numpy as np
 
 from cae.linear_elastic import PlaneStressMaterial, PlaneStressSolver, TriangularMesh
+from cae.involute import InvoluteToothSectionFactory, ToothSectionGeometry
 from common.design_models import GearStage, MaterialLoadCase
 
 
@@ -25,7 +26,12 @@ class ToothScreeningReport:
     max_von_mises_mpa: float
     safety_factor: float
     mesh_element_count: int
-    model_version: str = "tooth-root-plane-stress-v2"
+    tooth_count: int
+    pressure_angle_deg: float
+    root_width_mm: float
+    section_height_mm: float
+    fillet_radius_mm: float
+    model_version: str = "involute-tooth-root-plane-stress-v3"
 
     def to_json(self) -> dict[str, float | int | str]:
         return {
@@ -36,6 +42,11 @@ class ToothScreeningReport:
             "max_von_mises_mpa": self.max_von_mises_mpa,
             "safety_factor": self.safety_factor,
             "mesh_element_count": self.mesh_element_count,
+            "tooth_count": self.tooth_count,
+            "pressure_angle_deg": self.pressure_angle_deg,
+            "root_width_mm": self.root_width_mm,
+            "section_height_mm": self.section_height_mm,
+            "fillet_radius_mm": self.fillet_radius_mm,
             "model_version": self.model_version,
         }
 
@@ -65,7 +76,12 @@ class ToothRootScreeningAnalysis:
         pitch_radius = stage.pitch_radius_mm(member)
         tangential_force = torque_nm * 1_000.0 / pitch_radius
         radial_force = tangential_force * tan(radians(pressure_angle_deg))
-        mesh = self._mesh_factory.create(stage.module_mm, stage.teeth[member], load_case.face_width_mm)
+        mesh, geometry = self._mesh_factory.create_with_geometry(
+            stage.module_mm,
+            stage.teeth[member],
+            load_case.face_width_mm,
+            pressure_angle_deg,
+        )
         forces = np.zeros(mesh.nodes_mm.shape[0] * 2)
         top = np.flatnonzero(np.isclose(mesh.nodes_mm[:, 1], np.max(mesh.nodes_mm[:, 1])))
         weights = np.ones(len(top))
@@ -92,35 +108,75 @@ class ToothRootScreeningAnalysis:
             max_von_mises_mpa=maximum,
             safety_factor=safety,
             mesh_element_count=len(mesh.elements),
+            tooth_count=stage.teeth[member],
+            pressure_angle_deg=pressure_angle_deg,
+            root_width_mm=geometry.root_width_mm,
+            section_height_mm=geometry.height_mm,
+            fillet_radius_mm=geometry.fillet_radius_mm,
         )
 class ToothRootMeshFactory:
-    """Create a structured trapezoidal critical-section mesh."""
+    """Create a structured mesh conforming to a sampled involute tooth section."""
 
-    def __init__(self, divisions_x: int = 8, divisions_y: int = 12):
-        if min(divisions_x, divisions_y) < 1:
+    def __init__(
+        self,
+        divisions_x: int = 8,
+        divisions_y: int = 12,
+        geometry_factory: InvoluteToothSectionFactory | None = None,
+        foundation_depth_modules: float = 1.0,
+    ):
+        if min(divisions_x, divisions_y) < 1 or foundation_depth_modules <= 0:
             raise ValueError("Tooth mesh divisions must be positive")
         self._divisions_x = divisions_x
         self._divisions_y = divisions_y
+        self._geometry_factory = geometry_factory or InvoluteToothSectionFactory()
+        self._foundation_depth_modules = foundation_depth_modules
 
-    def create(self, module_mm: float, teeth: int, face_width_mm: float) -> TriangularMesh:
+    def create(
+        self,
+        module_mm: float,
+        teeth: int,
+        face_width_mm: float,
+        pressure_angle_deg: float = 20.0,
+    ) -> TriangularMesh:
+        return self.create_with_geometry(module_mm, teeth, face_width_mm, pressure_angle_deg)[0]
+
+    def create_with_geometry(
+        self,
+        module_mm: float,
+        teeth: int,
+        face_width_mm: float,
+        pressure_angle_deg: float = 20.0,
+    ) -> tuple[TriangularMesh, ToothSectionGeometry]:
         if module_mm <= 0 or teeth <= 0 or face_width_mm <= 0:
             raise ValueError("Gear dimensions must be positive")
-        circular_pitch = pi * module_mm
-        root_half_width = circular_pitch * 0.50
-        tip_half_width = circular_pitch * 0.25
-        height = 2.25 * module_mm
+        geometry = self._geometry_factory.create(module_mm, teeth, pressure_angle_deg)
+        foundation_depth = self._foundation_depth_modules * module_mm
+        foundation_divisions = max(2, self._divisions_y // 4)
         nodes = []
-        for iy in range(self._divisions_y + 1):
+        root_half_width = geometry.root_width_mm / 2.0
+        for iy in range(foundation_divisions + 1):
+            radial_position = foundation_depth * iy / foundation_divisions
+            nodes.extend(
+                (-root_half_width + 2.0 * root_half_width * ix / self._divisions_x, radial_position)
+                for ix in range(self._divisions_x + 1)
+            )
+        for iy in range(1, self._divisions_y + 1):
             fraction = iy / self._divisions_y
-            half_width = root_half_width + fraction * (tip_half_width - root_half_width)
-            nodes.extend((-half_width + 2.0 * half_width * ix / self._divisions_x, height * fraction) for ix in range(self._divisions_x + 1))
+            tooth_position = geometry.height_mm * fraction
+            radial_position = foundation_depth + tooth_position
+            half_width = geometry.half_width(tooth_position)
+            nodes.extend(
+                (-half_width + 2.0 * half_width * ix / self._divisions_x, radial_position)
+                for ix in range(self._divisions_x + 1)
+            )
         elements = []
         row = self._divisions_x + 1
-        for iy in range(self._divisions_y):
+        total_rows = foundation_divisions + self._divisions_y
+        for iy in range(total_rows):
             for ix in range(self._divisions_x):
                 lower_left = iy * row + ix
                 lower_right = lower_left + 1
                 upper_left = lower_left + row
                 upper_right = upper_left + 1
                 elements.extend(((lower_left, lower_right, upper_right), (lower_left, upper_right, upper_left)))
-        return TriangularMesh(np.asarray(nodes), np.asarray(elements), face_width_mm)
+        return TriangularMesh(np.asarray(nodes), np.asarray(elements), face_width_mm), geometry

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from cae.gear_screening import ToothRootScreeningAnalysis
+from cae.gear_screening import ToothRootMeshFactory, ToothRootScreeningAnalysis
 from cae.linear_elastic import PlaneStressMaterial, PlaneStressSolver, TriangularMesh
 from common.design_models import GearStage, MaterialLoadCase, Point2D
 
@@ -50,6 +50,16 @@ class GearRootAgreementResult:
     analytical_stress_mpa: float
     relative_difference: float
     agreement_limit: float
+    gate_passed: bool
+    analytical_method: str = "Lewis-20deg-full-depth"
+
+
+@dataclass(frozen=True)
+class GearToothConvergenceResult:
+    element_counts: tuple[int, ...]
+    maximum_stresses_mpa: tuple[float, ...]
+    relative_changes: tuple[float, ...]
+    convergence_limit: float
     gate_passed: bool
 
 
@@ -99,8 +109,28 @@ class PlaneStressVerificationSuite:
         load = MaterialLoadCase("steel", torque, face_width, 210_000.0, 0.3, 800.0)
         report = ToothRootScreeningAnalysis(self._solver).screen(stage, 0, load)
         tangential_force = torque * 1_000.0 / stage.pitch_radius_mm(0)
-        root_width = np.pi * module
-        height = 2.25 * module
-        analytical = 6.0 * tangential_force * height / (face_width * root_width**2)
+        lewis_form_factor = 0.154 - 0.912 / teeth
+        analytical = tangential_force / (face_width * module * lewis_form_factor)
         difference = abs(report.max_von_mises_mpa - analytical) / analytical
         return GearRootAgreementResult(report.max_von_mises_mpa, analytical, difference, agreement_limit, difference <= agreement_limit)
+
+    def gear_tooth_convergence(
+        self,
+        divisions: tuple[tuple[int, int], ...] = ((6, 9), (8, 12), (12, 18), (16, 24)),
+        convergence_limit: float = 0.10,
+    ) -> GearToothConvergenceResult:
+        stage = GearStage("convergence", Point2D(0.0, 0.0), (24,), 2.0)
+        load = MaterialLoadCase("steel", 5.0, 10.0, 210_000.0, 0.3, 800.0)
+        reports = [
+            ToothRootScreeningAnalysis(self._solver, ToothRootMeshFactory(nx, ny)).screen(stage, 0, load)
+            for nx, ny in divisions
+        ]
+        stresses = tuple(report.max_von_mises_mpa for report in reports)
+        changes = tuple(abs(current - previous) / current for previous, current in zip(stresses, stresses[1:]))
+        return GearToothConvergenceResult(
+            tuple(report.mesh_element_count for report in reports),
+            stresses,
+            changes,
+            convergence_limit,
+            bool(changes) and changes[-1] <= convergence_limit,
+        )
