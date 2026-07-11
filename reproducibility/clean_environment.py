@@ -87,6 +87,8 @@ class CleanEnvironmentAttestor:
         ("manuscript-artifact", ("run_manuscript.py", "--verify", "paper/manuscript-v1")),
         ("readiness-artifact", ("run_submission_readiness.py", "--verify", "paper/submission-readiness-v1")),
         ("aei-package", ("run_aei_submission.py", "--verify", "paper/aei-submission-v1")),
+        ("assembly-robustness-pilot", ("run_assembly_robustness.py", "--verify", "data/results/assembly-robustness-v1")),
+        ("assembly-robustness-confirmatory", ("run_assembly_robustness.py", "--verify", "data/results/assembly-robustness-confirmatory-v2")),
     )
 
     def __init__(self, runner: CommandRunner | None = None) -> None:

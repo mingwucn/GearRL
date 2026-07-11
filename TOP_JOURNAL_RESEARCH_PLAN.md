@@ -240,7 +240,7 @@ The official AEI author guide was checked on 2026-07-11 and its numeric submissi
 
 ### Implemented clean-environment attestation
 
-`CleanEnvironmentAttestor` creates a new prefix from the platform-specific explicit Conda lock, installs the separately hash-pinned pip layer, checks out a detached local clone at the recorded commit, and constructs a prefix-isolated process environment. It then runs the full regression suite and all five paper artifact verifiers. `GitCommitCheckout`, `SourceTreeHasher`, replaceable `CommandRunner`, and `CleanEnvironmentEvidenceStore` separate source isolation, hashing, execution, and persistence.
+`CleanEnvironmentAttestor` creates a new prefix from the platform-specific explicit Conda lock, installs the separately hash-pinned pip layer, checks out a detached local clone at the recorded commit, and constructs a prefix-isolated process environment. It then runs the full regression suite, all five paper artifact verifiers, and direct integrity checks for the pilot and confirmatory robustness draws. `GitCommitCheckout`, `SourceTreeHasher`, replaceable `CommandRunner`, and `CleanEnvironmentEvidenceStore` separate source isolation, hashing, execution, and persistence.
 
 The frozen `data/results/clean-environment-v1` evidence attests commit `22223afd3f18daef93ccb69ef9c0c1536841ddd5`. All six verification targets passed. The explicit installed Conda inventory hash equals the committed lockfile hash `9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f`; the pip freeze, source tree, stdout, stderr, and command runtimes are separately recorded. This satisfies independent locked-prefix reproduction on Linux. It is not a container-engine attestation because Docker and Podman are unavailable on the host.
 
