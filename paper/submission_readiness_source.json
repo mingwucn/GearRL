@@ -51,6 +51,14 @@
     },
     {
       "check_type": "json_pointer",
+      "description": "All 40 negative curated cases retain semantically replayed tuple-elimination ledgers.",
+      "evidence_path": "data/results/replayable-negative-proofs-v1/summary.json",
+      "expected": 40,
+      "pointer": "/negative_case_count",
+      "requirement_id": "replayable-negative-proofs"
+    },
+    {
+      "check_type": "json_pointer",
       "description": "The preregistered confirmatory assembly study retains all 7,864,320 draw-level outcomes.",
       "evidence_path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
       "expected": 7864320,
@@ -67,10 +75,26 @@
       "status_if_satisfied": "external_pending"
     },
     {
+      "check_type": "json_pointer",
+      "description": "The preregistered tolerance-aware selector did not clear its required held-out improvement and is reported as a negative result.",
+      "evidence_path": "data/results/tolerance-aware-selection-v1/summary.json",
+      "expected": false,
+      "pointer": "/primary_inference/supported",
+      "requirement_id": "tolerance-aware-selection-threshold",
+      "status_if_satisfied": "partial"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "A shared aggregate binds the v3 submission evidence, source tree, platform, and both dependency locks.",
+      "evidence_path": "data/results/aei-release-provenance-v2/manifest.json",
+      "expected": true,
+      "requirement_id": "unified-scientific-provenance"
+    },
+    {
       "check_type": "registry_count",
       "description": "Every reported table and vector figure is registered against immutable sources.",
-      "evidence_path": "paper/generated-v2/registry.json",
-      "expected": {"figures": 3, "tables": 6},
+      "evidence_path": "paper/generated-v3/registry.json",
+      "expected": {"figures": 3, "tables": 8},
       "requirement_id": "publication-registry"
     },
     {
@@ -84,7 +108,7 @@
     {
       "check_type": "text_contains",
       "description": "The revised manuscript contains the mandatory modeled-validity boundary.",
-      "evidence_path": "paper/manuscript-v2/GearRL_AEI_MANUSCRIPT.md",
+      "evidence_path": "paper/manuscript-v3/GearRL_AEI_MANUSCRIPT.md",
       "expected": true,
       "pointer": "valid under the declared kinematic, geometric, and digital evidence models",
       "requirement_id": "bounded-manuscript-claim"
@@ -99,14 +123,14 @@
     {
       "check_type": "clean_attestation",
       "description": "A detached committed source tree passes the full v2 paper and v3 evidence verification set in an independently created locked prefix.",
-      "evidence_path": "data/results/clean-environment-v2/report.json",
+      "evidence_path": "data/results/clean-environment-v3/report.json",
       "expected": true,
       "requirement_id": "locked-clean-environment-attestation"
     },
     {
       "check_type": "json_pointer",
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
-      "evidence_path": "paper/aei-submission-v2/validation.json",
+      "evidence_path": "paper/aei-submission-v3/validation.json",
       "expected": false,
       "pointer": "/package_ready",
       "requirement_id": "author-and-archival-metadata",

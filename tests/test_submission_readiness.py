@@ -13,11 +13,11 @@ class TestSubmissionReadinessAuditor:
     def test_audit_is_fail_closed_and_tracks_external_gates(self):
         report = SubmissionReadinessAuditor().audit(SOURCE)
         assert report["ready_to_submit"] is False
-        assert report["status_counts"]["partial"] == 2
+        assert report["status_counts"]["partial"] == 3
         assert report["status_counts"]["external_pending"] == 2
         assert "planetary-conversion-review" in report["blocking_requirements"]
         assert "author-and-archival-metadata" in report["blocking_requirements"]
-        if not Path("data/results/clean-environment-v2/report.json").is_file():
+        if not Path("data/results/clean-environment-v3/report.json").is_file():
             assert "locked-clean-environment-attestation" in report["blocking_requirements"]
 
     def test_artifact_reproduces_and_detects_tampering(self, tmp_path):
