@@ -15,6 +15,8 @@ from reporting.artifact_registry import (
     PublicationReproducer,
     SolverComparisonTable,
     SolverScalingTable,
+    ReplayableProofTable,
+    ToleranceAwareSelectionTable,
 )
 from reporting.publication_figures import (
     AssemblyRobustnessFigure,
@@ -37,6 +39,14 @@ class AEIPublicationTableFactory:
             PlanetaryBaselineTable(
                 Path("data/results/planetary-baseline-v1/manifest.json"),
                 Path("data/results/planetary-baseline-v1/summary.json"),
+            ),
+            ReplayableProofTable(
+                Path("data/results/replayable-negative-proofs-v1/manifest.json"),
+                Path("data/results/replayable-negative-proofs-v1/summary.json"),
+            ),
+            ToleranceAwareSelectionTable(
+                Path("data/results/tolerance-aware-selection-v1/manifest.json"),
+                Path("data/results/tolerance-aware-selection-v1/summary.json"),
             ),
             SolverScalingTable(
                 Path("data/results/scaling-v1/manifest.json"),

@@ -294,6 +294,60 @@ class PlanetaryBaselineTable(PublicationTable):
             f"{summary['best_valid_objective']:.9f} | {summary['conversion_status']} |\n"
         )
 
+
+class ReplayableProofTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "replayable-negative-proofs"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("replayable-negative-proofs-v1-manifest", self._manifest),
+            EvidenceSource("replayable-negative-proofs-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        summary = self._json(self._summary)
+        tuple_count = sum(item["proof"]["elimination_ledger"]["tuple_count"] for item in summary["records"])
+        placement_count = sum(item["proof"]["evaluated_placements"] for item in summary["records"])
+        return (
+            "| Negative cases | Tuple dispositions hashed | Placements evaluated | Semantic replay |\n"
+            "| ---: | ---: | ---: | --- |\n"
+            f"| {summary['negative_case_count']} | {tuple_count} | {placement_count} | "
+            f"{'Pass' if summary['all_replayed'] else 'Fail'} |\n"
+        )
+
+
+class ToleranceAwareSelectionTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "tolerance-aware-selection"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("tolerance-aware-selection-v1-manifest", self._manifest),
+            EvidenceSource("tolerance-aware-selection-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        result = self._json(self._summary)["primary_inference"]
+        lower, upper = result["confidence_interval"]
+        return (
+            "| Nominal probability | Robust-selected probability | Improvement | Held-out 95% CI | Required improvement | Supported |\n"
+            "| ---: | ---: | ---: | ---: | ---: | --- |\n"
+            f"| {result['nominal_probability']:.5f} | {result['robust_probability']:.5f} | "
+            f"{result['probability_improvement']:.5f} | [{lower:.5f}, {upper:.5f}] | "
+            f"{result['minimum_probability_improvement']:.5f} | {'Yes' if result['supported'] else 'No'} |\n"
+        )
+
 class PublicationArtifactRegistry:
     """Build a write-once table bundle with bidirectional hash traceability."""
 

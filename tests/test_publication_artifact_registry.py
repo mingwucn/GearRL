@@ -11,12 +11,14 @@ def test_registry_builds_hash_bound_evidence_tables_and_figures(tmp_path) -> Non
     registry = PublicationArtifactRegistry()
     registry.build(root, AEIPublicationTableFactory().create(), AEIPublicationFigureFactory().create())
     payload = registry.verify(root)
-    assert len(payload["tables"]) == 6
+    assert len(payload["tables"]) == 8
     assert {item["table_id"] for item in payload["tables"]} == {
         "solver-comparison",
         "cae-qualification",
         "knowledge-ablation",
         "planetary-baseline",
+        "replayable-negative-proofs",
+        "tolerance-aware-selection",
         "solver-scaling-largest-domain",
         "assembly-robustness",
     }
