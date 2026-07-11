@@ -15,6 +15,13 @@ from .requirements_solver import (
     RequirementsSynthesisResult,
     SolverBudget,
 )
+from .specification_validator import (
+    DesignSpaceValidationRule,
+    ObstacleValidationRule,
+    PrescribedShaftValidationRule,
+    ProblemSpecificationValidator,
+    SpecificationValidationRule,
+)
 
 __all__ = [
     "BranchAndBoundSolver",
@@ -31,6 +38,11 @@ __all__ = [
     "ProductionCandidateValidator",
     "RandomizedSearchSolver",
     "RequirementsCandidateValidator",
+    "DesignSpaceValidationRule",
+    "ObstacleValidationRule",
+    "PrescribedShaftValidationRule",
+    "ProblemSpecificationValidator",
+    "SpecificationValidationRule",
     "RequirementsFirstSynthesisSolver",
     "RequirementsSynthesisResult",
     "SolverBudget",

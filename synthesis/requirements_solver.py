@@ -15,8 +15,14 @@ import numpy as np
 from scipy.optimize import differential_evolution
 
 from benchmark.specification import ProblemSpecification, SolverBenchmarkView
-from common.design_models import GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate, ValidationIssue
+from common.design_models import GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate
 from physics_validator.reference_verifier import ReferenceVerifier
+from synthesis.specification_validator import (
+    DesignSpaceValidationRule,
+    ObstacleValidationRule,
+    PrescribedShaftValidationRule,
+    ProblemSpecificationValidator,
+)
 
 
 @dataclass(frozen=True)
@@ -115,24 +121,24 @@ class SynthesisGeometryKernel:
 
 
 class ProductionCandidateValidator(RequirementsCandidateValidator):
-    """Production v2 verifier plus requirements-only obstacle admission."""
+    """Physical verifier plus an independent full-specification trust boundary."""
 
-    def __init__(self, geometry: SynthesisGeometryKernel | None = None):
+    def __init__(
+        self,
+        geometry: SynthesisGeometryKernel | None = None,
+        specification_validator: ProblemSpecificationValidator | None = None,
+    ):
         self._geometry = geometry or SynthesisGeometryKernel()
+        self._specification_validator = specification_validator or ProblemSpecificationValidator((
+            PrescribedShaftValidationRule(),
+            DesignSpaceValidationRule(),
+            ObstacleValidationRule(self._geometry),
+        ))
 
     def validate(self, specification: ProblemSpecification, train: GearTrain) -> ValidationCertificate:
         certificate = ReferenceVerifier.verify_with_cae(specification.problem, train)
-        if certificate.valid and any(
-            self._geometry.stage_overlaps_obstacle(
-                stage,
-                obstacle,
-                specification.problem.constraints.boundary_clearance,
-            )
-            for stage in train.stages
-            for obstacle in specification.obstacles
-        ):
-            certificate.valid = False
-            certificate.issues.append(ValidationIssue("obstacle_interference", "A generated stage intersects a prescribed obstacle"))
+        certificate.issues.extend(self._specification_validator.validate(specification, train))
+        certificate.valid = not certificate.issues
         return certificate
 
 
