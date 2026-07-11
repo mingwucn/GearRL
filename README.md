@@ -126,16 +126,23 @@ conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 
 ## Verification
 
 ```bash
-conda run -n ai pytest -q
+conda run -n ai make release-verify
 ```
 
-Regenerate every committed manuscript table and figure plus the literature
-matrix and assembled manuscript in temporary directories, then require byte
-identity with their hash-bound registries:
+This is the canonical AEI v3 release command. It runs the complete regression
+suite; byte-reproduces the v3 tables, manuscript, readiness report, and editable
+submission; semantically replays the confirmatory assembly, negative-proof, and
+tolerance-selection evidence; validates the unified provenance aggregate; and
+checks the current clean-environment attestation.
 
 ```bash
 conda run -n ai make paper-verify
 ```
+
+The v3 release artifacts are `paper/generated-v3`, `paper/manuscript-v3`,
+`paper/aei-submission-v3`, and `paper/submission-readiness-v3`. Earlier v1/v2
+paper and robustness directories are retained only as superseded audit history
+and are not release verification targets.
 
 The same target verifies `paper/submission-readiness-v1`. This fail-closed audit
 hash-checks the blind 50-case benchmark, all 400 legacy benchmark members, CAE

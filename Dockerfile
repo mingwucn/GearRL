@@ -10,4 +10,4 @@ WORKDIR /workspace
 COPY --chown=$MAMBA_USER:$MAMBA_USER . /workspace
 
 ENTRYPOINT ["micromamba", "run", "--no-capture-output", "--name", "ai"]
-CMD ["make", "paper-verify"]
+CMD ["make", "release-verify"]

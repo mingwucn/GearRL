@@ -11,16 +11,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: ai
-          environment-file: environment-ai.yml
+          activate-environment: base
           python-version: "3.11"
           auto-activate-base: false
-      - name: Run regression suite
+      - name: Create hash-locked scientific environment
         shell: bash -l {0}
-        run: pytest -q
-      - name: Run certified benchmark smoke test
+        run: |
+          conda create --yes --name ai --file environment-ai.lock
+          conda run -n ai python -m pip install --require-hashes --only-binary=:all: --requirement requirements-ai-pip.txt
+      - name: Run release verification
         shell: bash -l {0}
-        run: python main.py --seed 2026 --count 5 --infeasible-count 2 --output-root /tmp/gearrl-ci-runs
-      - name: Verify deterministic publication tables
-        shell: bash -l {0}
-        run: make paper-verify
+        run: conda run -n ai make release-verify
