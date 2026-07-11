@@ -1,0 +1,6 @@
+{
+  "dataset_index_sha256": "ce79afc76573134eacbfc4bffe4b5b9e49c0dddc0b72609938596ba9a640589c",
+  "dataset_root": "data/benchmark/curated/requirements-first-50-v1",
+  "schema_version": "replayable-negative-proofs-artifact-v1",
+  "summary_sha256": "c10144e5157c3309da4cf690731af3bce30f319007e6ccb1edfffbbdb6962717"
+}

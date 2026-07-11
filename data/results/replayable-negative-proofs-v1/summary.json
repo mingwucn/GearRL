@@ -1,0 +1,802 @@
+{
+  "all_replayed": true,
+  "dataset_id": "curated-compound-50-v1",
+  "negative_case_count": 40,
+  "records": [
+    {
+      "instance_id": "boundary-none-01",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-02",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-03",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-04",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-05",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-06",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-07",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "60ed9c538f0e069aea91c426711c77e57c323af71a3c8b41dcbb3d9bf5f351f7",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 305,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-08",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 152,
+            "no-placement": 1,
+            "ratio": 6408
+          },
+          "ledger_sha256": "cc725672676f1a20fcb7d7ed728d8fe795e242b17e48a4476f1bcca20aec9766",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 300,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-09",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 148,
+            "no-placement": 5,
+            "ratio": 6408
+          },
+          "ledger_sha256": "43d785ec79ebc1cece1e857c4bf2cf3f11efa0ebc56089771021e19407e0818b",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 291,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "boundary-none-10",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 143,
+            "no-placement": 10,
+            "ratio": 6408
+          },
+          "ledger_sha256": "c6be5090656048bca31e12ca8c71542572c91ac8ae3d82ebef4e053186c4b747",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 278,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-01",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-02",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-03",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-04",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-05",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-06",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-07",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-08",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "3064070e35f772b0c48c3cc2580047b8730928331035da94d2d87df354b2ca9f",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 306,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-09",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "60ed9c538f0e069aea91c426711c77e57c323af71a3c8b41dcbb3d9bf5f351f7",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 305,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "obstacle-none-10",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "geometry": 152,
+            "no-placement": 1,
+            "ratio": 6408
+          },
+          "ledger_sha256": "cc725672676f1a20fcb7d7ed728d8fe795e242b17e48a4476f1bcca20aec9766",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 300,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-01",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-02",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-03",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-04",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-05",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-06",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-07",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-08",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-09",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "ratio-none-10",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "ratio": 6561
+          },
+          "ledger_sha256": "9f72e4d28ac6cf800fae8acb877658f6514cf545729fa95fc810940d088bad68",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-01",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-02",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-03",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-04",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-05",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-06",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-07",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-08",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-09",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    },
+    {
+      "instance_id": "spacing-none-10",
+      "proof": {
+        "design_space_complete": true,
+        "elimination_ledger": {
+          "disposition_counts": {
+            "no-placement": 153,
+            "ratio": 6408
+          },
+          "ledger_sha256": "b930478bc5608109d12484ea883bc9feb9069ac4f887a7f038089533f899ca80",
+          "schema_version": "oracle-elimination-ledger-v1",
+          "tuple_count": 6561
+        },
+        "evaluated_parameter_tuples": 6561,
+        "evaluated_placements": 0,
+        "feasible": false,
+        "oracle_version": "exact-compound-oracle-replay-v1",
+        "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+      }
+    }
+  ],
+  "schema_version": "replayable-negative-proofs-v1"
+}
