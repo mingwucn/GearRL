@@ -1,0 +1,570 @@
+{
+  "best_valid_objective": 0.5255886597063066,
+  "conversion_status": "pending-independent-review",
+  "fixed_seed_outcome_analysis": {
+    "fixed_seed_run_count": 12,
+    "interpretation": "Descriptive outcomes for the twelve declared fixed seeds; no sampling-population interval is defined",
+    "iteration_limit_count": 11,
+    "optimizer_success_count": 1,
+    "threshold_run_count": 3,
+    "threshold_run_fraction": 0.25,
+    "valid_run_count": 12,
+    "valid_run_fraction": 1.0
+  },
+  "protocol": {
+    "maximum_iterations": 1000,
+    "objective_acceptance_threshold": 0.526,
+    "population_multiplier": 20,
+    "seeds": [
+      20260711,
+      20260712,
+      20260713,
+      20260714,
+      20260715,
+      20260716,
+      20260717,
+      20260718,
+      20260719,
+      20260720,
+      20260721,
+      20260722
+    ],
+    "study_id": "planetary-baseline-v1"
+  },
+  "results": [
+    {
+      "candidate": {
+        "module_1_mm": 2.5,
+        "module_2_mm": 2.25,
+        "planet_count": 3,
+        "z1": 37,
+        "z2": 22,
+        "z3": 20,
+        "z4": 24,
+        "z5": 29,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -18.625,
+          -12.5,
+          -31.0,
+          -1.5,
+          -26.59549882328188,
+          -35.523702053557386,
+          -14.399346400575247,
+          -2639.6628979219613,
+          0.0,
+          -18.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5262805662805661,
+        "ratios": [
+          3.625,
+          2.366280566280566,
+          -2.5864864864864865
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260711
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.25,
+        "module_2_mm": 2.25,
+        "planet_count": 3,
+        "z1": 35,
+        "z2": 26,
+        "z3": 25,
+        "z4": 24,
+        "z5": 29,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -18.625,
+          -19.75,
+          -31.0,
+          -2.25,
+          -24.327549630850754,
+          -26.193575034635195,
+          -14.399346400575247,
+          -647.4222319162559,
+          0.0,
+          -8.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5257687074829931,
+        "ratios": [
+          3.625,
+          2.365768707482993,
+          -2.585142857142857
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260712
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.25,
+        "module_2_mm": 2.0,
+        "planet_count": 3,
+        "z1": 37,
+        "z2": 22,
+        "z3": 20,
+        "z4": 24,
+        "z5": 27,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -41.0,
+          -33.25,
+          -60.0,
+          -3.0,
+          -26.59549882328188,
+          -35.523702053557386,
+          -14.667295593006365,
+          -2937.8417330615503,
+          -4.0,
+          -18.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5262805662805661,
+        "ratios": [
+          3.625,
+          2.366280566280566,
+          -2.5864864864864865
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260713
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.0,
+        "module_2_mm": 2.0,
+        "planet_count": 4,
+        "z1": 45,
+        "z2": 31,
+        "z3": 28,
+        "z4": 29,
+        "z5": 25,
+        "z6": 105
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -5.0,
+          -2.0,
+          -58.0,
+          -2.0,
+          -20.240115370177605,
+          -23.94722215136415,
+          -10.683766184073562,
+          -44.386375194317225,
+          -21.0,
+          -15.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5273245614035085,
+        "ratios": [
+          3.6206896551724137,
+          2.3673245614035086,
+          -2.5833333333333335
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260714
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.25,
+        "module_2_mm": 2.0,
+        "planet_count": 3,
+        "z1": 37,
+        "z2": 22,
+        "z3": 20,
+        "z4": 24,
+        "z5": 27,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -41.0,
+          -33.25,
+          -60.0,
+          -3.0,
+          -26.59549882328188,
+          -35.523702053557386,
+          -14.667295593006365,
+          -2937.8417330615503,
+          -4.0,
+          -18.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5262805662805661,
+        "ratios": [
+          3.625,
+          2.366280566280566,
+          -2.5864864864864865
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260715
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.5,
+        "module_2_mm": 1.75,
+        "planet_count": 3,
+        "z1": 34,
+        "z2": 25,
+        "z3": 33,
+        "z4": 32,
+        "z5": 36,
+        "z6": 116
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -12.625,
+          -5.0,
+          -34.5,
+          -2.0,
+          -23.59549882328188,
+          -36.3801085141084,
+          -20.389727457341827,
+          -1942.716556109167,
+          -7.0,
+          -13.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5255886597063066,
+        "ratios": [
+          3.625,
+          2.3655886597063067,
+          -2.584670231729055
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260716
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.0,
+        "module_2_mm": 2.25,
+        "planet_count": 3,
+        "z1": 47,
+        "z2": 28,
+        "z3": 20,
+        "z4": 24,
+        "z5": 16,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -18.625,
+          -10.0,
+          -89.5,
+          -3.5,
+          -34.4519052838329,
+          -35.523702053557386,
+          -16.141016151377542,
+          -4925.375304547937,
+          -26.0,
+          -18.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5281864235055724,
+        "ratios": [
+          3.625,
+          2.3681864235055725,
+          -2.5914893617021275
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260717
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.0,
+        "module_2_mm": 2.0,
+        "planet_count": 3,
+        "z1": 35,
+        "z2": 26,
+        "z3": 25,
+        "z4": 24,
+        "z5": 25,
+        "z6": 87
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -41.0,
+          -42.0,
+          -68.0,
+          -2.0,
+          -24.327549630850754,
+          -26.193575034635195,
+          -14.93524478543749,
+          -1217.6328301832696,
+          -8.0,
+          -8.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5257687074829931,
+        "ratios": [
+          3.625,
+          2.365768707482993,
+          -2.585142857142857
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260718
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.25,
+        "module_2_mm": 2.25,
+        "planet_count": 3,
+        "z1": 31,
+        "z2": 26,
+        "z3": 27,
+        "z4": 23,
+        "z5": 23,
+        "z6": 83
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -27.625,
+          -28.75,
+          -60.25,
+          -2.25,
+          -20.863448015712997,
+          -18.997422611928563,
+          -14.337168574084174,
+          -99.85392507958795,
+          -9.0,
+          -1.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5317443249701315,
+        "ratios": [
+          3.608695652173913,
+          2.371664675428116,
+          -2.5782556750298684
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260719
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.25,
+        "module_2_mm": 1.75,
+        "planet_count": 4,
+        "z1": 39,
+        "z2": 24,
+        "z3": 25,
+        "z4": 29,
+        "z5": 30,
+        "z6": 105
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -31.875,
+          -19.75,
+          -60.75,
+          -2.25,
+          -18.04772721475249,
+          -29.068542494923797,
+          -9.2193000900063,
+          -85.61569718271221,
+          -11.0,
+          -21.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5278137651821864,
+        "ratios": [
+          3.6206896551724137,
+          2.3678137651821864,
+          -2.5846153846153848
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260720
+    },
+    {
+      "candidate": {
+        "module_1_mm": 1.75,
+        "module_2_mm": 1.75,
+        "planet_count": 3,
+        "z1": 49,
+        "z2": 36,
+        "z3": 34,
+        "z4": 33,
+        "z5": 41,
+        "z6": 120
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -5.625,
+          -4.75,
+          -15.25,
+          -1.75,
+          -35.11215932167728,
+          -37.978184725461716,
+          -20.585879880048452,
+          -1427.6700467026703,
+          0.0,
+          -14.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5263636363636364,
+        "ratios": [
+          3.6363636363636362,
+          2.3628761849567415,
+          -2.593037214885954
+        ],
+        "valid": true
+      },
+      "objective_calls": 180180,
+      "optimizer_message": "Maximum number of iterations has been exceeded.",
+      "optimizer_success": false,
+      "seed": 20260721
+    },
+    {
+      "candidate": {
+        "module_1_mm": 2.0,
+        "module_2_mm": 2.0,
+        "planet_count": 3,
+        "z1": 34,
+        "z2": 27,
+        "z3": 28,
+        "z4": 25,
+        "z5": 25,
+        "z6": 91
+      },
+      "evaluation": {
+        "assembly_remainder": 0,
+        "inequality_values": [
+          -33.0,
+          -40.0,
+          -66.0,
+          0.0,
+          -23.327549630850754,
+          -24.05960043841963,
+          -15.801270189221931,
+          -777.9392632087988,
+          -11.0,
+          -5.0
+        ],
+        "issue_codes": [],
+        "objective": 0.5300000000000002,
+        "ratios": [
+          3.64,
+          2.3563948306595366,
+          -2.5808823529411766
+        ],
+        "valid": true
+      },
+      "objective_calls": 92340,
+      "optimizer_message": "Optimization terminated successfully.",
+      "optimizer_success": true,
+      "seed": 20260722
+    }
+  ],
+  "schema_version": "planetary-baseline-summary-v1",
+  "source_case": {
+    "case_id": "mahdy-2023-planetary-gear-train",
+    "maximum_diameter_mm": 220.0,
+    "module_choices_mm": [
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0
+    ],
+    "planet_choices": [
+      3,
+      4,
+      5
+    ],
+    "source_doi": "10.1007/s11227-023-05331-y",
+    "source_url": "https://link.springer.com/article/10.1007/s11227-023-05331-y",
+    "target_ratios": [
+      3.11,
+      1.84,
+      -3.11
+    ],
+    "tooth_ranges": [
+      {
+        "maximum": 96,
+        "minimum": 17
+      },
+      {
+        "maximum": 54,
+        "minimum": 14
+      },
+      {
+        "maximum": 51,
+        "minimum": 14
+      },
+      {
+        "maximum": 46,
+        "minimum": 17
+      },
+      {
+        "maximum": 51,
+        "minimum": 14
+      },
+      {
+        "maximum": 124,
+        "minimum": 48
+      }
+    ]
+  },
+  "study_id": "planetary-baseline-v1",
+  "threshold_run_count": 3,
+  "valid_run_count": 12
+}
