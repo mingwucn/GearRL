@@ -95,6 +95,31 @@ class CAEVerificationTable(PublicationTable):
         return "\n".join(lines) + "\n"
 
 
+class CAEQualificationTable(PublicationTable):
+    def __init__(self, audit: Path):
+        self._audit = audit
+
+    @property
+    def table_id(self) -> str:
+        return "cae-qualification"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (EvidenceSource("cae-refinement-audit-v1", self._audit),)
+
+    def render(self) -> str:
+        audit = self._json(self._audit)
+        rows = zip(audit["element_counts"], audit["maximum_stresses_mpa"], strict=True)
+        lines = ["| Elements | Maximum stress (MPa) |", "| ---: | ---: |"]
+        lines.extend(f"| {elements} | {stress:.3f} |" for elements, stress in rows)
+        lines.extend((
+            "",
+            f"Declared relative-change limit: {audit['declared_convergence_limit']:.3f}; "
+            f"qualification gate: **{'pass' if audit['gate_passed'] else 'fail'}**.",
+        ))
+        return "\n".join(lines) + "\n"
+
+
 class LoadUncertaintyTable(PublicationTable):
     def __init__(self, manifest: Path, results: Path):
         self._manifest, self._results = manifest, results
@@ -196,15 +221,15 @@ class AssemblyRobustnessTable(PublicationTable):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("assembly-robustness-v2-manifest", self._manifest),
-            EvidenceSource("assembly-robustness-v2-summary", self._summary),
+            EvidenceSource("assembly-robustness-v3-manifest", self._manifest),
+            EvidenceSource("assembly-robustness-v3-summary", self._summary),
         )
 
     def render(self) -> str:
         scenarios = [item for item in self._json(self._summary)["scenarios"] if item["housing_clearance_erosion_mm"] == 0.0]
         shaft_values = sorted({item["shaft_location_tolerance_mm"] for item in scenarios})
-        backlash_values = sorted({item["transverse_backlash_allowance_mm"] for item in scenarios})
-        lookup = {(item["shaft_location_tolerance_mm"], item["transverse_backlash_allowance_mm"]): item for item in scenarios}
+        backlash_values = sorted({item["center_distance_backlash_increment_mm"] for item in scenarios})
+        lookup = {(item["shaft_location_tolerance_mm"], item["center_distance_backlash_increment_mm"]): item for item in scenarios}
         labels = " | ".join(f"{value:g}" for value in backlash_values)
         lines = [
             f"| Shaft tolerance (mm) | {labels} |",
@@ -214,6 +239,60 @@ class AssemblyRobustnessTable(PublicationTable):
             probabilities = " | ".join(f"{lookup[(shaft, backlash)]['modeled_valid_probability']:.5f}" for backlash in backlash_values)
             lines.append(f"| {shaft:g} | {probabilities} |")
         return "\n".join(lines) + "\n"
+
+
+class KnowledgeAblationTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "knowledge-ablation"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("aei-knowledge-ablation-v1-manifest", self._manifest),
+            EvidenceSource("aei-knowledge-ablation-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        lines = [
+            "| Representation | Competency accuracy | Mutation detection | Exact localization | Semantic rule sites |",
+            "| --- | ---: | ---: | ---: | ---: |",
+        ]
+        for item in self._json(self._summary)["results"]:
+            lines.append(
+                f"| {item['adapter_id']} | {item['competency_accuracy']:.3f} | "
+                f"{item['semantic_mutation_detection_rate']:.3f} | {item['exact_localization_rate']:.3f} | "
+                f"{item['semantic_rule_sites']} |"
+            )
+        return "\n".join(lines) + "\n"
+
+
+class PlanetaryBaselineTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "planetary-baseline"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("planetary-baseline-v1-manifest", self._manifest),
+            EvidenceSource("planetary-baseline-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        summary = self._json(self._summary)
+        return (
+            "| Runs | Constraint-valid | At acceptance threshold | Best objective | Conversion status |\n"
+            "| ---: | ---: | ---: | ---: | --- |\n"
+            f"| {len(summary['results'])} | {summary['valid_run_count']} | {summary['threshold_run_count']} | "
+            f"{summary['best_valid_objective']:.9f} | {summary['conversion_status']} |\n"
+        )
 
 class PublicationArtifactRegistry:
     """Build a write-once table bundle with bidirectional hash traceability."""

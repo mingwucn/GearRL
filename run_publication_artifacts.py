@@ -8,20 +8,17 @@ from pathlib import Path
 
 from reporting.artifact_registry import (
     AssemblyRobustnessTable,
-    CAEVerificationTable,
-    LoadUncertaintyTable,
+    CAEQualificationTable,
+    KnowledgeAblationTable,
+    PlanetaryBaselineTable,
     PublicationArtifactRegistry,
     PublicationReproducer,
     SolverComparisonTable,
     SolverScalingTable,
-    StrengthCouplingTable,
 )
 from reporting.publication_figures import (
     AssemblyRobustnessFigure,
-    FailureProbabilityFigure,
-    SensitivityIndicesFigure,
     SolverComparisonFigure as SolverComparisonPlot,
-    StrengthCouplingFigure,
     SolverScalingFigure,
 )
 
@@ -32,25 +29,22 @@ class AEIPublicationTableFactory:
     def create(self):
         return (
             SolverComparisonTable(Path("data/results/requirements-comparison-v2/adjudication.json")),
-            CAEVerificationTable(
-                Path("data/results/cae-verification-v3/manifest.json"),
-                Path("data/results/cae-verification-v3/summary.json"),
+            CAEQualificationTable(Path("data/results/cae-refinement-audit-v1/result.json")),
+            KnowledgeAblationTable(
+                Path("data/results/aei-knowledge-ablation-v1/manifest.json"),
+                Path("data/results/aei-knowledge-ablation-v1/summary.json"),
             ),
-            LoadUncertaintyTable(
-                Path("data/results/load-uncertainty-v1/manifest.json"),
-                Path("data/results/load-uncertainty-v1/results.json"),
-            ),
-            StrengthCouplingTable(
-                Path("data/results/strength-coupled-v1/manifest.json"),
-                Path("data/results/strength-coupled-v1/summary.json"),
+            PlanetaryBaselineTable(
+                Path("data/results/planetary-baseline-v1/manifest.json"),
+                Path("data/results/planetary-baseline-v1/summary.json"),
             ),
             SolverScalingTable(
                 Path("data/results/scaling-v1/manifest.json"),
                 Path("data/results/scaling-v1/summary.json"),
             ),
             AssemblyRobustnessTable(
-                Path("data/results/assembly-robustness-confirmatory-v2/manifest.json"),
-                Path("data/results/assembly-robustness-confirmatory-v2/summary.json"),
+                Path("data/results/assembly-robustness-confirmatory-v3/manifest.json"),
+                Path("data/results/assembly-robustness-confirmatory-v3/summary.json"),
             ),
         )
 
@@ -59,22 +53,15 @@ class AEIPublicationFigureFactory:
     """Declare the complete evidence-derived AEI figure set."""
 
     def create(self):
-        uncertainty_manifest = Path("data/results/load-uncertainty-v1/manifest.json")
-        uncertainty_results = Path("data/results/load-uncertainty-v1/results.json")
-        strength_manifest = Path("data/results/strength-coupled-v1/manifest.json")
-        strength_summary = Path("data/results/strength-coupled-v1/summary.json")
         return (
             SolverComparisonPlot(Path("data/results/requirements-comparison-v2/adjudication.json")),
-            FailureProbabilityFigure(uncertainty_manifest, uncertainty_results),
-            SensitivityIndicesFigure(uncertainty_manifest, uncertainty_results),
-            StrengthCouplingFigure(strength_manifest, strength_summary),
             SolverScalingFigure(
                 Path("data/results/scaling-v1/manifest.json"),
                 Path("data/results/scaling-v1/summary.json"),
             ),
             AssemblyRobustnessFigure(
-                Path("data/results/assembly-robustness-confirmatory-v2/manifest.json"),
-                Path("data/results/assembly-robustness-confirmatory-v2/summary.json"),
+                Path("data/results/assembly-robustness-confirmatory-v3/manifest.json"),
+                Path("data/results/assembly-robustness-confirmatory-v3/summary.json"),
             ),
         )
 

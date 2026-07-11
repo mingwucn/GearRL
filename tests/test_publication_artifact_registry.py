@@ -13,11 +13,15 @@ def test_registry_builds_hash_bound_evidence_tables_and_figures(tmp_path) -> Non
     payload = registry.verify(root)
     assert len(payload["tables"]) == 6
     assert {item["table_id"] for item in payload["tables"]} == {
-        "solver-comparison", "cae-verification", "load-uncertainty", "strength-coupling",
-        "solver-scaling-largest-domain", "assembly-robustness",
+        "solver-comparison",
+        "cae-qualification",
+        "knowledge-ablation",
+        "planetary-baseline",
+        "solver-scaling-largest-domain",
+        "assembly-robustness",
     }
     assert all(item["sources"] for item in payload["tables"])
-    assert len(payload["figures"]) == 6
+    assert len(payload["figures"]) == 3
     assert all((root / item["output"]).read_bytes().startswith(b'<?xml version="1.0"') for item in payload["figures"])
 
 
