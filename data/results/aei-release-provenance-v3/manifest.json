@@ -1,0 +1,80 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "curated-requirements-benchmark",
+      "path": "data/benchmark/curated/requirements-first-50-v2/index.json",
+      "sha256": "0c2733c358d1a299fae61f98165d6859bc296d03db3ba5ca3d772e193ed03010"
+    },
+    {
+      "artifact_id": "requirements-comparison",
+      "path": "data/results/requirements-comparison-v5/adjudication.json",
+      "sha256": "766bddf6b4688700f5bac3ad0bcfd89361e3d20bcb126f909296341f84385df9"
+    },
+    {
+      "artifact_id": "solver-scaling",
+      "path": "data/results/scaling-v3/manifest.json",
+      "sha256": "8f6f50a2ffc79a1aeb9340ba3b21c533a570bba18719e40ffb052771b2d2cc6d"
+    },
+    {
+      "artifact_id": "knowledge-ablation",
+      "path": "data/results/aei-knowledge-ablation-v1/manifest.json",
+      "sha256": "7e3ecf1007d65c278a327aa53bd17c4d8b52ae46592d998b6790e350618cdeae"
+    },
+    {
+      "artifact_id": "assembly-confirmatory",
+      "path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+      "sha256": "0fc2b305fe8df7c0864d3755ed50f7d357624a4eac21db2c37c6f80a4a878494"
+    },
+    {
+      "artifact_id": "replayable-negative-proofs",
+      "path": "data/results/replayable-negative-proofs-v3/manifest.json",
+      "sha256": "4a6a837e925a52db506b34098b456705833332d843ff848b9fc71b9e6231dcd1"
+    },
+    {
+      "artifact_id": "outer-replicated-selection",
+      "path": "data/results/repeated-selection-v1/manifest.json",
+      "sha256": "6d848dbb13031ab53ff5f4b2186f02c7647a42a1e32ee26c9b6f768f256c9986"
+    },
+    {
+      "artifact_id": "planetary-baseline-pending-review",
+      "path": "data/results/planetary-baseline-v2/manifest.json",
+      "sha256": "e2d5e88c166f3e7e3ce1f31c1ed0d839cf2bd3c52b9cfe46621bbdbf30491377"
+    },
+    {
+      "artifact_id": "cae-nonqualification",
+      "path": "data/results/cae-refinement-audit-v1/result.json",
+      "sha256": "c2e5e6100672d6423a116e7b768826553f002c53d378900eb9c2bd03981839db"
+    },
+    {
+      "artifact_id": "closest-method-audit",
+      "path": "paper/literature-v3/manifest.json",
+      "sha256": "7821df4a13c09fe46177c02c803fc9ed25a7acc84ab9ddada32548f94a4e878b"
+    },
+    {
+      "artifact_id": "publication-registry",
+      "path": "paper/generated-v4/registry.json",
+      "sha256": "0fd6148dd68e50cb4f567a4bef6e28f20d486f1329d937bdad3888369ae1b4c0"
+    },
+    {
+      "artifact_id": "manuscript",
+      "path": "paper/manuscript-v4/manifest.json",
+      "sha256": "10db8f9514c4ddeecf912de504156fc16596277e54a1c6aafffb6a924aebce0d"
+    },
+    {
+      "artifact_id": "editable-submission",
+      "path": "paper/aei-submission-v4/manifest.json",
+      "sha256": "c0a0fb8afc165658469d6427de22115f74d1df24416a806812b756af27c59178"
+    }
+  ],
+  "environment": {
+    "conda_lock_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+    "pip_lock_sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d",
+    "platform": "Linux-6.17.0-20-generic-x86_64-with-glibc2.39",
+    "python_version": "3.11.15",
+    "source_commit": "66fc55756e3f68771d4866c1dc69e6a677766070",
+    "source_tree_sha256": "e7d38504950acaa0ee0e131761a4c8fc2c86791f8461aac829c3e05048ed4078"
+  },
+  "model_scope": "fully digital evidence for one zero-engineering-tolerance, two-mesh, three-shaft compound spur-gear topology; structural admission, physical qualification, and external validity excluded",
+  "release_id": "gearrl-aei-digital-v2",
+  "schema_version": "scientific-artifact-manifest-v1"
+}
