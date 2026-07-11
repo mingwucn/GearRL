@@ -6,7 +6,7 @@ import pytest
 from reproducibility.scientific_manifest import ScientificArtifactManifestBuilder, ScientificArtifactManifestStore
 
 
-CATALOG = Path("data/protocols/aei-release-artifacts-v2.json")
+CATALOG = Path("data/protocols/aei-release-artifacts-v3.json")
 
 
 def test_scientific_manifest_binds_every_catalog_artifact(tmp_path: Path) -> None:
@@ -15,7 +15,7 @@ def test_scientific_manifest_binds_every_catalog_artifact(tmp_path: Path) -> Non
     store = ScientificArtifactManifestStore()
     store.write(manifest, CATALOG, destination)
     verified = store.verify(destination, Path.cwd())
-    assert verified.release_id == "gearrl-aei-digital-v2"
+    assert verified.release_id == "gearrl-aei-digital-v3"
     assert len(verified.artifacts) == len(json.loads(CATALOG.read_text())["artifacts"])
 
 

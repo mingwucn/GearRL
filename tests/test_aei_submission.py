@@ -28,7 +28,7 @@ class TestAEISubmissionPackage:
             Path("paper/manuscript_source.json"),
             Path("paper/aei_submission_source.json"),
             Path("literature/aei_closest_methods.json"),
-            Path("paper/generated-v4"),
+            Path("paper/generated-v5"),
             root,
         )
         validation = store.verify(root)
@@ -43,7 +43,7 @@ class TestAEISubmissionPackage:
     def test_package_detects_tampering(self, tmp_path):
         root = tmp_path / "package"
         store = AEISubmissionPackageStore()
-        store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v4"), root)
+        store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v5"), root)
         (root / "highlights.txt").write_text("altered\n")
         with pytest.raises(ValueError, match="output hash mismatch"):
             store.verify(root)

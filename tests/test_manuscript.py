@@ -30,13 +30,13 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     store.build(
         Path("paper/manuscript_source.json"),
         Path("literature/aei_closest_methods.json"),
-        Path("paper/generated-v4"),
+        Path("paper/generated-v5"),
         root,
     )
     manifest = store.verify(root)
     text = (root / "GearRL_AEI_MANUSCRIPT.md").read_text()
     assert manifest["schema_version"] == "aei-manuscript-artifact-v1"
-    assert "2,048 observations" in text
+    assert "2,048 solver-run records on 16 authored scaling cases" in text
     assert "## References" in text
     assert "[cite:" not in text
     assert "10.1016/j.aei.2023.102201" in text
@@ -56,7 +56,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
 def test_manuscript_store_rejects_tampering(tmp_path) -> None:
     root = tmp_path / "manuscript"
     store = ManuscriptArtifactStore()
-    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v4"), root)
+    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v5"), root)
     manuscript = root / "GearRL_AEI_MANUSCRIPT.md"
     manuscript.write_text(manuscript.read_text() + "unregistered text\n")
     with pytest.raises(ValueError, match="output hash mismatch"):

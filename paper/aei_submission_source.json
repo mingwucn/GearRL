@@ -4,7 +4,7 @@
   "competing_interests_statement": null,
   "corresponding_author": null,
   "figure_captions": {
-    "assembly-robustness-response": "Modeled-valid probability across preregistered positive center-distance allowances derived from transverse-backlash increments and shaft-location tolerances at zero housing erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.",
+    "assembly-robustness-response": "Center-distance-envelope validity across preregistered positive allowances and shaft-location tolerances at zero housing erosion. Contact ratio remains nominal; outcomes are neither operating-engagement nor manufacturing-yield measurements.",
     "solver-anytime-largest-domain": "Feasible recovery and negative-proof rate on the largest declared tooth domain across method-specific evaluation limits. Incomplete stochastic non-discoveries are unknown, not negative classifications."
   },
   "funding_statement": null,

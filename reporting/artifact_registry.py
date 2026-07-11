@@ -289,8 +289,8 @@ class PlanetaryBaselineTable(PublicationTable):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("planetary-baseline-v2-manifest", self._manifest),
-            EvidenceSource("planetary-baseline-v2-summary", self._summary),
+            EvidenceSource("planetary-baseline-v3-manifest", self._manifest),
+            EvidenceSource("planetary-baseline-v3-summary", self._summary),
         )
 
     def render(self) -> str:

@@ -39,9 +39,9 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 The DOI-backed closest-method matrix and bounded contribution claim register are
 generated from `literature/aei_closest_methods.json` into
-`paper/literature-v3`. They are verified by `make paper-verify` alongside the
+`paper/literature-v4`. They are verified by `make paper-verify` alongside the
 numerical publication artifacts. The claim-guarded AEI manuscript draft is
-frozen at `paper/manuscript-v4/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
+frozen at `paper/manuscript-v5/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
 draft to the literature matrix, manuscript source, and publication registry.
 
 The requirements-first curated benchmark is frozen at
@@ -129,8 +129,8 @@ conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 
 conda run -n ai make release-verify
 ```
 
-This is the canonical AEI v4 release command. It runs the complete regression
-suite; byte-reproduces the v4 tables, manuscript, readiness report, and editable
+This is the canonical AEI v5 release command. It runs the complete regression
+suite; byte-reproduces the v5 tables, manuscript, readiness report, and editable
 submission; semantically replays the confirmatory assembly, negative-proof, and
 outer-replicated selection evidence; validates the unified provenance aggregate; and
 checks the current clean-environment attestation.
@@ -139,8 +139,8 @@ checks the current clean-environment attestation.
 conda run -n ai make paper-verify
 ```
 
-The release artifacts are `paper/generated-v4`, `paper/manuscript-v4`,
-`paper/aei-submission-v4`, and `paper/submission-readiness-v3`. Earlier paper
+The release artifacts are `paper/generated-v5`, `paper/manuscript-v5`,
+`paper/aei-submission-v5`, and `paper/submission-readiness-v3`. Earlier paper
 and robustness directories are retained only as superseded audit history
 and are not release verification targets.
 
@@ -152,7 +152,7 @@ declarations, an archival release identifier, and the planetary conversion decis
 are supplied externally.
 
 The provisional editable journal package is frozen at
-`paper/aei-submission-v4`. It contains an `elsarticle` LaTeX source, separate
+`paper/aei-submission-v5`. It contains an `elsarticle` LaTeX source, separate
 highlights, numbered figure files and captions, and a machine-readable
 validation report. The report enforces the current official AEI limits of a
 250-word abstract, 1-7 keywords, and 3-5 highlights of no more than 85
@@ -190,7 +190,7 @@ declared 0-0.1 mm range because nominal boundary margins are 20-102 mm. These
 are conditional rigid-center model probabilities, not manufacturing-yield
 measurements.
 
-The frozen bundle is stored at `paper/generated-v4`. Its registry maps each
+The frozen bundle is stored at `paper/generated-v5`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,
 backend-independent SVG renderer so clean reproduction does not depend on a

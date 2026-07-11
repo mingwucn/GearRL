@@ -37,7 +37,7 @@ The defensible contribution is a fully digital, object-oriented engineering-info
 | L25 | Partial | Clean execution verifies all release artifacts and semantically recomputes assembly, proof, and tolerance evidence. It does not regenerate every historical expensive solver study from zero. |
 | L26 | Resolved | The assembly verifier streams raw outcomes, reconstructs keys/counts/rates/inference, and rejects coordinated corruption. |
 | L27 | Partial | Conda resolution is portable through CLI, `CONDA_EXE`, or `PATH`; the locked run remains a local self-attestation rather than public CI or an independent worker. |
-| L28 | Pending final freeze | The v2 release catalog declares 13 critical artifacts for `aei-release-provenance-v3`; the aggregate will be frozen after the v4 paper artifacts are committed. |
+| L28 | Pending final freeze | The v3 release catalog declares 13 critical artifacts for `aei-release-provenance-v4`; the aggregate will be frozen after the v5 paper artifacts are committed. |
 | L29 | External/user decision | Author identity, license choice, citation metadata, public versioned release, and archival DOI cannot be invented. |
 
 ## Current Computed Results

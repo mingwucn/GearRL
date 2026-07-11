@@ -21,7 +21,7 @@ class ManuscriptCommand:
             print(store.build(
                 Path("paper/manuscript_source.json"),
                 Path("literature/aei_closest_methods.json"),
-                Path("paper/generated-v4"),
+                Path("paper/generated-v5"),
                 arguments.output,
             ))
         else:

@@ -68,7 +68,7 @@
     {
       "check_type": "json_pointer",
       "description": "The published planetary conversion remains pending independent review and cannot yet support external-validity claims.",
-      "evidence_path": "data/results/planetary-baseline-v2/summary.json",
+      "evidence_path": "data/results/planetary-baseline-v3/summary.json",
       "expected": "pending-independent-review",
       "pointer": "/conversion_status",
       "requirement_id": "planetary-conversion-review",
@@ -86,14 +86,14 @@
     {
       "check_type": "file_exists",
       "description": "A shared aggregate binds the v3 submission evidence, source tree, platform, and both dependency locks.",
-      "evidence_path": "data/results/aei-release-provenance-v3/manifest.json",
+      "evidence_path": "data/results/aei-release-provenance-v4/manifest.json",
       "expected": true,
       "requirement_id": "unified-scientific-provenance"
     },
     {
       "check_type": "registry_count",
       "description": "Every reported table and vector figure is registered against immutable sources.",
-      "evidence_path": "paper/generated-v4/registry.json",
+      "evidence_path": "paper/generated-v5/registry.json",
       "expected": {"figures": 3, "tables": 8},
       "requirement_id": "publication-registry"
     },
@@ -108,7 +108,7 @@
     {
       "check_type": "text_contains",
       "description": "The revised manuscript contains the mandatory modeled-validity boundary.",
-      "evidence_path": "paper/manuscript-v4/GearRL_AEI_MANUSCRIPT.md",
+      "evidence_path": "paper/manuscript-v5/GearRL_AEI_MANUSCRIPT.md",
       "expected": true,
       "pointer": "valid under the declared kinematic, geometric, and digital evidence models",
       "requirement_id": "bounded-manuscript-claim"
@@ -130,7 +130,7 @@
     {
       "check_type": "json_pointer",
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
-      "evidence_path": "paper/aei-submission-v4/validation.json",
+      "evidence_path": "paper/aei-submission-v5/validation.json",
       "expected": false,
       "pointer": "/package_ready",
       "requirement_id": "author-and-archival-metadata",

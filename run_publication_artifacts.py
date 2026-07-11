@@ -37,8 +37,8 @@ class AEIPublicationTableFactory:
                 Path("data/results/aei-knowledge-ablation-v1/summary.json"),
             ),
             PlanetaryBaselineTable(
-                Path("data/results/planetary-baseline-v2/manifest.json"),
-                Path("data/results/planetary-baseline-v2/summary.json"),
+                Path("data/results/planetary-baseline-v3/manifest.json"),
+                Path("data/results/planetary-baseline-v3/summary.json"),
             ),
             ReplayableProofTable(
                 Path("data/results/replayable-negative-proofs-v3/manifest.json"),

@@ -51,14 +51,14 @@ class ScientificArtifactManifestBuilder:
         catalog = json.loads(catalog_path.read_text())
         if catalog.get("schema_version") != "scientific-artifact-catalog-v1":
             raise ValueError("Unsupported scientific artifact catalog")
+        identifiers = tuple(str(item["artifact_id"]) for item in catalog["artifacts"])
+        if len(set(identifiers)) != len(identifiers):
+            duplicate = next(identifier for index, identifier in enumerate(identifiers) if identifier in identifiers[:index])
+            raise ValueError(f"Duplicate scientific artifact id: {duplicate}")
         commit = subprocess.run(("git", "rev-parse", "HEAD"), cwd=repository, text=True, capture_output=True, check=True).stdout.strip()
         references = []
-        identifiers = set()
         for item in catalog["artifacts"]:
             identifier = str(item["artifact_id"])
-            if identifier in identifiers:
-                raise ValueError(f"Duplicate scientific artifact id: {identifier}")
-            identifiers.add(identifier)
             relative = Path(item["path"])
             absolute = (repository / relative).resolve()
             if not absolute.is_relative_to(repository) or not absolute.is_file():
