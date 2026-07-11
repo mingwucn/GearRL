@@ -1,0 +1,5 @@
+- Executable knowledge yields independently checkable synthesis certificates.
+- Complete bounded search distinguishes negative proofs from heuristic failure.
+- Typed semantics match duplicated rules using one rule site instead of seven.
+- Preregistered robustness rejects global housing-clearance equivalence.
+- Every reported table and figure is hash-bound and byte-reproducible.

@@ -1,0 +1,180 @@
+{
+  "figures": [
+    {
+      "figure_id": "assembly-robustness-response",
+      "output": "figures/assembly-robustness-response.svg",
+      "output_sha256": "dd34a5aba623f5ad5fb74b6968704133d4e1551023b17662b2af68d463daa18b",
+      "sources": [
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+          "sha256": "0fc2b305fe8df7c0864d3755ed50f7d357624a4eac21db2c37c6f80a4a878494",
+          "source_id": "assembly-robustness-v3-manifest"
+        },
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v3/summary.json",
+          "sha256": "137dd0b7dc0deb7e1252854083da3eb0a8d24173e7f1f99c73d199371e9e75b6",
+          "source_id": "assembly-robustness-v3-summary"
+        }
+      ]
+    },
+    {
+      "figure_id": "solver-anytime-largest-domain",
+      "output": "figures/solver-anytime-largest-domain.svg",
+      "output_sha256": "6537f4dd5829f304d541e46af24f36e379da4da0a61155f889fdb9e874434654",
+      "sources": [
+        {
+          "path": "data/results/scaling-v1/manifest.json",
+          "sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+          "source_id": "requirements-scaling-v1-manifest"
+        },
+        {
+          "path": "data/results/scaling-v1/summary.json",
+          "sha256": "9672541f11ce85d7d2eb1d020932223068e71e2510da7f0495e98cadfd6d8df4",
+          "source_id": "requirements-scaling-v1-summary"
+        }
+      ]
+    },
+    {
+      "figure_id": "solver-runtime-candidates",
+      "output": "figures/solver-runtime-candidates.svg",
+      "output_sha256": "9ac93a0d24e6382da6a96bb83ee130a2f5f5a7121b0a69fee64ccdb13eea3a6f",
+      "sources": [
+        {
+          "path": "data/results/requirements-comparison-v2/adjudication.json",
+          "sha256": "d95da151562709e0af6d19cf3a442c26215940fe6b5b8d44f1f22a341f5225f8",
+          "source_id": "requirements-comparison-adjudication-v2"
+        }
+      ]
+    }
+  ],
+  "generation_policy": "deterministic evidence-only tables and figures; no manually supplied metrics",
+  "schema_version": "publication-artifact-registry-v2",
+  "tables": [
+    {
+      "output": "tables/assembly-robustness.md",
+      "output_sha256": "389c9b0fedae3bfd9fd1d372963054202321a4f5de50e9744b718344195e1be8",
+      "sources": [
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+          "sha256": "0fc2b305fe8df7c0864d3755ed50f7d357624a4eac21db2c37c6f80a4a878494",
+          "source_id": "assembly-robustness-v3-manifest"
+        },
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v3/summary.json",
+          "sha256": "137dd0b7dc0deb7e1252854083da3eb0a8d24173e7f1f99c73d199371e9e75b6",
+          "source_id": "assembly-robustness-v3-summary"
+        }
+      ],
+      "table_id": "assembly-robustness"
+    },
+    {
+      "output": "tables/cae-qualification.md",
+      "output_sha256": "797e0d12052c40443ad8c5e761470024f181b84d50c89250cd71c3f5e8ebe6f2",
+      "sources": [
+        {
+          "path": "data/results/cae-refinement-audit-v1/result.json",
+          "sha256": "c2e5e6100672d6423a116e7b768826553f002c53d378900eb9c2bd03981839db",
+          "source_id": "cae-refinement-audit-v1"
+        }
+      ],
+      "table_id": "cae-qualification"
+    },
+    {
+      "output": "tables/knowledge-ablation.md",
+      "output_sha256": "7b6949db8a45f7d625cc6d6bd23079e0719512bf3a3ff4d95262d60a0035a9b4",
+      "sources": [
+        {
+          "path": "data/results/aei-knowledge-ablation-v1/manifest.json",
+          "sha256": "7e3ecf1007d65c278a327aa53bd17c4d8b52ae46592d998b6790e350618cdeae",
+          "source_id": "aei-knowledge-ablation-v1-manifest"
+        },
+        {
+          "path": "data/results/aei-knowledge-ablation-v1/summary.json",
+          "sha256": "31e71b4f722da882a67f9aa1f0c5a5c929c99c11a2a1ea7fcca5c111f42c8b46",
+          "source_id": "aei-knowledge-ablation-v1-summary"
+        }
+      ],
+      "table_id": "knowledge-ablation"
+    },
+    {
+      "output": "tables/planetary-baseline.md",
+      "output_sha256": "1b22bfb5744ef1058adb8136e01ebc71b6b2c4919fb17c8fb96860a5c1aa8b49",
+      "sources": [
+        {
+          "path": "data/results/planetary-baseline-v1/manifest.json",
+          "sha256": "ae7b4babb7c3e918b172615f3fecaa3ea27cb7430c04653e92e5617d541d8b19",
+          "source_id": "planetary-baseline-v1-manifest"
+        },
+        {
+          "path": "data/results/planetary-baseline-v1/summary.json",
+          "sha256": "ee55d053334053e4a789348638f78da733c796a2975a8c1af74240a1069dcfce",
+          "source_id": "planetary-baseline-v1-summary"
+        }
+      ],
+      "table_id": "planetary-baseline"
+    },
+    {
+      "output": "tables/replayable-negative-proofs.md",
+      "output_sha256": "dc611146ec43018eebc04379558c7b47517bd35111928a2f48876202e77aa44d",
+      "sources": [
+        {
+          "path": "data/results/replayable-negative-proofs-v1/manifest.json",
+          "sha256": "aae067e08a1cf4fafa788e53b703d5e1a36b0480ca9ed1f16c8c841ee6af7e50",
+          "source_id": "replayable-negative-proofs-v1-manifest"
+        },
+        {
+          "path": "data/results/replayable-negative-proofs-v1/summary.json",
+          "sha256": "c10144e5157c3309da4cf690731af3bce30f319007e6ccb1edfffbbdb6962717",
+          "source_id": "replayable-negative-proofs-v1-summary"
+        }
+      ],
+      "table_id": "replayable-negative-proofs"
+    },
+    {
+      "output": "tables/solver-comparison.md",
+      "output_sha256": "fc11b243b0078f9561ef59d3dc4214c227630b51bdb7d4f4ee624a3161521aae",
+      "sources": [
+        {
+          "path": "data/results/requirements-comparison-v2/adjudication.json",
+          "sha256": "d95da151562709e0af6d19cf3a442c26215940fe6b5b8d44f1f22a341f5225f8",
+          "source_id": "requirements-comparison-adjudication-v2"
+        }
+      ],
+      "table_id": "solver-comparison"
+    },
+    {
+      "output": "tables/solver-scaling-largest-domain.md",
+      "output_sha256": "cdbe9ec3013004961efc334009da2a4deb46163793f25ab4d20f1e30e0fc749b",
+      "sources": [
+        {
+          "path": "data/results/scaling-v1/manifest.json",
+          "sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+          "source_id": "requirements-scaling-v1-manifest"
+        },
+        {
+          "path": "data/results/scaling-v1/summary.json",
+          "sha256": "9672541f11ce85d7d2eb1d020932223068e71e2510da7f0495e98cadfd6d8df4",
+          "source_id": "requirements-scaling-v1-summary"
+        }
+      ],
+      "table_id": "solver-scaling-largest-domain"
+    },
+    {
+      "output": "tables/tolerance-aware-selection.md",
+      "output_sha256": "c8cef7886a632d2ab84e9e7e18a43bd900501e9ed65dd44d8b64ccbb88343428",
+      "sources": [
+        {
+          "path": "data/results/tolerance-aware-selection-v1/manifest.json",
+          "sha256": "e72b3a1f39a44ed699cee458cd997b78daf73c7db7a986f7a8000ce2ae86cdf8",
+          "source_id": "tolerance-aware-selection-v1-manifest"
+        },
+        {
+          "path": "data/results/tolerance-aware-selection-v1/summary.json",
+          "sha256": "7a3377542b054b8ba9c354b89bf64e64ba27a845ed8ade1e5934b703f8d59d55",
+          "source_id": "tolerance-aware-selection-v1-summary"
+        }
+      ],
+      "table_id": "tolerance-aware-selection"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "outputs": [
+    {
+      "path": "Figure_1.svg",
+      "sha256": "6537f4dd5829f304d541e46af24f36e379da4da0a61155f889fdb9e874434654"
+    },
+    {
+      "path": "Figure_2.svg",
+      "sha256": "dd34a5aba623f5ad5fb74b6968704133d4e1551023b17662b2af68d463daa18b"
+    },
+    {
+      "path": "figure_captions.txt",
+      "sha256": "76f1dac90d70c9a8586d0d6e166000202d19b652ba398f7f60c3c0f5d2241d6d"
+    },
+    {
+      "path": "highlights.txt",
+      "sha256": "ad40de1570cae12dfaeea3a69309928e1a6e31bb8e0a7b9df0082b43bcc5206a"
+    },
+    {
+      "path": "manuscript.tex",
+      "sha256": "dbbf9270c54501cdf265d0764281962ae2d6e9058aa71bd854fcd390c8212a5f"
+    },
+    {
+      "path": "validation.json",
+      "sha256": "20d75a432dd118f28352530ba92243e0e6d959c0249bdc6501efce77a985791a"
+    }
+  ],
+  "schema_version": "aei-submission-package-v1",
+  "sources": [
+    {
+      "path": "paper/manuscript_source.json",
+      "sha256": "93a32d5bc0dc945f5802d2d941cc765405010de8c580f877c358315ec42181a3"
+    },
+    {
+      "path": "paper/aei_submission_source.json",
+      "sha256": "c5738416e7b16ec084fdff287778f9dfd68ae2f8f9343e9d1f4642cc31d84cdb"
+    },
+    {
+      "path": "literature/aei_closest_methods.json",
+      "sha256": "c02268476af06f32987813f317c4798e24e8a8f0c84abd24b2c48e3ab1c27c1a"
+    },
+    {
+      "path": "paper/generated-v3/registry.json",
+      "sha256": "a1f840e44232ab523d9be9fc0fbfecf2b2e1c1579880c5b1ae4c811c632a6219"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Figure 1. Feasible recovery and negative-proof rate on the largest declared tooth domain across candidate budgets. Stochastic negative classifications are not proofs.
+
+Figure 2. Modeled-valid probability across preregistered center-distance backlash increments and shaft-location tolerances at zero housing erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.
