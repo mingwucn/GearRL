@@ -1,5 +1,5 @@
 {
-  "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; external release actions are tracked but cannot be self-attested.",
+  "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; independent conversion review and external release actions cannot be self-attested.",
   "requirements": [
     {
       "check_type": "curated_integrity",
@@ -18,19 +18,12 @@
     },
     {
       "check_type": "json_pointer",
-      "description": "All owned finite-element verification gates passed before strength coupling.",
-      "evidence_path": "data/results/cae-verification-v3/manifest.json",
-      "expected": true,
-      "pointer": "/all_gates_passed",
-      "requirement_id": "cae-verification"
-    },
-    {
-      "check_type": "json_pointer",
-      "description": "The preregistered static-strength study contains 120 sampled layouts.",
-      "evidence_path": "data/results/cae-study-v3/manifest.json",
-      "expected": 120,
-      "pointer": "/config/sample_size",
-      "requirement_id": "cae-120-layout-study"
+      "description": "Extended representative mesh refinement fails the structural admission gate and is reported as negative qualification evidence.",
+      "evidence_path": "data/results/cae-refinement-audit-v1/result.json",
+      "expected": false,
+      "pointer": "/gate_passed",
+      "requirement_id": "cae-fail-closed",
+      "status_if_satisfied": "partial"
     },
     {
       "check_type": "json_pointer",
@@ -49,32 +42,35 @@
       "requirement_id": "stochastic-30-seed-protocol"
     },
     {
-      "check_type": "file_exists",
-      "description": "Strength-coupled synthesis evidence is frozen with record-level hashes.",
-      "evidence_path": "data/results/strength-coupled-v1/manifest.json",
-      "expected": true,
-      "requirement_id": "strength-coupled-admission"
-    },
-    {
-      "check_type": "file_exists",
-      "description": "Conditional operating uncertainty is frozen and bound to direct CAE envelope evidence.",
-      "evidence_path": "data/results/load-uncertainty-v1/manifest.json",
-      "expected": true,
-      "requirement_id": "operating-uncertainty"
+      "check_type": "json_length",
+      "description": "The executable-knowledge ablation reports all three preregistered representation adapters.",
+      "evidence_path": "data/results/aei-knowledge-ablation-v1/summary.json",
+      "expected": 3,
+      "pointer": "/results",
+      "requirement_id": "knowledge-representation-ablation"
     },
     {
       "check_type": "json_pointer",
-      "description": "The predeclared confirmatory assembly study retains all 3,440,640 draw-level outcomes.",
-      "evidence_path": "data/results/assembly-robustness-confirmatory-v2/manifest.json",
-      "expected": 3440640,
+      "description": "The preregistered confirmatory assembly study retains all 7,864,320 draw-level outcomes.",
+      "evidence_path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+      "expected": 7864320,
       "pointer": "/draw_count",
       "requirement_id": "confirmatory-assembly-robustness"
     },
     {
+      "check_type": "json_pointer",
+      "description": "The published planetary conversion remains pending independent review and cannot yet support external-validity claims.",
+      "evidence_path": "data/results/planetary-baseline-v1/summary.json",
+      "expected": "pending-independent-review",
+      "pointer": "/conversion_status",
+      "requirement_id": "planetary-conversion-review",
+      "status_if_satisfied": "external_pending"
+    },
+    {
       "check_type": "registry_count",
       "description": "Every reported table and vector figure is registered against immutable sources.",
-      "evidence_path": "paper/generated-v1/registry.json",
-      "expected": {"figures": 6, "tables": 6},
+      "evidence_path": "paper/generated-v2/registry.json",
+      "expected": {"figures": 3, "tables": 6},
       "requirement_id": "publication-registry"
     },
     {
@@ -87,10 +83,10 @@
     },
     {
       "check_type": "text_contains",
-      "description": "The manuscript contains the mandatory modeled-validity boundary.",
-      "evidence_path": "paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md",
+      "description": "The revised manuscript contains the mandatory modeled-validity boundary.",
+      "evidence_path": "paper/manuscript-v2/GearRL_AEI_MANUSCRIPT.md",
       "expected": true,
-      "pointer": "valid under the declared kinematic, geometric, and static-strength model",
+      "pointer": "valid under the declared kinematic, geometric, and digital evidence models",
       "requirement_id": "bounded-manuscript-claim"
     },
     {
@@ -101,17 +97,16 @@
       "requirement_id": "dependency-lock"
     },
     {
-      "check_type": "json_pointer",
-      "description": "A detached committed source tree passes the full suite and all frozen artifact checks in an independently created locked prefix.",
-      "evidence_path": "data/results/clean-environment-v1/report.json",
+      "check_type": "clean_attestation",
+      "description": "A detached committed source tree passes the full v2 paper and v3 evidence verification set in an independently created locked prefix.",
+      "evidence_path": "data/results/clean-environment-v2/report.json",
       "expected": true,
-      "pointer": "/all_commands_passed",
       "requirement_id": "locked-clean-environment-attestation"
     },
     {
       "check_type": "json_pointer",
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
-      "evidence_path": "paper/aei-submission-v1/validation.json",
+      "evidence_path": "paper/aei-submission-v2/validation.json",
       "expected": false,
       "pointer": "/package_ready",
       "requirement_id": "author-and-archival-metadata",

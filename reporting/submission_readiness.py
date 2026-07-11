@@ -10,6 +10,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
 
+from reproducibility.clean_environment import CleanEnvironmentAttestationPolicy, CleanEnvironmentEvidenceStore
+
 
 @dataclass(frozen=True)
 class EvidenceRequirement:
@@ -110,6 +112,29 @@ class CuratedIntegrityCheck(EvidenceCheck):
         return {"declared": index["instance_count"], "hash_valid": valid, "separated": separated}
 
 
+class CleanAttestationCheck(EvidenceCheck):
+    """Require an internally valid attestation that is fresh for the release tree."""
+
+    def observe(self, requirement: EvidenceRequirement) -> bool:
+        assert requirement.evidence_path is not None
+        try:
+            payload = CleanEnvironmentEvidenceStore().verify(requirement.evidence_path.parent)
+            CleanEnvironmentAttestationPolicy(
+                Path("."),
+                Path("environment-ai.lock"),
+                Path("requirements-ai-pip.txt"),
+                (
+                    Path("data/results/clean-environment-v2/manifest.json"),
+                    Path("data/results/clean-environment-v2/report.json"),
+                    Path("paper/submission-readiness-v2/manifest.json"),
+                    Path("paper/submission-readiness-v2/report.json"),
+                ),
+            ).validate(payload)
+        except (FileNotFoundError, KeyError, RuntimeError, ValueError):
+            return False
+        return True
+
+
 class EvidenceCheckFactory:
     """Construct check strategies from validated declarative names."""
 
@@ -121,6 +146,7 @@ class EvidenceCheckFactory:
         "registry_count": RegistryCountCheck,
         "benchmark_integrity": BenchmarkIntegrityCheck,
         "curated_integrity": CuratedIntegrityCheck,
+        "clean_attestation": CleanAttestationCheck,
     }
 
     def create(self, check_type: str) -> EvidenceCheck:
