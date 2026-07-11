@@ -45,6 +45,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     assert "incomplete non-discoveries are unknown outcomes" in text
     assert "not topology transfer or external validity" in text
     assert "conditional on the two realized selected layout sets" in text.lower()
+    assert all(f"RQ{index} asks" in text for index in range(1, 6))
     assert "All three solvers classified" not in text
     assert "topology-transfer case" not in text
     store.verify_reproduction(root)
