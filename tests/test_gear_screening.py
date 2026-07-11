@@ -19,7 +19,7 @@ def test_tooth_screening_returns_physical_loads_and_safety_factor() -> None:
     assert report.radial_force_n > 0
     assert report.max_von_mises_mpa > 0
     assert report.safety_factor > 0
-    assert report.mesh_element_count == 2
+    assert report.mesh_element_count > 2
 
 
 def test_increasing_allowable_stress_increases_safety_factor() -> None:

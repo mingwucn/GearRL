@@ -25,7 +25,7 @@ class ToothScreeningReport:
     max_von_mises_mpa: float
     safety_factor: float
     mesh_element_count: int
-    model_version: str = "tooth-root-plane-stress-v1"
+    model_version: str = "tooth-root-plane-stress-v2"
 
     def to_json(self) -> dict[str, float | int | str]:
         return {
@@ -43,8 +43,9 @@ class ToothScreeningReport:
 class ToothRootScreeningAnalysis:
     """Conservative CAE service for one gear-member tooth-root screen."""
 
-    def __init__(self, solver: PlaneStressSolver | None = None):
+    def __init__(self, solver: PlaneStressSolver | None = None, mesh_factory: "ToothRootMeshFactory | None" = None):
         self._solver = solver or PlaneStressSolver()
+        self._mesh_factory = mesh_factory or ToothRootMeshFactory()
 
     def screen(
         self,
@@ -64,17 +65,22 @@ class ToothRootScreeningAnalysis:
         pitch_radius = stage.pitch_radius_mm(member)
         tangential_force = torque_nm * 1_000.0 / pitch_radius
         radial_force = tangential_force * tan(radians(pressure_angle_deg))
-        mesh = self._tooth_root_mesh(stage.module_mm, stage.teeth[member], load_case.face_width_mm)
+        mesh = self._mesh_factory.create(stage.module_mm, stage.teeth[member], load_case.face_width_mm)
         forces = np.zeros(mesh.nodes_mm.shape[0] * 2)
-        # Two top nodes share tangential and radial load at the critical contact zone.
-        for node in (2, 3):
-            forces[2 * node] = -radial_force / 2.0
-            forces[2 * node + 1] = -tangential_force / 2.0
+        top = np.flatnonzero(np.isclose(mesh.nodes_mm[:, 1], np.max(mesh.nodes_mm[:, 1])))
+        weights = np.ones(len(top))
+        weights[[0, -1]] = 0.5
+        weights /= weights.sum()
+        # The local tooth axis is radial (+y): tangential load bends the tooth
+        # in x, while the radial component acts along the tooth axis.
+        forces[2 * top] = -tangential_force * weights
+        forces[2 * top + 1] = -radial_force * weights
+        base = np.flatnonzero(np.isclose(mesh.nodes_mm[:, 1], 0.0))
         result = self._solver.solve(
             mesh,
             PlaneStressMaterial(load_case.youngs_modulus_mpa, load_case.poisson_ratio),
             forces,
-            fixed_dofs=np.array([0, 1, 2, 3]),
+            fixed_dofs=np.concatenate((2 * base, 2 * base + 1)),
         )
         maximum = result.max_von_mises_mpa
         safety = load_case.allowable_stress_mpa / maximum if maximum > 0 else float("inf")
@@ -87,22 +93,34 @@ class ToothRootScreeningAnalysis:
             safety_factor=safety,
             mesh_element_count=len(mesh.elements),
         )
+class ToothRootMeshFactory:
+    """Create a structured trapezoidal critical-section mesh."""
 
+    def __init__(self, divisions_x: int = 8, divisions_y: int = 12):
+        if min(divisions_x, divisions_y) < 1:
+            raise ValueError("Tooth mesh divisions must be positive")
+        self._divisions_x = divisions_x
+        self._divisions_y = divisions_y
 
-    @staticmethod
-    def _tooth_root_mesh(module_mm: float, teeth: int, face_width_mm: float) -> TriangularMesh:
-        """Create a reproducible critical-section mesh from standard tooth dimensions."""
+    def create(self, module_mm: float, teeth: int, face_width_mm: float) -> TriangularMesh:
+        if module_mm <= 0 or teeth <= 0 or face_width_mm <= 0:
+            raise ValueError("Gear dimensions must be positive")
         circular_pitch = pi * module_mm
         root_half_width = circular_pitch * 0.50
         tip_half_width = circular_pitch * 0.25
-        # Full-depth tooth from dedendum circle to addendum circle: 2.25 module.
         height = 2.25 * module_mm
-        nodes = np.array(
-            [
-                [-root_half_width, 0.0],
-                [root_half_width, 0.0],
-                [tip_half_width, height],
-                [-tip_half_width, height],
-            ]
-        )
-        return TriangularMesh(nodes, np.array([[0, 1, 2], [0, 2, 3]]), face_width_mm)
+        nodes = []
+        for iy in range(self._divisions_y + 1):
+            fraction = iy / self._divisions_y
+            half_width = root_half_width + fraction * (tip_half_width - root_half_width)
+            nodes.extend((-half_width + 2.0 * half_width * ix / self._divisions_x, height * fraction) for ix in range(self._divisions_x + 1))
+        elements = []
+        row = self._divisions_x + 1
+        for iy in range(self._divisions_y):
+            for ix in range(self._divisions_x):
+                lower_left = iy * row + ix
+                lower_right = lower_left + 1
+                upper_left = lower_left + row
+                upper_right = upper_left + 1
+                elements.extend(((lower_left, lower_right, upper_right), (lower_left, upper_right, upper_left)))
+        return TriangularMesh(np.asarray(nodes), np.asarray(elements), face_width_mm)

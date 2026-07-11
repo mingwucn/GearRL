@@ -68,6 +68,12 @@ Persist the preregistered 120-layout static-strength screening study:
 conda run -n ai python run_cae_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
 ```
 
+Persist the owned solver verification gates before using CAE screening results:
+
+```bash
+conda run -n ai python run_cae_verification.py
+```
+
 Persist the signed shaft-offset sensitivity study under the exact mesh-center model:
 
 ```bash
