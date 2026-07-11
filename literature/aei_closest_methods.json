@@ -1,0 +1,173 @@
+{
+  "schema_version": "aei-literature-matrix-v1",
+  "search_cutoff": "2026-07-11",
+  "venue_scope": {
+    "title": "Advanced Engineering Informatics: Aims and Scope",
+    "url": "https://www.sciencedirect.com/journal/advanced-engineering-informatics",
+    "operational_requirement": "Explicit knowledge representation and use, engineering relevance, and vigorous evaluation of generality, power, and scalability."
+  },
+  "methods": [
+    {
+      "id": "huang-2025",
+      "year": 2025,
+      "title": "Knowledge graph-driven methodology for complex product architecture solution generation and simulation verification",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2025.103590",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034625004835",
+      "knowledge_representation": "Knowledge graph integrating product data, experience, constraints, and requirements",
+      "synthesis_scope": "Architecture alternatives generated, optimized, and matched to requirements",
+      "validation_scope": "Mechanism simulation in a launch-vehicle separation-system case study",
+      "closest_overlap": "Graph-driven solution generation with constraints and simulation validation",
+      "remaining_difference": "Accessible paper metadata does not report blind solver/evaluator separation, independent certificates, exhaustive negative proofs, or hash-bound artifacts"
+    },
+    {
+      "id": "sun-2026",
+      "year": 2026,
+      "title": "Knowledge-driven automated design of industrial robots: A unified graph-based framework with multi-engine reasoning",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2025.103995",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034625008882",
+      "knowledge_representation": "Unified graph representation with domain knowledge and multiple reasoning engines",
+      "synthesis_scope": "Robot topology, component recommendation, and parametric CAD generation",
+      "validation_scope": "Application case and generated CAD models",
+      "closest_overlap": "Graph reasoning bridges requirements, topology, component choice, and CAD",
+      "remaining_difference": "Accessible paper metadata does not report independently checkable per-design certificates or complete infeasibility proofs"
+    },
+    {
+      "id": "fuerst-2021",
+      "year": 2021,
+      "title": "Automation of gearbox design",
+      "venue": "Forschung im Ingenieurwesen / Engineering Research",
+      "doi": "10.1007/s10010-021-00517-3",
+      "url": "https://link.springer.com/article/10.1007/s10010-021-00517-3",
+      "knowledge_representation": "Norms, guidelines, standard tables, and component catalogs embedded in a systematic method",
+      "synthesis_scope": "Weight-optimized helical gearbox sizing across gears, shafts, and bearings",
+      "validation_scope": "Analytical load capacity and component life calculations in an established design program",
+      "closest_overlap": "Requirements-to-gearbox automation with coupled engineering constraints",
+      "remaining_difference": "Focuses detailed component sizing rather than certificate-bearing bounded topology synthesis and independent truth adjudication"
+    },
+    {
+      "id": "geng-2023",
+      "year": 2023,
+      "title": "Topological Graph Representation and Configuration Synthesis for Power-Split Hybrid Transmissions of Multi-Planetary Gear Trains",
+      "venue": "Journal of Mechanical Design",
+      "doi": "10.1115/1.4063287",
+      "url": "https://asmedigitalcollection.asme.org/mechanicaldesign/article/145/12/123401/1167457",
+      "knowledge_representation": "Topological graph and standard structure matrix",
+      "synthesis_scope": "Multi-planetary power-split hybrid transmission configuration generation and isomorphism screening",
+      "validation_scope": "Three-PGT design example and mechanical-interference screening",
+      "closest_overlap": "Graph representation, topology synthesis, and structural screening in a gear-transmission domain",
+      "remaining_difference": "Different planetary-transmission family; no reported independent certificate boundary, negative proof corpus, or CAE-coupled admission"
+    },
+    {
+      "id": "kim-2026",
+      "year": 2026,
+      "title": "Multi-objective macro-geometry optimization of a compound planetary geartrain for an electric tractor powertrain using NSGA-II",
+      "venue": "Scientific Reports",
+      "doi": "10.1038/s41598-026-43864-3",
+      "url": "https://www.nature.com/articles/s41598-026-43864-3",
+      "knowledge_representation": "Parametric macro-geometry and explicit kinematic, packaging, contact-ratio, and ISO 6336 strength constraints",
+      "synthesis_scope": "NSGA-II optimization of module, pressure angle, helix angle, and face width with fixed topology and tooth counts",
+      "validation_scope": "Commercial MASTA analysis using representative workload data; physical validation left as future work",
+      "closest_overlap": "Gear-specific strength-constrained digital optimization and workload-aware analysis",
+      "remaining_difference": "Optimizes a fixed planetary architecture rather than requirements-first topology and tooth-count synthesis with independent proofs"
+    },
+    {
+      "id": "lin-2023",
+      "year": 2023,
+      "title": "When architecture meets AI: A deep reinforcement learning approach for system of systems design",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2023.101965",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034623000939",
+      "knowledge_representation": "Combinatorial system/task graph with capability and assignment constraints",
+      "synthesis_scope": "Actor-critic architecture selection and task allocation with generalization experiments",
+      "validation_scope": "Comparison with genetic and differential-evolution heuristics across problem scales",
+      "closest_overlap": "Learning-guided constrained graph design and scalability evaluation",
+      "remaining_difference": "Optimizes SoS assignments; does not provide artifact-level engineering certificates or bounded infeasibility proofs"
+    },
+    {
+      "id": "bolognini-2022",
+      "year": 2022,
+      "title": "Engineering knowledge formalization and proposition for informatics development towards a CAD-integrated DfX system for product design",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2022.101537",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034622000131",
+      "knowledge_representation": "Ontology that converts tacit DfX guidance into explicit reusable engineering knowledge",
+      "synthesis_scope": "CAD-integrated design guidance rather than autonomous bounded synthesis",
+      "validation_scope": "Method and knowledge-base development for product-design use",
+      "closest_overlap": "Explicit computable engineering knowledge intended to reduce downstream redesign",
+      "remaining_difference": "Knowledge formalization is the contribution; independently certified requirements-first search is not reported in accessible metadata"
+    },
+    {
+      "id": "hao-2021",
+      "year": 2021,
+      "title": "Integrating and navigating engineering design decision-related knowledge using decision knowledge graph",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2021.101366",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034621001191",
+      "knowledge_representation": "Decision knowledge graph grounded in compromise Decision Support Problems",
+      "synthesis_scope": "Semantic integration and navigation of decision knowledge",
+      "validation_scope": "Supply-chain design retrieval case compared with keyword search",
+      "closest_overlap": "Formal graph representation of engineering decision variables and relationships",
+      "remaining_difference": "Supports knowledge retrieval rather than generation and independent certification of physical designs"
+    },
+    {
+      "id": "cicconi-2020",
+      "year": 2020,
+      "title": "Integrating a constraint-based optimization approach into the design of oil & gas structures",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2020.101129",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034620301002",
+      "knowledge_representation": "Constraint satisfaction model linked to a collaborative engineer-to-order product structure",
+      "synthesis_scope": "MiniZinc-supported parameter-space reduction and optimization of a large steel structure",
+      "validation_scope": "Model-based mechanical simulation with reported weight and cost effects in a generic 700-ton case",
+      "closest_overlap": "Executable constraints coupled to model-based simulation during engineering design optimization",
+      "remaining_difference": "Optimizes one structural parameterization; no reported blind benchmark, independent certificate boundary, or complete infeasibility evidence"
+    },
+    {
+      "id": "fetanat-2023",
+      "year": 2023,
+      "title": "Portia spider algorithm: an evolutionary computation approach for engineering application",
+      "venue": "Artificial Intelligence Review",
+      "doi": "10.1007/s10462-023-10683-1",
+      "url": "https://link.springer.com/article/10.1007/s10462-023-10683-1",
+      "knowledge_representation": "Four integer tooth-count variables in a standard gear-ratio optimization benchmark",
+      "synthesis_scope": "Metaheuristic minimization of ratio error over tooth counts",
+      "validation_scope": "Best objective comparison with other metaheuristics",
+      "closest_overlap": "Discrete compound gear-ratio search",
+      "remaining_difference": "No enclosure geometry, mesh graph, independent validity certificate, negative proof, or structural admission"
+    }
+  ],
+  "claim_register": [
+    {
+      "claim_id": "C1",
+      "status": "supported",
+      "claim": "GearRL implements a machine-readable requirements-first schema and directed gear-mesh knowledge model with independently checkable certificates for a bounded compound spur-gear family.",
+      "required_evidence": "Curated benchmark, blind synthesis boundary, validator corpus, and exact oracle"
+    },
+    {
+      "claim_id": "C2",
+      "status": "supported",
+      "claim": "Static tooth-root screening can alter accepted design parameters and modeled feasibility under the declared digital model.",
+      "required_evidence": "strength-coupled-v1 paired ablation"
+    },
+    {
+      "claim_id": "C3",
+      "status": "candidate-novelty",
+      "claim": "Within the audited closest-method set, no single method combines blind bounded synthesis, independent positive certificates and negative proofs, strength-coupled admission, and hash-bound publication artifacts.",
+      "required_evidence": "This matrix plus repository evidence; phrase as a bounded literature inference, not a universal first claim"
+    },
+    {
+      "claim_id": "C4",
+      "status": "unsupported",
+      "claim": "GearRL provides manufacturing-ready, fatigue-qualified, physically validated, or generally superior gearbox designs.",
+      "required_evidence": "Not available; prohibit this claim"
+    },
+    {
+      "claim_id": "C5",
+      "status": "unsupported",
+      "claim": "Learning improves synthesis speed or valid-within-budget rate at the preregistered threshold.",
+      "required_evidence": "Retain only after the 30-seed learned-policy gate passes"
+    }
+  ]
+}

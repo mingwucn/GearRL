@@ -37,6 +37,10 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 ```
 
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
+The DOI-backed closest-method matrix and bounded contribution claim register are
+generated from `literature/aei_closest_methods.json` into
+`paper/literature-v1`. They are verified by `make paper-verify` alongside the
+numerical publication artifacts.
 
 The requirements-first curated benchmark is frozen at
 `data/benchmark/curated/requirements-first-50-v1`. Its 50 explicit briefs keep
