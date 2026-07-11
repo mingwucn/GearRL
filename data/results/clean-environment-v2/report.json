@@ -1,0 +1,197 @@
+{
+  "all_commands_passed": true,
+  "commands": [
+    {
+      "argv": [
+        "/home/mingwucn/miniconda3/bin/conda",
+        "create",
+        "--yes",
+        "--prefix",
+        "/tmp/gearrl-clean-ai-v2",
+        "--file",
+        "/home/mingwucn/Work/GearRL/environment-ai.lock"
+      ],
+      "command_id": "conda-create",
+      "elapsed_seconds": 14.518214,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "36f2bd486abd7ce87acbffef314034b52b17a709e5315ddea11bea32c406e95c"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--require-hashes",
+        "--only-binary=:all:",
+        "--requirement",
+        "/home/mingwucn/Work/GearRL/requirements-ai-pip.txt"
+      ],
+      "command_id": "pip-install",
+      "elapsed_seconds": 1.593674,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "24b547afb99cd61957ee2813efce7d8c3c91ecf805c62525d93db6a5ef098968"
+    },
+    {
+      "argv": [
+        "git",
+        "clone",
+        "--quiet",
+        "--no-hardlinks",
+        "--no-checkout",
+        "/home/mingwucn/Work/GearRL",
+        "/tmp/gearrl-committed-source-uja_dvg0/source"
+      ],
+      "command_id": "git-clone",
+      "elapsed_seconds": 0.091391,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "git",
+        "checkout",
+        "--quiet",
+        "--detach",
+        "e0852dff991ed6591e6f765f0ebe0283f16a4985"
+      ],
+      "command_id": "git-checkout",
+      "elapsed_seconds": 0.204129,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "command_id": "regression-suite",
+      "elapsed_seconds": 30.814325,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "618bcada005fd302539443ff5f1b2e4c1ca92188ac5c32ec1e2c6bb12b49388f"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_publication_artifacts.py",
+        "--verify",
+        "paper/generated-v2"
+      ],
+      "command_id": "publication-artifacts",
+      "elapsed_seconds": 1.049554,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "89bd5d6dcbc871922b1faab660d86d94653c1aa741fb943b542ab37e0c86d5b5"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_literature_matrix.py",
+        "--verify",
+        "paper/literature-v1"
+      ],
+      "command_id": "literature-artifact",
+      "elapsed_seconds": 1.059011,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a5e15922c66bcc8aecdb3d0b5dac2f283f00fa1e79d7a943d270720d21dffcef"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_manuscript.py",
+        "--verify",
+        "paper/manuscript-v2"
+      ],
+      "command_id": "manuscript-artifact",
+      "elapsed_seconds": 1.060922,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a86a37e4ad486cb7ae2dfa47acfb5dc2123ff104868d069b02cda1877c38c65d"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_aei_submission.py",
+        "--verify",
+        "paper/aei-submission-v2"
+      ],
+      "command_id": "aei-package",
+      "elapsed_seconds": 1.077344,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c3bb5ad3e367ca7a09c4f05581463c36198b765b326e660a4db8e52abbe6b9c9"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_assembly_robustness.py",
+        "--verify",
+        "data/results/assembly-robustness-v1"
+      ],
+      "command_id": "assembly-robustness-pilot",
+      "elapsed_seconds": 4.679573,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "68844d4a59f039c42adbcb4dcceb8414226bbc9e7f2a1b714528857f2373f224"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "run_confirmatory_assembly.py",
+        "--verify",
+        "data/results/assembly-robustness-confirmatory-v3"
+      ],
+      "command_id": "assembly-robustness-confirmatory",
+      "elapsed_seconds": 23.409437,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c449a3d220c388ea14ac5537d70a3494e38cdf9e13190857427fbb1cb14d5486"
+    },
+    {
+      "argv": [
+        "/home/mingwucn/miniconda3/bin/conda",
+        "list",
+        "--explicit",
+        "--prefix",
+        "/tmp/gearrl-clean-ai-v2"
+      ],
+      "command_id": "conda-explicit",
+      "elapsed_seconds": 1.370332,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f"
+    },
+    {
+      "argv": [
+        "/tmp/gearrl-clean-ai-v2/bin/python",
+        "-m",
+        "pip",
+        "freeze",
+        "--all"
+      ],
+      "command_id": "pip-freeze",
+      "elapsed_seconds": 0.137572,
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "35d9f980d06c228fe44af96ead0fc392cae6ec70b85aaff905ad4a113e624d30"
+    }
+  ],
+  "conda_explicit_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+  "lockfile": "/home/mingwucn/Work/GearRL/environment-ai.lock",
+  "lockfile_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+  "pip_freeze_sha256": "35d9f980d06c228fe44af96ead0fc392cae6ec70b85aaff905ad4a113e624d30",
+  "pip_requirements": "/home/mingwucn/Work/GearRL/requirements-ai-pip.txt",
+  "pip_requirements_sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d",
+  "schema_version": "clean-environment-attestation-v1",
+  "source_commit": "e0852dff991ed6591e6f765f0ebe0283f16a4985",
+  "source_tree_sha256": "de874d6528598a2ced0db89f25b77f255e05bad2022e8633aae9c23cdf283602",
+  "verification_count": 7
+}
