@@ -1,5 +1,7 @@
 # Top-Journal Research Plan for GearRL
 
+> **Status note (2026-07-11):** This document preserves the original plan and historical implementation narrative. Several original strength and robustness conclusions were invalidated by the final AEI review council and must not be cited. The authoritative current scope, evidence, and remaining gates are recorded in `AEI_REMEDIATION_STATUS.md`, `paper/manuscript-v3`, and `paper/submission-readiness-v3`.
+
 ## Objective
 
 Transform GearRL from a prototype into a reproducible, manufacturing-aware design-synthesis system for compound spur gear trains in constrained enclosures.
@@ -10,7 +12,7 @@ The AEI submission is therefore the primary path. RCIM-style manufacturing claim
 
 The primary research claim is:
 
-> An object-oriented executable engineering-knowledge model supports requirements-first synthesis of bounded compound spur-gear layouts with independently checkable positive certificates and complete negative proofs, while declared static tooth-root constraints alter admitted designs and modeled feasibility.
+> An object-oriented executable engineering-knowledge model centralizes gear-domain semantics and supports requirements-first synthesis of bounded compound spur-gear layouts with independently checkable positive certificates and replayable bounded negative proofs.
 
 Learning is excluded from the primary claim. The existing policy experiments rank paths in constructed reference graphs and do not establish a requirements-first speed or valid-within-budget advantage. Learning may return only after a separately frozen 30-seed requirements-first gate passes; otherwise it remains future work.
 
