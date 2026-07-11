@@ -4,7 +4,7 @@
 
 Transform GearRL from a prototype into a reproducible, manufacturing-aware design-synthesis system for compound spur gear trains in constrained enclosures.
 
-The primary publication target is *Robotics and Computer-Integrated Manufacturing* (RCIM), conditional on a physical demonstrator. The fallback target is *Advanced Engineering Informatics* (AEI) if the work remains a digital workflow with CAE validation only.
+The publication target is *Advanced Engineering Informatics* (AEI). This is a fully digital engineering-informatics study with certified synthesis, in-house CAE screening, and reproducible evidence; it does not claim physical manufacturing validation.
 
 The research claim is:
 
@@ -28,12 +28,9 @@ The system must use the phrase "valid under the declared kinematic, geometric, a
 
 ### 1. Literature and Venue Gate
 
-Review recent work in RCIM, AEI, gear-train synthesis, constrained optimization, learning-guided search, and gear-strength analysis. Build a comparison matrix covering topology class, kinematic model, manufacturing constraints, solver, learning role, CAD/CAE validation, benchmark, and reproducibility artifacts.
+Review recent work in AEI, gear-train synthesis, constrained optimization, learning-guided search, and gear-strength analysis. Build a comparison matrix covering topology class, kinematic model, engineering knowledge representation, solver, learning role, CAD/CAE validation, benchmark, and reproducibility artifacts.
 
-Freeze the proposed contribution only after establishing a defensible gap against the closest methods. Maintain two paper paths:
-
-- **RCIM:** a manufacturing digital thread plus a physical demonstrator.
-- **AEI:** explicit engineering knowledge representation, a certified digital workflow, a benchmark, and CAE validation.
+Freeze the proposed contribution only after establishing a defensible gap against the closest methods. The AEI paper path requires explicit engineering knowledge representation, a certified digital workflow, a benchmark, independent validation, and CAE screening.
 
 ### 2. Canonical Design and Validation Model
 
@@ -91,7 +88,7 @@ Freeze a 400-instance benchmark:
 
 - 250 procedural instances across four enclosure families and three difficulty strata.
 - 100 adversarial tight-clearance and near-infeasible instances.
-- 50 externally motivated CAD-style or expert-authored engineering briefs.
+- An optional, separately labelled external extension partition when valid cases and provenance become available; never simulate or fabricate this evidence.
 
 Every instance must include generator seed, canonical problem JSON, reference-verifier version, feasibility label, and a feasibility certificate or proof of infeasibility. Keep generator families disjoint across train, validation, and test partitions.
 
@@ -138,16 +135,11 @@ Learning is retained only if it preserves 100% modeled validity and improves eit
 
 with a 95% confidence interval excluding no improvement.
 
-Run CAE on a preregistered stratified sample of 120 successful layouts and all potential RCIM demonstrator candidates. Report every failure, safety margin, and model limitation. Evaluate robustness under shaft-position tolerance, housing tolerance, backlash allowance, and load variation.
+Run CAE on a preregistered stratified sample of 120 successful layouts. Report every failure, safety margin, and model limitation. Evaluate robustness under shaft-position tolerance, housing tolerance, backlash allowance, and load variation.
 
-## Manufacturing Workflow and Venue Decision
+## Digital Manufacturing Workflow
 
 Export every accepted design as canonical JSON, SVG/DXF, and parametric CAD geometry. Generate STEP only after automated CAD interference checks pass. Include material, module, tooth count, face width, load case, CAE report, and validation certificate in the process-planning record.
-
-At the venue decision gate:
-
-- Submit to **RCIM** only if a representative layout is manufactured, assembled, and tested for measured ratio, physical fit, and a declared load condition.
-- Submit to **AEI** if the certified engineering knowledge model, benchmark, digital workflow, and CAE evidence are complete but no physical demonstrator is available.
 
 Do not use placeholder metrics, demonstrations, or untraceable legacy outputs as scientific evidence.
 
@@ -166,7 +158,7 @@ Generate paper figures and tables only from immutable experiment bundles. Quaran
 
 | Phase | Target | Exit Criterion |
 | --- | --- | --- |
-| Literature and venue | Weeks 1-4 | Contribution gap and RCIM/AEI paper paths documented |
+| Literature and venue | Weeks 1-4 | AEI contribution gap and digital evidence path documented |
 | Correctness | Weeks 5-12 | Generator, validator, and reference verifier agree on 50 curated cases |
 | CAE | Weeks 8-20 | Patch, analytical, and convergence verification complete |
 | Benchmark and baselines | Weeks 13-24 | Frozen 400-instance benchmark and deterministic comparison suite |
@@ -181,4 +173,4 @@ Submit only when all of the following are true:
 2. The benchmark, source code, configurations, checkpoints, and result bundles reproduce the paper tables from a clean environment.
 3. The proposed method has a statistically supported benefit over predeclared baselines, or the deterministic solver itself provides the paper's contribution.
 4. CAE evidence is reported with model limits and convergence results.
-5. RCIM submission includes a physical demonstrator; otherwise, submit the digital workflow to AEI.
+5. The manuscript claims only the declared digital kinematic, geometric, and static-strength model; physical validation is future work.

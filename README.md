@@ -5,6 +5,9 @@ external-spur compound gear trains. The certified model checks full-train signed
 speed ratio, mesh center distances, axial layers, boundary clearance,
 interference, and optional in-house plane-stress tooth-root screening.
 
+The current publication path targets a fully digital *Advanced Engineering
+Informatics* study. GearRL does not claim physical manufacturing validation.
+
 ## Environment
 
 Create or update the required research environment:
