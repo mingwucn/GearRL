@@ -42,6 +42,11 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     assert "## Data Availability" in text
     assert "## Declaration of Generative AI" in text
     assert "solver-scaling-largest-domain" in text
+    assert "incomplete non-discoveries are unknown outcomes" in text
+    assert "not topology transfer or external validity" in text
+    assert "conditional on the two realized selected layout sets" in text.lower()
+    assert "All three solvers classified" not in text
+    assert "topology-transfer case" not in text
     store.verify_reproduction(root)
 
 
