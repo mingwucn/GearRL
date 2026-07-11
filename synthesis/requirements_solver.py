@@ -150,7 +150,7 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
             issues=issues,
             model_identity=CertificateModelIdentity(
                 planar_model=identity.planar_model,
-                specification_model=specification.schema_version,
+                specification_model=self._specification_validator.MODEL_VERSION,
                 static_strength_model=identity.static_strength_model,
                 strength_qualification_evidence=identity.strength_qualification_evidence,
             ),

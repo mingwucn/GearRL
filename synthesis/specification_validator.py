@@ -134,6 +134,8 @@ class ObstacleValidationRule(SpecificationValidationRule):
 class ProblemSpecificationValidator:
     """Composite trust boundary for all requirements visible to a solver."""
 
+    MODEL_VERSION = "requirements-first-admission-v2"
+
     def __init__(self, rules: tuple[SpecificationValidationRule, ...]) -> None:
         if not rules:
             raise ValueError("A problem specification validator requires at least one rule")
