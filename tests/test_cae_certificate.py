@@ -39,6 +39,11 @@ def test_cae_certificate_includes_member_reports() -> None:
     assert not certificate.valid
     assert len(certificate.cae_reports) == 2
     assert any(issue.code == "cae_not_admission_qualified" for issue in certificate.issues)
+    assert certificate.model_identity.planar_model == "certified-planar-v3"
+    assert certificate.model_identity.static_strength_model == "involute-tooth-root-plane-stress-v3"
+    assert certificate.model_identity.strength_qualification_evidence == "cae-refinement-audit-v1"
+    with pytest.raises(TypeError):
+        certificate.cae_reports[0]["model_version"] = "mutated"
 
 
 def test_cae_certificate_rejects_excessive_safety_requirement() -> None:

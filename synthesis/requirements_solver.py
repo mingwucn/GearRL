@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from dataclasses import replace
 from itertools import product
 import json
 from math import hypot, isclose, sqrt
@@ -15,7 +16,7 @@ import numpy as np
 from scipy.optimize import differential_evolution
 
 from benchmark.specification import ProblemSpecification, SolverBenchmarkView
-from common.design_models import GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate
+from common.design_models import CertificateModelIdentity, GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate
 from physics_validator.reference_verifier import ReferenceVerifier
 from synthesis.specification_validator import (
     DesignSpaceValidationRule,
@@ -137,9 +138,19 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
 
     def validate(self, specification: ProblemSpecification, train: GearTrain) -> ValidationCertificate:
         certificate = ReferenceVerifier.verify_with_cae(specification.problem, train)
-        certificate.issues.extend(self._specification_validator.validate(specification, train))
-        certificate.valid = not certificate.issues
-        return certificate
+        issues = (*certificate.issues, *self._specification_validator.validate(specification, train))
+        identity = certificate.model_identity
+        return replace(
+            certificate,
+            valid=not issues,
+            issues=issues,
+            model_identity=CertificateModelIdentity(
+                planar_model=identity.planar_model,
+                specification_model=specification.schema_version,
+                static_strength_model=identity.static_strength_model,
+                strength_qualification_evidence=identity.strength_qualification_evidence,
+            ),
+        )
 
 
 class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):

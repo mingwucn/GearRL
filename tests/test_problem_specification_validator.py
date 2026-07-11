@@ -34,6 +34,7 @@ def test_reference_witness_satisfies_complete_problem_specification() -> None:
     specification, train = _valid_case()
     certificate = ProductionCandidateValidator().validate(specification, train)
     assert certificate.valid
+    assert certificate.model_identity.specification_model == "requirements-first-v1"
 
 
 def test_prescribed_shaft_position_is_independently_enforced() -> None:

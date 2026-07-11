@@ -7,6 +7,7 @@ research interface without silently changing the behaviour of old demos.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+from copy import deepcopy
 from math import isfinite
 from typing import Any, Mapping, Sequence
 
@@ -193,14 +194,53 @@ class ValidationIssue:
     message: str
 
 
-@dataclass
+@dataclass(frozen=True)
+class CertificateModelIdentity:
+    planar_model: str = "certified-planar-v3"
+    specification_model: str | None = None
+    static_strength_model: str | None = None
+    strength_qualification_evidence: str | None = None
+
+    def to_json(self) -> dict[str, str | None]:
+        return asdict(self)
+
+
+class ImmutableReport(Mapping[str, Any]):
+    """Read-only report mapping that serializes through ``dataclasses.asdict``."""
+
+    def __init__(self, values: Mapping[str, Any]) -> None:
+        self._values = deepcopy(dict(values))
+
+    def __getitem__(self, key: str) -> Any:
+        return self._values[key]
+
+    def __iter__(self):
+        return iter(self._values)
+
+    def __len__(self) -> int:
+        return len(self._values)
+
+    def __deepcopy__(self, memo):
+        return deepcopy(self._values, memo)
+
+
+@dataclass(frozen=True)
 class ValidationCertificate:
     valid: bool
-    issues: list[ValidationIssue] = field(default_factory=list)
+    issues: tuple[ValidationIssue, ...] = ()
     signed_speed_ratio: float | None = None
     minimum_clearance_mm: float | None = None
-    cae_reports: list[dict[str, Any]] = field(default_factory=list)
-    model_version: str = "certified-planar-v3"
+    cae_reports: tuple[Mapping[str, Any], ...] = ()
+    model_identity: CertificateModelIdentity = field(default_factory=CertificateModelIdentity)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "issues", tuple(self.issues))
+        object.__setattr__(self, "cae_reports", tuple(ImmutableReport(report) for report in self.cae_reports))
+
+    @property
+    def model_version(self) -> str:
+        """Compatibility label; component identities are authoritative."""
+        return self.model_identity.planar_model
 
     def to_json(self) -> dict[str, Any]:
         return {
@@ -208,8 +248,9 @@ class ValidationCertificate:
             "issues": [asdict(issue) for issue in self.issues],
             "signed_speed_ratio": self.signed_speed_ratio,
             "minimum_clearance_mm": self.minimum_clearance_mm,
-            "cae_reports": self.cae_reports,
+            "cae_reports": [dict(report) for report in self.cae_reports],
             "model_version": self.model_version,
+            "model_identity": self.model_identity.to_json(),
         }
 
 

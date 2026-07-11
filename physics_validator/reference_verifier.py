@@ -7,10 +7,12 @@ the declared design model directly and emits a serialisable certificate.
 from __future__ import annotations
 
 from collections import deque
+from dataclasses import replace
 from math import ceil, cos, hypot, isclose, pi, radians, sin, sqrt, tan
 
 from common.design_models import (
     DesignProblem,
+    CertificateModelIdentity,
     GearStage,
     GearTrain,
     Point2D,
@@ -50,10 +52,10 @@ class ReferenceVerifier:
 
         return ValidationCertificate(
             valid=not issues,
-            issues=issues,
+            issues=tuple(issues),
             signed_speed_ratio=ratio,
             minimum_clearance_mm=cls._minimum_boundary_clearance(problem, train),
-            model_version=cls.MODEL_VERSION,
+            model_identity=CertificateModelIdentity(planar_model=cls.MODEL_VERSION),
         )
 
     @classmethod
@@ -72,16 +74,17 @@ class ReferenceVerifier:
         from cae.gear_screening import ToothRootScreeningAnalysis
 
         ratios = cls._stage_speed_ratios(problem, train, train.stage_map())
-        efficiency_factors = cls._stage_efficiency_factors(problem, train, train.stage_map(), certificate.issues)
+        issues = list(certificate.issues)
+        efficiency_factors = cls._stage_efficiency_factors(problem, train, train.stage_map(), issues)
         contact_loads, load_issues = MeshContactLoadResolver().resolve(problem, train, ratios, efficiency_factors)
-        certificate.issues.extend(load_issues)
+        issues.extend(load_issues)
         screening = ToothRootScreeningAnalysis()
         reports: list[dict] = []
         for stage in train.stages:
             for member in range(len(stage.teeth)):
                 contact = contact_loads.get((stage.id, member))
                 if contact is None:
-                    certificate.issues.append(ValidationIssue("cae_unloaded_member", f"No mesh contact load reaches {stage.id}[{member}]"))
+                    issues.append(ValidationIssue("cae_unloaded_member", f"No mesh contact load reaches {stage.id}[{member}]"))
                     continue
                 report = screening.screen(stage, member, problem.load_case, contact.equivalent_torque_nm, problem.constraints.pressure_angle_deg)
                 report_json = report.to_json()
@@ -89,22 +92,30 @@ class ReferenceVerifier:
                 report_json["contact_mesh"] = contact.mesh_id
                 reports.append(report_json)
                 if report.safety_factor + 1e-12 < problem.constraints.min_safety_factor:
-                    certificate.issues.append(
+                    issues.append(
                         ValidationIssue(
                             "cae_safety_factor",
                             f"{stage.id}[{member}] safety factor {report.safety_factor:.6g} is below "
                             f"{problem.constraints.min_safety_factor:.6g}",
                         )
                     )
-        certificate.cae_reports = reports
         qualification = StaticStrengthAdmissionPolicy().qualification()
         if not qualification.qualified:
-            certificate.issues.append(ValidationIssue(
+            issues.append(ValidationIssue(
                 "cae_not_admission_qualified",
                 f"Static screening model is not qualified for admission ({qualification.evidence_id})",
             ))
-        certificate.valid = not certificate.issues
-        return certificate
+        return replace(
+            certificate,
+            valid=not issues,
+            issues=tuple(issues),
+            cae_reports=tuple(reports),
+            model_identity=CertificateModelIdentity(
+                planar_model=cls.MODEL_VERSION,
+                static_strength_model=qualification.model_version,
+                strength_qualification_evidence=qualification.evidence_id,
+            ),
+        )
 
     @classmethod
     def _stage_efficiency_factors(
