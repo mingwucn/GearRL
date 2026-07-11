@@ -46,3 +46,6 @@ def test_comparison_adjudicator_summarizes_complete_dataset(tmp_path) -> None:
     assert report["methods"]["exact-enumerator"]["run_count"] == 1
     assert report["methods"]["cp-sat"]["accuracy_min"] == 1.0
     assert report["methods"]["differential-evolution"]["run_count"] == 1
+    assert report["methods"]["differential-evolution"]["accuracy_min"] == 0.2
+    assert report["methods"]["differential-evolution"]["decisive_coverage_min"] == 0.2
+    assert report["methods"]["differential-evolution"]["decisive_accuracy_min"] == 1.0

@@ -142,6 +142,9 @@ class SolverScalingStudy:
                         result = solver.solve(case.view)
                         runtime = perf_counter() - started
                         predicted = result.train is not None
+                        correct = (case.expected_feasible and predicted) or (
+                            not case.expected_feasible and not predicted and result.search_complete
+                        )
                         observations.append(
                             ScalingObservation(
                                 case.view.instance_id,
@@ -153,7 +156,7 @@ class SolverScalingStudy:
                                 seed,
                                 case.expected_feasible,
                                 predicted,
-                                predicted == case.expected_feasible,
+                                correct,
                                 result.search_complete,
                                 not case.expected_feasible and not predicted and result.search_complete,
                                 runtime,

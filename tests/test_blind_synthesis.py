@@ -42,6 +42,8 @@ def test_adjudication_occurs_only_after_predictions_are_sealed(tmp_path) -> None
     assert report.correct_count == 50
     assert report.feasible_true_positive_count == 10
     assert report.infeasible_true_negative_count == 40
+    assert report.unknown_count == 0
+    assert report.decisive_coverage == 1.0
     assert report.accuracy == 1.0
 
 

@@ -156,6 +156,8 @@ class RequirementsComparisonAdjudicator:
                 "run_count": len(selected),
                 "accuracy_min": min(result["accuracy"] for result in selected),
                 "accuracy_median": median(result["accuracy"] for result in selected),
+                "decisive_coverage_min": min(result["decisive_coverage"] for result in selected),
+                "decisive_accuracy_min": min(result["decisive_accuracy"] for result in selected),
                 "median_runtime_s_across_runs": median(result["median_runtime_s"] for result in selected),
                 "median_parameter_tuples_across_runs": median(result["median_parameter_tuples"] for result in selected),
             }

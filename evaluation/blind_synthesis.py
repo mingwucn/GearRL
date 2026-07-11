@@ -111,6 +111,9 @@ class BlindAdjudicationReport:
     feasible_true_positive_count: int
     infeasible_true_negative_count: int
     accuracy: float
+    unknown_count: int
+    decisive_coverage: float
+    decisive_accuracy: float
     prediction_artifact_sha256: str
 
     def to_json(self) -> dict:
@@ -121,6 +124,9 @@ class BlindAdjudicationReport:
             "feasible_true_positive_count": self.feasible_true_positive_count,
             "infeasible_true_negative_count": self.infeasible_true_negative_count,
             "accuracy": self.accuracy,
+            "unknown_count": self.unknown_count,
+            "decisive_coverage": self.decisive_coverage,
+            "decisive_accuracy": self.decisive_accuracy,
             "prediction_artifact_sha256": self.prediction_artifact_sha256,
         }
 
@@ -133,13 +139,19 @@ class BlindAdjudicator:
         predictions = BlindPredictionStore().read(path)
         expected = {payload["instance_id"]: bool(payload["expected_feasible"]) for payload in dataset.evidence_payloads}
         predicted = {record["instance_id"]: bool(record["predicted_feasible"]) for record in predictions}
+        complete = {record["instance_id"]: bool(record["search_complete"]) for record in predictions}
         if set(expected) != set(predicted):
             missing = sorted(set(expected) - set(predicted))
             extra = sorted(set(predicted) - set(expected))
             raise ValueError(f"Prediction/evidence id mismatch; missing={missing}, extra={extra}")
-        correct = sum(predicted[instance_id] == label for instance_id, label in expected.items())
+        correct = sum(
+            (predicted[instance_id] and label) or (not predicted[instance_id] and not label and complete[instance_id])
+            for instance_id, label in expected.items()
+        )
         true_positive = sum(predicted[instance_id] and label for instance_id, label in expected.items())
-        true_negative = sum(not predicted[instance_id] and not label for instance_id, label in expected.items())
+        true_negative = sum(not predicted[instance_id] and not label and complete[instance_id] for instance_id, label in expected.items())
+        unknown = sum(not predicted[instance_id] and not complete[instance_id] for instance_id in expected)
+        decisive = len(predictions) - unknown
         return BlindAdjudicationReport(
             dataset.dataset_id,
             len(predictions),
@@ -147,6 +159,9 @@ class BlindAdjudicator:
             true_positive,
             true_negative,
             correct / len(predictions),
+            unknown,
+            decisive / len(predictions),
+            correct / decisive if decisive else 0.0,
             hashlib.sha256(path.read_bytes()).hexdigest(),
         )
 
