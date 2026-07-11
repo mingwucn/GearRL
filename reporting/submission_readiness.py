@@ -124,10 +124,10 @@ class CleanAttestationCheck(EvidenceCheck):
                 Path("environment-ai.lock"),
                 Path("requirements-ai-pip.txt"),
                 (
-                    Path("data/results/clean-environment-v2/manifest.json"),
-                    Path("data/results/clean-environment-v2/report.json"),
-                    Path("paper/submission-readiness-v2/manifest.json"),
-                    Path("paper/submission-readiness-v2/report.json"),
+                    Path("data/results/clean-environment-v3/manifest.json"),
+                    Path("data/results/clean-environment-v3/report.json"),
+                    Path("paper/submission-readiness-v3/manifest.json"),
+                    Path("paper/submission-readiness-v3/report.json"),
                 ),
             ).validate(payload)
         except (FileNotFoundError, KeyError, RuntimeError, ValueError):

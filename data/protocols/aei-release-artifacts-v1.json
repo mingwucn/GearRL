@@ -11,8 +11,8 @@
     {"artifact_id": "tolerance-aware-selection", "path": "data/results/tolerance-aware-selection-v1/manifest.json"},
     {"artifact_id": "planetary-baseline-pending-review", "path": "data/results/planetary-baseline-v1/manifest.json"},
     {"artifact_id": "cae-nonqualification", "path": "data/results/cae-refinement-audit-v1/result.json"},
-    {"artifact_id": "publication-registry", "path": "paper/generated-v2/registry.json"},
-    {"artifact_id": "manuscript", "path": "paper/manuscript-v2/manifest.json"},
-    {"artifact_id": "editable-submission", "path": "paper/aei-submission-v2/manifest.json"}
+    {"artifact_id": "publication-registry", "path": "paper/generated-v3/registry.json"},
+    {"artifact_id": "manuscript", "path": "paper/manuscript-v3/manifest.json"},
+    {"artifact_id": "editable-submission", "path": "paper/aei-submission-v3/manifest.json"}
   ]
 }

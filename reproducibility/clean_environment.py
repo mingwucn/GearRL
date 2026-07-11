@@ -106,12 +106,15 @@ class CleanEnvironmentAttestor:
 
     VERIFICATIONS = (
         ("regression-suite", ("-m", "pytest", "-q")),
-        ("publication-artifacts", ("run_publication_artifacts.py", "--verify", "paper/generated-v2")),
+        ("publication-artifacts", ("run_publication_artifacts.py", "--verify", "paper/generated-v3")),
         ("literature-artifact", ("run_literature_matrix.py", "--verify", "paper/literature-v1")),
-        ("manuscript-artifact", ("run_manuscript.py", "--verify", "paper/manuscript-v2")),
-        ("aei-package", ("run_aei_submission.py", "--verify", "paper/aei-submission-v2")),
+        ("manuscript-artifact", ("run_manuscript.py", "--verify", "paper/manuscript-v3")),
+        ("aei-package", ("run_aei_submission.py", "--verify", "paper/aei-submission-v3")),
         ("assembly-robustness-pilot", ("run_assembly_robustness.py", "--verify", "data/results/assembly-robustness-v1")),
         ("assembly-robustness-confirmatory", ("run_confirmatory_assembly.py", "--verify", "data/results/assembly-robustness-confirmatory-v3")),
+        ("replayable-negative-proofs", ("run_replayable_proof_study.py", "--verify", "data/results/replayable-negative-proofs-v1")),
+        ("tolerance-aware-selection", ("run_tolerance_aware_selection.py", "--verify", "data/results/tolerance-aware-selection-v1")),
+        ("scientific-provenance", ("run_scientific_manifest.py", "--verify", "data/results/aei-release-provenance-v2")),
     )
 
     def __init__(self, runner: CommandRunner | None = None) -> None:

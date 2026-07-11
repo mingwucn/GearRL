@@ -43,8 +43,8 @@ class CleanEnvironmentAttestationCommand:
                 (
                     destination / "report.json",
                     destination / "manifest.json",
-                    Path("paper/submission-readiness-v2/report.json"),
-                    Path("paper/submission-readiness-v2/manifest.json"),
+                    Path("paper/submission-readiness-v3/report.json"),
+                    Path("paper/submission-readiness-v3/manifest.json"),
                 ),
             ).validate(report)
             print(f"Verified clean environment at commit {report['source_commit']}: {args.verify}")
