@@ -89,7 +89,7 @@ class CommittedSourceTreeHasher:
             check=True,
         ).stdout.splitlines()
         digest = sha256()
-        for path in sorted(paths):
+        for path in sorted(paths, key=lambda value: Path(value).parts):
             content = subprocess.run(
                 ("git", "show", f"{commit}:{path}"),
                 cwd=repository,

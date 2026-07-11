@@ -19,6 +19,23 @@ def test_source_tree_hash_is_path_and_content_sensitive(tmp_path: Path) -> None:
     assert hasher.digest(tmp_path) != original
 
 
+def test_committed_and_checked_out_tree_hashes_share_canonical_order(tmp_path: Path) -> None:
+    repository = tmp_path / "repository"
+    repository.mkdir()
+    subprocess.run(("git", "init", "-q"), cwd=repository, check=True)
+    subprocess.run(("git", "config", "user.email", "test@example.org"), cwd=repository, check=True)
+    subprocess.run(("git", "config", "user.name", "Test"), cwd=repository, check=True)
+    for relative in (Path("data/case/index.json"), Path("data/case-r2/index.json")):
+        path = repository / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(relative.as_posix())
+    subprocess.run(("git", "add", "."), cwd=repository, check=True)
+    subprocess.run(("git", "commit", "-qm", "source"), cwd=repository, check=True)
+    commit = subprocess.run(("git", "rev-parse", "HEAD"), cwd=repository, text=True, capture_output=True, check=True).stdout.strip()
+
+    assert CommittedSourceTreeHasher().digest(repository, commit) == SourceTreeHasher().digest(repository)
+
+
 def test_evidence_store_requires_complete_success(tmp_path: Path) -> None:
     store = CleanEnvironmentEvidenceStore()
     root = tmp_path / "evidence"
