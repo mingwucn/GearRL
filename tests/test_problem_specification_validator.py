@@ -74,3 +74,16 @@ def test_mesh_tolerance_is_fixed_by_design_space() -> None:
     changed = replace(reference.meshes[0], center_distance_tolerance_mm=1e-6)
     train = GearTrain(reference.stages, (changed, *reference.meshes[1:]))
     assert "design_space_mesh_tolerance" in _issue_codes(specification, train)
+
+
+def test_topology_family_rejects_alternate_mesh_graph() -> None:
+    specification, reference = _valid_case()
+    changed = replace(reference.meshes[1], driver_member=0)
+    train = GearTrain(reference.stages, (reference.meshes[0], changed))
+    assert "topology_family_meshes" in _issue_codes(specification, train)
+
+
+def test_topology_family_rejects_noncanonical_layers() -> None:
+    specification, reference = _valid_case()
+    train = _replace_stage(reference, "compound", axial_layers=(1, 0))
+    assert "topology_family_layers" in _issue_codes(specification, train)

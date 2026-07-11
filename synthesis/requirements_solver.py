@@ -24,6 +24,7 @@ from synthesis.specification_validator import (
     ObstacleValidationRule,
     PrescribedShaftValidationRule,
     ProblemSpecificationValidator,
+    TopologyFamilyValidationRule,
 )
 
 
@@ -135,6 +136,7 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
         self._specification_validator = specification_validator or ProblemSpecificationValidator((
             PrescribedShaftValidationRule(),
             DesignSpaceValidationRule(),
+            TopologyFamilyValidationRule(),
             ObstacleValidationRule(self._geometry),
         ))
 

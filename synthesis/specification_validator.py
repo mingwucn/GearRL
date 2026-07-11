@@ -76,6 +76,44 @@ class DesignSpaceValidationRule(SpecificationValidationRule):
         return tuple(issues)
 
 
+class TopologyFamilyValidationRule(SpecificationValidationRule):
+    """Enforce the exact graph and layer contract named by the design space."""
+
+    def evaluate(self, specification: ProblemSpecification, train: GearTrain) -> tuple[ValidationIssue, ...]:
+        if specification.design_space.topology_family != "compound-two-mesh-three-shaft":
+            return (ValidationIssue("unsupported_topology_family", "No production rule exists for the declared topology family"),)
+        problem = specification.problem
+        stages = train.stage_map()
+        internal_ids = set(stages) - {problem.input_stage_id, problem.output_stage_id}
+        if len(stages) != 3 or len(internal_ids) != 1:
+            return (ValidationIssue("topology_family_shape", "Compound topology requires exactly one internal shaft"),)
+        compound_id = next(iter(internal_ids))
+        input_stage = stages.get(problem.input_stage_id)
+        compound = stages[compound_id]
+        output_stage = stages.get(problem.output_stage_id)
+        if input_stage is None or output_stage is None or tuple(map(len, (input_stage.teeth, compound.teeth, output_stage.teeth))) != (1, 2, 1):
+            return (ValidationIssue("topology_family_members", "Compound topology requires member counts 1-2-1"),)
+        expected_meshes = {
+            (problem.input_stage_id, 0, compound_id, 0),
+            (compound_id, 1, problem.output_stage_id, 0),
+        }
+        observed_meshes = {
+            (edge.driver_stage_id, edge.driver_member, edge.driven_stage_id, edge.driven_member)
+            for edge in train.meshes
+        }
+        if observed_meshes != expected_meshes or len(train.meshes) != 2:
+            return (ValidationIssue("topology_family_meshes", "Compound topology requires the canonical two directed meshes"),)
+        layers = (
+            input_stage.layer(0),
+            compound.layer(0),
+            compound.layer(1),
+            output_stage.layer(0),
+        )
+        if layers != (0, 0, 1, 1):
+            return (ValidationIssue("topology_family_layers", "Compound topology requires canonical 0-0 and 1-1 mesh layers"),)
+        return ()
+
+
 class ObstacleValidationRule(SpecificationValidationRule):
     """Reject stages whose outside radius intersects a prescribed obstacle."""
 
