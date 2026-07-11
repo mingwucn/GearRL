@@ -1,0 +1,50 @@
+{
+  "schema_version": "assembly-confirmatory-protocol-v2",
+  "study_id": "assembly-robustness-confirmatory-v3",
+  "scope": "Conditional finite-population digital assembly acceptance under a center-distance-induced transverse backlash increment; not manufacturing yield.",
+  "population": {
+    "population_id": "compound-v1-frozen-400-r2-feasible-test-census",
+    "partition": "test",
+    "expected_feasible_layout_count": 120,
+    "estimand": "Mean modeled acceptance probability over every feasible layout in the frozen test partition. No inference beyond this finite authored population is claimed."
+  },
+  "computation": {
+    "sampler": "independently-scrambled-sobol",
+    "random_seed": 20260711,
+    "scramble_replicates": 8,
+    "draws_per_replicate": 1024,
+    "common_random_numbers_across_factor_cells": true,
+    "declared_total_draws": 7864320
+  },
+  "factors": {
+    "shaft_location_tolerances_mm": [0.005, 0.025],
+    "housing_clearance_erosions_mm": [0.0, 0.1],
+    "center_distance_backlash_increments_mm": [0.002, 0.005]
+  },
+  "inference": {
+    "inference_unit": "independent Sobol scramble of the complete held-out finite-layout census",
+    "familywise_alpha": 0.05,
+    "multiplicity": "Bonferroni allocation across the two primary hypotheses",
+    "primary_interaction": {
+      "hypothesis_id": "H1-backlash-benefit-attenuation",
+      "contrast": "[p(high shaft, high backlash)-p(high shaft, low backlash)]-[p(low shaft, high backlash)-p(low shaft, low backlash)] at zero housing erosion",
+      "low_shaft_mm": 0.005,
+      "high_shaft_mm": 0.025,
+      "low_backlash_mm": 0.002,
+      "high_backlash_mm": 0.005,
+      "housing_erosion_mm": 0.0,
+      "maximum_interaction": -0.01,
+      "decision_rule": "Supported only when the multiplicity-adjusted upper confidence limit is below -0.01."
+    },
+    "primary_housing_equivalence": {
+      "hypothesis_id": "H2-housing-erosion-equivalence",
+      "contrast": "Maximum absolute paired acceptance difference between 0.0 and 0.1 mm erosion across the four shaft/backlash cells",
+      "reference_erosion_mm": 0.0,
+      "comparison_erosion_mm": 0.1,
+      "equivalence_margin": 0.001,
+      "decision_rule": "Supported only when simultaneous confidence intervals for all four paired differences lie within [-0.001, 0.001]."
+    },
+    "all_other_summaries": "descriptive"
+  },
+  "rationale": "The v2 evidence is superseded because scenario identifiers collided and its training-prefix bootstrap lacked a population estimand. V3 uses the complete feasible test partition, collision-free cells, repeated randomized QMC, paired contrasts, explicit effect/equivalence margins, and familywise decision rules."
+}
