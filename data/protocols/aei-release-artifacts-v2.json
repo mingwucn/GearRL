@@ -4,7 +4,7 @@
   "model_scope": "fully digital evidence for one zero-engineering-tolerance, two-mesh, three-shaft compound spur-gear topology; structural admission, physical qualification, and external validity excluded",
   "artifacts": [
     {"artifact_id": "curated-requirements-benchmark", "path": "data/benchmark/curated/requirements-first-50-v2/index.json"},
-    {"artifact_id": "requirements-comparison", "path": "data/results/requirements-comparison-v4/adjudication.json"},
+    {"artifact_id": "requirements-comparison", "path": "data/results/requirements-comparison-v5/adjudication.json"},
     {"artifact_id": "solver-scaling", "path": "data/results/scaling-v3/manifest.json"},
     {"artifact_id": "knowledge-ablation", "path": "data/results/aei-knowledge-ablation-v1/manifest.json"},
     {"artifact_id": "assembly-confirmatory", "path": "data/results/assembly-robustness-confirmatory-v3/manifest.json"},
