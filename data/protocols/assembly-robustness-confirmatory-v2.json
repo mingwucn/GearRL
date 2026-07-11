@@ -1,0 +1,15 @@
+{
+  "config": {
+    "bootstrap_samples": 5000,
+    "draws_per_layout": 512,
+    "housing_clearance_erosions_mm": [0.0, 0.1],
+    "random_seed": 2026,
+    "sample_size": 120,
+    "shaft_location_tolerances_mm": [0.0025, 0.005, 0.01, 0.025],
+    "transverse_backlash_allowances_mm": [0.0, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02]
+  },
+  "inference_unit": "frozen feasible layout",
+  "rationale": "The broad-grid pilot saturated at both 0.02 and 0.05 mm backlash. This confirmatory grid was frozen before computation to resolve the transition below 0.02 mm while retaining the pilot shaft range and the two extreme housing-erosion conditions.",
+  "schema_version": "assembly-robustness-protocol-v1",
+  "study_id": "assembly-robustness-confirmatory-v2"
+}

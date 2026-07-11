@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessStudy
+from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessProtocolLoader, AssemblyRobustnessStudy
 
 
 class AssemblyRobustnessCommand:
@@ -18,15 +18,16 @@ class AssemblyRobustnessCommand:
         parser.add_argument("--sample-size", type=int, default=120)
         parser.add_argument("--draws", type=int, default=512)
         parser.add_argument("--bootstrap-samples", type=int, default=5000)
+        parser.add_argument("--protocol-file", type=Path)
         args = parser.parse_args()
         store = AssemblyRobustnessEvidenceStore()
         if args.verify:
             manifest = store.verify(args.verify)
             print(f"Verified {manifest['draw_count']} assembly-robustness draws: {args.verify}")
             return
-        protocol = AssemblyRobustnessProtocol(sample_size=args.sample_size, draws_per_layout=args.draws, bootstrap_samples=args.bootstrap_samples)
+        protocol = AssemblyRobustnessProtocolLoader().load(args.protocol_file) if args.protocol_file else AssemblyRobustnessProtocol(sample_size=args.sample_size, draws_per_layout=args.draws, bootstrap_samples=args.bootstrap_samples)
         summary, outcomes, _, _ = AssemblyRobustnessStudy().run(args.dataset, protocol)
-        store.write(summary, outcomes, args.dataset / "index.json", args.output)
+        store.write(summary, outcomes, args.dataset / "index.json", args.output, args.protocol_file)
 
 
 if __name__ == "__main__":

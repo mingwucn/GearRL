@@ -33,6 +33,25 @@ class AssemblyRobustnessProtocol:
             raise ValueError("Robustness tolerances must be non-negative")
 
 
+class AssemblyRobustnessProtocolLoader:
+    """Load a versioned protocol without allowing undeclared runtime overrides."""
+
+    def load(self, path: Path) -> AssemblyRobustnessProtocol:
+        payload = json.loads(path.read_text())
+        if payload["schema_version"] != "assembly-robustness-protocol-v1":
+            raise ValueError("Unsupported assembly robustness protocol schema")
+        config = payload["config"]
+        return AssemblyRobustnessProtocol(
+            sample_size=int(config["sample_size"]),
+            draws_per_layout=int(config["draws_per_layout"]),
+            bootstrap_samples=int(config["bootstrap_samples"]),
+            random_seed=int(config["random_seed"]),
+            shaft_location_tolerances_mm=tuple(map(float, config["shaft_location_tolerances_mm"])),
+            housing_clearance_erosions_mm=tuple(map(float, config["housing_clearance_erosions_mm"])),
+            transverse_backlash_allowances_mm=tuple(map(float, config["transverse_backlash_allowances_mm"])),
+        )
+
+
 @dataclass(frozen=True)
 class AssemblyScenario:
     scenario_id: str
@@ -166,7 +185,7 @@ class AssemblyRobustnessEvidenceStore:
     def _json_bytes(payload) -> bytes:
         return (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode()
 
-    def write(self, summary: dict, outcomes: list[AssemblyDrawOutcome], source_index: Path, destination: Path) -> Path:
+    def write(self, summary: dict, outcomes: list[AssemblyDrawOutcome], source_index: Path, destination: Path, protocol_source: Path | None = None) -> Path:
         if destination.exists() and any(destination.iterdir()):
             raise FileExistsError("Assembly robustness destination must be empty")
         destination.mkdir(parents=True, exist_ok=True)
@@ -186,6 +205,9 @@ class AssemblyRobustnessEvidenceStore:
             "draws_sha256": sha256(raw_path.read_bytes()).hexdigest(),
             "draw_count": len(outcomes),
         }
+        if protocol_source is not None:
+            manifest["protocol_source"] = str(protocol_source)
+            manifest["protocol_source_sha256"] = sha256(protocol_source.read_bytes()).hexdigest()
         path = destination / "manifest.json"
         path.write_bytes(self._json_bytes(manifest))
         return path
@@ -197,6 +219,8 @@ class AssemblyRobustnessEvidenceStore:
             "summary_sha256": (destination / "summary.json").read_bytes(),
             "draws_sha256": (destination / "draws.jsonl.gz").read_bytes(),
         }
+        if "protocol_source" in manifest:
+            checks["protocol_source_sha256"] = Path(manifest["protocol_source"]).read_bytes()
         for field, content in checks.items():
             if sha256(content).hexdigest() != manifest[field]:
                 raise ValueError(f"Assembly robustness {field} mismatch")

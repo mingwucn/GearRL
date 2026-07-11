@@ -3,10 +3,19 @@ from pathlib import Path
 
 import pytest
 
-from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessStudy
+from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessProtocolLoader, AssemblyRobustnessStudy
 
 
 DATASET = Path("data/benchmark/frozen/compound-v1-frozen-400-r2")
+PROTOCOL = Path("data/protocols/assembly-robustness-confirmatory-v2.json")
+
+
+def test_confirmatory_protocol_is_frozen_and_resolves_pilot_saturation() -> None:
+    protocol = AssemblyRobustnessProtocolLoader().load(PROTOCOL)
+    assert protocol.sample_size == 120
+    assert protocol.draws_per_layout == 512
+    assert protocol.transverse_backlash_allowances_mm == (0.0, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02)
+    assert len(protocol.shaft_location_tolerances_mm) * len(protocol.housing_clearance_erosions_mm) * len(protocol.transverse_backlash_allowances_mm) == 56
 
 
 def test_small_joint_robustness_study_is_seeded_and_factorial(tmp_path: Path) -> None:
