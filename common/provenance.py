@@ -113,3 +113,19 @@ class RunBundleStore:
             return sha256(path.read_bytes()).hexdigest()
         except OSError:
             return None
+
+
+class EnvironmentSpecificationFingerprint:
+    """Content-address every file that defines a mixed conda/pip environment."""
+
+    def capture(self, paths: tuple[str | Path, ...]) -> dict[str, Any]:
+        records = []
+        aggregate = sha256()
+        for value in paths:
+            path = Path(value)
+            payload = path.read_bytes()
+            digest = sha256(payload).hexdigest()
+            aggregate.update(path.name.encode())
+            aggregate.update(payload)
+            records.append({"path": path.name, "sha256": digest})
+        return {"files": records, "combined_sha256": aggregate.hexdigest()}

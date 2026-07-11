@@ -17,3 +17,5 @@ dependencies:
   - matplotlib
   - pandas
   - pip
+  - pip:
+      - -r requirements-ai-pip.txt

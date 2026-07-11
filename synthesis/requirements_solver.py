@@ -5,7 +5,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from itertools import product
+import json
 from math import hypot, isclose, sqrt
+from pathlib import Path
+import subprocess
+import sys
+
 import numpy as np
 from scipy.optimize import differential_evolution
 
@@ -32,9 +37,10 @@ class SolverBudget:
     maximum_candidate_evaluations: int
     seed: int
     population_size: int = 12
+    maximum_time_s: float = 10.0
 
     def __post_init__(self) -> None:
-        if self.maximum_candidate_evaluations < 1 or self.population_size < 4:
+        if self.maximum_candidate_evaluations < 1 or self.population_size < 4 or self.maximum_time_s <= 0:
             raise ValueError("Solver evaluation and population budgets must be positive")
 
 
@@ -316,3 +322,106 @@ class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
             abs(first_radius - second_radius) - terminal_distance,
         ) / max(terminal_distance, 1.0)
         return ratio_penalty + triangle_violation
+
+
+@dataclass(frozen=True)
+class CpSatBackendResult:
+    candidates: tuple[tuple[int, int, int, int], ...]
+    search_complete: bool
+
+
+class CpSatBackend(ABC):
+    """Process-isolated integer-constraint backend contract."""
+
+    @abstractmethod
+    def candidates(self, request: dict, timeout_s: float) -> CpSatBackendResult:
+        """Return algebraically admissible tooth tuples and proof status."""
+
+
+class SubprocessCpSatBackend(CpSatBackend):
+    """Keep OR-Tools' protobuf runtime isolated from PyTorch's runtime."""
+
+    def __init__(self, worker_path: Path | None = None):
+        self._worker_path = worker_path or Path(__file__).resolve().parents[1] / "cp_sat_worker.py"
+
+    def candidates(self, request: dict, timeout_s: float) -> CpSatBackendResult:
+        completed = subprocess.run(
+            (sys.executable, str(self._worker_path)),
+            input=json.dumps(request),
+            text=True,
+            capture_output=True,
+            timeout=timeout_s + 5.0,
+            check=False,
+        )
+        if completed.returncode != 0:
+            raise RuntimeError(f"CP-SAT worker failed: {completed.stderr.strip()}")
+        payload = json.loads(completed.stdout)
+        return CpSatBackendResult(
+            tuple(tuple(int(value) for value in candidate) for candidate in payload["candidates"]),
+            bool(payload["search_complete"]),
+        )
+
+
+class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
+    """Process-isolated CP-SAT baseline with certificate admission."""
+
+    def __init__(
+        self,
+        validator: RequirementsCandidateValidator,
+        budget: SolverBudget,
+        geometry: SynthesisGeometryKernel | None = None,
+        backend: CpSatBackend | None = None,
+    ):
+        self._validator = validator
+        self._budget = budget
+        self._geometry = geometry or SynthesisGeometryKernel()
+        self._backend = backend or SubprocessCpSatBackend()
+
+    def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
+        specification = view.specification
+        space = specification.design_space
+        if space.minimum_stage_count > 3 or space.maximum_stage_count < 3 or space.maximum_compound_members < 2:
+            return RequirementsSynthesisResult(None, 0, 0, True, None)
+        terminals = {shaft.role: shaft.center for shaft in specification.prescribed_shafts}
+        terminal_distance = hypot(
+            terminals["output"].x - terminals["input"].x,
+            terminals["output"].y - terminals["input"].y,
+        )
+        constraints = specification.problem.constraints
+        evaluated = 0
+        placements_evaluated = 0
+        for module in space.allowed_modules_mm:
+            remaining = self._budget.maximum_candidate_evaluations - evaluated
+            if remaining <= 0:
+                return RequirementsSynthesisResult(None, evaluated, placements_evaluated, False, None)
+            backend_result = self._backend.candidates(
+                {
+                    "minimum_teeth": constraints.min_teeth,
+                    "maximum_teeth": constraints.max_teeth,
+                    "target_speed_ratio": constraints.target_speed_ratio,
+                    "module_mm": module,
+                    "terminal_distance_mm": terminal_distance,
+                    "maximum_candidates": remaining,
+                    "maximum_time_s": self._budget.maximum_time_s,
+                    "seed": self._budget.seed,
+                },
+                self._budget.maximum_time_s,
+            )
+            for tooth_tuple in backend_result.candidates:
+                evaluated += 1
+                input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
+                placements = self._geometry.circle_intersections(
+                    terminals["input"],
+                    module * (input_teeth + first_compound) / 2.0,
+                    terminals["output"],
+                    module * (second_compound + output_teeth) / 2.0,
+                )
+                placements_evaluated += len(placements)
+                for center in placements:
+                    train = EnumerativeCompoundSynthesizer._train(terminals, center, module, tooth_tuple)
+                    certificate = self._validator.validate(specification, train)
+                    if certificate.valid:
+                        return RequirementsSynthesisResult(train, evaluated, placements_evaluated, False, certificate)
+            if not backend_result.search_complete:
+                return RequirementsSynthesisResult(None, evaluated, placements_evaluated, False, None)
+        return RequirementsSynthesisResult(None, evaluated, placements_evaluated, True, None)

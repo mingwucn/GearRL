@@ -6,6 +6,7 @@ from .learned_policy import BranchOrderingImitationTrainer, CertifiedDemonstrati
 from .certified_environment import CertifiedBranchOrderingEnvironment
 from .learned_policy import PPOBranchRefinementTrainer
 from .requirements_solver import (
+    CpSatCompoundSynthesizer,
     EnumerativeCompoundSynthesizer,
     EvolutionaryCompoundSynthesizer,
     ProductionCandidateValidator,
@@ -22,6 +23,7 @@ __all__ = [
     "CertifiedDemonstrationCollector",
     "CertifiedSynthesisGraph",
     "CertifiedSynthesisSolver",
+    "CpSatCompoundSynthesizer",
     "EnumerativeCompoundSynthesizer",
     "EvolutionaryCompoundSynthesizer",
     "LearnedBranchOrderingPolicy",

@@ -1,0 +1,67 @@
+{
+  "environment": {
+    "combined_sha256": "40102366d42a62c24122a19192aca9ed37ea58771db316c1746dbc4a29db46a3",
+    "files": [
+      {
+        "path": "environment-ai.yml",
+        "sha256": "f891fe038b2c1e579ddf0cda259fb6ed5a15409ae5f2fa37ce7a4f9fa5572802"
+      },
+      {
+        "path": "requirements-ai-pip.txt",
+        "sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d"
+      }
+    ],
+    "ortools_version": "9.15.6755",
+    "scipy_version": "1.17.1"
+  },
+  "protocol": {
+    "maximum_candidate_evaluations": 7000,
+    "maximum_time_s": 10.0,
+    "population_size": 12,
+    "seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "runs": [
+    {
+      "method": "exact-enumerator",
+      "predictions": "exact-enumerator-seed-2026.json",
+      "seed": 2026
+    },
+    {
+      "method": "cp-sat",
+      "predictions": "cp-sat-seed-2026.json",
+      "seed": 2026
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2026.json",
+      "seed": 2026
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2027.json",
+      "seed": 2027
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2028.json",
+      "seed": 2028
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2029.json",
+      "seed": 2029
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2030.json",
+      "seed": 2030
+    }
+  ],
+  "schema_version": "requirements-comparison-v2"
+}

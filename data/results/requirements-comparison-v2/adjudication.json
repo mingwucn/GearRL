@@ -1,0 +1,154 @@
+{
+  "dataset_id": "curated-compound-50-v1",
+  "environment": {
+    "combined_sha256": "40102366d42a62c24122a19192aca9ed37ea58771db316c1746dbc4a29db46a3",
+    "files": [
+      {
+        "path": "environment-ai.yml",
+        "sha256": "f891fe038b2c1e579ddf0cda259fb6ed5a15409ae5f2fa37ce7a4f9fa5572802"
+      },
+      {
+        "path": "requirements-ai-pip.txt",
+        "sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d"
+      }
+    ],
+    "ortools_version": "9.15.6755",
+    "scipy_version": "1.17.1"
+  },
+  "methods": {
+    "cp-sat": {
+      "accuracy_median": 1.0,
+      "accuracy_min": 1.0,
+      "median_parameter_tuples_across_runs": 1.0,
+      "median_runtime_s_across_runs": 0.2369289337657392,
+      "run_count": 1
+    },
+    "differential-evolution": {
+      "accuracy_median": 1.0,
+      "accuracy_min": 1.0,
+      "median_parameter_tuples_across_runs": 1244.0,
+      "median_runtime_s_across_runs": 0.11243987083435059,
+      "run_count": 5
+    },
+    "exact-enumerator": {
+      "accuracy_median": 1.0,
+      "accuracy_min": 1.0,
+      "median_parameter_tuples_across_runs": 6561.0,
+      "median_runtime_s_across_runs": 0.0006845635361969471,
+      "run_count": 1
+    }
+  },
+  "protocol": {
+    "maximum_candidate_evaluations": 7000,
+    "maximum_time_s": 10.0,
+    "population_size": 12,
+    "seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "runs": [
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 40,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 6561.0,
+      "median_runtime_s": 0.0006845635361969471,
+      "method": "exact-enumerator",
+      "prediction_artifact_sha256": "9ac2145d6df91c7a45fed1b9e6c6456e1ce34074d652f8ab3a202cfdd2620c32",
+      "prediction_count": 50,
+      "seed": 2026
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 40,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1.0,
+      "median_runtime_s": 0.2369289337657392,
+      "method": "cp-sat",
+      "prediction_artifact_sha256": "cb7e678d2c95c0356fad228cefc295701baace9165766de4278249219bb27b37",
+      "prediction_count": 50,
+      "seed": 2026
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 0,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1304.0,
+      "median_runtime_s": 0.14080515364184976,
+      "method": "differential-evolution",
+      "prediction_artifact_sha256": "4a1eba478a81e5285e78278acb949c64e94490bb7a04a4e83a5e0d69f87f39e9",
+      "prediction_count": 50,
+      "seed": 2026
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 0,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1244.0,
+      "median_runtime_s": 0.09573406772688031,
+      "method": "differential-evolution",
+      "prediction_artifact_sha256": "f0d8577cd64c0ff8e380ca6aa014ef670e024ad8d9eb1a40609d67e29954ded6",
+      "prediction_count": 50,
+      "seed": 2027
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 0,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1242.0,
+      "median_runtime_s": 0.11243987083435059,
+      "method": "differential-evolution",
+      "prediction_artifact_sha256": "def12bc8373d338d57b59ec353dcbb85c3ace70892013e940d2e6bfcf54817c5",
+      "prediction_count": 50,
+      "seed": 2028
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 0,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1302.5,
+      "median_runtime_s": 0.1126339677721262,
+      "method": "differential-evolution",
+      "prediction_artifact_sha256": "2c6f293e1eda24f83c38d0f54598fd34dbf4ffa9948f2099630acb1600130d5b",
+      "prediction_count": 50,
+      "seed": 2029
+    },
+    {
+      "accuracy": 1.0,
+      "complete_search_count": 0,
+      "correct_count": 50,
+      "dataset_id": "curated-compound-50-v1",
+      "feasible_true_positive_count": 10,
+      "infeasible_true_negative_count": 40,
+      "median_parameter_tuples": 1221.0,
+      "median_runtime_s": 0.1067272606305778,
+      "method": "differential-evolution",
+      "prediction_artifact_sha256": "cd851a07d415b35984b79015dde0c3a5d15c49a9b9c00c64c6f9b97535901d73",
+      "prediction_count": 50,
+      "seed": 2030
+    }
+  ],
+  "schema_version": "requirements-comparison-adjudication-v2"
+}

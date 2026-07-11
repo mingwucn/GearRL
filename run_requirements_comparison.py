@@ -8,6 +8,7 @@ from pathlib import Path
 from benchmark import SolverInputDirectoryLoader
 from evaluation.requirements_comparison import (
     BlindRequirementsComparisonRunner,
+    CpSatSolverFactory,
     DifferentialEvolutionFactory,
     ExactEnumeratorFactory,
     RequirementsComparisonProtocol,
@@ -22,7 +23,7 @@ class RequirementsComparisonCommand:
         arguments = parser.parse_args()
         views = SolverInputDirectoryLoader().load(arguments.solver_inputs)
         runner = BlindRequirementsComparisonRunner(
-            (ExactEnumeratorFactory(), DifferentialEvolutionFactory()),
+            (ExactEnumeratorFactory(), CpSatSolverFactory(), DifferentialEvolutionFactory()),
             RequirementsComparisonProtocol(),
         )
         print(runner.run(views, arguments.output))

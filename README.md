@@ -53,8 +53,8 @@ conda run -n ai python run_blind_adjudication.py \
   data/results/curated-blind-v1/adjudication.json
 ```
 
-Run the frozen 7,000-candidate exact-versus-differential-evolution comparison
-blindly, then adjudicate its sealed runs:
+Run the frozen 7,000-candidate exact, CP-SAT, and differential-evolution
+comparison blindly, then adjudicate its sealed runs:
 
 ```bash
 conda run -n ai python run_requirements_comparison.py \
@@ -66,9 +66,10 @@ conda run -n ai python run_requirements_comparison_adjudication.py \
   data/results/requirements-comparison-v1/adjudication.json
 ```
 
-Both methods classify the curated set correctly, but only exact enumeration
-proves bounded negative cases. Differential evolution is an incomplete
-stochastic comparator and is reported as such.
+OR-Tools CP-SAT runs in a dedicated subprocess because its protobuf runtime is
+not binary-compatible with the PyTorch runtime in one process. Exact enumeration
+and CP-SAT can prove bounded negative cases. Differential evolution is an
+incomplete stochastic comparator and is reported as such.
 
 Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):

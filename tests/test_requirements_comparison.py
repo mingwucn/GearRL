@@ -1,6 +1,9 @@
+import json
+
 from benchmark import CuratedBenchmarkLoader, SolverInputDirectoryLoader
 from evaluation.requirements_comparison import (
     BlindRequirementsComparisonRunner,
+    CpSatSolverFactory,
     DifferentialEvolutionFactory,
     ExactEnumeratorFactory,
     RequirementsComparisonAdjudicator,
@@ -17,12 +20,16 @@ def test_comparison_uses_frozen_equal_candidate_budgets(tmp_path) -> None:
     root = tmp_path / "comparison"
 
     BlindRequirementsComparisonRunner(
-        (ExactEnumeratorFactory(), DifferentialEvolutionFactory()), protocol
+        (ExactEnumeratorFactory(), CpSatSolverFactory(), DifferentialEvolutionFactory()), protocol
     ).run(views, root)
 
     assert (root / "exact-enumerator-seed-11.json").exists()
+    assert (root / "cp-sat-seed-11.json").exists()
     assert (root / "differential-evolution-seed-11.json").exists()
     assert (root / "differential-evolution-seed-12.json").exists()
+    manifest = json.loads((root / "manifest.json").read_text())
+    assert manifest["environment"]["ortools_version"] == "9.15.6755"
+    assert len(manifest["environment"]["combined_sha256"]) == 64
 
 
 def test_comparison_adjudicator_summarizes_complete_dataset(tmp_path) -> None:
@@ -30,11 +37,12 @@ def test_comparison_adjudicator_summarizes_complete_dataset(tmp_path) -> None:
     protocol = RequirementsComparisonProtocol(7000, 8, (2026,))
     root = tmp_path / "comparison"
     BlindRequirementsComparisonRunner(
-        (ExactEnumeratorFactory(), DifferentialEvolutionFactory()), protocol
+        (ExactEnumeratorFactory(), CpSatSolverFactory(), DifferentialEvolutionFactory()), protocol
     ).run(views, root)
 
     report = RequirementsComparisonAdjudicator().adjudicate(CuratedBenchmarkLoader().load(DATASET), root)
 
     assert report["methods"]["exact-enumerator"]["accuracy_min"] == 1.0
     assert report["methods"]["exact-enumerator"]["run_count"] == 1
+    assert report["methods"]["cp-sat"]["accuracy_min"] == 1.0
     assert report["methods"]["differential-evolution"]["run_count"] == 1

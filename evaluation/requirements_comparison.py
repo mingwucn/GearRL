@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from importlib.metadata import version
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
@@ -12,12 +13,14 @@ from benchmark.curated import FrozenCuratedDataset
 from benchmark.specification import SolverBenchmarkView
 from evaluation.blind_synthesis import BlindAdjudicator, BlindPredictionStore, BlindSynthesisExperiment
 from synthesis.requirements_solver import (
+    CpSatCompoundSynthesizer,
     EnumerativeCompoundSynthesizer,
     EvolutionaryCompoundSynthesizer,
     ProductionCandidateValidator,
     RequirementsFirstSynthesisSolver,
     SolverBudget,
 )
+from common.provenance import EnvironmentSpecificationFingerprint
 
 
 class RequirementsSolverFactory(ABC):
@@ -51,14 +54,24 @@ class DifferentialEvolutionFactory(RequirementsSolverFactory):
         return EvolutionaryCompoundSynthesizer(ProductionCandidateValidator(), budget)
 
 
+class CpSatSolverFactory(RequirementsSolverFactory):
+    @property
+    def name(self) -> str:
+        return "cp-sat"
+
+    def create(self, seed: int, budget: SolverBudget) -> RequirementsFirstSynthesisSolver:
+        return CpSatCompoundSynthesizer(ProductionCandidateValidator(), budget)
+
+
 @dataclass(frozen=True)
 class RequirementsComparisonProtocol:
     maximum_candidate_evaluations: int = 7000
     population_size: int = 12
     seeds: tuple[int, ...] = (2026, 2027, 2028, 2029, 2030)
+    maximum_time_s: float = 10.0
 
     def __post_init__(self) -> None:
-        if self.maximum_candidate_evaluations < 1 or self.population_size < 4 or not self.seeds:
+        if self.maximum_candidate_evaluations < 1 or self.population_size < 4 or not self.seeds or self.maximum_time_s <= 0:
             raise ValueError("Comparison protocol requires positive budgets and seeds")
         if len(set(self.seeds)) != len(self.seeds):
             raise ValueError("Comparison seeds must be unique")
@@ -68,6 +81,7 @@ class RequirementsComparisonProtocol:
             "maximum_candidate_evaluations": self.maximum_candidate_evaluations,
             "population_size": self.population_size,
             "seeds": list(self.seeds),
+            "maximum_time_s": self.maximum_time_s,
         }
 
 
@@ -93,14 +107,20 @@ class BlindRequirementsComparisonRunner:
                     self._protocol.maximum_candidate_evaluations,
                     seed,
                     self._protocol.population_size,
+                    self._protocol.maximum_time_s,
                 )
                 predictions = BlindSynthesisExperiment(factory.create(seed, budget)).run(views)
                 filename = f"{factory.name}-seed-{seed}.json"
                 BlindPredictionStore().write(predictions, root / filename)
                 records.append({"method": factory.name, "seed": seed, "predictions": filename})
         manifest = {
-            "schema_version": "requirements-comparison-v1",
+            "schema_version": "requirements-comparison-v2",
             "protocol": self._protocol.to_json(),
+            "environment": {
+                **EnvironmentSpecificationFingerprint().capture(("environment-ai.yml", "requirements-ai-pip.txt")),
+                "ortools_version": version("ortools"),
+                "scipy_version": version("scipy"),
+            },
             "runs": records,
         }
         manifest_path = root / "manifest.json"
@@ -140,9 +160,10 @@ class RequirementsComparisonAdjudicator:
                 "median_parameter_tuples_across_runs": median(result["median_parameter_tuples"] for result in selected),
             }
         return {
-            "schema_version": "requirements-comparison-adjudication-v1",
+            "schema_version": "requirements-comparison-adjudication-v2",
             "dataset_id": dataset.dataset_id,
             "protocol": manifest["protocol"],
+            "environment": manifest["environment"],
             "runs": results,
             "methods": by_method,
         }
