@@ -54,6 +54,11 @@ class CertifiedSynthesisGraph:
     def candidates(self, stage_id: str, visited: set[str]) -> tuple[MeshEdge, ...]:
         return tuple(edge for edge in self._outgoing.get(stage_id, []) if edge.driven_stage_id not in visited)
 
+    def certify_path(self, path: list[MeshEdge]) -> dict:
+        """Return an independent certificate for one complete directed path."""
+        train = self._train_from_path(path)
+        return ReferenceVerifier.verify_with_cae(self.problem, train).to_json()
+
     def solve_greedy(self, max_stages: int = 6) -> SynthesisResult | None:
         """Follow the first available branch and certify only its terminal train."""
         return self._solve_ordered(max_stages, lambda edges: edges)

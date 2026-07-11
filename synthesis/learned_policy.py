@@ -121,3 +121,46 @@ class BranchOrderingImitationTrainer:
             self._optimizer.step()
             final_loss = float(loss.item())
         return final_loss
+
+
+class PPOBranchRefinementTrainer:
+    """Clipped policy-gradient refinement constrained by certified masks."""
+
+    def __init__(self, policy: LearnedBranchOrderingPolicy, learning_rate: float = 3e-4, clip_epsilon: float = 0.2, gamma: float = 0.99):
+        self._policy = policy
+        self._optimizer = torch.optim.Adam(policy.network.parameters(), lr=learning_rate)
+        self._clip_epsilon = clip_epsilon
+        self._gamma = gamma
+
+    def refine_episode(self, environment) -> float:
+        state = environment.reset()
+        transitions: list[tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, float]] = []
+        while not state.terminal:
+            features = torch.as_tensor(state.features, device=self._policy._device).unsqueeze(0)
+            mask = torch.as_tensor(state.action_mask, device=self._policy._device)
+            logits = self._policy.network(features).squeeze(0).masked_fill(~mask, float("-inf"))
+            distribution = torch.distributions.Categorical(logits=logits)
+            action = distribution.sample()
+            transitions.append((features, mask, action.detach(), distribution.log_prob(action).detach(), state.reward))
+            state = environment.step(int(action.item()))
+        returns = self._returns([reward for *_, reward in transitions] + [state.reward])
+        loss = torch.tensor(0.0, device=self._policy._device)
+        for (features, mask, action, old_log_prob, _), target in zip(transitions, returns):
+            logits = self._policy.network(features).squeeze(0).masked_fill(~mask, float("-inf"))
+            distribution = torch.distributions.Categorical(logits=logits)
+            action_log_prob = distribution.log_prob(action)
+            ratio = torch.exp(action_log_prob - old_log_prob)
+            advantage = torch.as_tensor(target, device=self._policy._device)
+            loss = loss - torch.minimum(ratio * advantage, torch.clamp(ratio, 1 - self._clip_epsilon, 1 + self._clip_epsilon) * advantage)
+        self._optimizer.zero_grad()
+        loss.backward()
+        self._optimizer.step()
+        return float(loss.item())
+
+    def _returns(self, rewards: list[float]) -> list[float]:
+        result: list[float] = []
+        total = 0.0
+        for reward in reversed(rewards):
+            total = reward + self._gamma * total
+            result.insert(0, total)
+        return result
