@@ -13,6 +13,7 @@ from common.design_models import MaterialLoadCase
 from common.provenance import RunBundleStore
 from evaluation.environmental_robustness import EnvironmentalRobustnessEvaluator
 from synthesis.certified_graph import CertifiedSynthesisGraph
+from cae.qualification import StaticStrengthAdmissionPolicy
 
 
 @dataclass(frozen=True)
@@ -57,6 +58,7 @@ class FrozenEnvironmentalRobustnessRunner:
             "housing_valid_rate": {str(value): housing_counts[value] / len(selected) for value in config.housing_erosions_mm},
             "load_valid_rate": {str(value): load_counts[value] / len(selected) for value in config.load_multipliers},
             "minimum_safety_factor_by_load": {str(value): min(load_safety[value]) for value in config.load_multipliers},
+            "load_admission_qualified": StaticStrengthAdmissionPolicy().qualification().qualified,
         }
         (bundle / "environmental_summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
         return bundle

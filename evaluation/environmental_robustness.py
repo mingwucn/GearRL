@@ -23,6 +23,7 @@ class LoadRobustnessOutcome:
     load_multiplier: float
     valid: bool
     minimum_safety_factor: float | None
+    issue_codes: tuple[str, ...]
 
 
 class EnvironmentalRobustnessEvaluator:
@@ -47,5 +48,11 @@ class EnvironmentalRobustnessEvaluator:
             constraints = replace(instance.problem.constraints, min_safety_factor=minimum_safety_factor)
             certificate = ReferenceVerifier.verify_with_cae(replace(instance.problem, constraints=constraints, load_case=load), train)
             safety = [float(report["safety_factor"]) for report in certificate.cae_reports]
-            outcomes.append(LoadRobustnessOutcome(instance.instance_id, multiplier, certificate.valid, min(safety) if safety else None))
+            outcomes.append(LoadRobustnessOutcome(
+                instance.instance_id,
+                multiplier,
+                certificate.valid,
+                min(safety) if safety else None,
+                tuple(sorted({issue.code for issue in certificate.issues})),
+            ))
         return outcomes

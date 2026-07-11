@@ -19,27 +19,23 @@ def test_strength_requirement_is_visible_in_solver_problem() -> None:
     assert requirements.load_case.allowable_stress_mpa == pytest.approx(355.0 / 1.5)
 
 
-def test_paired_study_reports_conditional_retention_and_rejection(tmp_path) -> None:
+def test_paired_study_refuses_unqualified_strength_admission(tmp_path) -> None:
     root = tmp_path / "coupled"
-    path = StrengthCoupledStudyCommand().run(DATASET, root, StrengthCoupledStudyConfig())
-    manifest, summary, records = StrengthCoupledEvidenceStore().load(root)
-    assert path == root / "manifest.json"
-    assert summary == {
-        "case_count": 10,
-        "retained_count": 7,
-        "redesigned_count": 0,
-        "rejected_count": 3,
-        "baseline_strength_admissible_count": 7,
-    }
-    assert "static tooth-root admission" in manifest["scope"]
-    assert all(record["strength_search_complete"] for record in records if record["classification"] == "rejected")
-    assert all(record["strength_minimum_safety_factor"] >= 2.3 for record in records if record["strength_train"])
+    with pytest.raises(RuntimeError, match="Strength-coupled synthesis is disabled.*cae-refinement-audit-v1"):
+        StrengthCoupledStudyCommand().run(DATASET, root, StrengthCoupledStudyConfig())
 
 
 def test_strength_evidence_rejects_tampering(tmp_path) -> None:
-    root = tmp_path / "coupled"
-    StrengthCoupledStudyCommand().run(DATASET, root, StrengthCoupledStudyConfig())
+    root = Path("data/results/strength-coupled-v1")
     record = next((root / "records").glob("*.json"))
-    record.write_text(record.read_text() + " ")
+    temporary = tmp_path / "coupled"
+    temporary.mkdir()
+    (temporary / "manifest.json").write_bytes((root / "manifest.json").read_bytes())
+    (temporary / "summary.json").write_bytes((root / "summary.json").read_bytes())
+    (temporary / "records").mkdir()
+    for source in (root / "records").glob("*.json"):
+        (temporary / "records" / source.name).write_bytes(source.read_bytes())
+    target = temporary / "records" / record.name
+    target.write_text(target.read_text() + " ")
     with pytest.raises(ValueError, match="record hash mismatch"):
-        StrengthCoupledEvidenceStore().load(root)
+        StrengthCoupledEvidenceStore().load(temporary)

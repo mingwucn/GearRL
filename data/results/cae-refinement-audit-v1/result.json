@@ -1,0 +1,17 @@
+{
+  "schema_version": "cae-refinement-audit-v1",
+  "model_version": "involute-tooth-root-plane-stress-v3",
+  "case": {
+    "module_mm": 2.0,
+    "teeth": 24,
+    "face_width_mm": 10.0,
+    "torque_nm": 5.0
+  },
+  "mesh_divisions": [[8, 12], [12, 18], [16, 24], [24, 36], [32, 48]],
+  "element_counts": [240, 528, 960, 2160, 3840],
+  "maximum_stresses_mpa": [92.35385928799671, 112.51967041910288, 121.45285509517261, 138.999393018947, 161.56132778270427],
+  "relative_changes": [0.17922031815410067, 0.07355269391624863, 0.1262346370201963, 0.1396493521896681],
+  "declared_convergence_limit": 0.05,
+  "gate_passed": false,
+  "decision": "The model may produce exploratory screening reports but is not qualified for strength-based candidate admission."
+}

@@ -14,11 +14,12 @@ def test_runner_writes_raw_cae_outcomes_and_derived_summary(tmp_path) -> None:
     summary = json.loads((bundle / "cae_summary.json").read_text())
     records = [json.loads(path.read_text()) for path in (bundle / "results").glob("*.json")]
     assert summary["observations"] == 8
-    assert summary["valid_count"] == 8
+    assert summary["valid_count"] == 0
     assert summary["minimum_safety_factor"] > 1.0
     assert len(records) == 8
     assert all(record["report_count"] > 0 for record in records)
     assert all(record["reports"] for record in records)
+    assert all("cae_not_admission_qualified" in record["issue_codes"] for record in records)
     assert all(report["model_version"] == "involute-tooth-root-plane-stress-v3" for record in records for report in record["reports"])
 
 

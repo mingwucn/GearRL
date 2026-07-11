@@ -7,6 +7,7 @@ from dataclasses import dataclass, replace
 from benchmark.specification import SolverBenchmarkView
 from common.design_models import MaterialLoadCase
 from synthesis.requirements_solver import RequirementsCandidateValidator, RequirementsFirstSynthesisSolver
+from cae.qualification import StaticStrengthAdmissionPolicy
 
 
 @dataclass(frozen=True)
@@ -61,6 +62,9 @@ class StrengthCoupledSynthesisStudy:
         self._requirements = requirements
 
     def evaluate(self, views: tuple[SolverBenchmarkView, ...]) -> tuple[StrengthCoupledOutcome, ...]:
+        qualification = StaticStrengthAdmissionPolicy().qualification()
+        if not qualification.qualified:
+            raise RuntimeError(f"Strength-coupled synthesis is disabled: {qualification.reason} ({qualification.evidence_id})")
         outcomes = []
         for view in views:
             baseline = self._solver.solve(view)

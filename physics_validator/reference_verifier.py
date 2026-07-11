@@ -18,6 +18,7 @@ from common.design_models import (
     ValidationIssue,
 )
 from physics_validator.contact_loads import MeshContactLoadResolver
+from cae.qualification import StaticStrengthAdmissionPolicy
 
 
 class ReferenceVerifier:
@@ -96,6 +97,12 @@ class ReferenceVerifier:
                         )
                     )
         certificate.cae_reports = reports
+        qualification = StaticStrengthAdmissionPolicy().qualification()
+        if not qualification.qualified:
+            certificate.issues.append(ValidationIssue(
+                "cae_not_admission_qualified",
+                f"Static screening model is not qualified for admission ({qualification.evidence_id})",
+            ))
         certificate.valid = not certificate.issues
         return certificate
 

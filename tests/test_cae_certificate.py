@@ -36,8 +36,9 @@ def _train() -> GearTrain:
 
 def test_cae_certificate_includes_member_reports() -> None:
     certificate = ReferenceVerifier.verify_with_cae(_problem(0.01), _train())
-    assert certificate.valid
+    assert not certificate.valid
     assert len(certificate.cae_reports) == 2
+    assert any(issue.code == "cae_not_admission_qualified" for issue in certificate.issues)
 
 
 def test_cae_certificate_rejects_excessive_safety_requirement() -> None:
@@ -68,7 +69,8 @@ def test_per_mesh_efficiency_preserves_action_reaction_contact_force() -> None:
     for report in certificate.cae_reports:
         by_member[(report["stage_id"], report["member"])] = report
 
-    assert certificate.valid
+    assert not certificate.valid
+    assert any(issue.code == "cae_not_admission_qualified" for issue in certificate.issues)
     assert by_member[("input", 0)]["cumulative_mesh_efficiency"] == 1.0
     assert by_member[("compound", 0)]["cumulative_mesh_efficiency"] == 1.0
     assert by_member[("compound", 1)]["cumulative_mesh_efficiency"] == 0.8

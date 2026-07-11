@@ -16,6 +16,7 @@ class CAEStudyOutcome:
     minimum_safety_factor: float | None
     report_count: int
     reports: tuple[dict, ...] = ()
+    issue_codes: tuple[str, ...] = ()
 
 
 class StratifiedCAEStudy:
@@ -42,6 +43,7 @@ class StratifiedCAEStudy:
                     min(safety) if safety else None,
                     len(safety),
                     tuple(certificate.cae_reports),
+                    tuple(sorted({issue.code for issue in certificate.issues})),
                 )
             )
         return outcomes
