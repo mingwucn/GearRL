@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -25,6 +25,15 @@ class PlanetaryBaselineProtocol:
     population_multiplier: int
     maximum_iterations: int
     objective_acceptance_threshold: float
+
+    def to_json(self) -> dict:
+        return {
+            "study_id": self.study_id,
+            "seeds": list(self.seeds),
+            "population_multiplier": self.population_multiplier,
+            "maximum_iterations": self.maximum_iterations,
+            "objective_acceptance_threshold": self.objective_acceptance_threshold,
+        }
 
 
 class PlanetaryBaselineProtocolLoader:
@@ -88,6 +97,17 @@ class PlanetaryBaselineResult:
             "optimizer_message": self.optimizer_message,
         }
 
+    @classmethod
+    def from_json(cls, payload: dict) -> "PlanetaryBaselineResult":
+        return cls(
+            seed=int(payload["seed"]),
+            candidate=PlanetaryGearCandidate.from_json(payload["candidate"]),
+            evaluation=PlanetaryGearEvaluation.from_json(payload["evaluation"]),
+            objective_calls=int(payload["objective_calls"]),
+            optimizer_success=bool(payload["optimizer_success"]),
+            optimizer_message=str(payload["optimizer_message"]),
+        )
+
 
 class PlanetaryDifferentialEvolutionBaseline:
     def __init__(self) -> None:
@@ -139,7 +159,7 @@ class PlanetaryBaselineEvidenceStore:
         payload = {
             "schema_version": "planetary-baseline-summary-v1",
             "study_id": protocol.study_id,
-            "protocol": asdict(protocol),
+            "protocol": protocol.to_json(),
             "source_case": PublishedPlanetaryGearBrief().to_json(),
             "results": [result.to_json() for result in results],
             "valid_run_count": sum(result.evaluation.valid for result in results),
@@ -167,3 +187,46 @@ class PlanetaryBaselineEvidenceStore:
         if sha256(source.read_bytes()).hexdigest() != manifest["protocol_sha256"]:
             raise ValueError("Planetary baseline protocol hash mismatch")
         return manifest
+
+
+class PlanetaryBaselineBatchMerger:
+    """Combine independently computed batches only after complete verification."""
+
+    def __init__(self, evidence_store: PlanetaryBaselineEvidenceStore | None = None) -> None:
+        self._evidence_store = evidence_store or PlanetaryBaselineEvidenceStore()
+
+    def merge(
+        self,
+        protocol: PlanetaryBaselineProtocol,
+        batch_directories: tuple[Path, ...],
+        protocol_source: Path,
+        destination: Path,
+    ) -> Path:
+        results: dict[int, PlanetaryBaselineResult] = {}
+        expected_protocol = protocol.to_json()
+        expected_case = json.loads(json.dumps(PublishedPlanetaryGearBrief().to_json()))
+        for directory in batch_directories:
+            self._evidence_store.verify(directory)
+            payload = json.loads((directory / "summary.json").read_text())
+            if payload.get("schema_version") != "planetary-baseline-summary-v1":
+                raise ValueError("Unsupported planetary batch summary")
+            if payload.get("study_id") != protocol.study_id or payload.get("protocol") != expected_protocol:
+                raise ValueError("Planetary batch protocol mismatch")
+            if payload.get("source_case") != expected_case:
+                raise ValueError("Planetary batch source case mismatch")
+            if payload.get("conversion_status") != "pending-independent-review":
+                raise ValueError("Planetary batch conversion status is not pending review")
+            for result_payload in payload["results"]:
+                result = PlanetaryBaselineResult.from_json(result_payload)
+                if result.seed in results:
+                    raise ValueError(f"Duplicate planetary baseline seed: {result.seed}")
+                results[result.seed] = result
+
+        expected_seeds = set(protocol.seeds)
+        actual_seeds = set(results)
+        if actual_seeds != expected_seeds:
+            missing = sorted(expected_seeds - actual_seeds)
+            unexpected = sorted(actual_seeds - expected_seeds)
+            raise ValueError(f"Planetary batch seed coverage mismatch; missing={missing}, unexpected={unexpected}")
+        ordered = tuple(results[seed] for seed in protocol.seeds)
+        return self._evidence_store.write(protocol, ordered, protocol_source, destination)

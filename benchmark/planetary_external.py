@@ -42,7 +42,6 @@ class PublishedPlanetaryGearBrief:
     def to_json(self) -> dict:
         return asdict(self)
 
-
 @dataclass(frozen=True)
 class PlanetaryGearCandidate:
     z1: int
@@ -62,6 +61,16 @@ class PlanetaryGearCandidate:
     def to_json(self) -> dict:
         return asdict(self)
 
+    @classmethod
+    def from_json(cls, payload: dict) -> "PlanetaryGearCandidate":
+        return cls(
+            z1=int(payload["z1"]), z2=int(payload["z2"]), z3=int(payload["z3"]),
+            z4=int(payload["z4"]), z5=int(payload["z5"]), z6=int(payload["z6"]),
+            planet_count=int(payload["planet_count"]),
+            module_1_mm=float(payload["module_1_mm"]),
+            module_2_mm=float(payload["module_2_mm"]),
+        )
+
 
 @dataclass(frozen=True)
 class PlanetaryGearEvaluation:
@@ -74,6 +83,17 @@ class PlanetaryGearEvaluation:
 
     def to_json(self) -> dict:
         return asdict(self)
+
+    @classmethod
+    def from_json(cls, payload: dict) -> "PlanetaryGearEvaluation":
+        return cls(
+            objective=float(payload["objective"]),
+            ratios=tuple(map(float, payload["ratios"])),
+            inequality_values=tuple(map(float, payload["inequality_values"])),
+            assembly_remainder=int(payload["assembly_remainder"]),
+            valid=bool(payload["valid"]),
+            issue_codes=tuple(map(str, payload["issue_codes"])),
+        )
 
 
 class PublishedPlanetaryGearEvaluator:
