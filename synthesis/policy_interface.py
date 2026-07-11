@@ -20,11 +20,7 @@ class CertifiedActionSpace:
             raise ValueError("max_actions must be positive")
 
     def candidates(self, stage_id: str, visited: set[str]) -> tuple[MeshEdge, ...]:
-        edges = tuple(
-            edge
-            for edge in self.graph._outgoing.get(stage_id, [])
-            if edge.driven_stage_id not in visited
-        )
+        edges = self.graph.candidates(stage_id, visited)
         if len(edges) > self.max_actions:
             raise ValueError("Candidate graph exceeds configured action capacity")
         return edges

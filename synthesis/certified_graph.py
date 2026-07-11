@@ -44,6 +44,16 @@ class CertifiedSynthesisGraph:
         self._search(self.problem.input_stage_id, [], {self.problem.input_stage_id}, max_stages, results)
         return min(results, key=lambda result: result.score) if results else None
 
+    @property
+    def stages(self) -> tuple[GearStage, ...]:
+        return tuple(self._stages.values())
+
+    def stage(self, stage_id: str) -> GearStage:
+        return self._stages[stage_id]
+
+    def candidates(self, stage_id: str, visited: set[str]) -> tuple[MeshEdge, ...]:
+        return tuple(edge for edge in self._outgoing.get(stage_id, []) if edge.driven_stage_id not in visited)
+
     def solve_greedy(self, max_stages: int = 6) -> SynthesisResult | None:
         """Follow the first available branch and certify only its terminal train."""
         return self._solve_ordered(max_stages, lambda edges: edges)
