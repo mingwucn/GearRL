@@ -1,0 +1,140 @@
+{
+  "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; independent conversion review and external release actions cannot be self-attested.",
+  "blocking_requirements": [
+    "planetary-conversion-review",
+    "author-and-archival-metadata"
+  ],
+  "findings": [
+    {
+      "description": "Fifty solver-hidden requirements cases have hash-valid, physically separated evaluator evidence.",
+      "evidence_path": "data/benchmark/curated/requirements-first-50-v1/index.json",
+      "evidence_sha256": "ce79afc76573134eacbfc4bffe4b5b9e49c0dddc0b72609938596ba9a640589c",
+      "observed": {
+        "declared": 50,
+        "hash_valid": 50,
+        "separated": true
+      },
+      "requirement_id": "blind-requirements-benchmark",
+      "status": "passed"
+    },
+    {
+      "description": "The predeclared 400-instance regression benchmark is complete and hash-valid.",
+      "evidence_path": "data/benchmark/frozen/compound-v1-frozen-400-r2/index.json",
+      "evidence_sha256": "dc48753d3366f7775293486110f28ca136a3b31b03aafa5b869567e8117e537c",
+      "observed": {
+        "declared": 400,
+        "hash_valid": 400
+      },
+      "requirement_id": "frozen-400-benchmark",
+      "status": "partial"
+    },
+    {
+      "description": "Extended representative mesh refinement fails the structural admission gate and is reported as negative qualification evidence.",
+      "evidence_path": "data/results/cae-refinement-audit-v1/result.json",
+      "evidence_sha256": "c2e5e6100672d6423a116e7b768826553f002c53d378900eb9c2bd03981839db",
+      "observed": false,
+      "requirement_id": "cae-fail-closed",
+      "status": "partial"
+    },
+    {
+      "description": "The solver scaling study retains all 2,048 raw observations.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+      "observed": 2048,
+      "requirement_id": "solver-scaling-observations",
+      "status": "passed"
+    },
+    {
+      "description": "The stochastic scaling comparator uses the predeclared 30 independent seeds.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+      "observed": 30,
+      "requirement_id": "stochastic-30-seed-protocol",
+      "status": "passed"
+    },
+    {
+      "description": "The executable-knowledge ablation reports all three preregistered representation adapters.",
+      "evidence_path": "data/results/aei-knowledge-ablation-v1/summary.json",
+      "evidence_sha256": "31e71b4f722da882a67f9aa1f0c5a5c929c99c11a2a1ea7fcca5c111f42c8b46",
+      "observed": 3,
+      "requirement_id": "knowledge-representation-ablation",
+      "status": "passed"
+    },
+    {
+      "description": "The preregistered confirmatory assembly study retains all 7,864,320 draw-level outcomes.",
+      "evidence_path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+      "evidence_sha256": "0fc2b305fe8df7c0864d3755ed50f7d357624a4eac21db2c37c6f80a4a878494",
+      "observed": 7864320,
+      "requirement_id": "confirmatory-assembly-robustness",
+      "status": "passed"
+    },
+    {
+      "description": "The published planetary conversion remains pending independent review and cannot yet support external-validity claims.",
+      "evidence_path": "data/results/planetary-baseline-v1/summary.json",
+      "evidence_sha256": "ee55d053334053e4a789348638f78da733c796a2975a8c1af74240a1069dcfce",
+      "observed": "pending-independent-review",
+      "requirement_id": "planetary-conversion-review",
+      "status": "external_pending"
+    },
+    {
+      "description": "Every reported table and vector figure is registered against immutable sources.",
+      "evidence_path": "paper/generated-v2/registry.json",
+      "evidence_sha256": "fd63cdb8c90cfd1effe21e7fb4aa56d4ed7c01165708c40c69748166118afcc3",
+      "observed": {
+        "figures": 3,
+        "tables": 6
+      },
+      "requirement_id": "publication-registry",
+      "status": "passed"
+    },
+    {
+      "description": "The bounded contribution is positioned against ten DOI-backed closest methods.",
+      "evidence_path": "literature/aei_closest_methods.json",
+      "evidence_sha256": "c02268476af06f32987813f317c4798e24e8a8f0c84abd24b2c48e3ab1c27c1a",
+      "observed": 10,
+      "requirement_id": "closest-method-audit",
+      "status": "passed"
+    },
+    {
+      "description": "The revised manuscript contains the mandatory modeled-validity boundary.",
+      "evidence_path": "paper/manuscript-v2/GearRL_AEI_MANUSCRIPT.md",
+      "evidence_sha256": "aed50ab6246d1efc4f7d9d1cb1a100474c3de8b77e3c6db3bf56a5546b970475",
+      "observed": true,
+      "requirement_id": "bounded-manuscript-claim",
+      "status": "passed"
+    },
+    {
+      "description": "A platform-specific explicit dependency lock is committed.",
+      "evidence_path": "environment-ai.lock",
+      "evidence_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+      "observed": true,
+      "requirement_id": "dependency-lock",
+      "status": "passed"
+    },
+    {
+      "description": "A detached committed source tree passes the full v2 paper and v3 evidence verification set in an independently created locked prefix.",
+      "evidence_path": "data/results/clean-environment-v2/report.json",
+      "evidence_sha256": "9a6f42d1b5216f7df45a537840436c1e3d86610229be2b42b718f5b56b7eec60",
+      "observed": true,
+      "requirement_id": "locked-clean-environment-attestation",
+      "status": "passed"
+    },
+    {
+      "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
+      "evidence_path": "paper/aei-submission-v2/validation.json",
+      "evidence_sha256": "81b1ec962b7d9ccbb4a1ce0b31a6857761679ef0cf718d977ffc08f4a8b50b0a",
+      "observed": false,
+      "requirement_id": "author-and-archival-metadata",
+      "status": "external_pending"
+    }
+  ],
+  "ready_to_submit": false,
+  "schema_version": "aei-submission-readiness-report-v1",
+  "status_counts": {
+    "external_pending": 2,
+    "failed": 0,
+    "partial": 2,
+    "passed": 10
+  },
+  "target": "Advanced Engineering Informatics"
+}

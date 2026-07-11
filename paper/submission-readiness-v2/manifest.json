@@ -1,0 +1,6 @@
+{
+  "report_sha256": "57e444394c17ac61530fa615fcd292ae0d918cf7dd01c4e0583345e3ac8939ec",
+  "schema_version": "aei-submission-readiness-artifact-v1",
+  "source": "paper/submission_readiness_source.json",
+  "source_sha256": "59eea77967b6e343541df78439766e3e1590b58f776670c28d9e32b5a3eca44d"
+}
