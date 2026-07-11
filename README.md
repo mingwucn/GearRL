@@ -40,7 +40,9 @@ The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 The DOI-backed closest-method matrix and bounded contribution claim register are
 generated from `literature/aei_closest_methods.json` into
 `paper/literature-v1`. They are verified by `make paper-verify` alongside the
-numerical publication artifacts.
+numerical publication artifacts. The claim-guarded AEI manuscript draft is
+frozen at `paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
+draft to the literature matrix, manuscript source, and publication registry.
 
 The requirements-first curated benchmark is frozen at
 `data/benchmark/curated/requirements-first-50-v1`. Its 50 explicit briefs keep
@@ -127,8 +129,9 @@ conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 
 conda run -n ai pytest -q
 ```
 
-Regenerate every committed manuscript table in a temporary directory and require
-byte identity with the hash-bound publication registry:
+Regenerate every committed manuscript table and figure plus the literature
+matrix and assembled manuscript in temporary directories, then require byte
+identity with their hash-bound registries:
 
 ```bash
 conda run -n ai make paper-verify

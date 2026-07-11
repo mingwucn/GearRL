@@ -8,9 +8,11 @@ The publication target is *Advanced Engineering Informatics* (AEI). This is a fu
 
 The AEI submission is therefore the primary path. RCIM-style manufacturing claims and physical-validation gates are outside the submitted contribution and remain future work.
 
-The research claim is:
+The primary research claim is:
 
-> A manufacturing-aware certified synthesis graph generates valid compound spur-gear layouts under explicit geometric, kinematic, component, and CAE-derived strength constraints, and learning-guided search reduces design time on unseen enclosure families without weakening validity.
+> An object-oriented executable engineering-knowledge model supports requirements-first synthesis of bounded compound spur-gear layouts with independently checkable positive certificates and complete negative proofs, while declared static tooth-root constraints alter admitted designs and modeled feasibility.
+
+Learning is excluded from the primary claim. The existing policy experiments rank paths in constructed reference graphs and do not establish a requirements-first speed or valid-within-budget advantage. Learning may return only after a separately frozen 30-seed requirements-first gate passes; otherwise it remains future work.
 
 ## Scope and Claim Boundaries
 
@@ -165,7 +167,7 @@ Generate paper figures and tables only from immutable experiment bundles. Quaran
 | Correctness | Weeks 5-12 | Generator, validator, and reference verifier agree on 50 curated cases |
 | CAE | Weeks 8-20 | Patch, analytical, and convergence verification complete |
 | Benchmark and baselines | Weeks 13-24 | Frozen 400-instance benchmark and deterministic comparison suite |
-| Certified synthesis graph | Weeks 22-34 | Deterministic solver and constrained learned branch ordering complete |
+| Certified synthesis graph | Weeks 22-34 | Deterministic solver complete; learned branch ordering separately gated |
 | Evaluation and submission | Weeks 34-48 | Preregistered results, artifact release, and venue decision completed |
 
 ## Submission Acceptance Criteria
@@ -214,9 +216,15 @@ This ablation establishes coupling only for the declared static tooth-root model
 
 ### Implemented publication artifact registry
 
-`PublicationArtifactRegistry` generates four deterministic evidence-only Markdown tables and four vector figures for solver comparison, CAE verification, load uncertainty, and strength-coupled synthesis. Every registry entry records the output hash and the path and hash of every frozen source payload used by its renderer. The figures use an object-oriented `SVGCanvas` backed by `xml.etree.ElementTree`, avoiding nondeterministic or host-specific raster-font behavior. `PublicationReproducer` rebuilds all outputs in a clean temporary directory and requires byte identity with `paper/generated-v1`; modified tables, figures, or source evidence fail verification.
+`PublicationArtifactRegistry` generates five deterministic evidence-only Markdown tables and five vector figures for solver comparison, solver scaling, CAE verification, load uncertainty, and strength-coupled synthesis. Every registry entry records the output hash and the path and hash of every frozen source payload used by its renderer. The figures use an object-oriented `SVGCanvas` backed by `xml.etree.ElementTree`, avoiding nondeterministic or host-specific raster-font behavior. `PublicationReproducer` rebuilds all outputs in a clean temporary directory and requires byte identity with `paper/generated-v1`; modified tables, figures, or source evidence fail verification.
 
-The class-based `AEIPublicationTableFactory` and `AEIPublicationFigureFactory` declare the submitted reporting set. `make paper-verify` provides a one-command reporting reproduction target, and CI runs the same target after the regression and certified-workflow tests. This closes table/figure-to-bundle traceability for the currently implemented results. It does not yet constitute a DOI release, clean container-build attestation, or complete manuscript package; those remain Gate F work.
+The class-based `AEIPublicationTableFactory` and `AEIPublicationFigureFactory` declare the submitted reporting set. `make paper-verify` provides a one-command reporting reproduction target, and CI runs the same target after the regression and certified-workflow tests. This closes table/figure-to-bundle traceability for the currently implemented results. It does not yet constitute a DOI release or clean container-build attestation; those remain Gate F work.
+
+### Implemented claim-guarded AEI manuscript
+
+The object-oriented `AEIManuscriptAssembler`, `ManuscriptClaimGuard`, and `ManuscriptArtifactStore` assemble `paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md` exclusively from the declared manuscript source, the frozen closest-method audit, and registered publication artifacts. The guard requires the modeled-validity scope and rejects unsupported production, fatigue, physical-validation, learning-improvement, universal-priority, and state-of-the-art phrases. The manuscript explicitly excludes the legacy reference-graph path-ranking experiment from its primary claim.
+
+The manuscript manifest hashes every directly read registry and source plus the assembled output. `make paper-verify` regenerates it in a clean temporary directory and requires byte identity. This completes the reproducible digital draft package; editorial polishing, journal-template conversion, DOI release, and independent clean-environment attestation remain pre-submission work.
 
 ### Implemented literature and contribution gate
 

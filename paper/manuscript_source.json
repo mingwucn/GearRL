@@ -1,0 +1,87 @@
+{
+  "schema_version": "aei-manuscript-source-v1",
+  "title": "Certificate-Bearing Requirements-First Synthesis of Compound Spur-Gear Layouts",
+  "subtitle": "An Executable Engineering-Knowledge and Reproducibility Workflow",
+  "abstract": "Engineering design synthesis requires more than recovering a plausible geometry: requirements, domain rules, solver decisions, validation evidence, and negative conclusions must remain traceable. This study presents an object-oriented engineering-informatics workflow for bounded requirements-first synthesis of external compound spur-gear layouts. Solver-facing briefs are physically separated from evaluator-only witnesses and labels. A directed mesh-graph schema represents kinematic and geometric knowledge, while an independent oracle and model-versioned verifier produce constructive certificates or complete bounded infeasibility proofs. Exact enumeration, process-isolated CP-SAT, and differential evolution are compared under frozen candidate budgets. A self-developed plane-stress tooth-root model is verified through patch, analytical, convergence, and independent root-stress checks, then coupled to candidate admission. Across a 16-case scaling protocol with 2,048 observations, CP-SAT recovered feasible cases and proved negative cases across all declared budgets; stochastic search recovered the feasible cases at adequate budgets but never proved infeasibility. Strength admission retained seven of ten designs, redesigned one, and made two exhaustively infeasible under the declared static model. The workflow is fully digital and supports claims only for validity under the declared kinematic, geometric, and static-strength model.",
+  "keywords": [
+    "engineering informatics",
+    "requirements-first synthesis",
+    "gear train",
+    "knowledge representation",
+    "formal certificate",
+    "constraint programming",
+    "reproducible engineering"
+  ],
+  "sections": [
+    {
+      "title": "1. Introduction",
+      "paragraphs": [
+        "Automated mechanical design often combines domain rules, optimization, and simulation, yet the evidential boundary between a generated candidate and an independently supported engineering conclusion is frequently implicit. This is especially consequential for negative results: failure of a heuristic search is not evidence that a bounded design brief is infeasible.",
+        "Prior work already establishes knowledge-graph-driven architecture generation, graph-based transmission configuration synthesis, constrained simulation optimization, automated gearbox sizing, and learning-guided combinatorial design. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is a solver-hidden requirements benchmark, executable gear-domain knowledge, independent positive certificates and complete negative proofs, strength-coupled admission, and hash-bound reporting in one workflow.",
+        "The contribution is evaluated in a deliberately bounded family: external involute spur gears on parallel shafts, simple input and output gears, one two-member compound stage, fixed 20-degree pressure angle, and declared module and tooth-count domains. This boundedness enables complete claims where completeness is stated and prevents extrapolation to unrestricted gearbox design."
+      ]
+    },
+    {
+      "title": "2. Related Work and Positioning",
+      "paragraphs": [
+        "The closest-method audit covers explicit engineering-knowledge formalization, constraint-based design with simulation, gear and transmission synthesis, and constrained learning. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.",
+        "Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth."
+      ],
+      "tables": []
+    },
+    {
+      "title": "3. Methods",
+      "paragraphs": [
+        "The canonical specification separates the design brief from any constructed answer. It contains the enclosure polygon, prescribed input and output shafts, target signed speed ratio, module and tooth-count domains, obstacles, clearance rules, and an optional sourced material-load case. Solver payload guards reject evaluator fields such as expected feasibility, reference trains, certificates, and oracle versions.",
+        "Candidate trains are directed mesh graphs. Each edge identifies driving and driven gear members and contributes a direction reversal, ratio term, center-distance equation, axial-layer relation, and directed efficiency factor. The production validator checks finite values, module compatibility, undercut, transverse contact ratio, mesh distances, graph connectivity, unintended collisions, enclosure clearance, axial stacking, and optional static root-strength admission. The exact oracle is a separate implementation with independent geometry predicates.",
+        "Three requirements-first strategies implement a common solver interface. Exact enumeration traverses the complete declared tuple domain. CP-SAT constructs an isolated integer model for tooth products, ratio equality, and placement bounds, then submits candidates to the same production admission strategy. Differential evolution is a seeded incomplete comparator and cannot emit an infeasibility proof.",
+        "The owned CAE model uses linear triangular plane-stress elements on an involute tooth-root section with an explicit fillet and rim foundation. Gmsh is limited to triangulation. Verification includes a constant-stress patch test, a cantilever analytical benchmark, mesh refinement, and comparison with a separately implemented Lewis root-stress estimate. It remains a static bending screen, not a contact or fatigue model.",
+        "All experiments use immutable configurations, hashed frozen inputs, raw per-case records, and model-versioned outputs. Publication tables and vector figures are regenerated from their registered evidence sources and must be byte-identical to the committed bundle."
+      ],
+      "tables": ["cae-verification"]
+    },
+    {
+      "title": "4. Experimental Protocol",
+      "paragraphs": [
+        "The curated requirements-first benchmark contains 50 authored cases: ten constructive feasible cases and 40 negative cases with complete independent evidence. Solver inputs and evaluator evidence reside in separate directories. Exact enumeration, CP-SAT, and differential evolution use frozen candidate, time, population, seed, and environment declarations.",
+        "The scaling protocol derives 16 solver-hidden cases across four tooth-domain sizes, from 5 to 17 values per tooth decision. Each size includes two feasible and two independently proven infeasible families. Candidate budgets are 250, 1,000, 7,000, and 100,000. Differential evolution uses 30 fixed seeds; deterministic solvers use one run. Feasible recovery, classification accuracy, proof rate, candidates, and runtime are reported separately.",
+        "Static engineering sensitivity is evaluated with two sourced material conditions, torque from 1 to 3 N m, face width from 8 to 12 mm, and per-mesh efficiency from 0.95 to 0.98. A scrambled Sobol design propagates declared uniform operating ranges. Material strength is conditioned on sourced minimum values rather than assigned an invented probability distribution."
+      ],
+      "tables": ["solver-comparison", "solver-scaling-largest-domain"]
+    },
+    {
+      "title": "5. Results",
+      "paragraphs": [
+        "All three solvers classified the fixed 50-case benchmark correctly at the reported budget, but their evidential status differs: exact enumeration and CP-SAT completed the 40 negative cases, whereas differential evolution returned unproven negative predictions.",
+        "At the largest scaling domain, CP-SAT recovered both feasible cases and proved both negative cases at every declared budget. Exact enumeration recovered feasible cases throughout but required the 100,000-candidate budget to complete the negative proofs. Differential evolution showed median feasible recovery of 0.5 and worst-seed recovery of 0 at budget 250, reached full recovery by 1,000, and never proved a negative case.",
+        "The sourced static-load envelope is discriminating rather than universally passing. Conditional uncertainty assigns an estimated modeled-failure probability of 0.110 to S355 over the declared ranges, with a layout-bootstrap interval from 0.016 to 0.223; no Toolox 44 failures occur in the evaluated sample. Total-order sensitivity is dominated by torque, followed by face width, with efficiency contributing less than 0.001 in this bounded range.",
+        "Coupling the static screen to synthesis changes decisions. Seven baseline designs remain admitted, one is redesigned to cross the required screening factor, and two become exhaustively infeasible under the same bounded search space."
+      ],
+      "tables": ["load-uncertainty", "strength-coupling"],
+      "figures": ["solver-anytime-largest-domain", "load-total-order-sensitivity", "strength-coupling-outcomes"]
+    },
+    {
+      "title": "6. Discussion",
+      "paragraphs": [
+        "The main result is epistemic rather than a claim of universal optimizer speed. The workflow distinguishes candidate recovery, modeled validity, and proof of nonexistence. This distinction matters because a stochastic method can classify a negative case correctly without possessing evidence that the bounded space was exhausted.",
+        "The executable schema makes domain knowledge operational: changing the load declaration and safety threshold can alter tooth counts or eliminate every candidate. The certificate and artifact registries then expose which model, data, and computation support each reported statement.",
+        "CP-SAT performs strongly on the declared algebraic family, but its near-constant process-dominated runtime should not be generalized beyond these small structured cases. Exact enumeration remains useful as an independent completeness reference. Learning is excluded from the primary contribution because the available policy experiments rank paths in constructed reference graphs and do not establish a requirements-first advantage."
+      ]
+    },
+    {
+      "title": "7. Limitations",
+      "paragraphs": [
+        "The design family is restricted to one three-shaft compound topology and planar external spur gears. Shafts, bearings, hubs, lubrication, dynamics, thermal behavior, contact stress, fatigue life, noise, and production tolerances are not jointly designed. The static CAE model is a low-fidelity digital screen and the declared operating distributions are study assumptions rather than measured duty data.",
+        "The benchmark is authored and procedural rather than an external industrial corpus. Runtime evidence comes from one recorded machine and fixed thread settings. The literature matrix is bounded by its documented cutoff and cannot establish universal priority. No physical experiment is part of the AEI claim.",
+        "Accordingly, every accepted result is described only as valid under the declared kinematic, geometric, and static-strength model."
+      ]
+    },
+    {
+      "title": "8. Conclusions",
+      "paragraphs": [
+        "GearRL demonstrates a fully digital engineering-informatics workflow in which requirements, domain knowledge, synthesis, independent adjudication, structural admission, and publication evidence remain machine traceable. The bounded study supports independently checkable positive and negative conclusions and shows that declared static-strength knowledge changes synthesized outcomes. It does not support broader operational or physical qualification claims.",
+        "Future work should extend the canonical model to shafts, bearings, hubs, contact and fatigue standards, external industrial briefs, and broader topologies. Learning should be reconsidered only through a frozen requirements-first 30-seed protocol with validity preservation and a confidence interval exceeding the preregistered effect threshold."
+      ]
+    }
+  ]
+}
