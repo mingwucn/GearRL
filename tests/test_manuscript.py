@@ -38,7 +38,8 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     assert manifest["schema_version"] == "aei-manuscript-artifact-v1"
     assert "2,048 observations" in text
     assert "## References" in text
-    assert "[8,10]" in text
+    assert "[cite:" not in text
+    assert "10.1016/j.aei.2023.102201" in text
     assert "## Data Availability" in text
     assert "## Declaration of Generative AI" in text
     assert "solver-scaling-largest-domain" in text

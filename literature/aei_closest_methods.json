@@ -6,6 +6,22 @@
     "url": "https://www.sciencedirect.com/journal/advanced-engineering-informatics",
     "operational_requirement": "Explicit knowledge representation and use, engineering relevance, and vigorous evaluation of generality, power, and scalability."
   },
+  "search_protocol": {
+    "sources": [
+      "Scopus-indexed publisher metadata exposed by ScienceDirect, SpringerLink, Emerald Insight, ASME Digital Collection, and Nature",
+      "DOI metadata and backward/forward terminology searches"
+    ],
+    "query_families": [
+      "engineering design AND (knowledge graph OR executable knowledge OR formal semantics)",
+      "engineering design synthesis AND (graph OR constraint programming)",
+      "engineering design AND (infeasibility certificate OR infeasibility detection)",
+      "gearbox OR gear train AND (automated design OR topology synthesis OR optimization)",
+      "engineering informatics AND (reproducibility OR traceability OR algorithmic representation)"
+    ],
+    "inclusion_rule": "Include the closest method from each neighboring capability that overlaps knowledge representation, bounded synthesis, formal verification or infeasibility evidence, gear-domain automation, or traceable computational qualification.",
+    "exclusion_rule": "Exclude methods lacking an artifact-centered engineering task or enough publisher metadata to determine synthesis and validation scope.",
+    "screening_note": "This is a structured closest-method audit, not a systematic review or a claim of exhaustive recall. Records and query families are frozen for reproducibility."
+  },
   "methods": [
     {
       "id": "huang-2025",
@@ -136,6 +152,71 @@
       "validation_scope": "Best objective comparison with other metaheuristics",
       "closest_overlap": "Discrete compound gear-ratio search",
       "remaining_difference": "No enclosure geometry, mesh graph, independent validity certificate, negative proof, or structural admission"
+    },
+    {
+      "id": "sacks-2020",
+      "year": 2020,
+      "title": "Advanced Engineering Informatics: Philosophical and methodological foundations with examples from civil and construction engineering",
+      "venue": "Developments in the Built Environment",
+      "doi": "10.1016/j.dibe.2020.100020",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2666165920300168",
+      "knowledge_representation": "Ontology and logic grounded in engineering purpose and context",
+      "synthesis_scope": "Methodological foundations for formalizing complex engineering knowledge",
+      "validation_scope": "Methodological examples and an argument for practitioner-involved validation",
+      "closest_overlap": "Defines the knowledge-formalization and validation expectations of engineering informatics",
+      "remaining_difference": "Provides methodological foundations rather than a certificate-bearing bounded synthesis implementation"
+    },
+    {
+      "id": "wang-2023-formal",
+      "year": 2023,
+      "title": "A hybrid approach to system verification in early design for complex mechatronic systems based on formal functional semantics",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2023.102201",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034623003294",
+      "knowledge_representation": "Formal functional semantics for SysML behavior and function models",
+      "synthesis_scope": "Early-design verification of mechatronic system behavior rather than candidate generation",
+      "validation_scope": "Hybrid formal verification applied to complex mechatronic system models",
+      "closest_overlap": "Independent formal checking of explicit engineering semantics",
+      "remaining_difference": "Verifies behavioral consistency but does not report blind bounded geometric synthesis or replayable complete search proofs"
+    },
+    {
+      "id": "shai-2008",
+      "year": 2008,
+      "title": "Combinatorial synthesis approach employing graph networks",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2007.08.003",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034607000456",
+      "knowledge_representation": "Graph-network transformations from engineering requirements to topology and geometry",
+      "synthesis_scope": "Combinatorial topology and geometric synthesis across electrical, statics, and kinematics cases",
+      "validation_scope": "Three cross-domain synthesis case studies",
+      "closest_overlap": "Graph-theoretic requirements-to-topology synthesis with a generality argument",
+      "remaining_difference": "Establishes graph-based engineering synthesis prior art; does not report subject-bound certificates or replayable bounded negative evidence"
+    },
+    {
+      "id": "khorshid-2018",
+      "year": 2018,
+      "title": "Application of constraint infeasibility detection methods in engineering design problems",
+      "venue": "Journal of Engineering, Design and Technology",
+      "doi": "10.1108/JEDT-03-2017-0026",
+      "url": "https://doi.org/10.1108/JEDT-03-2017-0026",
+      "knowledge_representation": "Conflicting inequality constraints and minimum intractable subsystems",
+      "synthesis_scope": "Infeasibility diagnosis for continuous engineering-design optimization",
+      "validation_scope": "Numerical comparison of three detection methods with four solvers on mechanical design problems",
+      "closest_overlap": "Makes negative engineering-design conclusions explicit and diagnostically useful",
+      "remaining_difference": "Targets continuous inequality conflict diagnosis rather than replayable completeness for a finite discrete topology family"
+    },
+    {
+      "id": "pandey-2025",
+      "year": 2025,
+      "title": "ALDRAW: Algorithmic engineering representations",
+      "venue": "Advanced Engineering Informatics",
+      "doi": "10.1016/j.aei.2025.103362",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1474034625002551",
+      "knowledge_representation": "Algorithmic representation of engineering information separated from option qualification",
+      "synthesis_scope": "Purposeful and explainable engineering-information representation",
+      "validation_scope": "Framework evaluation for information scalability, abstraction, collaboration, and version control",
+      "closest_overlap": "Separates representation from qualification and emphasizes traceable algorithmic artifacts",
+      "remaining_difference": "Does not report solver-hidden bounded synthesis with constructive and complete negative certificates"
     }
   ],
   "claim_register": [

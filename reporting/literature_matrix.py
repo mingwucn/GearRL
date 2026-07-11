@@ -37,6 +37,7 @@ class LiteratureEvidence:
     schema_version: str
     search_cutoff: str
     venue_scope: dict
+    search_protocol: dict
     methods: tuple[LiteratureMethod, ...]
     claims: tuple[ContributionClaim, ...]
 
@@ -60,8 +61,11 @@ class LiteratureEvidenceLoader:
             raise ValueError("Contribution claim IDs must be unique")
         if any(item.status not in {"supported", "candidate-novelty", "unsupported"} for item in claims):
             raise ValueError("Unsupported contribution-claim status")
+        search_protocol = payload.get("search_protocol", {})
+        if len(search_protocol.get("query_families", ())) < 5 or "not a systematic review" not in search_protocol.get("screening_note", ""):
+            raise ValueError("Literature search protocol is incomplete or overclaims coverage")
         return LiteratureEvidence(
-            payload["schema_version"], payload["search_cutoff"], payload["venue_scope"], methods, claims
+            payload["schema_version"], payload["search_cutoff"], payload["venue_scope"], search_protocol, methods, claims
         )
 
 
@@ -78,6 +82,17 @@ class LiteratureMatrixRenderer:
             "",
             f"[{evidence.venue_scope['title']}]({evidence.venue_scope['url']}): "
             f"{evidence.venue_scope['operational_requirement']}",
+            "",
+            "## Search protocol",
+            "",
+            evidence.search_protocol["screening_note"],
+            "",
+            "Query families:",
+            *[f"- {query}" for query in evidence.search_protocol["query_families"]],
+            "",
+            f"Inclusion rule: {evidence.search_protocol['inclusion_rule']}",
+            "",
+            f"Exclusion rule: {evidence.search_protocol['exclusion_rule']}",
             "",
             "## Closest methods",
             "",
