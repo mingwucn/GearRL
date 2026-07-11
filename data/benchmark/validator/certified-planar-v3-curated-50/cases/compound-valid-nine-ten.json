@@ -1,0 +1,15 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "compound-valid-nine-ten",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [],
+    "minimum_clearance_mm": 59.5,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": 0.9,
+    "valid": true
+  },
+  "expected_issue_codes": [],
+  "expected_valid": true,
+  "family": "compound-valid"
+}

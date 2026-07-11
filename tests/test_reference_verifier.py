@@ -141,10 +141,10 @@ def test_canonical_objects_reject_non_finite_values(factory) -> None:
         factory()
 
 
-def test_certificate_records_semantic_model_v2() -> None:
+def test_certificate_records_semantic_model_v3() -> None:
     train = GearTrain(
         (GearStage("input", Point2D(0, 0), (20,), 1.0), GearStage("output", Point2D(20, 0), (20,), 1.0)),
         (MeshEdge("input", 0, "output", 0),),
     )
 
-    assert ReferenceVerifier.verify(_problem(-1.0), train).model_version == "certified-planar-v2"
+    assert ReferenceVerifier.verify(_problem(-1.0), train).model_version == "certified-planar-v3"

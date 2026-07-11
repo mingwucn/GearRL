@@ -46,7 +46,7 @@ class FrozenCAEStudyRunner:
             dataset_id=dataset_id,
             dataset_hash=dataset_hash,
             config={**asdict(config), "load_case": asdict(load_case)},
-            model_version="certified-planar-v2+involute-tooth-root-plane-stress-v3",
+            model_version="certified-planar-v3+involute-tooth-root-plane-stress-v3",
         )
         for outcome in outcomes:
             self._store.write_result(bundle, outcome.instance_id, asdict(outcome))
@@ -93,7 +93,7 @@ class FrozenCAEStudyEvidenceStore:
         manifest = {
             "dataset_id": dataset_id,
             "dataset_hash": dataset_hash,
-            "model_version": "certified-planar-v2+involute-tooth-root-plane-stress-v3",
+            "model_version": "certified-planar-v3+involute-tooth-root-plane-stress-v3",
             "config": asdict(config),
             "load_case": asdict(load_case),
             "summary_sha256": hashlib.sha256(summary_bytes).hexdigest(),

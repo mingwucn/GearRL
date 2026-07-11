@@ -73,6 +73,8 @@ class DesignConstraints:
 
 @dataclass(frozen=True)
 class MaterialLoadCase:
+    """Static load/material declaration with per-mesh power efficiency."""
+
     material_name: str
     input_torque_nm: float
     face_width_mm: float
@@ -198,7 +200,7 @@ class ValidationCertificate:
     signed_speed_ratio: float | None = None
     minimum_clearance_mm: float | None = None
     cae_reports: list[dict[str, Any]] = field(default_factory=list)
-    model_version: str = "certified-planar-v2"
+    model_version: str = "certified-planar-v3"
 
     def to_json(self) -> dict[str, Any]:
         return {

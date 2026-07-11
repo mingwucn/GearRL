@@ -1,0 +1,26 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "teeth-below-declared",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "tooth_count_out_of_bounds",
+        "message": "input[0] has 18 teeth outside [20, 80]"
+      },
+      {
+        "code": "tooth_count_out_of_bounds",
+        "message": "output[0] has 18 teeth outside [20, 80]"
+      }
+    ],
+    "minimum_clearance_mm": 92.0,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "tooth_count_out_of_bounds"
+  ],
+  "expected_valid": false,
+  "family": "tooth-rules"
+}

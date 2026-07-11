@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "graph-missing-terminal",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "missing_terminal_stage",
+        "message": "Missing terminal stage output"
+      }
+    ],
+    "minimum_clearance_mm": 49.0,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": null,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "missing_terminal_stage"
+  ],
+  "expected_valid": false,
+  "family": "graph-integrity"
+}

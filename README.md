@@ -16,7 +16,7 @@ graph integrity. Regenerate the hash-addressed corpus with:
 
 ```bash
 conda run -n ai python run_validator_corpus.py \
-  data/benchmark/validator/certified-planar-v2-curated-50
+  data/benchmark/validator/certified-planar-v3-curated-50
 ```
 
 ## Environment

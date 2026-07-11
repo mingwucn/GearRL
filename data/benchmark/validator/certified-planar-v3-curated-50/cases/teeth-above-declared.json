@@ -1,0 +1,30 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "teeth-above-declared",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "tooth_count_out_of_bounds",
+        "message": "input[0] has 81 teeth outside [18, 80]"
+      },
+      {
+        "code": "tooth_count_out_of_bounds",
+        "message": "output[0] has 81 teeth outside [18, 80]"
+      },
+      {
+        "code": "boundary_clearance",
+        "message": "Stage output requires 41.5 mm boundary clearance, has 39"
+      }
+    ],
+    "minimum_clearance_mm": -2.5,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "tooth_count_out_of_bounds"
+  ],
+  "expected_valid": false,
+  "family": "tooth-rules"
+}

@@ -93,7 +93,7 @@ class ValidatorCaseBuilder:
 class ValidatorCaseCatalog:
     """Fifty explicitly named cases across ten independent invariant families."""
 
-    VERSION = "certified-planar-v2-curated-50"
+    VERSION = "certified-planar-v3-curated-50"
 
     def __init__(self, builder: ValidatorCaseBuilder | None = None):
         self._builder = builder or ValidatorCaseBuilder()
@@ -398,6 +398,7 @@ class ValidatorCorpusLoader:
         source = Path(root)
         index_bytes = (source / "index.json").read_bytes()
         index = json.loads(index_bytes)
+        expected_model_version = "certified-planar-v3" if "planar-v3" in index["dataset_id"] else "certified-planar-v2"
         aggregate = hashlib.sha256(index_bytes)
         records = []
         identifiers = set()
@@ -413,7 +414,7 @@ class ValidatorCorpusLoader:
             record = json.loads(payload)
             if not record["analytical_audit_passed"]:
                 raise ValueError(f"Analytical audit did not pass: {case_id}")
-            if record["certificate"]["model_version"] != "certified-planar-v2":
+            if record["certificate"]["model_version"] != expected_model_version:
                 raise ValueError(f"Unexpected verifier model version: {case_id}")
             records.append(record)
         if len(records) != index["case_count"]:

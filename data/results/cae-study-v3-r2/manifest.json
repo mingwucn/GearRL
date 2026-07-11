@@ -1,0 +1,502 @@
+{
+  "config": {
+    "minimum_safety_factor": 1.0,
+    "random_seed": 2026,
+    "sample_size": 120
+  },
+  "dataset_hash": "6926a1ceeb24959910b2ab6e657abc02cecf08983c67b0e8ed90dfe07357cecc",
+  "dataset_id": "compound-v1-frozen-400",
+  "load_case": {
+    "allowable_stress_mpa": 800.0,
+    "efficiency": 1.0,
+    "face_width_mm": 10.0,
+    "input_torque_nm": 1.0,
+    "material_name": "steel",
+    "poisson_ratio": 0.3,
+    "youngs_modulus_mpa": 210000.0
+  },
+  "model_version": "certified-planar-v3+involute-tooth-root-plane-stress-v3",
+  "records": [
+    {
+      "instance_id": "test-tight-clearance-0000",
+      "sha256": "445aa39832e15ba35783ff29c99c512ff6cbdd0f5ae8bcb3370167fcbaccdfc2"
+    },
+    {
+      "instance_id": "train-procedural-0003",
+      "sha256": "65e4fe0adffca71ae2891f849b2bae267e435d0bc230d2ec724ca27be378e71a"
+    },
+    {
+      "instance_id": "train-procedural-0000",
+      "sha256": "756a1e24c7fa3acb53198480d591c3be39c8f1de579f0399632ba63c6258943e"
+    },
+    {
+      "instance_id": "train-procedural-0002",
+      "sha256": "fa6cbc790c814320880b400f1b5ceaf7c08dc25f5933228384098337817abc5f"
+    },
+    {
+      "instance_id": "train-procedural-0001",
+      "sha256": "30d46f2bd8c65782d0d81e6e13fa8f727233cd230af02e4c6177a91e7bcb2466"
+    },
+    {
+      "instance_id": "test-tight-clearance-0001",
+      "sha256": "dabf5c1c11c5ec92f29e14fbdfdb208ea6789435a5a5dafb4a8ab5b8fe57ce23"
+    },
+    {
+      "instance_id": "train-procedural-0007",
+      "sha256": "20929dd2f0a6802d37fc899cbfd04db70d024b01bbcc8d5e644a32f8e95f2b2c"
+    },
+    {
+      "instance_id": "train-procedural-0004",
+      "sha256": "98e9fc184c447862898b49838ed0aefafbea673b9277ec1591158e5cd985ae12"
+    },
+    {
+      "instance_id": "train-procedural-0006",
+      "sha256": "93f544f483e5b2520f6f8b9ee5fd0d031554706522470b6eb6162b8d4f76e9a3"
+    },
+    {
+      "instance_id": "train-procedural-0005",
+      "sha256": "4e4704321a6cf7ac3da97c4f97d43ca3c0ce199d5a0315e2cc30215b1bbfc768"
+    },
+    {
+      "instance_id": "test-tight-clearance-0002",
+      "sha256": "bca9f7cdb6a19d8c14ec7b365dd834d6619789742e55fb1533ee73a6b6619e95"
+    },
+    {
+      "instance_id": "train-procedural-0011",
+      "sha256": "6f8746de70138c9c77e3ff050133761c390454d950adad4273cc85b1f14ea7d2"
+    },
+    {
+      "instance_id": "train-procedural-0008",
+      "sha256": "a332dcfa25e370801aeda6ff9f88194da1db19587aaec4bd11a0dc1210a9a415"
+    },
+    {
+      "instance_id": "train-procedural-0010",
+      "sha256": "f194f40b376de64cff5c2db297c411abbda8922751842ced5f845a50b2dda8b3"
+    },
+    {
+      "instance_id": "train-procedural-0009",
+      "sha256": "c708cbc3058a6b460d49521531178c86551332eba482693c1a8e758ae44bce80"
+    },
+    {
+      "instance_id": "test-tight-clearance-0003",
+      "sha256": "db11b263669a80f3c0a54e06913d77475964f96874faa39973abc69ea96a82e2"
+    },
+    {
+      "instance_id": "train-procedural-0015",
+      "sha256": "6f8a7c02eb0e084f3a57d4707fb9feafa1111020ad9968866b76325f86519639"
+    },
+    {
+      "instance_id": "train-procedural-0012",
+      "sha256": "1371657078843a54da6106d89597676a5174b4ff566c8456de3ffe49eea054b0"
+    },
+    {
+      "instance_id": "train-procedural-0014",
+      "sha256": "65aeaa972de1c643a941f8e2e8e07b3a009e83152c4f57341c20403373bc13ec"
+    },
+    {
+      "instance_id": "train-procedural-0013",
+      "sha256": "2e77afde87d03e76f4c9fba0e5077f9e12f72ec34b2e2b57a720ca7474283e32"
+    },
+    {
+      "instance_id": "test-tight-clearance-0004",
+      "sha256": "123fb2173d43958e8313cc2cfd256638eca6312a0d91817f01484382012348cd"
+    },
+    {
+      "instance_id": "train-procedural-0019",
+      "sha256": "670b4223891e63e4ed467d17e8216c075a1a556b48aebba974adecd2081f73c5"
+    },
+    {
+      "instance_id": "train-procedural-0016",
+      "sha256": "da8cde3be19741c1a70c1ea00a5ecd3bae0b043efc15f191995ee4287e760dec"
+    },
+    {
+      "instance_id": "train-procedural-0018",
+      "sha256": "2ff600a156de65867089ff115c1381b809c403ee5d04a4d86e281ea551ed876d"
+    },
+    {
+      "instance_id": "train-procedural-0017",
+      "sha256": "25673a9a06b55880c087d0e5c2c9e87a84bdec2d9742e38dad5710e012eb51b4"
+    },
+    {
+      "instance_id": "test-tight-clearance-0005",
+      "sha256": "d9815fd7596baf4de7b23f8598daeee7459ad79381335b9a7d06d9061276dce5"
+    },
+    {
+      "instance_id": "train-procedural-0023",
+      "sha256": "71e265acce8a3c7940cde4861d8b0c000a1e7a3e9da1091fef35764afbb46609"
+    },
+    {
+      "instance_id": "train-procedural-0020",
+      "sha256": "3620bdbaa717b61f07f554ce7df1f0d515c0fbdc6d4f6d18327a9279bdd45bbe"
+    },
+    {
+      "instance_id": "train-procedural-0022",
+      "sha256": "52f8135430b4c644ecd4541bf6606e5033986ce8497a91d8acf7cb3f3d84f856"
+    },
+    {
+      "instance_id": "train-procedural-0021",
+      "sha256": "9849124d03cd197055aaafe80de74c727303ddda02afb741875d8f151b84da75"
+    },
+    {
+      "instance_id": "test-tight-clearance-0006",
+      "sha256": "43378454229995f506e17b56585bda2081a12e7bf9bef764bd501943c028b52f"
+    },
+    {
+      "instance_id": "train-procedural-0027",
+      "sha256": "bbd7df66ed8274bb486b46b3aee7fe7216f1b7318c4857176c4d0bd40eca1cc5"
+    },
+    {
+      "instance_id": "train-procedural-0024",
+      "sha256": "94292886f179c01dbed822bb37904feeb3aaf04617e14de3a83de2e729af943c"
+    },
+    {
+      "instance_id": "train-procedural-0026",
+      "sha256": "6b1397164fb1a53302549eb7e7550c3750e70f4a0ef2be52ba6bf4b3126046b9"
+    },
+    {
+      "instance_id": "train-procedural-0025",
+      "sha256": "cb9963cd5844aa8becff25e939025d32a6183ac192a4d6867684d56dd8482abb"
+    },
+    {
+      "instance_id": "test-tight-clearance-0007",
+      "sha256": "05fd6b6c41923b95df70e3b92637e687cdec191aa05258a1acb6f6b9175fa70a"
+    },
+    {
+      "instance_id": "train-procedural-0031",
+      "sha256": "c9db03a9919133c04c44b052c1078548f6f497f4f9060be3c73d657a9bac1766"
+    },
+    {
+      "instance_id": "train-procedural-0028",
+      "sha256": "19e870dce69f8b60f43c29b9086fffc1d2168a388362b2c9baa929879fd7adce"
+    },
+    {
+      "instance_id": "train-procedural-0030",
+      "sha256": "8bb774d290123457d515bb1617fcce156f98d8b2f855122df4d4f9325f48dea1"
+    },
+    {
+      "instance_id": "train-procedural-0029",
+      "sha256": "22d270c13f487d8c32f3edffa67324087fcd8604473445f6b563c9c930352075"
+    },
+    {
+      "instance_id": "test-tight-clearance-0008",
+      "sha256": "c3df88098eb6d82a7d22f62ea6db2488b3650688dc123b0db599bfc467faa92c"
+    },
+    {
+      "instance_id": "train-procedural-0035",
+      "sha256": "bf8ccd336bfcd2531b93a96f9fd76d301b0e0d5445c0a1ff5579e31135f7cff6"
+    },
+    {
+      "instance_id": "train-procedural-0032",
+      "sha256": "5c13d87eebd2af1362a97f541f7027a7a8453aef62879837a9f79db15ae2d7cb"
+    },
+    {
+      "instance_id": "train-procedural-0034",
+      "sha256": "1498fc6151bb912137d266d0255835d1d37f1f7bebbeb4f71be4ddb6b655aff1"
+    },
+    {
+      "instance_id": "train-procedural-0033",
+      "sha256": "571469342f3e90a22bc51bd6e4c9c2cd57a8e627b2eeefe08e45a63fd32a7f10"
+    },
+    {
+      "instance_id": "test-tight-clearance-0009",
+      "sha256": "0227b5dc34cfd6776a5b06c91937ec0c86b491ca07fed81693f1f386828643e5"
+    },
+    {
+      "instance_id": "train-procedural-0039",
+      "sha256": "9e51735c79124cb59e23432c5879b07713dd2d8ba874bf9b5ca18ba59af6ffa8"
+    },
+    {
+      "instance_id": "train-procedural-0036",
+      "sha256": "b0dca84be558ca5f4fec1780ad9b5091e62ed935cf334543e3437a28054e1c52"
+    },
+    {
+      "instance_id": "train-procedural-0038",
+      "sha256": "e86fc0ab5170580564b17c11641790544301f25a05634c08ecfdd9e33df85840"
+    },
+    {
+      "instance_id": "train-procedural-0037",
+      "sha256": "820d4fb9faa5fcc822c63530d0c3c87f9954cbe1b675a43648082116c1533491"
+    },
+    {
+      "instance_id": "test-tight-clearance-0010",
+      "sha256": "e32119b898e52e3704800e861a46eb901bd5a244592e1b800b6d1433135be503"
+    },
+    {
+      "instance_id": "train-procedural-0043",
+      "sha256": "767ca773d4b59b2a2d9db041c3de141ee7c7f0728cf0ea8e54b888ccf7a47228"
+    },
+    {
+      "instance_id": "train-procedural-0040",
+      "sha256": "f8771b14d6603d172a845e04d77a74c992fdb412ab369c803e2cdb0384a4aa60"
+    },
+    {
+      "instance_id": "train-procedural-0042",
+      "sha256": "a888adf7704626c512137f81343553fa3a289aa9e441fcb1627b7052e3e334ea"
+    },
+    {
+      "instance_id": "train-procedural-0041",
+      "sha256": "15668de7b76ee92cfb565fba2323e558c9d6e83c350161ce198a255ff2198b08"
+    },
+    {
+      "instance_id": "test-tight-clearance-0011",
+      "sha256": "ba6293e9fd53635d91cfffb44d9bbfd6aadb7d2d625011935ef93874b72d66e7"
+    },
+    {
+      "instance_id": "train-procedural-0047",
+      "sha256": "4faec740e52138aadeb4d386856542b93649d16a253bd5fad18e2414b68733fb"
+    },
+    {
+      "instance_id": "train-procedural-0044",
+      "sha256": "3f983da8888488564ff979b210940bc9a216fe90aaa164d15d8e99f7b63c42e4"
+    },
+    {
+      "instance_id": "train-procedural-0046",
+      "sha256": "4046d4049071e81f8a59fec7c670782f6b6df18d03c7bfc1054dc1ce39eaadb7"
+    },
+    {
+      "instance_id": "train-procedural-0045",
+      "sha256": "6140650a623f3ca96b7e9cb9ff9550954a908bced3b1634cdfe18b6f4c0ea9fd"
+    },
+    {
+      "instance_id": "test-tight-clearance-0012",
+      "sha256": "f0832e46efb3fa62158210b3df17b0f03602c209daefb7d5951452244c6e7374"
+    },
+    {
+      "instance_id": "train-procedural-0051",
+      "sha256": "667186f0305adee2eea8559777e6aa715c3faa6b67d6981e3e012e5b88f0b7f1"
+    },
+    {
+      "instance_id": "train-procedural-0048",
+      "sha256": "f295a4851da1f59ddcf229990b79051dc7cb9ecb4eb90fffe3701d9065cc8c13"
+    },
+    {
+      "instance_id": "train-procedural-0050",
+      "sha256": "e8abb99df201fb07aba708a48d922b3d0b9e67fb01e7ead672bbd4bf96d1a639"
+    },
+    {
+      "instance_id": "train-procedural-0049",
+      "sha256": "9cbf4601790f19d7c067b0c8c5d5d9023d6430ba593b78b7d0533c965ca75525"
+    },
+    {
+      "instance_id": "test-tight-clearance-0013",
+      "sha256": "6254e843a14c19ac365b2577265f71f444d13ef58b0f1aaa7e77a1af1a5a74dc"
+    },
+    {
+      "instance_id": "train-procedural-0055",
+      "sha256": "fc3302d65b3ae51c0b0711e880cb00738d7837742603cdd6199f45723fb84542"
+    },
+    {
+      "instance_id": "train-procedural-0052",
+      "sha256": "2c5dc218dfab0c4db81737a68ac4f95b80df082aefe14bd15183c9780f585540"
+    },
+    {
+      "instance_id": "train-procedural-0054",
+      "sha256": "f4a0d477339bb6bb92a1ff7ab0b7cde2a6e094dad9f93d1984d2b91c04ed0665"
+    },
+    {
+      "instance_id": "train-procedural-0053",
+      "sha256": "870c968da2bfe1727bb1ed1431cd87edc0a7b2775f45c107cb765e42e994ae59"
+    },
+    {
+      "instance_id": "test-tight-clearance-0014",
+      "sha256": "18aea4291fd54bd30a63b7522feb7ed3fd3f8a846889e671df8ae248a6be696f"
+    },
+    {
+      "instance_id": "train-procedural-0059",
+      "sha256": "0759043502b02f0478e5aeefb3cae3007fa000a6b854344254d4a7f13eb3cdc9"
+    },
+    {
+      "instance_id": "train-procedural-0056",
+      "sha256": "5cc81b68d118a6207ea2aacf5cbb52b09c6be67f0fb0f16d98d01b35eba6a2dc"
+    },
+    {
+      "instance_id": "train-procedural-0058",
+      "sha256": "964dae0eaf82d95a45a824d6650bb3fdbf89b5920f09d6cba46327b66ba15e62"
+    },
+    {
+      "instance_id": "train-procedural-0057",
+      "sha256": "eadd121976f6e5ea75acee2cd0833a5786a35f838717275420ad8b9f462aae63"
+    },
+    {
+      "instance_id": "test-tight-clearance-0015",
+      "sha256": "ffd23ef454367376160ecbe394ce128ab756d83db627c6cefa9f20abfad77d66"
+    },
+    {
+      "instance_id": "train-procedural-0063",
+      "sha256": "2e95ca73ed3ad618060836a7f91e1def47f56f7f177b9e59b4bebc04e1f505f4"
+    },
+    {
+      "instance_id": "train-procedural-0060",
+      "sha256": "d6e148b7958d6f47cdb941da5e6f1022a2351821aa28b33393bf26ecaa293c52"
+    },
+    {
+      "instance_id": "train-procedural-0062",
+      "sha256": "3f2d74cf4af676f0523b1d1f56ecac373481d86995d321d57970c4a5fdcc0ea6"
+    },
+    {
+      "instance_id": "train-procedural-0061",
+      "sha256": "077ccdc2581bbc6bf9d46ece45d2c2989bb20caac5e326c2d3897262f4e7c426"
+    },
+    {
+      "instance_id": "test-tight-clearance-0016",
+      "sha256": "94399e35f7526eceb9e04dd7f9af99a7803e40de78a79f3eb1c75f7aaee1851e"
+    },
+    {
+      "instance_id": "train-procedural-0067",
+      "sha256": "6f8c3942b60410b56d3351f3c11b29bf19b7382e2a0614137981d632c1fa13a5"
+    },
+    {
+      "instance_id": "train-procedural-0064",
+      "sha256": "21c96cc02dfdde1b1dae2317328818b7964eb72f6f1b85387577ec82b19f94c5"
+    },
+    {
+      "instance_id": "train-procedural-0066",
+      "sha256": "cef65c78b50832e8745666c338e55d0574f09f23343a244b022ea36035fb3f50"
+    },
+    {
+      "instance_id": "train-procedural-0065",
+      "sha256": "bca5e29ebab93ff53b3a79e98cebef1dfc4dd749852dcaa10ecccd6028da3e73"
+    },
+    {
+      "instance_id": "test-tight-clearance-0017",
+      "sha256": "4006702fd90972145414bda79b4e6716737d1d94de8cec92aebe2da2dd1a9712"
+    },
+    {
+      "instance_id": "train-procedural-0071",
+      "sha256": "9f488d1d9d6de2ff6a4008518a67d64a21df3874b7b30e2df02ec1079efbb8a4"
+    },
+    {
+      "instance_id": "train-procedural-0068",
+      "sha256": "e86a1486249f5e5724df95611ea05a291351d54221ae39ab3269ed3af2ad0f77"
+    },
+    {
+      "instance_id": "train-procedural-0070",
+      "sha256": "6de76b80560bc06d066c9da83b4818351ee76924d857e029a72a117b703bda55"
+    },
+    {
+      "instance_id": "train-procedural-0069",
+      "sha256": "74e8bb7fcb3a1e7746d2e523695e4e3119bb18d54b2d2e060642204aa82d1654"
+    },
+    {
+      "instance_id": "test-tight-clearance-0018",
+      "sha256": "79c20a44d818918d44330ca703f25d14ff35532a994e38d59bbf3d7f979308d3"
+    },
+    {
+      "instance_id": "train-procedural-0075",
+      "sha256": "02eed507415d1198bfcddaad54685775c661bf46bd1fa0636f0f3a0a3cb45ba3"
+    },
+    {
+      "instance_id": "train-procedural-0072",
+      "sha256": "48756e4bd8ce75defde45bc4c6ecdea574acfdd756e689d4f4b32ed39a2d6c09"
+    },
+    {
+      "instance_id": "train-procedural-0074",
+      "sha256": "efb09fbc809cfa18c916040a495a2c317a1bedd60552eb02963acf64f59a5965"
+    },
+    {
+      "instance_id": "train-procedural-0073",
+      "sha256": "84212fe1d1be5cf7f1aec4ab1480ca34aa548a17b51f0f0d3c72f36e58bffa83"
+    },
+    {
+      "instance_id": "test-tight-clearance-0019",
+      "sha256": "6a5c817f6477ec48c1cbf9f3c135d8433e2d9bfddd4de663c374b42a0d93ed66"
+    },
+    {
+      "instance_id": "train-procedural-0079",
+      "sha256": "418e4e86e972752cb0d33b75e0b5733d7a29b600d8c670bb30a4a0e5341557e2"
+    },
+    {
+      "instance_id": "train-procedural-0076",
+      "sha256": "3290dd0f5fd3ca9aa36e3701760666d7f89782e0a6a5ed01b9f168ea9eb64cb8"
+    },
+    {
+      "instance_id": "train-procedural-0078",
+      "sha256": "0e99fc03658ba9cbb94726c38c3faf7d9e70973a7dc02137d5bc595018e7bb15"
+    },
+    {
+      "instance_id": "train-procedural-0077",
+      "sha256": "5de118a28d3fa1b5e02936f75c3b51d01e389bad2a396d496bf018d2c83097a7"
+    },
+    {
+      "instance_id": "test-tight-clearance-0020",
+      "sha256": "1879af0e8ec98d57cb6c2d83a5b93e76b1b1c992d9878574e6f70403250d3929"
+    },
+    {
+      "instance_id": "train-procedural-0083",
+      "sha256": "7250cb0adc886c52b9c946bfe2412a78cf057d329cb54fefbf21927b2e2fd5b1"
+    },
+    {
+      "instance_id": "train-procedural-0080",
+      "sha256": "992d6265168602bad2dffd96230b16d2f3ab2f0c98c2de2c59b6d15d1b37bf44"
+    },
+    {
+      "instance_id": "train-procedural-0082",
+      "sha256": "1593748af2408e99b96843bf4e83323bddcbdfcd9889b05507a7a5ef0786ad27"
+    },
+    {
+      "instance_id": "train-procedural-0081",
+      "sha256": "c8b64fe1b9c8c3baa1c7b0252511df30136cc047425643971931a71226fc7f38"
+    },
+    {
+      "instance_id": "test-tight-clearance-0021",
+      "sha256": "09adcfda2567ab751f61b64ebb74090c8b3aace14f2bd3542aaae7be8ae6d3fd"
+    },
+    {
+      "instance_id": "train-procedural-0087",
+      "sha256": "898796eb55ab9cb5ec887f465f3834938236f91b5a0c0a7e87e36b2c3b72bd3f"
+    },
+    {
+      "instance_id": "train-procedural-0084",
+      "sha256": "e66be1bc540bf883f1a07c3240f81713e3ee0fbc33baf52b1d13954af9d7604d"
+    },
+    {
+      "instance_id": "train-procedural-0086",
+      "sha256": "5cc9629fcf911e68443bf2ef1f13f48bd831aaabeb3a616c8327dc7528d7394a"
+    },
+    {
+      "instance_id": "train-procedural-0085",
+      "sha256": "93fdcc7d1021846a5ee8672ccb6c0d59122e95a9714b5e3092bab79df67879b3"
+    },
+    {
+      "instance_id": "test-tight-clearance-0022",
+      "sha256": "66fd855a566d5aac5598ab97c4a04535518c27c44e05b62575439440afb5f574"
+    },
+    {
+      "instance_id": "train-procedural-0091",
+      "sha256": "238a6620e73126e5188cf70b4f107ce3a0f6d7b08cd8362e6443f54f19558ce2"
+    },
+    {
+      "instance_id": "train-procedural-0088",
+      "sha256": "5ad36b1cef0714f86bb970d30be93b9ade01ee4dee36140d2310c6f4c398a3f5"
+    },
+    {
+      "instance_id": "train-procedural-0090",
+      "sha256": "09caef5d43fa8cfb0de6f7a242451686bb59af0f904bb3a4efbb915cd704fe90"
+    },
+    {
+      "instance_id": "train-procedural-0089",
+      "sha256": "734bf52676355a18a1f4bc9d9e7f2a41b1f9fe4763e93ec7863e10121cbdbff8"
+    },
+    {
+      "instance_id": "test-tight-clearance-0023",
+      "sha256": "b0ddca9f3c48a62f2218d03473593c3d204f3cfef13b92e63a20f230df4beb55"
+    },
+    {
+      "instance_id": "train-procedural-0095",
+      "sha256": "3a33d9c59c62ba0b03a978384ab5e4fb8e548844b8de0b3e69a90d06e1141509"
+    },
+    {
+      "instance_id": "train-procedural-0092",
+      "sha256": "2918af09405d8db6e2a81885359dc464d81ffed16ea8c802924efe5c364affc8"
+    },
+    {
+      "instance_id": "train-procedural-0094",
+      "sha256": "3cae3cd4e1080d68b8f010d09114f9a830985f6673e9e93568cf0bd0b72b2ae1"
+    },
+    {
+      "instance_id": "train-procedural-0093",
+      "sha256": "9c38c9d438860fb0a3c411c95926e17ff740035661f58d5224baedf3df4dde48"
+    }
+  ],
+  "summary_sha256": "89229c28f921de62f34976a21b16ec1ea51938b55f707710b2fff863c21b2785"
+}

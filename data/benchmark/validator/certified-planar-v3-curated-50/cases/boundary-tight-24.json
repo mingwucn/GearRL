@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "boundary-tight-24",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "boundary_clearance",
+        "message": "Stage output requires 13 mm boundary clearance, has 5"
+      }
+    ],
+    "minimum_clearance_mm": -8.0,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "boundary_clearance"
+  ],
+  "expected_valid": false,
+  "family": "boundary-clearance"
+}

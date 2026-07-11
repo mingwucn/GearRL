@@ -31,6 +31,7 @@ class ToothScreeningReport:
     root_width_mm: float
     section_height_mm: float
     fillet_radius_mm: float
+    transmitted_torque_nm: float
     model_version: str = "involute-tooth-root-plane-stress-v3"
 
     def to_json(self) -> dict[str, float | int | str]:
@@ -47,6 +48,7 @@ class ToothScreeningReport:
             "root_width_mm": self.root_width_mm,
             "section_height_mm": self.section_height_mm,
             "fillet_radius_mm": self.fillet_radius_mm,
+            "transmitted_torque_nm": self.transmitted_torque_nm,
             "model_version": self.model_version,
         }
 
@@ -113,6 +115,7 @@ class ToothRootScreeningAnalysis:
             root_width_mm=geometry.root_width_mm,
             section_height_mm=geometry.height_mm,
             fillet_radius_mm=geometry.fillet_radius_mm,
+            transmitted_torque_nm=torque_nm,
         )
 class ToothRootMeshFactory:
     """Create a structured mesh conforming to a sampled involute tooth section."""

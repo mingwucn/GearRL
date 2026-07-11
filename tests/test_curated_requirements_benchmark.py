@@ -45,7 +45,7 @@ def test_independent_feasible_witnesses_agree_with_production_verifier() -> None
 
     assert len(certificates) == 10
     assert all(certificate.valid for certificate in certificates)
-    assert all(certificate.model_version == "certified-planar-v2" for certificate in certificates)
+    assert all(certificate.model_version == "certified-planar-v3" for certificate in certificates)
 
 
 def test_freezer_physically_separates_solver_inputs_from_evidence(tmp_path) -> None:

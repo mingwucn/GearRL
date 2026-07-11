@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "center-compressed-small",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "mesh_center_distance",
+        "message": "Mesh ('input', 0, 'output', 0) requires 23 mm, has 22.9 mm; allowed expansion is 0 mm"
+      }
+    ],
+    "minimum_clearance_mm": 84.6,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "mesh_center_distance"
+  ],
+  "expected_valid": false,
+  "family": "center-distance"
+}

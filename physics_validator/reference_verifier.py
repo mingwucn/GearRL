@@ -20,7 +20,7 @@ from common.design_models import (
 
 
 class ReferenceVerifier:
-    MODEL_VERSION = "certified-planar-v2"
+    MODEL_VERSION = "certified-planar-v3"
 
     @classmethod
     def verify(cls, problem: DesignProblem, train: GearTrain) -> ValidationCertificate:
@@ -70,6 +70,7 @@ class ReferenceVerifier:
         from cae.gear_screening import ToothRootScreeningAnalysis
 
         ratios = cls._stage_speed_ratios(problem, train, train.stage_map())
+        efficiency_factors = cls._stage_efficiency_factors(problem, train, train.stage_map(), certificate.issues)
         screening = ToothRootScreeningAnalysis()
         reports: list[dict] = []
         for stage in train.stages:
@@ -77,11 +78,16 @@ class ReferenceVerifier:
             if speed_ratio is None or speed_ratio == 0:
                 certificate.issues.append(ValidationIssue("cae_missing_kinematics", f"No speed ratio for {stage.id}"))
                 continue
-            # Ideal power transmission gives T_stage = T_input / |omega_stage/omega_input|.
-            stage_torque = problem.load_case.input_torque_nm / abs(speed_ratio)
+            cumulative_efficiency = efficiency_factors.get(stage.id)
+            if cumulative_efficiency is None:
+                certificate.issues.append(ValidationIssue("cae_missing_power_flow", f"No directed power path reaches {stage.id}"))
+                continue
+            stage_torque = problem.load_case.input_torque_nm * cumulative_efficiency / abs(speed_ratio)
             for member in range(len(stage.teeth)):
                 report = screening.screen(stage, member, problem.load_case, stage_torque, problem.constraints.pressure_angle_deg)
-                reports.append(report.to_json())
+                report_json = report.to_json()
+                report_json["cumulative_mesh_efficiency"] = cumulative_efficiency
+                reports.append(report_json)
                 if report.safety_factor + 1e-12 < problem.constraints.min_safety_factor:
                     certificate.issues.append(
                         ValidationIssue(
@@ -93,6 +99,34 @@ class ReferenceVerifier:
         certificate.cae_reports = reports
         certificate.valid = not certificate.issues
         return certificate
+
+    @classmethod
+    def _stage_efficiency_factors(
+        cls,
+        problem: DesignProblem,
+        train: GearTrain,
+        stages: dict[str, GearStage],
+        issues: list[ValidationIssue] | None = None,
+    ) -> dict[str, float]:
+        """Propagate remaining power fraction along directed mesh edges."""
+        if problem.load_case is None or problem.input_stage_id not in stages:
+            return {}
+        outgoing: dict[str, list[str]] = {stage_id: [] for stage_id in stages}
+        for edge in train.meshes:
+            if edge.driver_stage_id in outgoing and edge.driven_stage_id in stages:
+                outgoing[edge.driver_stage_id].append(edge.driven_stage_id)
+        factors = {problem.input_stage_id: 1.0}
+        queue: deque[str] = deque([problem.input_stage_id])
+        while queue:
+            current = queue.popleft()
+            for driven in outgoing[current]:
+                candidate = factors[current] * problem.load_case.efficiency
+                if driven not in factors:
+                    factors[driven] = candidate
+                    queue.append(driven)
+                elif not isclose(factors[driven], candidate, rel_tol=1e-12, abs_tol=1e-12) and issues is not None:
+                    cls._add(issues, "inconsistent_power_flow", f"Conflicting efficiency paths reach stage {driven}")
+        return factors
 
     @staticmethod
     def _add(issues: list[ValidationIssue], code: str, message: str) -> None:
