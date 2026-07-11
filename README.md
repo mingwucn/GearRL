@@ -67,3 +67,9 @@ Persist the preregistered 120-layout static-strength screening study:
 ```bash
 conda run -n ai python run_cae_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
 ```
+
+Persist the signed shaft-offset sensitivity study under the exact mesh-center model:
+
+```bash
+conda run -n ai python run_tolerance_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
+```
