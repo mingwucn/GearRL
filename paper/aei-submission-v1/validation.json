@@ -3,7 +3,7 @@
     {
       "constraint_id": "abstract-word-limit",
       "limit": 250,
-      "observed": 177,
+      "observed": 190,
       "passed": true
     },
     {
@@ -33,11 +33,13 @@
     {
       "constraint_id": "figure-caption-coverage",
       "limit": [
+        "assembly-robustness-response",
         "load-total-order-sensitivity",
         "solver-anytime-largest-domain",
         "strength-coupling-outcomes"
       ],
       "observed": [
+        "assembly-robustness-response",
         "load-total-order-sensitivity",
         "solver-anytime-largest-domain",
         "strength-coupling-outcomes"

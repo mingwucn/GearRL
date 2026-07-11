@@ -38,7 +38,7 @@ class TestAEISubmissionPackage:
         assert r"\documentclass[preprint,12pt]{elsarticle}" in tex
         assert r"\cite{huang-2025,sun-2026}" in tex
         assert r"\section{Data Availability}" in tex
-        assert len(list(root.glob("Figure_*.svg"))) == 3
+        assert len(list(root.glob("Figure_*.svg"))) == 4
 
     def test_package_detects_tampering(self, tmp_path):
         root = tmp_path / "package"

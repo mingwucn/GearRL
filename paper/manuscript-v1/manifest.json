@@ -1,10 +1,10 @@
 {
   "literature": "literature/aei_closest_methods.json",
   "literature_sha256": "c02268476af06f32987813f317c4798e24e8a8f0c84abd24b2c48e3ab1c27c1a",
-  "manuscript_sha256": "9e650788f3841415d441f054a3671d3e5fa5e85008904a541f570833d060ab1a",
+  "manuscript_sha256": "5ea8b1f1f03abb6b8855b7b03f7b20d38b743027d3e6331d465b5761fafe5eac",
   "publication_registry": "paper/generated-v1/registry.json",
-  "publication_registry_sha256": "4c018634643a29905c5ff4b07e6f15613156c129fec4a27d4cfd01fea929d199",
+  "publication_registry_sha256": "654e11a7fcbeeaef94a19ff862115315ebcab5428eed7e22040388fc2f231980",
   "schema_version": "aei-manuscript-artifact-v1",
   "source": "paper/manuscript_source.json",
-  "source_sha256": "3f86ef2ed1db298de271c783ae1a035a791edb12dfc5f6a9c87177f0f8e693bb"
+  "source_sha256": "e37791521968944d4a69036966d566bbfa8602958fb1d7fdf2ddbfd0e14f713a"
 }

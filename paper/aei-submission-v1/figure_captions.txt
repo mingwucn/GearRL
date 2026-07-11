@@ -3,3 +3,5 @@ Figure 1. Feasible recovery and negative-proof rate on the largest declared toot
 Figure 2. Total-order sensitivity indices for the declared static-load uncertainty model. Torque dominates the modeled response; the distributions are study assumptions rather than measured duty data.
 
 Figure 3. Outcome changes after static tooth-root admission is coupled to bounded synthesis. Retained, redesigned, and infeasible refer only to the declared digital model.
+
+Figure 4. Conditional modeled-valid probability across transverse-backlash allowances and uniform shaft-location tolerances at zero housing-clearance erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.

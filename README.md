@@ -173,6 +173,16 @@ to 0.1 mm is inactive against nominal 20-102 mm boundary margins. These
 saturated factors are not used for a magnitude-effect claim; they predeclare
 the need for a finer confirmatory backlash grid.
 
+The frozen confirmatory study is stored at
+`data/results/assembly-robustness-confirmatory-v2`. Its precommitted 56-scenario
+protocol retains 3,440,640 draw-level outcomes. At 0.02 mm backlash, modeled
+acceptance saturates near 0.0319 across the declared shaft tolerances. At 0.005
+mm backlash it declines from 0.03197 under +/-0.0025 mm shaft-location error to
+0.00036 under +/-0.025 mm. Housing-clearance erosion remains inactive over the
+declared 0-0.1 mm range because nominal boundary margins are 20-102 mm. These
+are conditional rigid-center model probabilities, not manufacturing-yield
+measurements.
+
 The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,

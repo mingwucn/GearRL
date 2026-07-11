@@ -4,7 +4,7 @@
 
 ## Abstract
 
-Engineering design synthesis requires more than recovering a plausible geometry: requirements, domain rules, solver decisions, validation evidence, and negative conclusions must remain traceable. This study presents an object-oriented engineering-informatics workflow for bounded requirements-first synthesis of external compound spur-gear layouts. Solver-facing briefs are physically separated from evaluator-only witnesses and labels. A directed mesh-graph schema represents kinematic and geometric knowledge, while an independent oracle and model-versioned verifier produce constructive certificates or complete bounded infeasibility proofs. Exact enumeration, process-isolated CP-SAT, and differential evolution are compared under frozen candidate budgets. A self-developed plane-stress tooth-root model is verified through patch, analytical, convergence, and independent root-stress checks, then coupled to candidate admission. Across a 16-case scaling protocol with 2,048 observations, CP-SAT recovered feasible cases and proved negative cases across all declared budgets; stochastic search recovered the feasible cases at adequate budgets but never proved infeasibility. Strength admission retained seven of ten designs, redesigned one, and made two exhaustively infeasible under the declared static model. The workflow is fully digital and supports claims only for validity under the declared kinematic, geometric, and static-strength model.
+Engineering design synthesis requires more than recovering a plausible geometry: requirements, domain rules, solver decisions, validation evidence, and negative conclusions must remain traceable. This study presents an object-oriented engineering-informatics workflow for bounded requirements-first synthesis of external compound spur-gear layouts. Solver-facing briefs are physically separated from evaluator-only witnesses and labels. A directed mesh-graph schema represents kinematic and geometric knowledge, while an independent oracle and model-versioned verifier produce constructive certificates or complete bounded infeasibility proofs. Exact enumeration, process-isolated CP-SAT, and differential evolution are compared under frozen candidate budgets. A self-developed plane-stress tooth-root model is verified through patch, analytical, convergence, and independent root-stress checks, then coupled to candidate admission. Across a 16-case scaling protocol with 2,048 observations, CP-SAT recovered feasible cases and proved negative cases across all declared budgets; stochastic search recovered feasible cases at adequate budgets but never proved infeasibility. Strength admission retained seven of ten designs, redesigned one, and made two exhaustively infeasible under the declared static model. A 3,440,640-draw confirmatory robustness study exposes strong interaction between shaft-location error and backlash allowance. The workflow is fully digital and supports claims only for validity under the declared kinematic, geometric, and static-strength model.
 
 **Keywords:** engineering informatics; requirements-first synthesis; gear train; knowledge representation; formal certificate; constraint programming; reproducible engineering
 
@@ -51,6 +51,8 @@ The scaling protocol derives 16 solver-hidden cases across four tooth-domain siz
 
 Static engineering sensitivity is evaluated with two sourced material conditions, torque from 1 to 3 N m, face width from 8 to 12 mm, and per-mesh efficiency from 0.95 to 0.98. A scrambled Sobol design propagates declared uniform operating ranges. Material strength is conditioned on sourced minimum values rather than assigned an invented probability distribution.
 
+Assembly robustness is evaluated on 120 frozen feasible layouts. The input shaft is fixed as datum; two-axis errors on the remaining shafts are sampled from declared independent uniform ranges. A confirmatory 56-scenario grid crosses four shaft-location tolerances, two conservative housing-clearance erosions, and seven transverse-backlash allowances. Each layout-scenario pair uses 512 shared seeded draws, and 95% intervals bootstrap layouts rather than individual perturbations.
+
 **Registered table: `solver-comparison`**
 
 | Method | Runs | Minimum accuracy | Median candidates | Median runtime (s) |
@@ -86,6 +88,8 @@ The sourced static-load envelope is discriminating rather than universally passi
 
 Coupling the static screen to synthesis changes decisions. Seven baseline designs remain admitted, one is redesigned to cross the required screening factor, and two become exhaustively infeasible under the same bounded search space.
 
+The confirmatory assembly study retains 3,440,640 draw outcomes. With no backlash allowance, no continuously perturbed layout satisfies the exact center-distance rule. At 0.02 mm backlash, pooled modeled acceptance saturates near 0.0319 for every declared shaft tolerance. Below saturation, the interaction is strong: at 0.005 mm backlash, acceptance decreases from 0.03197 for +/-0.0025 mm shaft error to 0.00036 for +/-0.025 mm. Housing-clearance erosion from 0 to 0.1 mm has no effect because nominal boundary margins are much larger.
+
 **Registered table: `load-uncertainty`**
 
 | Material condition | Layouts | Samples | Failure probability | Layout-bootstrap 95% CI | Torque ST | Width ST | Efficiency ST |
@@ -99,11 +103,22 @@ Coupling the static screen to synthesis changes decisions. Seven baseline design
 | ---: | ---: | ---: | ---: | ---: |
 | 10 | 7 | 7 | 1 | 2 |
 
+**Registered table: `assembly-robustness`**
+
+| Shaft tolerance (mm) | 0 | 0.0005 | 0.001 | 0.002 | 0.005 | 0.01 | 0.02 |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0.0025 | 0.00000 | 0.00304 | 0.00304 | 0.03197 | 0.03197 | 0.03197 | 0.03197 |
+| 0.005 | 0.00000 | 0.00019 | 0.00019 | 0.00573 | 0.03192 | 0.03192 | 0.03192 |
+| 0.01 | 0.00000 | 0.00001 | 0.00001 | 0.00036 | 0.01227 | 0.03192 | 0.03192 |
+| 0.025 | 0.00000 | 0.00000 | 0.00000 | 0.00000 | 0.00036 | 0.00573 | 0.03192 |
+
 ![solver-anytime-largest-domain](../generated-v1/figures/solver-anytime-largest-domain.svg)
 
 ![load-total-order-sensitivity](../generated-v1/figures/load-total-order-sensitivity.svg)
 
 ![strength-coupling-outcomes](../generated-v1/figures/strength-coupling-outcomes.svg)
+
+![assembly-robustness-response](../generated-v1/figures/assembly-robustness-response.svg)
 
 ## 6. Discussion
 
@@ -111,13 +126,15 @@ The main result is epistemic rather than a claim of universal optimizer speed. T
 
 The executable schema makes domain knowledge operational: changing the load declaration and safety threshold can alter tooth counts or eliminate every candidate. The certificate and artifact registries then expose which model, data, and computation support each reported statement.
 
+The assembly study shows that nominal validity does not imply tolerance robustness. Under the declared rigid-center model, backlash can admit only positive radial separation within the standard small-displacement allowance; it cannot repair contractions or arbitrary two-mesh error combinations. The low saturation probability is therefore evidence of modeled geometric brittleness and a need for tolerance-aware synthesis, not an estimate of factory yield.
+
 CP-SAT performs strongly on the declared algebraic family, but its near-constant process-dominated runtime should not be generalized beyond these small structured cases. Exact enumeration remains useful as an independent completeness reference. Learning is excluded from the primary contribution because the available policy experiments rank paths in constructed reference graphs and do not establish a requirements-first advantage.
 
 ## 7. Limitations
 
 The design family is restricted to one three-shaft compound topology and planar external spur gears. Shafts, bearings, hubs, lubrication, dynamics, thermal behavior, contact stress, fatigue life, noise, and production tolerances are not jointly designed. The static CAE model is a low-fidelity digital screen and the declared operating distributions are study assumptions rather than measured duty data.
 
-The benchmark is authored and procedural rather than an external industrial corpus. Runtime evidence comes from one recorded machine and fixed thread settings. The literature matrix is bounded by its documented cutoff and cannot establish universal priority. No physical experiment is part of the AEI claim.
+The benchmark is authored and procedural rather than an external industrial corpus. Runtime evidence comes from one recorded machine and fixed thread settings. Shaft errors use declared independent uniform distributions, housing tolerance is represented conservatively as clearance erosion, and no measured manufacturing distribution is available. The literature matrix is bounded by its documented cutoff and cannot establish universal priority. No physical experiment is part of the AEI claim.
 
 Accordingly, every accepted result is described only as valid under the declared kinematic, geometric, and static-strength model.
 

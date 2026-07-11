@@ -7,6 +7,7 @@ import argparse
 from pathlib import Path
 
 from reporting.artifact_registry import (
+    AssemblyRobustnessTable,
     CAEVerificationTable,
     LoadUncertaintyTable,
     PublicationArtifactRegistry,
@@ -16,6 +17,7 @@ from reporting.artifact_registry import (
     StrengthCouplingTable,
 )
 from reporting.publication_figures import (
+    AssemblyRobustnessFigure,
     FailureProbabilityFigure,
     SensitivityIndicesFigure,
     SolverComparisonFigure as SolverComparisonPlot,
@@ -46,6 +48,10 @@ class AEIPublicationTableFactory:
                 Path("data/results/scaling-v1/manifest.json"),
                 Path("data/results/scaling-v1/summary.json"),
             ),
+            AssemblyRobustnessTable(
+                Path("data/results/assembly-robustness-confirmatory-v2/manifest.json"),
+                Path("data/results/assembly-robustness-confirmatory-v2/summary.json"),
+            ),
         )
 
 
@@ -65,6 +71,10 @@ class AEIPublicationFigureFactory:
             SolverScalingFigure(
                 Path("data/results/scaling-v1/manifest.json"),
                 Path("data/results/scaling-v1/summary.json"),
+            ),
+            AssemblyRobustnessFigure(
+                Path("data/results/assembly-robustness-confirmatory-v2/manifest.json"),
+                Path("data/results/assembly-robustness-confirmatory-v2/summary.json"),
             ),
         )
 

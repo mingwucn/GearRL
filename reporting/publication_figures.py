@@ -274,3 +274,43 @@ class SolverScalingFigure(PublicationFigure):
             canvas.text(958, legend_y + 5, method, 14, "start", "#263746", "600")
         canvas.text(560, 102, "CP-SAT and exact enumeration overlap at 1.0", 14, "middle", "#425466", "600")
         return canvas.bytes()
+
+
+class AssemblyRobustnessFigure(PublicationFigure):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def figure_id(self) -> str:
+        return "assembly-robustness-response"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("assembly-robustness-v2-manifest", self._manifest),
+            EvidenceSource("assembly-robustness-v2-summary", self._summary),
+        )
+
+    def render(self) -> bytes:
+        scenarios = [item for item in self._json(self._summary)["scenarios"] if item["housing_clearance_erosion_mm"] == 0.0]
+        backlash_values = sorted({item["transverse_backlash_allowance_mm"] for item in scenarios})
+        shaft_values = sorted({item["shaft_location_tolerance_mm"] for item in scenarios})
+        lookup = {(item["shaft_location_tolerance_mm"], item["transverse_backlash_allowance_mm"]): item for item in scenarios}
+        canvas = SVGCanvas("Conditional assembly robustness", "Transverse backlash allowance (mm)", "Modeled valid probability")
+        maximum = 0.035
+        canvas.axes(maximum, ticks=7, formatter=lambda value: f"{value:.3f}")
+        for index, shaft in enumerate(shaft_values):
+            points = []
+            for backlash_index, backlash in enumerate(backlash_values):
+                x = canvas.LEFT + (canvas.RIGHT - canvas.LEFT) * backlash_index / (len(backlash_values) - 1)
+                value = lookup[(shaft, backlash)]["modeled_valid_probability"]
+                y = canvas.BOTTOM - (canvas.BOTTOM - canvas.TOP) * value / maximum
+                points.append((x, y))
+                canvas.circle(x, y, 8, self.COLORS[index])
+                if index == len(shaft_values) - 1:
+                    canvas.text(x, canvas.BOTTOM + 28, f"{backlash:g}", 13, "middle", "#425466")
+            canvas.polyline(tuple(points), self.COLORS[index], 4)
+            legend_y = 92 + index * 28
+            canvas.line(860, legend_y, 900, legend_y, self.COLORS[index], 4)
+            canvas.text(912, legend_y + 5, f"shaft +/-{shaft:g} mm", 14, "start", "#263746", "600")
+        return canvas.bytes()

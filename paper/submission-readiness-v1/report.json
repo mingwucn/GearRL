@@ -76,12 +76,20 @@
       "status": "passed"
     },
     {
+      "description": "The predeclared confirmatory assembly study retains all 3,440,640 draw-level outcomes.",
+      "evidence_path": "data/results/assembly-robustness-confirmatory-v2/manifest.json",
+      "evidence_sha256": "d82eee7a5fa351290e4fcf1a05b9f58b3aeca2c1a239140a954f8530e8f79ddc",
+      "observed": 3440640,
+      "requirement_id": "confirmatory-assembly-robustness",
+      "status": "passed"
+    },
+    {
       "description": "Every reported table and vector figure is registered against immutable sources.",
       "evidence_path": "paper/generated-v1/registry.json",
-      "evidence_sha256": "4c018634643a29905c5ff4b07e6f15613156c129fec4a27d4cfd01fea929d199",
+      "evidence_sha256": "654e11a7fcbeeaef94a19ff862115315ebcab5428eed7e22040388fc2f231980",
       "observed": {
-        "figures": 5,
-        "tables": 5
+        "figures": 6,
+        "tables": 6
       },
       "requirement_id": "publication-registry",
       "status": "passed"
@@ -97,7 +105,7 @@
     {
       "description": "The manuscript contains the mandatory modeled-validity boundary.",
       "evidence_path": "paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md",
-      "evidence_sha256": "9e650788f3841415d441f054a3671d3e5fa5e85008904a541f570833d060ab1a",
+      "evidence_sha256": "5ea8b1f1f03abb6b8855b7b03f7b20d38b743027d3e6331d465b5761fafe5eac",
       "observed": true,
       "requirement_id": "bounded-manuscript-claim",
       "status": "passed"
@@ -121,7 +129,7 @@
     {
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
       "evidence_path": "paper/aei-submission-v1/validation.json",
-      "evidence_sha256": "b507b2c688487ceb2bdec461769ce963b9d3bf3fcffa31661bfd5324ff7af463",
+      "evidence_sha256": "c46f454fd775553e24369829268c1564fb0dc27e0fe6f02b0c82ebf7da669c54",
       "observed": false,
       "requirement_id": "author-and-archival-metadata",
       "status": "external_pending"
@@ -133,7 +141,7 @@
     "external_pending": 1,
     "failed": 0,
     "partial": 1,
-    "passed": 12
+    "passed": 13
   },
   "target": "Advanced Engineering Informatics"
 }

@@ -63,10 +63,18 @@
       "requirement_id": "operating-uncertainty"
     },
     {
+      "check_type": "json_pointer",
+      "description": "The predeclared confirmatory assembly study retains all 3,440,640 draw-level outcomes.",
+      "evidence_path": "data/results/assembly-robustness-confirmatory-v2/manifest.json",
+      "expected": 3440640,
+      "pointer": "/draw_count",
+      "requirement_id": "confirmatory-assembly-robustness"
+    },
+    {
       "check_type": "registry_count",
       "description": "Every reported table and vector figure is registered against immutable sources.",
       "evidence_path": "paper/generated-v1/registry.json",
-      "expected": {"figures": 5, "tables": 5},
+      "expected": {"figures": 6, "tables": 6},
       "requirement_id": "publication-registry"
     },
     {

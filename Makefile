@@ -13,3 +13,4 @@ paper-verify:
 	$(PYTHON) run_aei_submission.py --verify paper/aei-submission-v1
 	$(PYTHON) run_clean_environment_attestation.py --verify data/results/clean-environment-v1
 	$(PYTHON) run_assembly_robustness.py --verify data/results/assembly-robustness-v1
+	$(PYTHON) run_assembly_robustness.py --verify data/results/assembly-robustness-confirmatory-v2

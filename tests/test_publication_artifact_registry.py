@@ -6,18 +6,18 @@ from reporting.artifact_registry import PublicationArtifactRegistry, Publication
 from run_publication_artifacts import AEIPublicationFigureFactory, AEIPublicationTableFactory
 
 
-def test_registry_builds_four_hash_bound_evidence_tables(tmp_path) -> None:
+def test_registry_builds_hash_bound_evidence_tables_and_figures(tmp_path) -> None:
     root = tmp_path / "paper"
     registry = PublicationArtifactRegistry()
     registry.build(root, AEIPublicationTableFactory().create(), AEIPublicationFigureFactory().create())
     payload = registry.verify(root)
-    assert len(payload["tables"]) == 5
+    assert len(payload["tables"]) == 6
     assert {item["table_id"] for item in payload["tables"]} == {
         "solver-comparison", "cae-verification", "load-uncertainty", "strength-coupling",
-        "solver-scaling-largest-domain",
+        "solver-scaling-largest-domain", "assembly-robustness",
     }
     assert all(item["sources"] for item in payload["tables"])
-    assert len(payload["figures"]) == 5
+    assert len(payload["figures"]) == 6
     assert all((root / item["output"]).read_bytes().startswith(b'<?xml version="1.0"') for item in payload["figures"])
 
 

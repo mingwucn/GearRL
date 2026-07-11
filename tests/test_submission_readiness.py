@@ -13,7 +13,7 @@ class TestSubmissionReadinessAuditor:
     def test_audit_is_fail_closed_and_tracks_external_gates(self):
         report = SubmissionReadinessAuditor().audit(SOURCE)
         assert report["ready_to_submit"] is False
-        assert report["status_counts"] == {"passed": 12, "partial": 1, "external_pending": 1, "failed": 0}
+        assert report["status_counts"] == {"passed": 13, "partial": 1, "external_pending": 1, "failed": 0}
         assert report["blocking_requirements"] == ["author-and-archival-metadata"]
 
     def test_artifact_reproduces_and_detects_tampering(self, tmp_path):

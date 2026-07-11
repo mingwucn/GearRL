@@ -4,6 +4,7 @@
   "competing_interests_statement": null,
   "corresponding_author": null,
   "figure_captions": {
+    "assembly-robustness-response": "Conditional modeled-valid probability across transverse-backlash allowances and uniform shaft-location tolerances at zero housing-clearance erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.",
     "load-total-order-sensitivity": "Total-order sensitivity indices for the declared static-load uncertainty model. Torque dominates the modeled response; the distributions are study assumptions rather than measured duty data.",
     "solver-anytime-largest-domain": "Feasible recovery and negative-proof rate on the largest declared tooth domain across candidate budgets. Stochastic negative classifications are not proofs.",
     "strength-coupling-outcomes": "Outcome changes after static tooth-root admission is coupled to bounded synthesis. Retained, redesigned, and infeasible refer only to the declared digital model."

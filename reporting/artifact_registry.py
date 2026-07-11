@@ -184,6 +184,37 @@ class SolverScalingTable(PublicationTable):
             )
         return "\n".join(lines) + "\n"
 
+
+class AssemblyRobustnessTable(PublicationTable):
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "assembly-robustness"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("assembly-robustness-v2-manifest", self._manifest),
+            EvidenceSource("assembly-robustness-v2-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        scenarios = [item for item in self._json(self._summary)["scenarios"] if item["housing_clearance_erosion_mm"] == 0.0]
+        shaft_values = sorted({item["shaft_location_tolerance_mm"] for item in scenarios})
+        backlash_values = sorted({item["transverse_backlash_allowance_mm"] for item in scenarios})
+        lookup = {(item["shaft_location_tolerance_mm"], item["transverse_backlash_allowance_mm"]): item for item in scenarios}
+        labels = " | ".join(f"{value:g}" for value in backlash_values)
+        lines = [
+            f"| Shaft tolerance (mm) | {labels} |",
+            "| ---: | " + " | ".join("---:" for _ in backlash_values) + " |",
+        ]
+        for shaft in shaft_values:
+            probabilities = " | ".join(f"{lookup[(shaft, backlash)]['modeled_valid_probability']:.5f}" for backlash in backlash_values)
+            lines.append(f"| {shaft:g} | {probabilities} |")
+        return "\n".join(lines) + "\n"
+
 class PublicationArtifactRegistry:
     """Build a write-once table bundle with bidirectional hash traceability."""
 

@@ -1,0 +1,932 @@
+{
+  "dataset_hash": "6926a1ceeb24959910b2ab6e657abc02cecf08983c67b0e8ed90dfe07357cecc",
+  "dataset_id": "compound-v1-frozen-400",
+  "draw_count": 3440640,
+  "layout_count": 120,
+  "protocol": {
+    "bootstrap_samples": 5000,
+    "draws_per_layout": 512,
+    "housing_clearance_erosions_mm": [
+      0.0,
+      0.1
+    ],
+    "random_seed": 2026,
+    "sample_size": 120,
+    "shaft_location_tolerances_mm": [
+      0.0025,
+      0.005,
+      0.01,
+      0.025
+    ],
+    "transverse_backlash_allowances_mm": [
+      0.0,
+      0.0005,
+      0.001,
+      0.002,
+      0.005,
+      0.01,
+      0.02
+    ]
+  },
+  "scenario_count": 56,
+  "scenarios": [
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122506
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.002620442708333333,
+        0.0035074869791666668
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0030436197916666667,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122506
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0026123046875,
+        0.0034993489583333335
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0030436197916666667,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030777994791666666,
+        0.03317057291666667
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030777994791666666,
+        0.03313802083333333
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030745442708333334,
+        0.033186848958333334
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.03076171875,
+        0.033186848958333334
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.000--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122506
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0026041666666666665,
+        0.003483072916666667
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0030436197916666667,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122506
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0026121012369791667,
+        0.0034912109375
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0030436197916666667,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030777994791666666,
+        0.03317057291666667
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030745442708333334,
+        0.033186848958333334
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030777994791666666,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59476
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030777994791666666,
+        0.03315470377604166
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.031966145833333334,
+      "scenario_id": "shaft-0.003--housing-0.100--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.0025,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122857
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00011393229166666667,
+        0.00026041666666666666
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00018717447916666668,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122857
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00011393229166666667,
+        0.00026041666666666666
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00018717447916666668,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61088
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00517578125,
+        0.0062825520833333336
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.005729166666666666,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030696614583333334,
+        0.03308919270833333
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030745442708333334,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030745442708333334,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.000--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122857
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.00011393229166666667,
+        0.00026041666666666666
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00018717447916666668,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122857
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0001220703125,
+        0.00026041666666666666
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00018717447916666668,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61088
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0051920572916666664,
+        0.0062825520833333336
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.005729166666666666,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030729166666666665,
+        0.03308919270833333
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030745442708333334,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030728759765625,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.005--housing-0.100--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.005,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122879
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        2.44140625e-05
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 8.138020833333333e-06,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122879
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        2.44140625e-05
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 8.138020833333333e-06,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61418
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00022786458333333334,
+        0.0005045572916666667
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00035807291666666664,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 60686
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.011458333333333333,
+        0.013102213541666666
+      ],
+      "maximum_layout_probability": 0.02734375,
+      "minimum_layout_probability": 0.00390625,
+      "modeled_valid_probability": 0.012272135416666666,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.03076171875,
+        0.033154296875
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030712890625,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.010--housing-0.000--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122879
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        2.44140625e-05
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 8.138020833333333e-06,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122879
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        2.44140625e-05
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 8.138020833333333e-06,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61418
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.00022786458333333334,
+        0.00048828125
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00035807291666666664,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 60686
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.011490885416666667,
+        0.013118489583333334
+      ],
+      "maximum_layout_probability": 0.02734375,
+      "minimum_layout_probability": 0.00390625,
+      "modeled_valid_probability": 0.012272135416666666,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030712890625,
+        0.03310546875
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030729166666666665,
+        0.033121744791666664
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.010--housing-0.100--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.01,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122880
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122880
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61418
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00022786458333333334,
+        0.0005045572916666667
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00035807291666666664,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61088
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.00517578125,
+        0.006298828125
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.005729166666666666,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "layout_bootstrap_95_interval": [
+        0.030680338541666668,
+        0.03313802083333333
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.025--housing-0.000--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.02
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.000",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.0
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122880
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.0005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 122880
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.001",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.001
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61440
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "maximum_layout_probability": 0.0,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.002
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61418
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.00022786458333333334,
+        0.0005045572916666667
+      ],
+      "maximum_layout_probability": 0.001953125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.00035807291666666664,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.005
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 61088
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.005159505208333333,
+        0.0062825520833333336
+      ],
+      "maximum_layout_probability": 0.013671875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.005729166666666666,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.010",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.01
+    },
+    {
+      "failure_code_counts": {
+        "mesh_center_distance": 59479
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "layout_bootstrap_95_interval": [
+        0.030729166666666665,
+        0.03307291666666667
+      ],
+      "maximum_layout_probability": 0.05078125,
+      "minimum_layout_probability": 0.01171875,
+      "modeled_valid_probability": 0.03191731770833333,
+      "scenario_id": "shaft-0.025--housing-0.100--backlash-0.020",
+      "shaft_location_tolerance_mm": 0.025,
+      "transverse_backlash_allowance_mm": 0.02
+    }
+  ],
+  "schema_version": "assembly-robustness-summary-v1",
+  "scope": "conditional digital assembly robustness under declared uniform shaft-location errors, conservative housing-clearance erosion, and transverse-backlash allowance"
+}

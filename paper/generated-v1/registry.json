@@ -1,6 +1,23 @@
 {
   "figures": [
     {
+      "figure_id": "assembly-robustness-response",
+      "output": "figures/assembly-robustness-response.svg",
+      "output_sha256": "f5a9db2ee6e110f2e22b79286a24b569a7444fd7b8a2c1d8b95edbead6dfd829",
+      "sources": [
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v2/manifest.json",
+          "sha256": "d82eee7a5fa351290e4fcf1a05b9f58b3aeca2c1a239140a954f8530e8f79ddc",
+          "source_id": "assembly-robustness-v2-manifest"
+        },
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v2/summary.json",
+          "sha256": "0281bf249fa956bd7b9de3038a5106ff94cb1fbe2423941316968b468325e5bd",
+          "source_id": "assembly-robustness-v2-summary"
+        }
+      ]
+    },
+    {
       "figure_id": "load-total-order-sensitivity",
       "output": "figures/load-total-order-sensitivity.svg",
       "output_sha256": "455aad1216a64b2fee7622329e82c3fb165f82e695ab82999833e8b19960ec1e",
@@ -84,6 +101,23 @@
   "generation_policy": "deterministic evidence-only tables and figures; no manually supplied metrics",
   "schema_version": "publication-artifact-registry-v2",
   "tables": [
+    {
+      "output": "tables/assembly-robustness.md",
+      "output_sha256": "38de73b50f96823b629b3d3233c8afe6e9e7e9dfd39750d2c6f60fc978f5b752",
+      "sources": [
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v2/manifest.json",
+          "sha256": "d82eee7a5fa351290e4fcf1a05b9f58b3aeca2c1a239140a954f8530e8f79ddc",
+          "source_id": "assembly-robustness-v2-manifest"
+        },
+        {
+          "path": "data/results/assembly-robustness-confirmatory-v2/summary.json",
+          "sha256": "0281bf249fa956bd7b9de3038a5106ff94cb1fbe2423941316968b468325e5bd",
+          "source_id": "assembly-robustness-v2-summary"
+        }
+      ],
+      "table_id": "assembly-robustness"
+    },
     {
       "output": "tables/cae-verification.md",
       "output_sha256": "52f83f9332b1bee1159431ee391210946cd46716d5ccbbfd419de7b8b7608e4b",
