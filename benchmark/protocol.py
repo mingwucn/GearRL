@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 from benchmark.generator import BenchmarkGenerator, BenchmarkInstance
+from common.design_models import GearTrain
 from physics_validator.reference_verifier import ReferenceVerifier
 
 
@@ -65,9 +66,9 @@ class FrozenBenchmarkFactory:
     def _tight(self, seed: int, count: int) -> list[BenchmarkInstance]:
         result = []
         for index, item in enumerate(self._generator.generate_compound_instances(seed, count)):
-            clearance = max(0.0, float(item.certificate["minimum_clearance_mm"]) - 0.01)
+            clearance = max(0.0, self._solution_clearance(item) - 0.01)
             problem = replace(item.problem, constraints=replace(item.problem.constraints, boundary_clearance=clearance))
-            certificate = ReferenceVerifier.verify(problem, item.reference_train)
+            certificate = self._solution_certificate(problem, item)
             if not certificate.valid:
                 raise RuntimeError("Tight-clearance construction must remain feasible")
             result.append(replace(item, instance_id=f"test-tight-clearance-{index:04d}", problem=problem, certificate=certificate.to_json(), partition="test", difficulty="hard", family="adversarial-tight-clearance"))
@@ -76,10 +77,26 @@ class FrozenBenchmarkFactory:
     def _near_infeasible(self, seed: int, count: int) -> list[BenchmarkInstance]:
         result = []
         for index, item in enumerate(self._generator.generate_compound_instances(seed, count)):
-            clearance = float(item.certificate["minimum_clearance_mm"]) + 0.01
+            clearance = self._solution_clearance(item) + 0.01
             problem = replace(item.problem, constraints=replace(item.problem.constraints, boundary_clearance=clearance))
-            certificate = ReferenceVerifier.verify(problem, item.reference_train)
+            certificate = self._solution_certificate(problem, item)
             if certificate.valid:
                 raise RuntimeError("Near-infeasible construction must be infeasible")
             result.append(replace(item, instance_id=f"test-near-infeasible-{index:04d}", problem=problem, certificate=certificate.to_json(), expected_feasible=False, partition="test", difficulty="hard", family="adversarial-near-infeasible"))
         return result
+
+    @staticmethod
+    def _solution_clearance(item: BenchmarkInstance) -> float:
+        """Measure the actual input-compound-output solution, not decoy nodes."""
+        stages = tuple(stage for stage in item.reference_train.stages if stage.id in {"input", "compound", "output"})
+        meshes = tuple(edge for edge in item.reference_train.meshes if edge.driver_stage_id in {"input", "compound"} and edge.driven_stage_id in {"compound", "output"})
+        certificate = ReferenceVerifier.verify(item.problem, GearTrain(stages, meshes))
+        if not certificate.valid or certificate.minimum_clearance_mm is None:
+            raise RuntimeError("Protocol source must contain a valid intended solution")
+        return certificate.minimum_clearance_mm
+
+    @staticmethod
+    def _solution_certificate(problem, item: BenchmarkInstance):
+        stages = tuple(stage for stage in item.reference_train.stages if stage.id in {"input", "compound", "output"})
+        meshes = tuple(edge for edge in item.reference_train.meshes if edge.driver_stage_id in {"input", "compound"} and edge.driven_stage_id in {"compound", "output"})
+        return ReferenceVerifier.verify(problem, GearTrain(stages, meshes))

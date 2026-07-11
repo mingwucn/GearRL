@@ -1,0 +1,155 @@
+{
+  "certificate": {
+    "cae_reports": [],
+    "issues": [],
+    "minimum_clearance_mm": 67.6,
+    "model_version": "certified-planar-v1",
+    "signed_speed_ratio": 1.460869565217391,
+    "valid": true
+  },
+  "difficulty": "moderate",
+  "expected_feasible": true,
+  "family": "compound-wide",
+  "instance_id": "train-procedural-0097",
+  "partition": "train",
+  "problem": {
+    "boundary": [
+      {
+        "x": -243.0,
+        "y": -129.6
+      },
+      {
+        "x": 243.0,
+        "y": -129.6
+      },
+      {
+        "x": 243.0,
+        "y": 129.6
+      },
+      {
+        "x": -243.0,
+        "y": 129.6
+      }
+    ],
+    "constraints": {
+      "boundary_clearance": 0.0,
+      "max_teeth": 48,
+      "min_safety_factor": null,
+      "min_teeth": 18,
+      "pressure_angle_deg": 20.0,
+      "ratio_tolerance": 1e-06,
+      "target_speed_ratio": 1.460869565217391
+    },
+    "input_stage_id": "input",
+    "load_case": null,
+    "output_stage_id": "output",
+    "units": "mm"
+  },
+  "reference_train": {
+    "meshes": [
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "decoy",
+        "driver_member": 0,
+        "driver_stage_id": "input"
+      },
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "decoy_two",
+        "driver_member": 0,
+        "driver_stage_id": "input"
+      },
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "compound",
+        "driver_member": 0,
+        "driver_stage_id": "input"
+      },
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "output",
+        "driver_member": 1,
+        "driver_stage_id": "compound"
+      }
+    ],
+    "stages": [
+      {
+        "axial_layers": [
+          0
+        ],
+        "center": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "id": "input",
+        "module_mm": 2.0,
+        "teeth": [
+          24
+        ]
+      },
+      {
+        "axial_layers": [
+          0
+        ],
+        "center": {
+          "x": -69.0,
+          "y": 0.0
+        },
+        "id": "decoy",
+        "module_mm": 2.0,
+        "teeth": [
+          45
+        ]
+      },
+      {
+        "axial_layers": [
+          0
+        ],
+        "center": {
+          "x": 0.0,
+          "y": -42.0
+        },
+        "id": "decoy_two",
+        "module_mm": 2.0,
+        "teeth": [
+          18
+        ]
+      },
+      {
+        "axial_layers": [
+          0,
+          1
+        ],
+        "center": {
+          "x": 47.0,
+          "y": 0.0
+        },
+        "id": "compound",
+        "module_mm": 2.0,
+        "teeth": [
+          23,
+          28
+        ]
+      },
+      {
+        "axial_layers": [
+          1
+        ],
+        "center": {
+          "x": 95.0,
+          "y": 0.0
+        },
+        "id": "output",
+        "module_mm": 2.0,
+        "teeth": [
+          20
+        ]
+      }
+    ]
+  },
+  "seed": 2127
+}

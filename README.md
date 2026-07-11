@@ -31,7 +31,7 @@ Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):
 
 ```bash
-conda run -n ai python -c "from benchmark.freeze import BenchmarkFreezer; BenchmarkFreezer().freeze_protocol('data/benchmark/frozen/compound-v1-frozen-400')"
+conda run -n ai python -c "from benchmark.freeze import BenchmarkFreezer; BenchmarkFreezer().freeze_protocol('data/benchmark/frozen/compound-v1-frozen-400-r2')"
 ```
 
 ## Learned-Policy Evidence Gate

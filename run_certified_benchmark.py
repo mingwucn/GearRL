@@ -10,6 +10,7 @@ from pathlib import Path
 from time import perf_counter
 
 from benchmark.generator import BenchmarkGenerator
+from benchmark.loader import FrozenBenchmarkLoader
 from common.provenance import RunBundleStore
 from reporting.aggregate import ResultAggregator
 from synthesis.certified_graph import CertifiedSynthesisGraph
@@ -28,11 +29,22 @@ class CertifiedBenchmarkRunner:
 
     def run(self, seed: int, count: int, infeasible_count: int = 0) -> Path:
         instances = self._generator.generate_suite(seed, count, infeasible_count)
+        return self._run_instances(instances, seed, "compound-v1")
+
+    def run_frozen(self, dataset_root: Path) -> Path:
+        dataset_id, dataset_hash, instances = FrozenBenchmarkLoader().load(dataset_root)
+        return self._run_instances(instances, 2026, dataset_id, dataset_hash)
+
+    def _run_instances(self, instances, seed: int, dataset_id: str, dataset_hash: str | None = None) -> Path:
         bundle, _ = self._store.create(
             random_seed=seed,
-            dataset_id="compound-v1",
-            dataset_hash=self._dataset_hash(instances),
-            config={"method": "certified-branch-and-bound", "feasible_instance_count": count, "infeasible_instance_count": infeasible_count},
+            dataset_id=dataset_id,
+            dataset_hash=dataset_hash or self._dataset_hash(instances),
+            config={
+                "method": "certified-branch-and-bound",
+                "feasible_instance_count": sum(item.expected_feasible for item in instances),
+                "infeasible_instance_count": sum(not item.expected_feasible for item in instances),
+            },
             model_version="certified-planar-v1",
         )
         for instance in instances:
@@ -72,8 +84,10 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--infeasible-count", type=int, default=0)
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
+    parser.add_argument("--frozen-dataset", type=Path)
     args = parser.parse_args()
-    print(CertifiedBenchmarkRunner(args.output_root).run(args.seed, args.count, args.infeasible_count))
+    runner = CertifiedBenchmarkRunner(args.output_root)
+    print(runner.run_frozen(args.frozen_dataset) if args.frozen_dataset else runner.run(args.seed, args.count, args.infeasible_count))
 
 
 if __name__ == "__main__":
