@@ -110,6 +110,18 @@ conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 
 conda run -n ai pytest -q
 ```
 
+Regenerate every committed manuscript table in a temporary directory and require
+byte identity with the hash-bound publication registry:
+
+```bash
+conda run -n ai make paper-verify
+```
+
+The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
+table to the exact solver, CAE, uncertainty, or strength-coupling evidence files
+used to generate it. This verifies reporting provenance; the underlying
+scientific experiments retain their separate commands and manifests.
+
 For the full frozen protocol, including the 400-instance mixed benchmark:
 
 ```bash

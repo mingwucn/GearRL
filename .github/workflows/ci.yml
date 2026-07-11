@@ -21,3 +21,6 @@ jobs:
       - name: Run certified benchmark smoke test
         shell: bash -l {0}
         run: python main.py --seed 2026 --count 5 --infeasible-count 2 --output-root /tmp/gearrl-ci-runs
+      - name: Verify deterministic publication tables
+        shell: bash -l {0}
+        run: make paper-verify

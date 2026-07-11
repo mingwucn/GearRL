@@ -1,0 +1,69 @@
+{
+  "generation_policy": "deterministic evidence-only Markdown; no manually supplied metrics",
+  "schema_version": "publication-artifact-registry-v1",
+  "tables": [
+    {
+      "output": "tables/cae-verification.md",
+      "output_sha256": "52f83f9332b1bee1159431ee391210946cd46716d5ccbbfd419de7b8b7608e4b",
+      "sources": [
+        {
+          "path": "data/results/cae-verification-v3/manifest.json",
+          "sha256": "5ee78272715f3501d69542a799cdd367d0200a32ee74d0017d2c173dbf63ef62",
+          "source_id": "cae-verification-v3-manifest"
+        },
+        {
+          "path": "data/results/cae-verification-v3/summary.json",
+          "sha256": "0f31383b43427c5529f9a1b185616f657f5b439b89aabb590871a3dff6a711b3",
+          "source_id": "cae-verification-v3-summary"
+        }
+      ],
+      "table_id": "cae-verification"
+    },
+    {
+      "output": "tables/load-uncertainty.md",
+      "output_sha256": "a37233ef9645bd35c5753d2fe198a6787752afe46d623246851d2c8a004ecac1",
+      "sources": [
+        {
+          "path": "data/results/load-uncertainty-v1/manifest.json",
+          "sha256": "f2f1fb8aa4f607a28337fc64e38ebb55749bc265555e96ee17d071bbdd6318e1",
+          "source_id": "load-uncertainty-v1-manifest"
+        },
+        {
+          "path": "data/results/load-uncertainty-v1/results.json",
+          "sha256": "71c04383a602d591729299c8218ac2943afd3f8a49ddad638288f3dd3042d208",
+          "source_id": "load-uncertainty-v1-results"
+        }
+      ],
+      "table_id": "load-uncertainty"
+    },
+    {
+      "output": "tables/solver-comparison.md",
+      "output_sha256": "fc11b243b0078f9561ef59d3dc4214c227630b51bdb7d4f4ee624a3161521aae",
+      "sources": [
+        {
+          "path": "data/results/requirements-comparison-v2/adjudication.json",
+          "sha256": "d95da151562709e0af6d19cf3a442c26215940fe6b5b8d44f1f22a341f5225f8",
+          "source_id": "requirements-comparison-adjudication-v2"
+        }
+      ],
+      "table_id": "solver-comparison"
+    },
+    {
+      "output": "tables/strength-coupling.md",
+      "output_sha256": "3f4b1442c9fbf816efabfea6b4d4648197de7eab73a44f09e34085058fc723ee",
+      "sources": [
+        {
+          "path": "data/results/strength-coupled-v1/manifest.json",
+          "sha256": "be2ff0b240c8923a3c30d0fae1cb9d8a293e84caa81af62cdc9956fefeb5fa00",
+          "source_id": "strength-coupled-v1-manifest"
+        },
+        {
+          "path": "data/results/strength-coupled-v1/summary.json",
+          "sha256": "23d8b8a6eebc3fe69085e5207446ecae57470cd7e6078dc01a56846b2b70c9e0",
+          "source_id": "strength-coupled-v1-summary"
+        }
+      ],
+      "table_id": "strength-coupling"
+    }
+  ]
+}

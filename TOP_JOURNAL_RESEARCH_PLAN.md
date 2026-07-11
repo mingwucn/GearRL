@@ -211,3 +211,9 @@ Seven baseline designs are retained. `valid-down-34` is redesigned from tooth se
 `StrengthCouplingRequirements`, `StrengthCoupledSynthesisStudy`, `PredeclaredSolverViewRepository`, and `StrengthCoupledEvidenceStore` separate requirement injection, paired evaluation, frozen-input selection, and persistence. Evidence under `data/results/strength-coupled-v1` contains the baseline-under-strength certificate, accepted strength certificate where present, search accounting, selected trains, source-index hash, and per-record hashes. Rejection is reported only when the bounded search is complete.
 
 This ablation establishes coupling only for the declared static tooth-root model and bounded three-shaft compound family. It does not convert the CAE screen into fatigue, contact, reliability, or physical-validation evidence.
+
+### Implemented publication artifact registry
+
+`PublicationArtifactRegistry` generates four deterministic evidence-only Markdown tables for solver comparison, CAE verification, load uncertainty, and strength-coupled synthesis. Every registry entry records the table hash and the path and hash of every frozen source payload used by its renderer. `PublicationReproducer` rebuilds all tables in a clean temporary directory and requires byte identity with `paper/generated-v1`; modified tables or source evidence fail verification.
+
+The class-based `AEIPublicationTableFactory` is the single declaration of the submitted table set. `make paper-verify` provides a one-command reporting reproduction target, and CI runs the same target after the regression and certified-workflow tests. This closes table-to-bundle traceability for the currently implemented results. It does not yet constitute a DOI release, clean container-build attestation, complete figure suite, or manuscript package; those remain Gate F work.
