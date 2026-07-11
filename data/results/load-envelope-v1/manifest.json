@@ -1,0 +1,104 @@
+{
+  "config": {
+    "minimum_safety_factor": 1.0,
+    "random_seed": 2026,
+    "sample_size": 24
+  },
+  "dataset_hash": "6926a1ceeb24959910b2ab6e657abc02cecf08983c67b0e8ed90dfe07357cecc",
+  "dataset_id": "compound-v1-frozen-400",
+  "materials": [
+    {
+      "grade": "S355",
+      "minimum_yield_strength_mpa": 355.0,
+      "poisson_ratio": 0.3,
+      "product_form": "plate",
+      "source_scope": "Minimum transverse yield strength for 5-16 mm product thickness.",
+      "source_title": "ArcelorMittal Constructalia: S355 structural steel grades",
+      "source_url": "https://constructalia.arcelormittal.com/en/steel-grades/s355",
+      "static_screen_factor": 1.5,
+      "thickness_scope_mm": "5-16",
+      "youngs_modulus_mpa": 210000.0
+    },
+    {
+      "grade": "Toolox 44",
+      "minimum_yield_strength_mpa": 1150.0,
+      "poisson_ratio": 0.3,
+      "product_form": "plate",
+      "source_scope": "Guaranteed minimum 0.2% proof strength for plate, 6-130 mm.",
+      "source_title": "SSAB: Toolox 44 product data",
+      "source_url": "https://www.ssab.com/en-gb/brands-and-products/toolox/product-offer/toolox-44",
+      "static_screen_factor": 1.5,
+      "thickness_scope_mm": "6-130",
+      "youngs_modulus_mpa": 205000.0
+    }
+  ],
+  "model_version": "certified-planar-v3+involute-tooth-root-plane-stress-v3",
+  "records": [
+    {
+      "case_id": "s355-t1-w8-e0.95",
+      "sha256": "d54cff444d6d362dba69f782af1a5e991cb50052129ea9573ad16ae563e21887"
+    },
+    {
+      "case_id": "s355-t1-w8-e0.98",
+      "sha256": "cd70fab20756d40f11f6c507e683519aa41aee5b74a4a0767067e760c3b49e3f"
+    },
+    {
+      "case_id": "s355-t1-w12-e0.95",
+      "sha256": "afc2e2906e840f5983b261f0ce6ec04b1fe67a8bc3c8f69a76b7bcd7585d26ba"
+    },
+    {
+      "case_id": "s355-t1-w12-e0.98",
+      "sha256": "a1e462698192ad44f8ef1f9592fa1ce5f7609c301addedfd6bacb0293a51f71e"
+    },
+    {
+      "case_id": "s355-t3-w8-e0.95",
+      "sha256": "bedb98d6cf99116c6e04273b3de4d459ba91f5f8f1fdd54a91254d03e33a4b60"
+    },
+    {
+      "case_id": "s355-t3-w8-e0.98",
+      "sha256": "330000b3a83e254deb7447c48f1dfa5dbcf6fc544181a336eec2275d1f846535"
+    },
+    {
+      "case_id": "s355-t3-w12-e0.95",
+      "sha256": "0820117d1bc603021d110a590be2269978b10b2c9be89e41514b134b9d973911"
+    },
+    {
+      "case_id": "s355-t3-w12-e0.98",
+      "sha256": "f690da48310b45af3253060cac7328245724244c6d1f1bde9ab65d90a8d7eba6"
+    },
+    {
+      "case_id": "toolox-44-t1-w8-e0.95",
+      "sha256": "210800d4ed4d0f1197504318f027f3eabca5634c9e7ebb0d60938a3b62bdbdb7"
+    },
+    {
+      "case_id": "toolox-44-t1-w8-e0.98",
+      "sha256": "b9603160a188e7f1bc053563154c0389c0d408ad7ab564a179b9a0ead6d27bda"
+    },
+    {
+      "case_id": "toolox-44-t1-w12-e0.95",
+      "sha256": "b2a4bec775f2088e66e0a622b1c37387ea91ce3208fabe9550eac8034ceb5061"
+    },
+    {
+      "case_id": "toolox-44-t1-w12-e0.98",
+      "sha256": "61b825f0a79232daead6915ec7d3786651b60328836035e795246bdbad16964d"
+    },
+    {
+      "case_id": "toolox-44-t3-w8-e0.95",
+      "sha256": "31a401202d251be1a531eb74f3617a9854aa77517405c6ab807cc6104e485778"
+    },
+    {
+      "case_id": "toolox-44-t3-w8-e0.98",
+      "sha256": "cd877e8f449abb1b32dd74e7593c5efe586d3965b5f0d942e3a93d34274fd9ba"
+    },
+    {
+      "case_id": "toolox-44-t3-w12-e0.95",
+      "sha256": "ec130f6c4048f24b333e274c2cd8a621dd457d6ed10befaf8b114e9d327c8109"
+    },
+    {
+      "case_id": "toolox-44-t3-w12-e0.98",
+      "sha256": "504309dc674818670d4ff8205018637b4153a51c002a0b25ec1bc442e27e6c79"
+    }
+  ],
+  "study_scope": "digital static elastic tooth-root bending screen; not fatigue, contact, or qualification",
+  "summary_sha256": "b06ae513cacf58f712a2df23ce821c4cf9950640cfd452936edc1ceff0901d91"
+}

@@ -6,6 +6,8 @@ Transform GearRL from a prototype into a reproducible, manufacturing-aware desig
 
 The publication target is *Advanced Engineering Informatics* (AEI). This is a fully digital engineering-informatics study with certified synthesis, in-house CAE screening, and reproducible evidence; it does not claim physical manufacturing validation.
 
+The AEI submission is therefore the primary path. RCIM-style manufacturing claims and physical-validation gates are outside the submitted contribution and remain future work.
+
 The research claim is:
 
 > A manufacturing-aware certified synthesis graph generates valid compound spur-gear layouts under explicit geometric, kinematic, component, and CAE-derived strength constraints, and learning-guided search reduces design time on unseen enclosure families without weakening validity.
@@ -175,3 +177,17 @@ Submit only when all of the following are true:
 3. The proposed method has a statistically supported benefit over predeclared baselines, or the deterministic solver itself provides the paper's contribution.
 4. CAE evidence is reported with model limits and convergence results.
 5. The manuscript claims only the declared digital kinematic, geometric, and static-strength model; physical validation is future work.
+
+## Implemented sourced load envelope
+
+The frozen `load-envelope-v1` study replaces the illustrative generic-steel load case with a traceable 2 x 2 x 2 x 2 factorial sensitivity experiment. It evaluates two material grades, input torques of 1 and 3 Nm, face widths of 8 and 12 mm, and per-mesh efficiencies of 0.95 and 0.98 on the same 24 family-stratified layouts. The implementation is object-oriented: `TraceableMaterial`, `LoadEnvelopeCase`, `AEIStaticEnvelopeCatalog`, `LoadEnvelopeStudy`, and the evidence store separate source data, experiment construction, analysis, and persistence.
+
+The material inputs are manufacturer data rather than inferred gear allowables:
+
+- ArcelorMittal S355 plate uses the published 355 MPa minimum yield strength for the declared 5-16 mm thickness scope.
+- SSAB Toolox 44 plate uses the published 1150 MPa minimum 0.2% proof strength for the declared 6-130 mm thickness scope.
+- Both static screening allowables are explicitly derived as minimum yield strength divided by 1.5. This factor is an experiment declaration, not a manufacturer fatigue or gear-rating value.
+
+The frozen result contains 16 envelope cases, 384 layout-case observations, and all underlying tooth reports. Twelve cases pass every sampled layout. At 3 Nm, S355 passes 62.5-83.3% of layouts depending on width and efficiency, whereas all declared Toolox 44 cases pass. The minimum observed static screening safety factor is 0.362. These results demonstrate sensitivity to engineering inputs and identify rejected digital designs; they do not establish fatigue life, contact durability, manufacturing fitness, or physical safety.
+
+Evidence is stored under `data/results/load-envelope-v1`. Its manifest binds the dataset hash, model version, sources, configuration, summary hash, and every case-record hash. `LoadEnvelopeEvidenceStore` rejects modified summaries or records.
