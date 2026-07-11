@@ -295,4 +295,5 @@ class ScalingRuntimeFingerprint:
     @staticmethod
     def _git(arguments: tuple[str, ...]) -> str:
         completed = subprocess.run(("git", *arguments), check=True, capture_output=True, text=True)
-        return completed.stdout.strip()
+        # Preserve porcelain's leading status column; trim only line endings.
+        return completed.stdout.rstrip("\r\n")
