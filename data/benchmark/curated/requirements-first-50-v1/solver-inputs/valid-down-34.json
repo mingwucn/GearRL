@@ -1,0 +1,68 @@
+{
+  "family": "curated-compound-50-v1",
+  "instance_id": "valid-down-34",
+  "partition": "curated",
+  "specification": {
+    "design_space": {
+      "allowed_modules_mm": [
+        1.0
+      ],
+      "axial_layer_count": 2,
+      "maximum_compound_members": 2,
+      "maximum_stage_count": 3,
+      "minimum_stage_count": 3
+    },
+    "obstacles": [],
+    "prescribed_shafts": [
+      {
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "role": "input"
+      },
+      {
+        "center": {
+          "x": 34.0,
+          "y": 0
+        },
+        "role": "output"
+      }
+    ],
+    "problem": {
+      "boundary": [
+        {
+          "x": -60.0,
+          "y": -60.0
+        },
+        {
+          "x": 60.0,
+          "y": -60.0
+        },
+        {
+          "x": 60.0,
+          "y": 60.0
+        },
+        {
+          "x": -60.0,
+          "y": 60.0
+        }
+      ],
+      "constraints": {
+        "boundary_clearance": 0.0,
+        "max_teeth": 26,
+        "min_safety_factor": null,
+        "min_teeth": 18,
+        "pressure_angle_deg": 20.0,
+        "ratio_tolerance": 1e-09,
+        "target_speed_ratio": 0.8,
+        "transverse_backlash_allowance_mm": 0.0
+      },
+      "input_stage_id": "input",
+      "load_case": null,
+      "output_stage_id": "output",
+      "units": "mm"
+    },
+    "schema_version": "requirements-first-v1"
+  }
+}

@@ -28,6 +28,18 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 
+The requirements-first curated benchmark is frozen at
+`data/benchmark/curated/requirements-first-50-v1`. Its 50 explicit briefs keep
+solver inputs physically separate from evaluator-only witnesses and exhaustive
+negative proofs. Regenerate it with:
+
+```bash
+conda run -n ai python run_curated_benchmark.py data/benchmark/curated/requirements-first-50-v1
+```
+
+The historical 400-instance data remains a path-selection regression benchmark,
+not evidence of inverse synthesis.
+
 Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):
 

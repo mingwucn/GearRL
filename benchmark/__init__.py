@@ -1,6 +1,13 @@
 """Versioned benchmark generation for certified GearRL experiments."""
 
 from .generator import BenchmarkGenerator, BenchmarkInstance
+from .curated import (
+    CuratedBenchmarkFreezer,
+    CuratedBenchmarkLoader,
+    CuratedCaseCatalog,
+    CuratedRequirementsFirstFactory,
+    FrozenCuratedDataset,
+)
 from .oracle import ExactCompoundTrainOracle, GroundTruthOracle, OracleProof, OracleResult
 from .specification import (
     DesignSpace,
@@ -21,6 +28,11 @@ __all__ = [
     "BenchmarkGenerator",
     "BenchmarkInstance",
     "BenchmarkProtocol",
+    "CuratedBenchmarkFreezer",
+    "CuratedBenchmarkLoader",
+    "CuratedCaseCatalog",
+    "CuratedRequirementsFirstFactory",
+    "FrozenCuratedDataset",
     "DesignSpace",
     "ExternalBenchmarkRegistry",
     "ExternalCaseMetadata",

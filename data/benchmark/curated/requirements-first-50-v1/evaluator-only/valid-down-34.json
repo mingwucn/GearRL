@@ -1,0 +1,78 @@
+{
+  "certificate": {
+    "design_space_complete": false,
+    "evaluated_parameter_tuples": 26,
+    "evaluated_placements": 2,
+    "feasible": true,
+    "oracle_version": "exact-compound-oracle-v1",
+    "reason": "Constructive witness found"
+  },
+  "expected_feasible": true,
+  "instance_id": "valid-down-34",
+  "oracle_version": "exact-compound-oracle-v1",
+  "proof_kind": "constructive-witness",
+  "reference_train": {
+    "meshes": [
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "compound",
+        "driver_member": 0,
+        "driver_stage_id": "input"
+      },
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "output",
+        "driver_member": 1,
+        "driver_stage_id": "compound"
+      }
+    ],
+    "stages": [
+      {
+        "axial_layers": [
+          0
+        ],
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "id": "input",
+        "module_mm": 1.0,
+        "teeth": [
+          18
+        ]
+      },
+      {
+        "axial_layers": [
+          0,
+          1
+        ],
+        "center": {
+          "x": 14.319852941176471,
+          "y": 10.906044734140767
+        },
+        "id": "compound",
+        "module_mm": 1.0,
+        "teeth": [
+          18,
+          20
+        ]
+      },
+      {
+        "axial_layers": [
+          1
+        ],
+        "center": {
+          "x": 34.0,
+          "y": 0
+        },
+        "id": "output",
+        "module_mm": 1.0,
+        "teeth": [
+          25
+        ]
+      }
+    ]
+  }
+}
