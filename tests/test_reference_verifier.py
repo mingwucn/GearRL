@@ -70,3 +70,22 @@ def test_detects_unintended_same_layer_compound_collision() -> None:
     certificate = ReferenceVerifier.verify(_problem(), train)
     assert not certificate.valid
     assert any(issue.code == "stage_collision" for issue in certificate.issues)
+
+
+def test_backlash_allows_only_positive_center_distance_expansion() -> None:
+    problem = DesignProblem(
+        boundary=(Point2D(-100, -100), Point2D(100, -100), Point2D(100, 100), Point2D(-100, 100)),
+        input_stage_id="input",
+        output_stage_id="output",
+        constraints=DesignConstraints(target_speed_ratio=-1.0, min_teeth=17, max_teeth=80, transverse_backlash_allowance_mm=0.01),
+    )
+    expanded = GearTrain(
+        (GearStage("input", Point2D(0, 0), (20,), 1.0), GearStage("output", Point2D(20.01, 0), (20,), 1.0)),
+        (MeshEdge("input", 0, "output", 0),),
+    )
+    compressed = GearTrain(
+        (GearStage("input", Point2D(0, 0), (20,), 1.0), GearStage("output", Point2D(19.99, 0), (20,), 1.0)),
+        (MeshEdge("input", 0, "output", 0),),
+    )
+    assert ReferenceVerifier.verify(problem, expanded).valid
+    assert not ReferenceVerifier.verify(problem, compressed).valid

@@ -7,5 +7,6 @@ from .multiseed import MultiSeedPolicyStudy, SeedStudyOutcome
 from .cae_study import CAEStudyOutcome, StratifiedCAEStudy
 from .paired_efficiency import PairedEfficiencyOutcome, PairedEfficiencyStudy, PairedEfficiencySummary
 from .environmental_robustness import EnvironmentalRobustnessEvaluator, HousingRobustnessOutcome, LoadRobustnessOutcome
+from .backlash import BacklashOutcome, BacklashRobustnessEvaluator
 
-__all__ = ["CAEStudyOutcome", "CertifiedSolverComparison", "EnvironmentalRobustnessEvaluator", "GeometricToleranceEvaluator", "HousingRobustnessOutcome", "LearnedPolicyEvaluator", "LoadRobustnessOutcome", "MultiSeedPolicyStudy", "PairedEfficiencyOutcome", "PairedEfficiencyStudy", "PairedEfficiencySummary", "PolicyOutcome", "SeedStudyOutcome", "SolverOutcome", "StratifiedCAEStudy", "ToleranceOutcome"]
+__all__ = ["BacklashOutcome", "BacklashRobustnessEvaluator", "CAEStudyOutcome", "CertifiedSolverComparison", "EnvironmentalRobustnessEvaluator", "GeometricToleranceEvaluator", "HousingRobustnessOutcome", "LearnedPolicyEvaluator", "LoadRobustnessOutcome", "MultiSeedPolicyStudy", "PairedEfficiencyOutcome", "PairedEfficiencyStudy", "PairedEfficiencySummary", "PolicyOutcome", "SeedStudyOutcome", "SolverOutcome", "StratifiedCAEStudy", "ToleranceOutcome"]

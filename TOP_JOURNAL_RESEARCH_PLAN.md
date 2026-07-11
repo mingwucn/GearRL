@@ -20,6 +20,7 @@ The first research version is limited to:
 - Signed angular-velocity ratio as the primary functional target.
 - Ideal torque ratio derived separately under an explicit efficiency assumption.
 - Geometric validity: intended meshes, no unintended gear/shaft/housing intersections, minimum clearance, tooth-count and undercut rules, and valid axial stacking.
+- Backlash robustness is limited to the standard small-displacement relation between declared transverse backlash and positive center-distance expansion; it is not a tooth-contact simulation.
 - CAE validity: conservative static tooth-root stress safety factor under declared torque, material, face width, and load-distribution assumptions.
 
 The system must use the phrase "valid under the declared kinematic, geometric, and static-strength model." It must not claim full manufacturability, operational reliability, or dynamic drivetrain validation without additional evidence.

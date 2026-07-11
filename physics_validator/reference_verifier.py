@@ -7,7 +7,7 @@ the declared design model directly and emits a serialisable certificate.
 from __future__ import annotations
 
 from collections import deque
-from math import hypot, isclose
+from math import hypot, isclose, radians, tan
 
 from common.design_models import (
     DesignProblem,
@@ -30,7 +30,7 @@ class ReferenceVerifier:
         cls._check_stage_constraints(problem, train, issues)
         cls._check_boundary(problem, train, issues)
         cls._check_collisions(train, issues)
-        cls._check_meshes(train, stages, issues)
+        cls._check_meshes(problem, train, stages, issues)
         ratio = cls._propagate_ratio(problem, train, stages, issues)
 
         if ratio is not None and problem.constraints.target_speed_ratio is not None:
@@ -170,7 +170,7 @@ class ReferenceVerifier:
 
     @classmethod
     def _check_meshes(
-        cls, train: GearTrain, stages: dict[str, GearStage], issues: list[ValidationIssue]
+        cls, problem: DesignProblem, train: GearTrain, stages: dict[str, GearStage], issues: list[ValidationIssue]
     ) -> None:
         seen: set[tuple[str, int, str, int]] = set()
         for edge in train.meshes:
@@ -190,11 +190,19 @@ class ReferenceVerifier:
                 cls._add(issues, "axial_layer_mismatch", f"Mesh {key} connects different axial layers")
             expected = driver.pitch_radius_mm(edge.driver_member) + driven.pitch_radius_mm(edge.driven_member)
             actual = hypot(driver.center.x - driven.center.x, driver.center.y - driven.center.y)
-            if abs(actual - expected) > edge.center_distance_tolerance_mm:
+            deviation = actual - expected
+            # For an external spur mesh, transverse backlash created by a
+            # positive center-distance change is approximately
+            # j_t = 2 * delta_a * tan(alpha). Compression is not backlash.
+            expansion_allowance = problem.constraints.transverse_backlash_allowance_mm / (
+                2.0 * tan(radians(problem.constraints.pressure_angle_deg))
+            )
+            if deviation < -edge.center_distance_tolerance_mm or deviation > expansion_allowance + edge.center_distance_tolerance_mm:
                 cls._add(
                     issues,
                     "mesh_center_distance",
-                    f"Mesh {key} requires {expected:.6g} mm, has {actual:.6g} mm",
+                    f"Mesh {key} requires {expected:.6g} mm, has {actual:.6g} mm; "
+                    f"allowed expansion is {expansion_allowance:.6g} mm",
                 )
 
     @classmethod

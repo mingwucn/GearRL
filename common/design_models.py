@@ -38,11 +38,12 @@ class DesignConstraints:
     max_teeth: int = 200
     pressure_angle_deg: float = 20.0
     min_safety_factor: float | None = None
+    transverse_backlash_allowance_mm: float = 0.0
 
     def __post_init__(self) -> None:
         if self.min_teeth < 1 or self.max_teeth < self.min_teeth:
             raise ValueError("Invalid tooth-count bounds")
-        if self.ratio_tolerance < 0 or self.boundary_clearance < 0:
+        if self.ratio_tolerance < 0 or self.boundary_clearance < 0 or self.transverse_backlash_allowance_mm < 0:
             raise ValueError("Tolerances and clearances must be non-negative")
         if not 0 < self.pressure_angle_deg < 90:
             raise ValueError("Pressure angle must be between 0 and 90 degrees")

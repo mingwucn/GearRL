@@ -79,3 +79,9 @@ Persist the signed shaft-offset sensitivity study under the exact mesh-center mo
 ```bash
 conda run -n ai python run_tolerance_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
 ```
+
+Persist the transverse-backlash versus center-expansion response surface:
+
+```bash
+conda run -n ai python run_backlash_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
+```
