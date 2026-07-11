@@ -1,0 +1,5 @@
+- Certificates bind exact requirements and candidates to independent checks.
+- Complete bounded search distinguishes negative proofs from heuristic failure.
+- Executable schema rules expose registered mutations missed by structure alone.
+- Preregistered robustness rejects global housing-clearance equivalence.
+- Outer-replicated selection fails its preregistered improvement threshold.
