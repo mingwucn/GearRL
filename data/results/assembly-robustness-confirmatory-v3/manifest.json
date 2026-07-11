@@ -1,0 +1,13 @@
+{
+  "draw_count": 7864320,
+  "draws_sha256": "8a9d086744be666675efb357953591ed260bf95af020dbeee59c4148fd24a83c",
+  "model_version": "certified-planar-v3+assembly-confirmatory-v3",
+  "protocol_source": "data/protocols/assembly-robustness-confirmatory-v3.json",
+  "protocol_source_sha256": "6ce5e3550265dc2b32a2ad62f1f83da955f6b60567c4df34654a30c1ebd28006",
+  "schema_version": "assembly-confirmatory-artifact-v3",
+  "source_commit": "081a74ea75910901fde20eeb60131805833f2bf7",
+  "source_index": "data/benchmark/frozen/compound-v1-frozen-400-r2/index.json",
+  "source_index_sha256": "dc48753d3366f7775293486110f28ca136a3b31b03aafa5b869567e8117e537c",
+  "study_id": "assembly-robustness-confirmatory-v3",
+  "summary_sha256": "137dd0b7dc0deb7e1252854083da3eb0a8d24173e7f1f99c73d199371e9e75b6"
+}

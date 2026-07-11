@@ -1,0 +1,455 @@
+{
+  "dataset_hash": "6926a1ceeb24959910b2ab6e657abc02cecf08983c67b0e8ed90dfe07357cecc",
+  "dataset_id": "compound-v1-frozen-400",
+  "draw_count": 7864320,
+  "family_counts": {
+    "adversarial-tight-clearance": 50,
+    "compound-chamfered": 17,
+    "compound-square": 18,
+    "compound-tall": 17,
+    "compound-wide": 18
+  },
+  "layout_count": 120,
+  "layout_ids": [
+    "test-procedural-0000",
+    "test-procedural-0001",
+    "test-procedural-0002",
+    "test-procedural-0003",
+    "test-procedural-0004",
+    "test-procedural-0005",
+    "test-procedural-0006",
+    "test-procedural-0007",
+    "test-procedural-0008",
+    "test-procedural-0009",
+    "test-procedural-0010",
+    "test-procedural-0011",
+    "test-procedural-0012",
+    "test-procedural-0013",
+    "test-procedural-0014",
+    "test-procedural-0015",
+    "test-procedural-0016",
+    "test-procedural-0017",
+    "test-procedural-0018",
+    "test-procedural-0019",
+    "test-procedural-0020",
+    "test-procedural-0021",
+    "test-procedural-0022",
+    "test-procedural-0023",
+    "test-procedural-0024",
+    "test-procedural-0025",
+    "test-procedural-0026",
+    "test-procedural-0027",
+    "test-procedural-0028",
+    "test-procedural-0029",
+    "test-procedural-0030",
+    "test-procedural-0031",
+    "test-procedural-0032",
+    "test-procedural-0033",
+    "test-procedural-0034",
+    "test-procedural-0035",
+    "test-procedural-0036",
+    "test-procedural-0037",
+    "test-procedural-0038",
+    "test-procedural-0039",
+    "test-procedural-0040",
+    "test-procedural-0041",
+    "test-procedural-0042",
+    "test-procedural-0043",
+    "test-procedural-0044",
+    "test-procedural-0045",
+    "test-procedural-0046",
+    "test-procedural-0047",
+    "test-procedural-0048",
+    "test-procedural-0049",
+    "test-procedural-0050",
+    "test-procedural-0051",
+    "test-procedural-0052",
+    "test-procedural-0053",
+    "test-procedural-0054",
+    "test-procedural-0055",
+    "test-procedural-0056",
+    "test-procedural-0057",
+    "test-procedural-0058",
+    "test-procedural-0059",
+    "test-procedural-0060",
+    "test-procedural-0061",
+    "test-procedural-0062",
+    "test-procedural-0063",
+    "test-procedural-0064",
+    "test-procedural-0065",
+    "test-procedural-0066",
+    "test-procedural-0067",
+    "test-procedural-0068",
+    "test-procedural-0069",
+    "test-tight-clearance-0000",
+    "test-tight-clearance-0001",
+    "test-tight-clearance-0002",
+    "test-tight-clearance-0003",
+    "test-tight-clearance-0004",
+    "test-tight-clearance-0005",
+    "test-tight-clearance-0006",
+    "test-tight-clearance-0007",
+    "test-tight-clearance-0008",
+    "test-tight-clearance-0009",
+    "test-tight-clearance-0010",
+    "test-tight-clearance-0011",
+    "test-tight-clearance-0012",
+    "test-tight-clearance-0013",
+    "test-tight-clearance-0014",
+    "test-tight-clearance-0015",
+    "test-tight-clearance-0016",
+    "test-tight-clearance-0017",
+    "test-tight-clearance-0018",
+    "test-tight-clearance-0019",
+    "test-tight-clearance-0020",
+    "test-tight-clearance-0021",
+    "test-tight-clearance-0022",
+    "test-tight-clearance-0023",
+    "test-tight-clearance-0024",
+    "test-tight-clearance-0025",
+    "test-tight-clearance-0026",
+    "test-tight-clearance-0027",
+    "test-tight-clearance-0028",
+    "test-tight-clearance-0029",
+    "test-tight-clearance-0030",
+    "test-tight-clearance-0031",
+    "test-tight-clearance-0032",
+    "test-tight-clearance-0033",
+    "test-tight-clearance-0034",
+    "test-tight-clearance-0035",
+    "test-tight-clearance-0036",
+    "test-tight-clearance-0037",
+    "test-tight-clearance-0038",
+    "test-tight-clearance-0039",
+    "test-tight-clearance-0040",
+    "test-tight-clearance-0041",
+    "test-tight-clearance-0042",
+    "test-tight-clearance-0043",
+    "test-tight-clearance-0044",
+    "test-tight-clearance-0045",
+    "test-tight-clearance-0046",
+    "test-tight-clearance-0047",
+    "test-tight-clearance-0048",
+    "test-tight-clearance-0049"
+  ],
+  "population_id": "compound-v1-frozen-400-r2-feasible-test-census",
+  "primary_inference": {
+    "familywise_alpha": 0.05,
+    "housing_equivalence": {
+      "cells": [
+        {
+          "center_distance_backlash_increment_mm": 0.002,
+          "mean_difference": -0.0016693115234375,
+          "shaft_location_tolerance_mm": 0.005,
+          "simultaneous_confidence_interval": [
+            -0.0017666352245892924,
+            -0.0015719878222857078
+          ],
+          "within_margin": false
+        },
+        {
+          "center_distance_backlash_increment_mm": 0.005,
+          "mean_difference": -0.009378051757812499,
+          "shaft_location_tolerance_mm": 0.005,
+          "simultaneous_confidence_interval": [
+            -0.00947778383220457,
+            -0.009278319683420428
+          ],
+          "within_margin": false
+        },
+        {
+          "center_distance_backlash_increment_mm": 0.002,
+          "mean_difference": -1.0172526041666667e-06,
+          "shaft_location_tolerance_mm": 0.025,
+          "simultaneous_confidence_interval": [
+            -4.938991044173986e-06,
+            2.9044858358406534e-06
+          ],
+          "within_margin": true
+        },
+        {
+          "center_distance_backlash_increment_mm": 0.005,
+          "mean_difference": -8.85009765625e-05,
+          "shaft_location_tolerance_mm": 0.025,
+          "simultaneous_confidence_interval": [
+            -0.0001153052155452983,
+            -6.169673757970169e-05
+          ],
+          "within_margin": true
+        }
+      ],
+      "equivalence_margin": 0.001,
+      "hypothesis_id": "H2-housing-erosion-equivalence",
+      "supported": false
+    },
+    "interaction": {
+      "estimate": -0.0224395751953125,
+      "hypothesis_id": "H1-backlash-benefit-attenuation",
+      "maximum_interaction": -0.01,
+      "multiplicity_adjusted_confidence_interval": [
+        -0.022578234688585302,
+        -0.022300915702039695
+      ],
+      "supported": true
+    }
+  },
+  "protocol": {
+    "center_distance_backlash_increments_mm": [
+      0.002,
+      0.005
+    ],
+    "draws_per_replicate": 1024,
+    "expected_layout_count": 120,
+    "familywise_alpha": 0.05,
+    "housing_clearance_erosions_mm": [
+      0.0,
+      0.1
+    ],
+    "housing_equivalence": {
+      "comparison_erosion_mm": 0.1,
+      "equivalence_margin": 0.001,
+      "hypothesis_id": "H2-housing-erosion-equivalence",
+      "reference_erosion_mm": 0.0
+    },
+    "interaction": {
+      "high_backlash_mm": 0.005,
+      "high_shaft_mm": 0.025,
+      "housing_erosion_mm": 0.0,
+      "hypothesis_id": "H1-backlash-benefit-attenuation",
+      "low_backlash_mm": 0.002,
+      "low_shaft_mm": 0.005,
+      "maximum_interaction": -0.01
+    },
+    "partition": "test",
+    "population_id": "compound-v1-frozen-400-r2-feasible-test-census",
+    "random_seed": 20260711,
+    "scramble_replicates": 8,
+    "shaft_location_tolerances_mm": [
+      0.005,
+      0.025
+    ],
+    "study_id": "assembly-robustness-confirmatory-v3"
+  },
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "center_distance_backlash_increment_mm": 0.002,
+      "failure_code_counts": {
+        "boundary_clearance": 114688,
+        "mesh_center_distance": 977528
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "maximum_layout_probability": 0.0068359375,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0049550374348958336,
+      "randomized_qmc_95_interval": [
+        0.0048693297982448525,
+        0.005040745071546815
+      ],
+      "replicate_estimates": [
+        0.005086263020833333,
+        0.005037434895833333,
+        0.0049560546875,
+        0.0048258463541666664,
+        0.004866536458333333,
+        0.0048583984375,
+        0.005078125,
+        0.004931640625
+      ],
+      "scenario_id": "shaft-0.005--housing-0--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.005
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.005,
+      "failure_code_counts": {
+        "boundary_clearance": 114688,
+        "mesh_center_distance": 952266
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "maximum_layout_probability": 0.0328369140625,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.027672322591145833,
+      "randomized_qmc_95_interval": [
+        0.027614485221738,
+        0.027730159960553665
+      ],
+      "replicate_estimates": [
+        0.02763671875,
+        0.027783203125,
+        0.027652994791666666,
+        0.027766927083333334,
+        0.0276611328125,
+        0.027669270833333332,
+        0.027628580729166668,
+        0.027579752604166667
+      ],
+      "scenario_id": "shaft-0.005--housing-0--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.005
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.002,
+      "failure_code_counts": {
+        "boundary_clearance": 409600,
+        "mesh_center_distance": 977528
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "maximum_layout_probability": 0.0068359375,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.003285725911458333,
+      "randomized_qmc_95_interval": [
+        0.003213930781996038,
+        0.003357521040920628
+      ],
+      "replicate_estimates": [
+        0.0034423828125,
+        0.0033447265625,
+        0.0033365885416666665,
+        0.0032633463541666668,
+        0.0032063802083333332,
+        0.0032145182291666665,
+        0.0032877604166666667,
+        0.0031901041666666666
+      ],
+      "scenario_id": "shaft-0.005--housing-0.1--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.005
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.005,
+      "failure_code_counts": {
+        "boundary_clearance": 409600,
+        "mesh_center_distance": 952266
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "maximum_layout_probability": 0.0328369140625,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.018294270833333334,
+      "randomized_qmc_95_interval": [
+        0.0182190351611374,
+        0.01836950650552927
+      ],
+      "replicate_estimates": [
+        0.018294270833333334,
+        0.018424479166666667,
+        0.018400065104166665,
+        0.0182861328125,
+        0.018221028645833335,
+        0.018343098958333335,
+        0.018196614583333333,
+        0.0181884765625
+      ],
+      "scenario_id": "shaft-0.005--housing-0.1--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.005
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.002,
+      "failure_code_counts": {
+        "boundary_clearance": 203173,
+        "mesh_center_distance": 983029
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "maximum_layout_probability": 0.0001220703125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 9.155273437500001e-06,
+      "randomized_qmc_95_interval": [
+        2.412737429339014e-06,
+        1.5897809445660988e-05
+      ],
+      "replicate_estimates": [
+        1.6276041666666666e-05,
+        8.138020833333333e-06,
+        0.0,
+        0.0,
+        1.6276041666666666e-05,
+        1.6276041666666666e-05,
+        0.0,
+        1.6276041666666666e-05
+      ],
+      "scenario_id": "shaft-0.025--housing-0--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.025
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.005,
+      "failure_code_counts": {
+        "boundary_clearance": 203173,
+        "mesh_center_distance": 982703
+      },
+      "housing_clearance_erosion_mm": 0.0,
+      "maximum_layout_probability": 0.000732421875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.000286865234375,
+      "randomized_qmc_95_interval": [
+        0.0002628110325969159,
+        0.00031091943615308413
+      ],
+      "replicate_estimates": [
+        0.0003173828125,
+        0.0002848307291666667,
+        0.00030110677083333335,
+        0.00029296875,
+        0.0003255208333333333,
+        0.000244140625,
+        0.0002766927083333333,
+        0.00025227864583333336
+      ],
+      "scenario_id": "shaft-0.025--housing-0--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.025
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.002,
+      "failure_code_counts": {
+        "boundary_clearance": 409600,
+        "mesh_center_distance": 983029
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "maximum_layout_probability": 0.0001220703125,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 8.138020833333333e-06,
+      "randomized_qmc_95_interval": [
+        8.647138743643814e-07,
+        1.5411327792302286e-05
+      ],
+      "replicate_estimates": [
+        1.6276041666666666e-05,
+        0.0,
+        0.0,
+        0.0,
+        1.6276041666666666e-05,
+        1.6276041666666666e-05,
+        0.0,
+        1.6276041666666666e-05
+      ],
+      "scenario_id": "shaft-0.025--housing-0.1--backlash-0.002",
+      "shaft_location_tolerance_mm": 0.025
+    },
+    {
+      "center_distance_backlash_increment_mm": 0.005,
+      "failure_code_counts": {
+        "boundary_clearance": 409600,
+        "mesh_center_distance": 982703
+      },
+      "housing_clearance_erosion_mm": 0.1,
+      "maximum_layout_probability": 0.000732421875,
+      "minimum_layout_probability": 0.0,
+      "modeled_valid_probability": 0.0001983642578125,
+      "randomized_qmc_95_interval": [
+        0.00018749224517750442,
+        0.00020923627044749558
+      ],
+      "replicate_estimates": [
+        0.00020345052083333334,
+        0.00020345052083333334,
+        0.00020345052083333334,
+        0.00020345052083333334,
+        0.00021158854166666667,
+        0.00018717447916666668,
+        0.00020345052083333334,
+        0.0001708984375
+      ],
+      "scenario_id": "shaft-0.025--housing-0.1--backlash-0.005",
+      "shaft_location_tolerance_mm": 0.025
+    }
+  ],
+  "schema_version": "assembly-confirmatory-summary-v3",
+  "scope": "conditional finite-population digital acceptance; not manufacturing yield or physical validation",
+  "study_id": "assembly-robustness-confirmatory-v3"
+}
