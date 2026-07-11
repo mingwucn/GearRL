@@ -19,6 +19,8 @@ class BenchmarkInstance:
     certificate: dict[str, Any]
     expected_feasible: bool = True
     family: str = "compound-straight"
+    partition: str = "unspecified"
+    difficulty: str = "unspecified"
 
     def to_json(self) -> dict[str, Any]:
         return {
@@ -29,6 +31,8 @@ class BenchmarkInstance:
             "certificate": self.certificate,
             "expected_feasible": self.expected_feasible,
             "family": self.family,
+            "partition": self.partition,
+            "difficulty": self.difficulty,
         }
 
 

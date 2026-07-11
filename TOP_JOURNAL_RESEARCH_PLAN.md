@@ -87,7 +87,7 @@ Treat CAE as conservative screening, not as complete contact or fatigue validati
 Freeze a 400-instance benchmark:
 
 - 250 procedural instances across four enclosure families and three difficulty strata.
-- 100 adversarial tight-clearance and near-infeasible instances.
+- 50 verifier-backed tight-clearance feasible instances and 100 near-infeasible instances with explicit infeasibility certificates.
 - An optional, separately labelled external extension partition when valid cases and provenance become available; never simulate or fabricate this evidence.
 
 Every instance must include generator seed, canonical problem JSON, reference-verifier version, feasibility label, and a feasibility certificate or proof of infeasibility. Keep generator families disjoint across train, validation, and test partitions.

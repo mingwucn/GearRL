@@ -27,6 +27,13 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 
+Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
+clearance, and 100 certificate-backed near-infeasible cases):
+
+```bash
+conda run -n ai python -c "from benchmark.freeze import BenchmarkFreezer; BenchmarkFreezer().freeze_protocol('data/benchmark/frozen/compound-v1-frozen-400')"
+```
+
 ## Learned-Policy Evidence Gate
 
 `PairedEfficiencyStudy` evaluates a fixed masked policy and the predeclared

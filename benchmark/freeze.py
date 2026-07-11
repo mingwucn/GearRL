@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from benchmark.generator import BenchmarkGenerator
+from benchmark.protocol import BenchmarkProtocol, FrozenBenchmarkFactory
 
 
 class BenchmarkFreezer:
@@ -16,27 +17,27 @@ class BenchmarkFreezer:
         self._generator = generator or BenchmarkGenerator()
 
     def freeze(self, root: str | Path, seed: int, feasible_count: int, infeasible_count: int) -> Path:
+        return self._freeze_instances(root, self._generator.generate_suite(seed, feasible_count, infeasible_count), {"dataset_id": "compound-v1", "seed": seed, "feasible_count": feasible_count, "infeasible_count": infeasible_count})
+
+    def freeze_protocol(self, root: str | Path, protocol: BenchmarkProtocol | None = None) -> Path:
+        protocol = protocol or BenchmarkProtocol()
+        return self._freeze_instances(root, FrozenBenchmarkFactory(self._generator).generate(protocol), {"dataset_id": "compound-v1-frozen-400", "protocol": protocol.to_json()})
+
+    @staticmethod
+    def _freeze_instances(root: str | Path, instances, metadata: dict) -> Path:
         destination = Path(root)
         if destination.exists() and any(destination.iterdir()):
             raise FileExistsError("Benchmark destination must be empty")
         destination.mkdir(parents=True, exist_ok=True)
         instances_dir = destination / "instances"
         instances_dir.mkdir()
-        instances = self._generator.generate_suite(seed, feasible_count, infeasible_count)
         records = []
         for instance in instances:
             payload = json.dumps(instance.to_json(), indent=2, sort_keys=True) + "\n"
             path = instances_dir / f"{instance.instance_id}.json"
             path.write_text(payload)
             records.append({"instance_id": instance.instance_id, "sha256": hashlib.sha256(payload.encode()).hexdigest()})
-        index = {
-            "dataset_id": "compound-v1",
-            "seed": seed,
-            "feasible_count": feasible_count,
-            "infeasible_count": infeasible_count,
-            "instance_count": len(instances),
-            "instances": records,
-        }
+        index = {**metadata, "instance_count": len(instances), "instances": records}
         index_path = destination / "index.json"
         index_path.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
         return index_path
