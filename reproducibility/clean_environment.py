@@ -110,15 +110,17 @@ class CleanEnvironmentAttestor:
 
     VERIFICATIONS = (
         ("regression-suite", ("-m", "pytest", "-q")),
-        ("publication-artifacts", ("run_publication_artifacts.py", "--verify", "paper/generated-v3")),
-        ("literature-artifact", ("run_literature_matrix.py", "--verify", "paper/literature-v1")),
-        ("manuscript-artifact", ("run_manuscript.py", "--verify", "paper/manuscript-v3")),
-        ("aei-package", ("run_aei_submission.py", "--verify", "paper/aei-submission-v3")),
+        ("publication-artifacts", ("run_publication_artifacts.py", "--verify", "paper/generated-v4")),
+        ("literature-artifact", ("run_literature_matrix.py", "--verify", "paper/literature-v3")),
+        ("manuscript-artifact", ("run_manuscript.py", "--verify", "paper/manuscript-v4")),
+        ("aei-package", ("run_aei_submission.py", "--verify", "paper/aei-submission-v4")),
         ("assembly-robustness-pilot", ("run_assembly_robustness.py", "--verify", "data/results/assembly-robustness-v1")),
         ("assembly-robustness-confirmatory", ("run_confirmatory_assembly.py", "--verify", "data/results/assembly-robustness-confirmatory-v3")),
-        ("replayable-negative-proofs", ("run_replayable_proof_study.py", "--verify", "data/results/replayable-negative-proofs-v1")),
-        ("tolerance-aware-selection", ("run_tolerance_aware_selection.py", "--verify", "data/results/tolerance-aware-selection-v1")),
-        ("scientific-provenance", ("run_scientific_manifest.py", "--verify", "data/results/aei-release-provenance-v2")),
+        ("replayable-negative-proofs", ("run_replayable_proof_study.py", "--verify", "data/results/replayable-negative-proofs-v3")),
+        ("repeated-selection", ("run_repeated_selection.py", "--verify", "data/results/repeated-selection-v1")),
+        ("planetary-baseline", ("run_planetary_baseline.py", "--verify", "data/results/planetary-baseline-v2")),
+        ("knowledge-ablation", ("run_knowledge_ablation.py", "--verify", "data/results/aei-knowledge-ablation-v1")),
+        ("scientific-provenance", ("run_scientific_manifest.py", "--verify", "data/results/aei-release-provenance-v3")),
     )
 
     def __init__(self, runner: CommandRunner | None = None) -> None:
