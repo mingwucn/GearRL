@@ -93,6 +93,8 @@ class PublishedPlanetaryGearEvaluator:
         ratios = ratio_1, ratio_2, ratio_reverse
         objective = max(abs(value - target) for value, target in zip(ratios, brief.target_ratios, strict=True))
         denominator = 2.0 * (z6 - z3) * (z4 + z5)
+        if denominator == 0:
+            return PlanetaryGearEvaluation(objective, ratios, (), (z6 - z4) % p, False, ("invalid_beta_geometry",))
         cosine = ((z4 + z5) ** 2 + (z6 - z3) ** 2 - (z3 + z5) ** 2) / denominator
         if not -1.0 <= cosine <= 1.0:
             return PlanetaryGearEvaluation(objective, ratios, (), (z6 - z4) % p, False, ("invalid_beta_geometry",))

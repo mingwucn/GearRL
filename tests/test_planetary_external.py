@@ -31,3 +31,10 @@ def test_planetary_ratio_model_includes_reverse_ratio_sign() -> None:
     assert result.ratios[1] > 0
     assert result.ratios[2] < 0
     assert len(result.inequality_values) == 10
+
+
+def test_planetary_evaluator_fails_closed_at_beta_singularity() -> None:
+    candidate = PlanetaryGearCandidate(37, 22, 48, 24, 15, 48, 3, 2.0, 1.75)
+    result = PublishedPlanetaryGearEvaluator().evaluate(PublishedPlanetaryGearBrief(), candidate)
+    assert not result.valid
+    assert result.issue_codes == ("invalid_beta_geometry",)
