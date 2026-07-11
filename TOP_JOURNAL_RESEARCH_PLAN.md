@@ -238,6 +238,12 @@ The official AEI author guide was checked on 2026-07-11 and its numeric submissi
 
 `AEILatexRenderer`, `AEISubmissionValidator`, and `AEISubmissionPackageStore` generate and byte-reproduce `paper/aei-submission-v1`, including editable `elsarticle` LaTeX, separate highlights, captions, and three numbered evidence-derived SVG figures. The source compiles locally to a ten-page PDF with `pdflatex -shell-escape`. The package remains deliberately provisional: no author identities, corresponding-author details, funding statement, competing-interest statement, or archival dataset identifier are invented. These five author/external fields are explicit blockers in `validation.json` and feed the frozen submission-readiness verdict.
 
+### Implemented clean-environment attestation
+
+`CleanEnvironmentAttestor` creates a new prefix from the platform-specific explicit Conda lock, installs the separately hash-pinned pip layer, checks out a detached local clone at the recorded commit, and constructs a prefix-isolated process environment. It then runs the full regression suite and all five paper artifact verifiers. `GitCommitCheckout`, `SourceTreeHasher`, replaceable `CommandRunner`, and `CleanEnvironmentEvidenceStore` separate source isolation, hashing, execution, and persistence.
+
+The frozen `data/results/clean-environment-v1` evidence attests commit `22223afd3f18daef93ccb69ef9c0c1536841ddd5`. All six verification targets passed. The explicit installed Conda inventory hash equals the committed lockfile hash `9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f`; the pip freeze, source tree, stdout, stderr, and command runtimes are separately recorded. This satisfies independent locked-prefix reproduction on Linux. It is not a container-engine attestation because Docker and Podman are unavailable on the host.
+
 ### Implemented literature and contribution gate
 
 The machine-readable `literature/aei_closest_methods.json` records a search cutoff, the AEI venue requirement, ten DOI-backed closest methods, their engineering-knowledge representations, synthesis and validation scopes, closest overlap, and the remaining difference to GearRL. The set deliberately includes strong counterexamples: graph-based product architecture generation with simulation, graph-based robot topology-to-CAD design, planetary-transmission topology synthesis, automated gearbox component sizing, constrained simulation-based optimization, constrained DRL architecture design, and gear-specific strength optimization.

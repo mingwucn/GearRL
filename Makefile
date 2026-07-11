@@ -11,3 +11,4 @@ paper-verify:
 	$(PYTHON) run_manuscript.py --verify paper/manuscript-v1
 	$(PYTHON) run_submission_readiness.py --verify paper/submission-readiness-v1
 	$(PYTHON) run_aei_submission.py --verify paper/aei-submission-v1
+	$(PYTHON) run_clean_environment_attestation.py --verify data/results/clean-environment-v1

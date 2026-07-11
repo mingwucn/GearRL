@@ -1,7 +1,6 @@
 {
   "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; external release actions are tracked but cannot be self-attested.",
   "blocking_requirements": [
-    "independent-container-attestation",
     "author-and-archival-metadata"
   ],
   "findings": [
@@ -112,12 +111,12 @@
       "status": "passed"
     },
     {
-      "description": "A container recipe is committed but has not been independently executed on this host.",
-      "evidence_path": "Dockerfile",
-      "evidence_sha256": "4f6bd5e214f7c504b846868b4992daf94e5e83ad370696cc54360fdca5878da0",
+      "description": "A detached committed source tree passes the full suite and all frozen artifact checks in an independently created locked prefix.",
+      "evidence_path": "data/results/clean-environment-v1/report.json",
+      "evidence_sha256": "8558fa5f5e79c648c5ad33ae8a92802af742769e7b51da8c35ce71c19b72bb04",
       "observed": true,
-      "requirement_id": "independent-container-attestation",
-      "status": "external_pending"
+      "requirement_id": "locked-clean-environment-attestation",
+      "status": "passed"
     },
     {
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
@@ -131,10 +130,10 @@
   "ready_to_submit": false,
   "schema_version": "aei-submission-readiness-report-v1",
   "status_counts": {
-    "external_pending": 2,
+    "external_pending": 1,
     "failed": 0,
     "partial": 1,
-    "passed": 11
+    "passed": 12
   },
   "target": "Advanced Engineering Informatics"
 }

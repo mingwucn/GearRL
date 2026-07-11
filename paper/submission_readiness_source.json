@@ -93,12 +93,12 @@
       "requirement_id": "dependency-lock"
     },
     {
-      "check_type": "file_exists",
-      "description": "A container recipe is committed but has not been independently executed on this host.",
-      "evidence_path": "Dockerfile",
+      "check_type": "json_pointer",
+      "description": "A detached committed source tree passes the full suite and all frozen artifact checks in an independently created locked prefix.",
+      "evidence_path": "data/results/clean-environment-v1/report.json",
       "expected": true,
-      "requirement_id": "independent-container-attestation",
-      "status_if_satisfied": "external_pending"
+      "pointer": "/all_commands_passed",
+      "requirement_id": "locked-clean-environment-attestation"
     },
     {
       "check_type": "json_pointer",

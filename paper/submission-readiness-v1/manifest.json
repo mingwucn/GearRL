@@ -1,6 +1,6 @@
 {
-  "report_sha256": "39fd20dfe58dff423e0b2f4bfb44f65e18e32626451aed59322cf48edff171ef",
+  "report_sha256": "43a1480a593e7f5b0e1392eae491d57f5ac24fe1921c11fde9cae3ea11a2227d",
   "schema_version": "aei-submission-readiness-artifact-v1",
   "source": "paper/submission_readiness_source.json",
-  "source_sha256": "b242f8f3705088d71535c43d9b73f93ac76e5da61c52eb8a00d8998dc550816e"
+  "source_sha256": "6038412a1b276270e03687dd7b72d69b11ec8800367a49d631a6f05c47d2c93a"
 }
