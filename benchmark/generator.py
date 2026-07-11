@@ -37,16 +37,17 @@ class BenchmarkInstance:
 
 
 class BenchmarkGenerator:
-    """Seeded benchmark factory with one canonical generation policy."""
+    """Seeded factory for the legacy, explicitly path-selection benchmark."""
 
     def __init__(self, min_teeth: int = 18, max_teeth: int = 48):
         if min_teeth < 3 or max_teeth < min_teeth:
             raise ValueError("Invalid benchmark tooth-count bounds")
         self._min_teeth = min_teeth
         self._max_teeth = max_teeth
+        self._family = CompoundPathSelectionFamily(min_teeth, max_teeth)
 
     def generate_compound_instances(self, seed: int, count: int) -> list[BenchmarkInstance]:
-        return _generate_compound_instances(seed, count, self._min_teeth, self._max_teeth)
+        return self._family.generate(seed, count)
 
     def generate_suite(self, seed: int, feasible_count: int, infeasible_count: int) -> list[BenchmarkInstance]:
         if infeasible_count < 0:
@@ -80,19 +81,28 @@ class BenchmarkGenerator:
         return [*valid, *invalid]
 
 
-def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teeth: int) -> list[BenchmarkInstance]:
-    """Generate reproducible two-mesh compound layouts with exact certificates.
+class CompoundPathSelectionFamily:
+    """Generate the historical graph-selection task without synthesis claims.
 
-    This is the first benchmark family.  Later families can share the JSON
-    contract while adding obstacles, alternate enclosure geometry, and known
-    infeasible cases.
+    The generated graph intentionally contains its constructive witness.  It is
+    retained for regression and path-ordering studies, not inverse synthesis.
     """
 
-    if count < 0 or min_teeth < 3 or max_teeth < min_teeth:
-        raise ValueError("Invalid benchmark generation bounds")
-    rng = Random(seed)
-    instances: list[BenchmarkInstance] = []
-    for index in range(count):
+    def __init__(self, min_teeth: int, max_teeth: int):
+        if min_teeth < 3 or max_teeth < min_teeth:
+            raise ValueError("Invalid benchmark generation bounds")
+        self._min_teeth = min_teeth
+        self._max_teeth = max_teeth
+
+    def generate(self, seed: int, count: int) -> list[BenchmarkInstance]:
+        if count < 0:
+            raise ValueError("Benchmark count must be non-negative")
+        rng = Random(seed)
+        return [self._generate_one(seed, index, rng) for index in range(count)]
+
+    def _generate_one(self, seed: int, index: int, rng: Random) -> BenchmarkInstance:
+        min_teeth = self._min_teeth
+        max_teeth = self._max_teeth
         input_teeth, first_compound, second_compound, output_teeth = (
             rng.randint(min_teeth, max_teeth) for _ in range(4)
         )
@@ -139,10 +149,9 @@ def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teet
         certificate = ReferenceVerifier.verify(problem, train)
         if not certificate.valid:
             raise RuntimeError(f"Benchmark generator emitted invalid instance {index}: {certificate.issues}")
-        instances.append(BenchmarkInstance(
+        return BenchmarkInstance(
             f"compound-{seed}-{index:04d}", seed, problem, train, certificate.to_json(), family=family
-        ))
-    return instances
+        )
 
 
 def _boundary_for_family(family: str, extent: float) -> tuple[Point2D, ...]:
