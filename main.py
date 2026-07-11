@@ -14,8 +14,10 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=100, help="Number of certified benchmark instances")
     parser.add_argument("--infeasible-count", type=int, default=0, help="Number of labeled infeasible benchmark instances")
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"), help="Immutable run-bundle root")
+    parser.add_argument("--frozen-dataset", type=Path, help="Hash-verified frozen benchmark directory")
     args = parser.parse_args()
-    bundle = CertifiedBenchmarkRunner(args.output_root).run(args.seed, args.count, args.infeasible_count)
+    runner = CertifiedBenchmarkRunner(args.output_root)
+    bundle = runner.run_frozen(args.frozen_dataset) if args.frozen_dataset else runner.run(args.seed, args.count, args.infeasible_count)
     print(f"Certified benchmark bundle: {bundle}")
 
 
