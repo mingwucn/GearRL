@@ -13,6 +13,11 @@ PROTOCOL = Path("data/protocols/assembly-robustness-confirmatory-v3.json")
 DATASET = Path("data/benchmark/frozen/compound-v1-frozen-400-r2")
 
 
+class FixedSourceCommit:
+    def capture(self, _repository: Path) -> str:
+        return "test-commit"
+
+
 def test_small_confirmatory_study_streams_raw_draws_and_primary_inference(tmp_path: Path) -> None:
     declared = ConfirmatoryAssemblyProtocolLoader().load(PROTOCOL)
     protocol = replace(declared, scramble_replicates=4, draws_per_replicate=2)
@@ -24,7 +29,7 @@ def test_small_confirmatory_study_streams_raw_draws_and_primary_inference(tmp_pa
     payload["computation"]["declared_total_draws"] = 7680
     temporary_protocol.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     protocol = ConfirmatoryAssemblyProtocolLoader().load(temporary_protocol)
-    ConfirmatoryAssemblyStudy().run(DATASET, protocol, temporary_protocol, root)
+    ConfirmatoryAssemblyStudy(FixedSourceCommit()).run(DATASET, protocol, temporary_protocol, root)
     summary = json.loads((root / "summary.json").read_text())
     manifest = json.loads((root / "manifest.json").read_text())
     with gzip.open(root / "draws.jsonl.gz", "rt") as source:

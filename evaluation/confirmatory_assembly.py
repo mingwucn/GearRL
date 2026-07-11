@@ -345,14 +345,16 @@ class ConfirmatoryAssemblySummaryBuilder:
 class ConfirmatoryAssemblyStudy:
     """Stream the preregistered held-out census study to deterministic gzip."""
 
-    def __init__(self) -> None:
+    def __init__(self, source_commit_provider: "ScientificSourceCommit | None" = None) -> None:
         self._census = HeldOutFeasibleLayoutCensus()
         self._scenarios = ConfirmatoryScenarioFactory()
         self._sampler = ScrambledSobolAssemblySampler()
         self._evaluator = AssemblyRobustnessEvaluator()
         self._summary = ConfirmatoryAssemblySummaryBuilder()
+        self._source_commit = source_commit_provider or ScientificSourceCommit()
 
     def run(self, dataset: Path, protocol: ConfirmatoryAssemblyProtocol, protocol_source: Path, destination: Path) -> Path:
+        commit = self._source_commit.capture(Path.cwd())
         if destination.exists() and any(destination.iterdir()):
             raise FileExistsError("Confirmatory assembly destination must be empty")
         destination.mkdir(parents=True, exist_ok=True)
@@ -377,7 +379,6 @@ class ConfirmatoryAssemblyStudy:
         summary = self._summary.build(protocol, dataset_id, dataset_hash, selected, scenarios, accumulator)
         summary_bytes = (json.dumps(summary, indent=2, sort_keys=True) + "\n").encode()
         (destination / "summary.json").write_bytes(summary_bytes)
-        commit = subprocess.run(("git", "rev-parse", "HEAD"), text=True, capture_output=True, check=True).stdout.strip()
         manifest = {
             "schema_version": "assembly-confirmatory-artifact-v3",
             "study_id": protocol.study_id,
@@ -394,6 +395,37 @@ class ConfirmatoryAssemblyStudy:
         manifest_path = destination / "manifest.json"
         manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
         return manifest_path
+
+
+class ScientificSourceCommit:
+    """Capture the immutable source identity before a long computation starts."""
+
+    SCIENTIFIC_SUFFIXES = (".py", ".lock", ".txt", ".json")
+
+    def capture(self, repository: Path) -> str:
+        status = subprocess.run(
+            ("git", "status", "--porcelain"),
+            cwd=repository,
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout.splitlines()
+        dirty_scientific = []
+        for line in status:
+            path = line[3:].split(" -> ")[-1]
+            if path.startswith(("data/results/", "artifacts/")):
+                continue
+            if path.endswith(self.SCIENTIFIC_SUFFIXES) and path != "opencode.json":
+                dirty_scientific.append(path)
+        if dirty_scientific:
+            raise ValueError(f"Confirmatory computation requires committed scientific source: {sorted(dirty_scientific)[0]}")
+        return subprocess.run(
+            ("git", "rev-parse", "HEAD"),
+            cwd=repository,
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout.strip()
 
 
 class ConfirmatoryAssemblyEvidenceVerifier:
