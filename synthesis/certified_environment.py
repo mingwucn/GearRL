@@ -48,6 +48,12 @@ class CertifiedBranchOrderingEnvironment:
         certificate = self._graph.certify_path(self._path)
         return self._state(100.0 if certificate["valid"] else -100.0, True, certificate)
 
+    def step_policy(self, policy) -> CertifiedTransition:
+        """Advance one step using a masked policy without exposing private state."""
+        edge = policy.select(self._graph, self._current, self._visited)
+        action = self._actions.candidates(self._current, self._visited).index(edge)
+        return self.step(action)
+
     def _state(self, reward: float, terminal: bool, certificate_json: dict | None) -> CertifiedTransition:
         if terminal:
             features = np.zeros(self._encoder.FEATURE_DIMENSION, dtype=np.float32)
