@@ -28,7 +28,7 @@ class TestAEISubmissionPackage:
             Path("paper/manuscript_source.json"),
             Path("paper/aei_submission_source.json"),
             Path("literature/aei_closest_methods.json"),
-            Path("paper/generated-v1"),
+            Path("paper/generated-v2"),
             root,
         )
         validation = store.verify(root)
@@ -38,12 +38,12 @@ class TestAEISubmissionPackage:
         assert r"\documentclass[preprint,12pt]{elsarticle}" in tex
         assert r"\cite{huang-2025,sun-2026}" in tex
         assert r"\section{Data Availability}" in tex
-        assert len(list(root.glob("Figure_*.svg"))) == 4
+        assert len(list(root.glob("Figure_*.svg"))) == 2
 
     def test_package_detects_tampering(self, tmp_path):
         root = tmp_path / "package"
         store = AEISubmissionPackageStore()
-        store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v1"), root)
+        store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v2"), root)
         (root / "highlights.txt").write_text("altered\n")
         with pytest.raises(ValueError, match="output hash mismatch"):
             store.verify(root)

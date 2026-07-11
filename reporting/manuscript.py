@@ -19,7 +19,7 @@ class ProhibitedClaim:
 class ManuscriptClaimGuard:
     """Enforce the frozen claim register on manuscript prose."""
 
-    REQUIRED_SCOPE = "valid under the declared kinematic, geometric, and static-strength model"
+    REQUIRED_SCOPE = "valid under the declared kinematic, geometric, and digital evidence models"
     PROHIBITED = (
         ProhibitedClaim("manufacturing-ready", "No production qualification exists"),
         ProhibitedClaim("fatigue-qualified", "The CAE model is static"),
@@ -95,7 +95,7 @@ class AEIManuscriptAssembler:
             for figure_id in section.get("figures", ()):
                 if figure_id not in figures:
                     raise ValueError(f"Unknown manuscript figure: {figure_id}")
-                relative = Path("../generated-v1") / figures[figure_id].relative_to(publication_root)
+                relative = Path("..") / publication_root.name / figures[figure_id].relative_to(publication_root)
                 lines.extend([f"![{figure_id}]({relative.as_posix()})", ""])
         lines.extend(["## References", ""])
         for index, method in enumerate(sorted(literature_payload["methods"], key=lambda item: (item["year"], item["id"])), 1):

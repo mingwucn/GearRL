@@ -6,7 +6,7 @@ from reporting.manuscript import ManuscriptArtifactStore, ManuscriptCitationReso
 
 
 def test_claim_guard_requires_scope_and_rejects_unsupported_claims() -> None:
-    scope = "Valid under the declared kinematic, geometric, and static-strength model."
+    scope = "Valid under the declared kinematic, geometric, and digital evidence models."
     ManuscriptClaimGuard().validate(scope)
     with pytest.raises(ValueError, match="prohibited claims"):
         ManuscriptClaimGuard().validate(scope + " Learning improves every search.")
@@ -30,7 +30,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     store.build(
         Path("paper/manuscript_source.json"),
         Path("literature/aei_closest_methods.json"),
-        Path("paper/generated-v1"),
+        Path("paper/generated-v2"),
         root,
     )
     manifest = store.verify(root)
@@ -48,7 +48,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
 def test_manuscript_store_rejects_tampering(tmp_path) -> None:
     root = tmp_path / "manuscript"
     store = ManuscriptArtifactStore()
-    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v1"), root)
+    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v2"), root)
     manuscript = root / "GearRL_AEI_MANUSCRIPT.md"
     manuscript.write_text(manuscript.read_text() + "unregistered text\n")
     with pytest.raises(ValueError, match="output hash mismatch"):
