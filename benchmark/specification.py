@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass
 from math import isfinite
 from typing import Any
 
-from common.design_models import DesignProblem, GearTrain, Point2D
+from common.design_models import DesignConstraints, DesignProblem, GearTrain, MaterialLoadCase, Point2D
 
 
 @dataclass(frozen=True)
@@ -21,6 +21,10 @@ class PrescribedShaft:
             raise ValueError("A prescribed shaft role must be input or output")
         if not isfinite(self.center.x) or not isfinite(self.center.y):
             raise ValueError("Prescribed shaft coordinates must be finite")
+
+    @classmethod
+    def from_json(cls, value: dict[str, Any]) -> "PrescribedShaft":
+        return cls(value["role"], Point2D.from_json(value["center"]))
 
 
 @dataclass(frozen=True)
@@ -42,6 +46,16 @@ class DesignSpace:
             raise ValueError("Invalid stage-count bounds")
         if self.maximum_compound_members < 1 or self.axial_layer_count < 1:
             raise ValueError("Compound-member and axial-layer limits must be positive")
+
+    @classmethod
+    def from_json(cls, value: dict[str, Any]) -> "DesignSpace":
+        return cls(
+            tuple(value["allowed_modules_mm"]),
+            value["minimum_stage_count"],
+            value["maximum_stage_count"],
+            value.get("maximum_compound_members", 2),
+            value.get("axial_layer_count", 2),
+        )
 
 
 @dataclass(frozen=True)
@@ -66,6 +80,26 @@ class ProblemSpecification:
     def to_json(self) -> dict[str, Any]:
         return asdict(self)
 
+    @classmethod
+    def from_json(cls, value: dict[str, Any]) -> "ProblemSpecification":
+        problem_value = value["problem"]
+        load_value = problem_value.get("load_case")
+        problem = DesignProblem(
+            tuple(Point2D.from_json(point) for point in problem_value["boundary"]),
+            problem_value["input_stage_id"],
+            problem_value["output_stage_id"],
+            DesignConstraints(**problem_value["constraints"]),
+            MaterialLoadCase(**load_value) if load_value else None,
+            problem_value.get("units", "mm"),
+        )
+        return cls(
+            value["schema_version"],
+            problem,
+            DesignSpace.from_json(value["design_space"]),
+            tuple(PrescribedShaft.from_json(shaft) for shaft in value["prescribed_shafts"]),
+            tuple(tuple(Point2D.from_json(point) for point in polygon) for polygon in value.get("obstacles", ())),
+        )
+
 
 @dataclass(frozen=True)
 class SolverBenchmarkView:
@@ -83,6 +117,15 @@ class SolverBenchmarkView:
             "partition": self.partition,
             "specification": self.specification.to_json(),
         }
+
+    @classmethod
+    def from_json(cls, value: dict[str, Any]) -> "SolverBenchmarkView":
+        return cls(
+            value["instance_id"],
+            value["family"],
+            value["partition"],
+            ProblemSpecification.from_json(value["specification"]),
+        )
 
 
 @dataclass(frozen=True)

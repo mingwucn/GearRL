@@ -40,6 +40,19 @@ conda run -n ai python run_curated_benchmark.py data/benchmark/curated/requireme
 The historical 400-instance data remains a path-selection regression benchmark,
 not evidence of inverse synthesis.
 
+Run the requirements-first solver without exposing evaluator evidence, then
+adjudicate the sealed predictions in a separate process:
+
+```bash
+conda run -n ai python run_blind_synthesis.py \
+  data/benchmark/curated/requirements-first-50-v1/solver-inputs \
+  data/results/curated-blind-v1/predictions.json
+conda run -n ai python run_blind_adjudication.py \
+  data/benchmark/curated/requirements-first-50-v1 \
+  data/results/curated-blind-v1/predictions.json \
+  data/results/curated-blind-v1/adjudication.json
+```
+
 Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):
 

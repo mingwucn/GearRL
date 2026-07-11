@@ -5,7 +5,29 @@ from .baselines import BranchAndBoundSolver, CertifiedSynthesisSolver, Randomize
 from .learned_policy import BranchOrderingImitationTrainer, CertifiedDemonstrationCollector, LearnedBranchOrderingPolicy
 from .certified_environment import CertifiedBranchOrderingEnvironment
 from .learned_policy import PPOBranchRefinementTrainer
+from .requirements_solver import (
+    EnumerativeCompoundSynthesizer,
+    ProductionCandidateValidator,
+    RequirementsCandidateValidator,
+    RequirementsFirstSynthesisSolver,
+    RequirementsSynthesisResult,
+)
 
-__all__ = ["BranchAndBoundSolver", "BranchOrderingImitationTrainer", "CertifiedBranchOrderingEnvironment", "CertifiedDemonstrationCollector", "CertifiedSynthesisGraph", "CertifiedSynthesisSolver", "LearnedBranchOrderingPolicy", "PPOBranchRefinementTrainer", "RandomizedSearchSolver", "RouteFirstSolver", "SynthesisResult"]
-
-__all__ = ["CertifiedSynthesisGraph", "SynthesisResult"]
+__all__ = [
+    "BranchAndBoundSolver",
+    "BranchOrderingImitationTrainer",
+    "CertifiedBranchOrderingEnvironment",
+    "CertifiedDemonstrationCollector",
+    "CertifiedSynthesisGraph",
+    "CertifiedSynthesisSolver",
+    "EnumerativeCompoundSynthesizer",
+    "LearnedBranchOrderingPolicy",
+    "PPOBranchRefinementTrainer",
+    "ProductionCandidateValidator",
+    "RandomizedSearchSolver",
+    "RequirementsCandidateValidator",
+    "RequirementsFirstSynthesisSolver",
+    "RequirementsSynthesisResult",
+    "RouteFirstSolver",
+    "SynthesisResult",
+]

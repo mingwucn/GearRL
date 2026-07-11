@@ -7,6 +7,7 @@ from .curated import (
     CuratedCaseCatalog,
     CuratedRequirementsFirstFactory,
     FrozenCuratedDataset,
+    SolverInputDirectoryLoader,
 )
 from .oracle import ExactCompoundTrainOracle, GroundTruthOracle, OracleProof, OracleResult
 from .specification import (
@@ -33,6 +34,7 @@ __all__ = [
     "CuratedCaseCatalog",
     "CuratedRequirementsFirstFactory",
     "FrozenCuratedDataset",
+    "SolverInputDirectoryLoader",
     "DesignSpace",
     "ExternalBenchmarkRegistry",
     "ExternalCaseMetadata",

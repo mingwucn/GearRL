@@ -1,0 +1,9 @@
+{
+  "accuracy": 1.0,
+  "correct_count": 50,
+  "dataset_id": "curated-compound-50-v1",
+  "feasible_true_positive_count": 10,
+  "infeasible_true_negative_count": 40,
+  "prediction_artifact_sha256": "4892c08060f5ada32769398331e227d5bfb82037b541091b7e02bb6b0d9af0ce",
+  "prediction_count": 50
+}

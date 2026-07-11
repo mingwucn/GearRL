@@ -247,3 +247,26 @@ class CuratedBenchmarkLoader:
     def _require_hash(instance_id: str, kind: str, payload: bytes, expected: str) -> None:
         if hashlib.sha256(payload).hexdigest() != expected:
             raise ValueError(f"Curated {kind} hash mismatch: {instance_id}")
+
+
+class SolverInputDirectoryLoader:
+    """Load typed blind inputs without resolving or reading a parent directory."""
+
+    def __init__(self, guard: SolverPayloadGuard | None = None):
+        self._guard = guard or SolverPayloadGuard()
+
+    def load(self, solver_input_root: str | Path) -> tuple[SolverBenchmarkView, ...]:
+        root = Path(solver_input_root)
+        views = []
+        for path in sorted(root.glob("*.json")):
+            payload = json.loads(path.read_bytes())
+            self._guard.validate(payload)
+            view = SolverBenchmarkView.from_json(payload)
+            if view.instance_id != path.stem:
+                raise ValueError(f"Solver input filename/id mismatch: {path.name}")
+            views.append(view)
+        if not views:
+            raise ValueError("A blind synthesis run requires solver input files")
+        if len({view.instance_id for view in views}) != len(views):
+            raise ValueError("Blind solver inputs must have unique ids")
+        return tuple(views)
