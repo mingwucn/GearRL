@@ -1,0 +1,6 @@
+{
+  "protocol_sha256": "d23bbffaf07061088bc2e4ddc0e57732f5c2881e09447a4f7333f33683367099",
+  "protocol_source": "data/protocols/planetary-baseline-v1.json",
+  "schema_version": "planetary-baseline-artifact-v1",
+  "summary_sha256": "e371004a9369c9ab8952b3481fc5262135ce02d369f8c67636ca9d0ad4ff1639"
+}
