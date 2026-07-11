@@ -1,0 +1,26 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "collision-03",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "stage_collision",
+        "message": "Stages input[0] and idle[0] overlap: 6 < 22"
+      },
+      {
+        "code": "stage_collision",
+        "message": "Stages output[0] and idle[0] overlap: 14 < 22"
+      }
+    ],
+    "minimum_clearance_mm": 89.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "stage_collision"
+  ],
+  "expected_valid": false,
+  "family": "unintended-collision"
+}

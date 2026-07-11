@@ -9,6 +9,16 @@ interference, and optional in-house plane-stress tooth-root screening.
 The current publication path targets a fully digital *Advanced Engineering
 Informatics* study. GearRL does not claim physical manufacturing validation.
 
+The verifier boundary is exercised by 50 authored analytical cases spanning
+simple and compound trains, ratio parity, center distance, boundary clearance,
+unintended collisions, axial stacking, tooth rules, module compatibility, and
+graph integrity. Regenerate the hash-addressed corpus with:
+
+```bash
+conda run -n ai python run_validator_corpus.py \
+  data/benchmark/validator/certified-planar-v2-curated-50
+```
+
 ## Environment
 
 Create or update the required research environment:

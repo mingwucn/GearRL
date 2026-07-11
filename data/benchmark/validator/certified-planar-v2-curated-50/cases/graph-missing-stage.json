@@ -1,0 +1,30 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "graph-missing-stage",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "stage_collision",
+        "message": "Stages input[0] and output[0] overlap: 20 < 22"
+      },
+      {
+        "code": "mesh_missing_stage",
+        "message": "Mesh ('input', 0, 'ghost', 0) references a missing stage"
+      },
+      {
+        "code": "disconnected_output",
+        "message": "No mesh path connects input to output"
+      }
+    ],
+    "minimum_clearance_mm": 89.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": null,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "mesh_missing_stage"
+  ],
+  "expected_valid": false,
+  "family": "graph-integrity"
+}

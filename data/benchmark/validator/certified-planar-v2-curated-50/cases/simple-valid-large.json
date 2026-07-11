@@ -1,0 +1,15 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "simple-valid-large",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [],
+    "minimum_clearance_mm": 59.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -0.6666666666666666,
+    "valid": true
+  },
+  "expected_issue_codes": [],
+  "expected_valid": true,
+  "family": "simple-valid"
+}

@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "center-expanded-large",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "mesh_center_distance",
+        "message": "Mesh ('input', 0, 'output', 0) requires 24 mm, has 29 mm; allowed expansion is 0 mm"
+      }
+    ],
+    "minimum_clearance_mm": 78.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "mesh_center_distance"
+  ],
+  "expected_valid": false,
+  "family": "center-distance"
+}

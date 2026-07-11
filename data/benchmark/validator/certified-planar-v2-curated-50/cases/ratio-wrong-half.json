@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "ratio-wrong-half",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "speed_ratio_mismatch",
+        "message": "Computed signed speed ratio -1.3333333 does not match target -0.5"
+      }
+    ],
+    "minimum_clearance_mm": 89.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -1.3333333333333333,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "speed_ratio_mismatch"
+  ],
+  "expected_valid": false,
+  "family": "ratio-mismatch"
+}

@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "teeth-undercut-15",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "standard_undercut_risk",
+        "message": "input[0] has 15 teeth below the unshifted minimum 18 at 20 degrees"
+      }
+    ],
+    "minimum_clearance_mm": 91.5,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -0.75,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "standard_undercut_risk"
+  ],
+  "expected_valid": false,
+  "family": "tooth-rules"
+}

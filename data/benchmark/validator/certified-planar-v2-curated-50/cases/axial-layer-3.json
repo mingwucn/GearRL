@@ -1,0 +1,22 @@
+{
+  "analytical_audit_passed": true,
+  "case_id": "axial-layer-3",
+  "certificate": {
+    "cae_reports": [],
+    "issues": [
+      {
+        "code": "axial_layer_mismatch",
+        "message": "Mesh ('input', 0, 'output', 0) connects different axial layers"
+      }
+    ],
+    "minimum_clearance_mm": 83.0,
+    "model_version": "certified-planar-v2",
+    "signed_speed_ratio": -1.0,
+    "valid": false
+  },
+  "expected_issue_codes": [
+    "axial_layer_mismatch"
+  ],
+  "expected_valid": false,
+  "family": "axial-mismatch"
+}
