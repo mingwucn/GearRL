@@ -1,10 +1,13 @@
 import inspect
+from dataclasses import replace
 
 from benchmark import (
     DesignSpace,
     ExactCompoundTrainOracle,
     PrescribedShaft,
     ProblemSpecification,
+    ReplayableExactCompoundTrainOracle,
+    ReplayableOracleProofVerifier,
     SolverBenchmarkView,
 )
 from common.design_models import DesignConstraints, DesignProblem, Point2D
@@ -74,3 +77,19 @@ def test_exact_oracle_eliminates_undercut_prone_space() -> None:
     assert not result.proof.feasible
     assert result.proof.design_space_complete
     assert result.proof.evaluated_parameter_tuples == 1
+
+
+def test_replayable_negative_proof_binds_every_tuple_disposition() -> None:
+    view = OracleFixtureFactory().build(30.0, 1.1, 20, 21)
+    proof = ReplayableExactCompoundTrainOracle().solve(view).proof
+
+    assert proof.elimination_ledger is not None
+    assert proof.elimination_ledger["tuple_count"] == 16
+    assert sum(proof.elimination_ledger["disposition_counts"].values()) == 16
+    assert ReplayableOracleProofVerifier().verify(view, proof) == proof
+    corrupted = replace(
+        proof,
+        elimination_ledger={**proof.elimination_ledger, "ledger_sha256": "0" * 64},
+    )
+    with __import__("pytest").raises(ValueError, match="proof mismatch"):
+        ReplayableOracleProofVerifier().verify(view, corrupted)

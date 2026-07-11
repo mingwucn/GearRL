@@ -9,7 +9,14 @@ from .curated import (
     FrozenCuratedDataset,
     SolverInputDirectoryLoader,
 )
-from .oracle import ExactCompoundTrainOracle, GroundTruthOracle, OracleProof, OracleResult
+from .oracle import (
+    ExactCompoundTrainOracle,
+    GroundTruthOracle,
+    OracleProof,
+    OracleResult,
+    ReplayableExactCompoundTrainOracle,
+    ReplayableOracleProofVerifier,
+)
 from .specification import (
     DesignSpace,
     GroundTruthEvidence,
@@ -45,6 +52,8 @@ __all__ = [
     "ExactCompoundTrainOracle",
     "OracleProof",
     "OracleResult",
+    "ReplayableExactCompoundTrainOracle",
+    "ReplayableOracleProofVerifier",
     "PrescribedShaft",
     "ProblemSpecification",
     "RequirementsFirstBenchmarkCase",

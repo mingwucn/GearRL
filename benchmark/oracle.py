@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from hashlib import sha256
 from itertools import product
+import json
 from math import ceil, cos, hypot, isclose, pi, radians, sin, sqrt
 from typing import Any
 
@@ -22,9 +24,10 @@ class OracleProof:
     evaluated_placements: int
     design_space_complete: bool
     reason: str
+    elimination_ledger: dict[str, Any] | None = None
 
     def to_json(self) -> dict[str, Any]:
-        return {
+        payload = {
             "oracle_version": self.oracle_version,
             "feasible": self.feasible,
             "evaluated_parameter_tuples": self.evaluated_parameter_tuples,
@@ -32,6 +35,21 @@ class OracleProof:
             "design_space_complete": self.design_space_complete,
             "reason": self.reason,
         }
+        if self.elimination_ledger is not None:
+            payload["elimination_ledger"] = self.elimination_ledger
+        return payload
+
+    @classmethod
+    def from_json(cls, payload: dict[str, Any]) -> "OracleProof":
+        return cls(
+            oracle_version=str(payload["oracle_version"]),
+            feasible=bool(payload["feasible"]),
+            evaluated_parameter_tuples=int(payload["evaluated_parameter_tuples"]),
+            evaluated_placements=int(payload["evaluated_placements"]),
+            design_space_complete=bool(payload["design_space_complete"]),
+            reason=str(payload["reason"]),
+            elimination_ledger=payload.get("elimination_ledger"),
+        )
 
 
 @dataclass(frozen=True)
@@ -58,6 +76,51 @@ class GroundTruthOracle(ABC):
     @abstractmethod
     def solve(self, view: SolverBenchmarkView) -> OracleResult:
         """Return a constructive witness or a complete bounded-domain proof."""
+
+
+class OracleSearchLedger(ABC):
+    """Observer contract for a replayable account of every bounded tuple."""
+
+    @abstractmethod
+    def record(self, module: float, teeth: tuple[int, int, int, int], disposition: str, placement_count: int) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def seal(self) -> dict[str, Any]:
+        raise NotImplementedError
+
+
+class NullOracleSearchLedger(OracleSearchLedger):
+    def record(self, module: float, teeth: tuple[int, int, int, int], disposition: str, placement_count: int) -> None:
+        return None
+
+    def seal(self) -> dict[str, Any]:
+        return {}
+
+
+class HashingOracleSearchLedger(OracleSearchLedger):
+    """Hash canonical tuple dispositions while retaining auditable totals."""
+
+    SCHEMA_VERSION = "oracle-elimination-ledger-v1"
+
+    def __init__(self) -> None:
+        self._digest = sha256()
+        self._counts: dict[str, int] = {}
+        self._tuple_count = 0
+
+    def record(self, module: float, teeth: tuple[int, int, int, int], disposition: str, placement_count: int) -> None:
+        payload = {"disposition": disposition, "module_mm": module, "placement_count": placement_count, "teeth": teeth}
+        self._digest.update((json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n").encode())
+        self._counts[disposition] = self._counts.get(disposition, 0) + 1
+        self._tuple_count += 1
+
+    def seal(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "tuple_count": self._tuple_count,
+            "disposition_counts": dict(sorted(self._counts.items())),
+            "ledger_sha256": self._digest.hexdigest(),
+        }
 
 
 class PlanarGeometryKernel:
@@ -135,8 +198,9 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
 
     VERSION = "exact-compound-oracle-v1"
 
-    def __init__(self, geometry: PlanarGeometryKernel | None = None):
+    def __init__(self, geometry: PlanarGeometryKernel | None = None, ledger: OracleSearchLedger | None = None):
         self._geometry = geometry or PlanarGeometryKernel()
+        self._ledger = ledger or NullOracleSearchLedger()
 
     def solve(self, view: SolverBenchmarkView) -> OracleResult:
         specification = view.specification
@@ -163,10 +227,12 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
                     output_teeth,
                     constraints.pressure_angle_deg,
                 ):
+                    self._ledger.record(module, tooth_tuple, "standard-mesh", 0)
                     continue
                 ratio = (input_teeth / first_compound) * (second_compound / output_teeth)
                 target = constraints.target_speed_ratio
                 if target is not None and not isclose(ratio, target, rel_tol=constraints.ratio_tolerance, abs_tol=constraints.ratio_tolerance):
+                    self._ledger.record(module, tooth_tuple, "ratio", 0)
                     continue
                 input_distance = module * (input_teeth + first_compound) / 2.0
                 output_distance = module * (second_compound + output_teeth) / 2.0
@@ -175,12 +241,15 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
                 for compound_center in placements:
                     witness = self._witness(terminals, compound_center, module, tooth_tuple)
                     if self._admissible(specification.problem.boundary, specification.obstacles, constraints.boundary_clearance, witness):
+                        self._ledger.record(module, tooth_tuple, "witness", len(placements))
                         proof = OracleProof(self.VERSION, True, parameter_count, placement_count, False, "Constructive witness found")
                         return OracleResult(proof, witness)
+                self._ledger.record(module, tooth_tuple, "no-placement" if not placements else "geometry", len(placements))
         return self._negative(parameter_count, placement_count, "Every bounded parameter tuple and geometric placement was eliminated")
 
     def _negative(self, parameter_count: int, placement_count: int, reason: str) -> OracleResult:
         return OracleResult(OracleProof(self.VERSION, False, parameter_count, placement_count, True, reason), None)
+
 
     @staticmethod
     def _standard_mesh_admissible(module: float, first_teeth: int, second_teeth: int, pressure_angle_deg: float) -> bool:
@@ -228,3 +297,35 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
             if any(self._geometry.circle_intersects_polygon(stage.center, radius, obstacle) for obstacle in obstacles):
                 return False
         return True
+
+
+class ReplayableExactCompoundTrainOracle(GroundTruthOracle):
+    """Produce complete negative proofs with a deterministic elimination ledger."""
+
+    VERSION = "exact-compound-oracle-replay-v1"
+
+    def solve(self, view: SolverBenchmarkView) -> OracleResult:
+        ledger = HashingOracleSearchLedger()
+        result = ExactCompoundTrainOracle(ledger=ledger).solve(view)
+        proof = OracleProof(
+            self.VERSION,
+            result.proof.feasible,
+            result.proof.evaluated_parameter_tuples,
+            result.proof.evaluated_placements,
+            result.proof.design_space_complete,
+            result.proof.reason,
+            ledger.seal(),
+        )
+        return OracleResult(proof, result.witness)
+
+
+class ReplayableOracleProofVerifier:
+    """Replay a solver-visible brief and require the complete proof to match."""
+
+    def verify(self, view: SolverBenchmarkView, expected: OracleProof) -> OracleProof:
+        if expected.feasible or not expected.design_space_complete or expected.elimination_ledger is None:
+            raise ValueError("Replay verification requires a complete negative elimination proof")
+        observed = ReplayableExactCompoundTrainOracle().solve(view).proof
+        if observed != expected:
+            raise ValueError("Replayable oracle proof mismatch")
+        return observed
