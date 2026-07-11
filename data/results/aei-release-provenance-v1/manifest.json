@@ -1,0 +1,70 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "requirements-comparison",
+      "path": "data/results/requirements-comparison-v2/adjudication.json",
+      "sha256": "d95da151562709e0af6d19cf3a442c26215940fe6b5b8d44f1f22a341f5225f8"
+    },
+    {
+      "artifact_id": "solver-scaling",
+      "path": "data/results/scaling-v1/manifest.json",
+      "sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b"
+    },
+    {
+      "artifact_id": "knowledge-ablation",
+      "path": "data/results/aei-knowledge-ablation-v1/manifest.json",
+      "sha256": "7e3ecf1007d65c278a327aa53bd17c4d8b52ae46592d998b6790e350618cdeae"
+    },
+    {
+      "artifact_id": "assembly-confirmatory",
+      "path": "data/results/assembly-robustness-confirmatory-v3/manifest.json",
+      "sha256": "0fc2b305fe8df7c0864d3755ed50f7d357624a4eac21db2c37c6f80a4a878494"
+    },
+    {
+      "artifact_id": "replayable-negative-proofs",
+      "path": "data/results/replayable-negative-proofs-v1/manifest.json",
+      "sha256": "aae067e08a1cf4fafa788e53b703d5e1a36b0480ca9ed1f16c8c841ee6af7e50"
+    },
+    {
+      "artifact_id": "tolerance-aware-selection",
+      "path": "data/results/tolerance-aware-selection-v1/manifest.json",
+      "sha256": "e72b3a1f39a44ed699cee458cd997b78daf73c7db7a986f7a8000ce2ae86cdf8"
+    },
+    {
+      "artifact_id": "planetary-baseline-pending-review",
+      "path": "data/results/planetary-baseline-v1/manifest.json",
+      "sha256": "ae7b4babb7c3e918b172615f3fecaa3ea27cb7430c04653e92e5617d541d8b19"
+    },
+    {
+      "artifact_id": "cae-nonqualification",
+      "path": "data/results/cae-refinement-audit-v1/result.json",
+      "sha256": "c2e5e6100672d6423a116e7b768826553f002c53d378900eb9c2bd03981839db"
+    },
+    {
+      "artifact_id": "publication-registry",
+      "path": "paper/generated-v2/registry.json",
+      "sha256": "fd63cdb8c90cfd1effe21e7fb4aa56d4ed7c01165708c40c69748166118afcc3"
+    },
+    {
+      "artifact_id": "manuscript",
+      "path": "paper/manuscript-v2/manifest.json",
+      "sha256": "3d260a0511eca8e0cdaa6846d678983a06ceba5162e4710e59bb0352fe22904d"
+    },
+    {
+      "artifact_id": "editable-submission",
+      "path": "paper/aei-submission-v2/manifest.json",
+      "sha256": "2e2b7d668e94f8c582418c4c10f80e449e333cf1742210aee7e70f659535b35c"
+    }
+  ],
+  "environment": {
+    "conda_lock_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+    "pip_lock_sha256": "ddd5bb6d78d276b25f75adc0b7d0403b78046a06173fc4846b31ca4c2b34097d",
+    "platform": "Linux-6.17.0-20-generic-x86_64-with-glibc2.39",
+    "python_version": "3.11.15",
+    "source_commit": "981455aa6990541b596d783c5ad0f23aed3c66bf",
+    "source_tree_sha256": "769cc72f528ab81f7a38686d56981646302f802f5f2f0c9d74b1cdb5a0fbd1fa"
+  },
+  "model_scope": "bounded kinematic, geometric, executable-knowledge, and digital assembly evidence; structural admission excluded",
+  "release_id": "gearrl-aei-digital-v1",
+  "schema_version": "scientific-artifact-manifest-v1"
+}
