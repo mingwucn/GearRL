@@ -36,6 +36,7 @@ class DesignSpace:
     maximum_stage_count: int
     maximum_compound_members: int = 2
     axial_layer_count: int = 2
+    topology_family: str = "compound-two-mesh-three-shaft"
 
     def __post_init__(self) -> None:
         if not self.allowed_modules_mm or any(not isfinite(value) or value <= 0 for value in self.allowed_modules_mm):
@@ -48,6 +49,8 @@ class DesignSpace:
             raise ValueError("maximum_compound_members must be positive")
         if self.axial_layer_count < 1:
             raise ValueError("axial_layer_count must be positive")
+        if self.topology_family != "compound-two-mesh-three-shaft":
+            raise ValueError("Unsupported topology family")
 
     @classmethod
     def from_json(cls, value: dict[str, Any]) -> "DesignSpace":
@@ -57,6 +60,7 @@ class DesignSpace:
             value["maximum_stage_count"],
             value.get("maximum_compound_members", 2),
             value.get("axial_layer_count", 2),
+            value.get("topology_family", "compound-two-mesh-three-shaft"),
         )
 
 

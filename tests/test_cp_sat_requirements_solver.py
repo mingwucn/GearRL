@@ -64,3 +64,16 @@ def test_cp_sat_matches_enumerator_for_non_exact_tolerance_witness() -> None:
     assert enumeration.train is not None
     assert cp_sat.train is not None
     assert cp_sat.certificate is not None and cp_sat.certificate.valid
+
+
+def test_cp_sat_proves_negative_ratio_infeasible_for_fixed_even_mesh_topology() -> None:
+    original = _view("valid-high-35")
+    constraints = replace(original.specification.problem.constraints, target_speed_ratio=-1.0)
+    view = replace(
+        original,
+        specification=replace(original.specification, problem=replace(original.specification.problem, constraints=constraints)),
+    )
+    result = CpSatCompoundSynthesizer(ProductionCandidateValidator(), SolverBudget(7000, 2026)).solve(view)
+    assert result.train is None
+    assert result.search_complete
+    assert result.parameter_tuples_evaluated == 0

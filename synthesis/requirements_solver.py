@@ -405,6 +405,8 @@ class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
             terminals["output"].y - terminals["input"].y,
         )
         constraints = specification.problem.constraints
+        if constraints.target_speed_ratio is not None and constraints.target_speed_ratio < 0:
+            return RequirementsSynthesisResult(None, 0, 0, True, None)
         evaluated = 0
         placements_evaluated = 0
         for module in space.allowed_modules_mm:

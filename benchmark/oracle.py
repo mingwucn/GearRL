@@ -205,8 +205,25 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
     def solve(self, view: SolverBenchmarkView) -> OracleResult:
         specification = view.specification
         space = specification.design_space
-        if space.minimum_stage_count > 3 or space.maximum_stage_count < 3 or space.maximum_compound_members < 2:
-            return self._negative(0, 0, "The exact compound topology is excluded by the design space")
+        if (
+            space.topology_family != "compound-two-mesh-three-shaft"
+            or space.minimum_stage_count != 3
+            or space.maximum_stage_count != 3
+            or space.maximum_compound_members != 2
+            or space.axial_layer_count != 2
+            or specification.problem.constraints.transverse_backlash_allowance_mm != 0
+        ):
+            return OracleResult(
+                OracleProof(
+                    self.VERSION,
+                    False,
+                    0,
+                    0,
+                    False,
+                    "Specification exceeds the exact oracle's fixed zero-allowance compound topology",
+                ),
+                None,
+            )
         terminals = {shaft.role: shaft.center for shaft in specification.prescribed_shafts}
         constraints = specification.problem.constraints
         parameter_count = 0

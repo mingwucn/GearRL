@@ -93,3 +93,17 @@ def test_replayable_negative_proof_binds_every_tuple_disposition() -> None:
     )
     with __import__("pytest").raises(ValueError, match="proof mismatch"):
         ReplayableOracleProofVerifier().verify(view, corrupted)
+
+
+def test_exact_oracle_refuses_completeness_for_broader_stage_or_backlash_domains() -> None:
+    view = OracleFixtureFactory().build(30.0, 1.1)
+    broad_space = replace(view.specification.design_space, minimum_stage_count=2, maximum_stage_count=4)
+    broad = replace(view, specification=replace(view.specification, design_space=broad_space))
+    allowance_constraints = replace(view.specification.problem.constraints, transverse_backlash_allowance_mm=0.01)
+    allowance = replace(
+        view,
+        specification=replace(view.specification, problem=replace(view.specification.problem, constraints=allowance_constraints)),
+    )
+
+    assert not ExactCompoundTrainOracle().solve(broad).proof.design_space_complete
+    assert not ExactCompoundTrainOracle().solve(allowance).proof.design_space_complete

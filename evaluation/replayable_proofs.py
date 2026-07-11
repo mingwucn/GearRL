@@ -7,7 +7,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 
-from benchmark import OracleProof, ReplayableExactCompoundTrainOracle, ReplayableOracleProofVerifier, SolverInputDirectoryLoader
+from benchmark import CuratedBenchmarkLoader, OracleProof, ReplayableExactCompoundTrainOracle, ReplayableOracleProofVerifier, SolverInputDirectoryLoader
 
 
 @dataclass(frozen=True)
@@ -25,12 +25,9 @@ class ReplayableProofStudy:
     SCHEMA_VERSION = "replayable-negative-proofs-v1"
 
     def run(self, dataset_root: Path) -> dict:
+        frozen = CuratedBenchmarkLoader().load(dataset_root)
         views = SolverInputDirectoryLoader().load(dataset_root / "solver-inputs")
-        evidence = {
-            payload["instance_id"]: payload
-            for path in sorted((dataset_root / "evaluator-only").glob("*.json"))
-            for payload in (json.loads(path.read_text()),)
-        }
+        evidence = {payload["instance_id"]: payload for payload in frozen.evidence_payloads}
         records = []
         for view in views:
             if evidence[view.instance_id]["expected_feasible"]:
@@ -41,6 +38,7 @@ class ReplayableProofStudy:
         return {
             "schema_version": self.SCHEMA_VERSION,
             "dataset_id": json.loads((dataset_root / "index.json").read_text())["dataset_id"],
+            "dataset_sha256": frozen.dataset_sha256,
             "negative_case_count": len(records),
             "all_replayed": True,
             "records": [record.to_json() for record in records],
@@ -65,6 +63,7 @@ class ReplayableProofEvidenceStore:
             "schema_version": "replayable-negative-proofs-artifact-v1",
             "dataset_root": str(dataset_root),
             "dataset_index_sha256": sha256(index.read_bytes()).hexdigest(),
+            "dataset_sha256": summary["dataset_sha256"],
             "summary_sha256": sha256(summary_bytes).hexdigest(),
         }
         path = destination / "manifest.json"
@@ -79,7 +78,12 @@ class ReplayableProofEvidenceStore:
         dataset_root = Path(manifest["dataset_root"])
         if sha256((dataset_root / "index.json").read_bytes()).hexdigest() != manifest["dataset_index_sha256"]:
             raise ValueError("Replayable-proof dataset hash mismatch")
+        frozen = CuratedBenchmarkLoader().load(dataset_root)
+        if frozen.dataset_sha256 != manifest["dataset_sha256"]:
+            raise ValueError("Replayable-proof curated payload digest mismatch")
         summary = json.loads(summary_bytes)
+        if summary["dataset_sha256"] != frozen.dataset_sha256:
+            raise ValueError("Replayable-proof summary dataset digest mismatch")
         views = {view.instance_id: view for view in SolverInputDirectoryLoader().load(dataset_root / "solver-inputs")}
         identifiers = []
         for record in summary["records"]:

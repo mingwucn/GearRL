@@ -33,3 +33,12 @@ def test_replayable_proof_verifier_rejects_coordinated_summary_corruption(tmp_pa
     (destination / "manifest.json").write_bytes(store._encode(manifest))
     with pytest.raises(ValueError, match="proof mismatch"):
         store.verify(destination)
+
+
+def test_replayable_proof_study_rejects_mutated_solver_payload(tmp_path: Path) -> None:
+    dataset = tmp_path / "dataset"
+    __import__("shutil").copytree(DATASET, dataset)
+    solver = next((dataset / "solver-inputs").glob("*.json"))
+    solver.write_text(solver.read_text() + " ")
+    with pytest.raises(ValueError, match="Curated solver hash mismatch"):
+        ReplayableProofStudy().run(dataset)
