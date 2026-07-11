@@ -137,6 +137,14 @@ identity with their hash-bound registries:
 conda run -n ai make paper-verify
 ```
 
+The same target verifies `paper/submission-readiness-v1`. This fail-closed audit
+hash-checks the blind 50-case benchmark, all 400 legacy benchmark members, CAE
+and uncertainty evidence, the 30-seed scaling protocol, literature positioning,
+publication assets, and manuscript scope. Its current verdict is not yet ready
+to submit: independent container execution and an archival release/DOI require
+external evidence, while the 400-case path-ranking benchmark is explicitly
+partial rather than requirements-first synthesis evidence.
+
 The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,

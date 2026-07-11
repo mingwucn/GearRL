@@ -1,0 +1,114 @@
+{
+  "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; external release actions are tracked but cannot be self-attested.",
+  "requirements": [
+    {
+      "check_type": "curated_integrity",
+      "description": "Fifty solver-hidden requirements cases have hash-valid, physically separated evaluator evidence.",
+      "evidence_path": "data/benchmark/curated/requirements-first-50-v1/index.json",
+      "expected": {"declared": 50, "hash_valid": 50, "separated": true},
+      "requirement_id": "blind-requirements-benchmark"
+    },
+    {
+      "check_type": "benchmark_integrity",
+      "description": "The predeclared 400-instance regression benchmark is complete and hash-valid.",
+      "evidence_path": "data/benchmark/frozen/compound-v1-frozen-400-r2/index.json",
+      "expected": {"declared": 400, "hash_valid": 400},
+      "requirement_id": "frozen-400-benchmark",
+      "status_if_satisfied": "partial"
+    },
+    {
+      "check_type": "json_pointer",
+      "description": "All owned finite-element verification gates passed before strength coupling.",
+      "evidence_path": "data/results/cae-verification-v3/manifest.json",
+      "expected": true,
+      "pointer": "/all_gates_passed",
+      "requirement_id": "cae-verification"
+    },
+    {
+      "check_type": "json_pointer",
+      "description": "The preregistered static-strength study contains 120 sampled layouts.",
+      "evidence_path": "data/results/cae-study-v3/manifest.json",
+      "expected": 120,
+      "pointer": "/config/sample_size",
+      "requirement_id": "cae-120-layout-study"
+    },
+    {
+      "check_type": "json_pointer",
+      "description": "The solver scaling study retains all 2,048 raw observations.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "expected": 2048,
+      "pointer": "/observation_count",
+      "requirement_id": "solver-scaling-observations"
+    },
+    {
+      "check_type": "json_length",
+      "description": "The stochastic scaling comparator uses the predeclared 30 independent seeds.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "expected": 30,
+      "pointer": "/protocol/stochastic_seeds",
+      "requirement_id": "stochastic-30-seed-protocol"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "Strength-coupled synthesis evidence is frozen with record-level hashes.",
+      "evidence_path": "data/results/strength-coupled-v1/manifest.json",
+      "expected": true,
+      "requirement_id": "strength-coupled-admission"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "Conditional operating uncertainty is frozen and bound to direct CAE envelope evidence.",
+      "evidence_path": "data/results/load-uncertainty-v1/manifest.json",
+      "expected": true,
+      "requirement_id": "operating-uncertainty"
+    },
+    {
+      "check_type": "registry_count",
+      "description": "Every reported table and vector figure is registered against immutable sources.",
+      "evidence_path": "paper/generated-v1/registry.json",
+      "expected": {"figures": 5, "tables": 5},
+      "requirement_id": "publication-registry"
+    },
+    {
+      "check_type": "json_length",
+      "description": "The bounded contribution is positioned against ten DOI-backed closest methods.",
+      "evidence_path": "literature/aei_closest_methods.json",
+      "expected": 10,
+      "pointer": "/methods",
+      "requirement_id": "closest-method-audit"
+    },
+    {
+      "check_type": "text_contains",
+      "description": "The manuscript contains the mandatory modeled-validity boundary.",
+      "evidence_path": "paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md",
+      "expected": true,
+      "pointer": "valid under the declared kinematic, geometric, and static-strength model",
+      "requirement_id": "bounded-manuscript-claim"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "A platform-specific explicit dependency lock is committed.",
+      "evidence_path": "environment-ai.lock",
+      "expected": true,
+      "requirement_id": "dependency-lock"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "A container recipe is committed but has not been independently executed on this host.",
+      "evidence_path": "Dockerfile",
+      "expected": true,
+      "requirement_id": "independent-container-attestation",
+      "status_if_satisfied": "external_pending"
+    },
+    {
+      "check_type": "file_exists",
+      "description": "An archival release and DOI remain external pre-submission actions.",
+      "evidence_path": "TOP_JOURNAL_RESEARCH_PLAN.md",
+      "expected": true,
+      "requirement_id": "archival-release-doi",
+      "status_if_satisfied": "external_pending"
+    }
+  ],
+  "schema_version": "aei-submission-readiness-source-v1",
+  "target": "Advanced Engineering Informatics"
+}

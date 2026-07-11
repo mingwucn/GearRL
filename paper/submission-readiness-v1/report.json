@@ -1,0 +1,140 @@
+{
+  "assessment_scope": "Local scientific and reproducibility evidence for the fully digital AEI submission path; external release actions are tracked but cannot be self-attested.",
+  "blocking_requirements": [
+    "independent-container-attestation",
+    "archival-release-doi"
+  ],
+  "findings": [
+    {
+      "description": "Fifty solver-hidden requirements cases have hash-valid, physically separated evaluator evidence.",
+      "evidence_path": "data/benchmark/curated/requirements-first-50-v1/index.json",
+      "evidence_sha256": "ce79afc76573134eacbfc4bffe4b5b9e49c0dddc0b72609938596ba9a640589c",
+      "observed": {
+        "declared": 50,
+        "hash_valid": 50,
+        "separated": true
+      },
+      "requirement_id": "blind-requirements-benchmark",
+      "status": "passed"
+    },
+    {
+      "description": "The predeclared 400-instance regression benchmark is complete and hash-valid.",
+      "evidence_path": "data/benchmark/frozen/compound-v1-frozen-400-r2/index.json",
+      "evidence_sha256": "dc48753d3366f7775293486110f28ca136a3b31b03aafa5b869567e8117e537c",
+      "observed": {
+        "declared": 400,
+        "hash_valid": 400
+      },
+      "requirement_id": "frozen-400-benchmark",
+      "status": "partial"
+    },
+    {
+      "description": "All owned finite-element verification gates passed before strength coupling.",
+      "evidence_path": "data/results/cae-verification-v3/manifest.json",
+      "evidence_sha256": "5ee78272715f3501d69542a799cdd367d0200a32ee74d0017d2c173dbf63ef62",
+      "observed": true,
+      "requirement_id": "cae-verification",
+      "status": "passed"
+    },
+    {
+      "description": "The preregistered static-strength study contains 120 sampled layouts.",
+      "evidence_path": "data/results/cae-study-v3/manifest.json",
+      "evidence_sha256": "51bfaa16ba838ac504a64971c18e49a1684a3b307d09f864df1af8aa3a91718c",
+      "observed": 120,
+      "requirement_id": "cae-120-layout-study",
+      "status": "passed"
+    },
+    {
+      "description": "The solver scaling study retains all 2,048 raw observations.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+      "observed": 2048,
+      "requirement_id": "solver-scaling-observations",
+      "status": "passed"
+    },
+    {
+      "description": "The stochastic scaling comparator uses the predeclared 30 independent seeds.",
+      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_sha256": "f76618f549a73d1abae769e0e2ba794bd6889fae0b6e0627755f2a931b28498b",
+      "observed": 30,
+      "requirement_id": "stochastic-30-seed-protocol",
+      "status": "passed"
+    },
+    {
+      "description": "Strength-coupled synthesis evidence is frozen with record-level hashes.",
+      "evidence_path": "data/results/strength-coupled-v1/manifest.json",
+      "evidence_sha256": "be2ff0b240c8923a3c30d0fae1cb9d8a293e84caa81af62cdc9956fefeb5fa00",
+      "observed": true,
+      "requirement_id": "strength-coupled-admission",
+      "status": "passed"
+    },
+    {
+      "description": "Conditional operating uncertainty is frozen and bound to direct CAE envelope evidence.",
+      "evidence_path": "data/results/load-uncertainty-v1/manifest.json",
+      "evidence_sha256": "f2f1fb8aa4f607a28337fc64e38ebb55749bc265555e96ee17d071bbdd6318e1",
+      "observed": true,
+      "requirement_id": "operating-uncertainty",
+      "status": "passed"
+    },
+    {
+      "description": "Every reported table and vector figure is registered against immutable sources.",
+      "evidence_path": "paper/generated-v1/registry.json",
+      "evidence_sha256": "4c018634643a29905c5ff4b07e6f15613156c129fec4a27d4cfd01fea929d199",
+      "observed": {
+        "figures": 5,
+        "tables": 5
+      },
+      "requirement_id": "publication-registry",
+      "status": "passed"
+    },
+    {
+      "description": "The bounded contribution is positioned against ten DOI-backed closest methods.",
+      "evidence_path": "literature/aei_closest_methods.json",
+      "evidence_sha256": "c02268476af06f32987813f317c4798e24e8a8f0c84abd24b2c48e3ab1c27c1a",
+      "observed": 10,
+      "requirement_id": "closest-method-audit",
+      "status": "passed"
+    },
+    {
+      "description": "The manuscript contains the mandatory modeled-validity boundary.",
+      "evidence_path": "paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md",
+      "evidence_sha256": "cd1bcd9c313f949e715a34984e3a03a0b8035da3b2b0ce25323d8c1dc5a39136",
+      "observed": true,
+      "requirement_id": "bounded-manuscript-claim",
+      "status": "passed"
+    },
+    {
+      "description": "A platform-specific explicit dependency lock is committed.",
+      "evidence_path": "environment-ai.lock",
+      "evidence_sha256": "9e336f12028ae556612a03c33f742a488e71c54bcc34e83d489f5aabe579696f",
+      "observed": true,
+      "requirement_id": "dependency-lock",
+      "status": "passed"
+    },
+    {
+      "description": "A container recipe is committed but has not been independently executed on this host.",
+      "evidence_path": "Dockerfile",
+      "evidence_sha256": "b89f29d02f5ed88195488b0fe9bfade9d1d35c3ae48c9298c2d7a90df325fb44",
+      "observed": true,
+      "requirement_id": "independent-container-attestation",
+      "status": "external_pending"
+    },
+    {
+      "description": "An archival release and DOI remain external pre-submission actions.",
+      "evidence_path": "TOP_JOURNAL_RESEARCH_PLAN.md",
+      "evidence_sha256": "24acddd99aeea4467a52be843d61c85b36ccce02cc717d8976d70f647b32dba5",
+      "observed": true,
+      "requirement_id": "archival-release-doi",
+      "status": "external_pending"
+    }
+  ],
+  "ready_to_submit": false,
+  "schema_version": "aei-submission-readiness-report-v1",
+  "status_counts": {
+    "external_pending": 2,
+    "failed": 0,
+    "partial": 1,
+    "passed": 11
+  },
+  "target": "Advanced Engineering Informatics"
+}

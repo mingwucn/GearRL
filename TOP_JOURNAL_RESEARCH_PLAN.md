@@ -226,6 +226,12 @@ The object-oriented `AEIManuscriptAssembler`, `ManuscriptClaimGuard`, and `Manus
 
 The manuscript manifest hashes every directly read registry and source plus the assembled output. `make paper-verify` regenerates it in a clean temporary directory and requires byte identity. This completes the reproducible digital draft package; editorial polishing, journal-template conversion, DOI release, and independent clean-environment attestation remain pre-submission work.
 
+### Implemented submission-readiness audit
+
+`SubmissionReadinessAuditor` evaluates fourteen declared AEI gates using replaceable object-oriented evidence-check strategies. `BenchmarkIntegrityCheck` verifies every member of the frozen 400-instance regression set, while `CuratedIntegrityCheck` verifies hashes and physical solver/evaluator separation for the 50 requirements-first cases. Other checks bind CAE verification and sample size, stochastic seed count, scaling observations, strength coupling, uncertainty, closest-method coverage, registered publication assets, manuscript scope, and reproducibility inputs.
+
+The frozen `paper/submission-readiness-v1` report records eleven passed local gates, one partial legacy-benchmark gate, zero failed gates, and two external pending gates. Its verdict remains `ready_to_submit: false` until independent container execution and archival release/DOI evidence exist. `SubmissionReadinessArtifactStore` hashes and byte-reproduces this verdict through `make paper-verify`, preventing a locally complete scientific bundle from being misreported as externally released or independently reproduced.
+
 ### Implemented literature and contribution gate
 
 The machine-readable `literature/aei_closest_methods.json` records a search cutoff, the AEI venue requirement, ten DOI-backed closest methods, their engineering-knowledge representations, synthesis and validation scopes, closest overlap, and the remaining difference to GearRL. The set deliberately includes strong counterexamples: graph-based product architecture generation with simulation, graph-based robot topology-to-CAD design, planetary-transmission topology synthesis, automated gearbox component sizing, constrained simulation-based optimization, constrained DRL architecture design, and gear-specific strength optimization.
