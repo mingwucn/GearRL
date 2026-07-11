@@ -16,7 +16,7 @@ import numpy as np
 from scipy.optimize import differential_evolution
 
 from benchmark.specification import ProblemSpecification, SolverBenchmarkView
-from common.certificate_binding import ValidationCertificateBinder
+from common.certificate_binding import CanonicalSubjectHasher, ValidationCertificateBinder
 from common.design_models import CertificateModelIdentity, GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate
 from physics_validator.reference_verifier import ReferenceVerifier
 from synthesis.specification_validator import (
@@ -67,6 +67,42 @@ class RequirementsCandidateValidator(ABC):
     @abstractmethod
     def validate(self, specification: ProblemSpecification, train: GearTrain) -> ValidationCertificate:
         """Return the production-model certificate for a generated candidate."""
+
+
+class CompoundTrainFactory:
+    """Build the declared compound topology with specification-owned terminal IDs."""
+
+    def build(
+        self,
+        specification: ProblemSpecification,
+        terminals: dict[str, Point2D],
+        compound_center: Point2D,
+        module: float,
+        tooth_tuple: tuple[int, int, int, int],
+    ) -> GearTrain:
+        input_id = specification.problem.input_stage_id
+        output_id = specification.problem.output_stage_id
+        compound_id = self._compound_id(input_id, output_id)
+        input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
+        tolerance = specification.design_space.mesh_center_distance_tolerance_mm
+        return GearTrain(
+            (
+                GearStage(input_id, terminals["input"], (input_teeth,), module, (0,)),
+                GearStage(compound_id, compound_center, (first_compound, second_compound), module, (0, 1)),
+                GearStage(output_id, terminals["output"], (output_teeth,), module, (1,)),
+            ),
+            (
+                MeshEdge(input_id, 0, compound_id, 0, tolerance),
+                MeshEdge(compound_id, 1, output_id, 0, tolerance),
+            ),
+        )
+
+    @staticmethod
+    def _compound_id(input_id: str, output_id: str) -> str:
+        candidate = "compound"
+        while candidate in {input_id, output_id}:
+            candidate = f"_{candidate}"
+        return candidate
 
 
 class SynthesisGeometryKernel:
@@ -160,7 +196,7 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
             specification,
             train,
             subject_schema=specification.schema_version,
-            verifier_identity=certificate.model_identity.planar_model,
+            verifier_identity=CanonicalSubjectHasher.digest(certificate.model_identity),
         )
 
 
@@ -172,10 +208,12 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
         validator: RequirementsCandidateValidator,
         geometry: SynthesisGeometryKernel | None = None,
         budget: SolverBudget | None = None,
+        train_factory: CompoundTrainFactory | None = None,
     ):
         self._validator = validator
         self._geometry = geometry or SynthesisGeometryKernel()
         self._budget = budget
+        self._train_factory = train_factory or CompoundTrainFactory()
 
     def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
         specification = view.specification
@@ -213,39 +251,11 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                 )
                 evaluated_placements += len(placements)
                 for compound_center in placements:
-                    train = self._train(
-                        terminals,
-                        compound_center,
-                        module,
-                        tooth_tuple,
-                        space.mesh_center_distance_tolerance_mm,
-                    )
+                    train = self._train_factory.build(specification, terminals, compound_center, module, tooth_tuple)
                     certificate = self._validator.validate(specification, train)
                     if certificate.valid:
                         return RequirementsSynthesisResult(train, evaluated_parameters, evaluated_placements, False, certificate)
         return RequirementsSynthesisResult(None, evaluated_parameters, evaluated_placements, True, None)
-
-    @staticmethod
-    def _train(
-        terminals: dict[str, Point2D],
-        compound_center: Point2D,
-        module: float,
-        tooth_tuple: tuple[int, int, int, int],
-        mesh_tolerance_mm: float,
-    ) -> GearTrain:
-        input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
-        return GearTrain(
-            (
-                GearStage("input", terminals["input"], (input_teeth,), module, (0,)),
-                GearStage("compound", compound_center, (first_compound, second_compound), module, (0, 1)),
-                GearStage("output", terminals["output"], (output_teeth,), module, (1,)),
-            ),
-            (
-                MeshEdge("input", 0, "compound", 0, mesh_tolerance_mm),
-                MeshEdge("compound", 1, "output", 0, mesh_tolerance_mm),
-            ),
-        )
-
 
 class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
     """Seeded differential-evolution baseline over discrete design decisions."""
@@ -255,10 +265,12 @@ class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
         validator: RequirementsCandidateValidator,
         budget: SolverBudget,
         geometry: SynthesisGeometryKernel | None = None,
+        train_factory: CompoundTrainFactory | None = None,
     ):
         self._validator = validator
         self._budget = budget
         self._geometry = geometry or SynthesisGeometryKernel()
+        self._train_factory = train_factory or CompoundTrainFactory()
 
     def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
         specification = view.specification
@@ -301,9 +313,7 @@ class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
             )
             placements_evaluated += len(placements)
             for center in placements:
-                train = EnumerativeCompoundSynthesizer._train(
-                    terminals, center, module, tooth_tuple, space.mesh_center_distance_tolerance_mm
-                )
+                train = self._train_factory.build(specification, terminals, center, module, tooth_tuple)
                 certificate = self._validator.validate(specification, train)
                 if certificate.valid:
                     best_train = train
@@ -415,11 +425,13 @@ class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
         budget: SolverBudget,
         geometry: SynthesisGeometryKernel | None = None,
         backend: CpSatBackend | None = None,
+        train_factory: CompoundTrainFactory | None = None,
     ):
         self._validator = validator
         self._budget = budget
         self._geometry = geometry or SynthesisGeometryKernel()
         self._backend = backend or SubprocessCpSatBackend()
+        self._train_factory = train_factory or CompoundTrainFactory()
 
     def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
         specification = view.specification
@@ -465,9 +477,7 @@ class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                 )
                 placements_evaluated += len(placements)
                 for center in placements:
-                    train = EnumerativeCompoundSynthesizer._train(
-                        terminals, center, module, tooth_tuple, space.mesh_center_distance_tolerance_mm
-                    )
+                    train = self._train_factory.build(specification, terminals, center, module, tooth_tuple)
                     certificate = self._validator.validate(specification, train)
                     if certificate.valid:
                         return RequirementsSynthesisResult(train, evaluated, placements_evaluated, False, certificate)

@@ -60,7 +60,7 @@
       "synthesis_scope": "Weight-optimized helical gearbox sizing across gears, shafts, and bearings",
       "validation_scope": "Analytical load capacity and component life calculations in an established design program",
       "closest_overlap": "Requirements-to-gearbox automation with coupled engineering constraints",
-      "remaining_difference": "Focuses detailed component sizing rather than certificate-bearing bounded topology synthesis and independent truth adjudication"
+      "remaining_difference": "Focuses detailed component sizing rather than certificate-bearing bounded fixed-family configuration synthesis and independent truth adjudication"
     },
     {
       "id": "geng-2023",
@@ -86,7 +86,7 @@
       "synthesis_scope": "NSGA-II optimization of module, pressure angle, helix angle, and face width with fixed topology and tooth counts",
       "validation_scope": "Commercial MASTA analysis using representative workload data; physical validation left as future work",
       "closest_overlap": "Gear-specific strength-constrained digital optimization and workload-aware analysis",
-      "remaining_difference": "Optimizes a fixed planetary architecture rather than requirements-first topology and tooth-count synthesis with independent proofs"
+      "remaining_difference": "Optimizes a fixed planetary architecture rather than requirements-first tooth-count and geometric-layout synthesis with independent proofs"
     },
     {
       "id": "lin-2023",
@@ -234,9 +234,9 @@
     },
     {
       "claim_id": "C3",
-      "status": "candidate-novelty",
-      "claim": "Within the audited closest-method set, no single method combines solver-hidden bounded requirements, independently replayable positive certificates and complete topology-bounded negative proofs, and hash-bound publication artifacts.",
-      "required_evidence": "This matrix plus repository evidence; phrase as a bounded literature inference, not a universal first claim"
+      "status": "unverified-bounded-hypothesis",
+      "claim": "GearRL evaluates an integration of solver-hidden bounded requirements, independently replayable positive certificates and complete topology-bounded negative proofs, and content-hash-bound publication artifacts.",
+      "required_evidence": "Do not infer absence from publisher metadata. A novelty-priority claim requires full-text feature extraction, formal-methods coverage, and independently screened backward/forward searches."
     },
     {
       "claim_id": "C4",

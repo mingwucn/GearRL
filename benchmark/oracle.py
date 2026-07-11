@@ -265,6 +265,8 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
                 placement_count += len(placements)
                 for compound_center in placements:
                     witness = self._witness(
+                        specification.problem.input_stage_id,
+                        specification.problem.output_stage_id,
                         terminals,
                         compound_center,
                         module,
@@ -302,22 +304,27 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
 
     @staticmethod
     def _witness(
+        input_id: str,
+        output_id: str,
         terminals: dict[str, Point2D],
         compound_center: Point2D,
         module: float,
         tooth_tuple: tuple[int, int, int, int],
         mesh_tolerance_mm: float,
     ) -> GearTrain:
+        compound_id = "compound"
+        while compound_id in {input_id, output_id}:
+            compound_id = f"_{compound_id}"
         input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
         return GearTrain(
             stages=(
-                GearStage("input", terminals["input"], (input_teeth,), module, (0,)),
-                GearStage("compound", compound_center, (first_compound, second_compound), module, (0, 1)),
-                GearStage("output", terminals["output"], (output_teeth,), module, (1,)),
+                GearStage(input_id, terminals["input"], (input_teeth,), module, (0,)),
+                GearStage(compound_id, compound_center, (first_compound, second_compound), module, (0, 1)),
+                GearStage(output_id, terminals["output"], (output_teeth,), module, (1,)),
             ),
             meshes=(
-                MeshEdge("input", 0, "compound", 0, mesh_tolerance_mm),
-                MeshEdge("compound", 1, "output", 0, mesh_tolerance_mm),
+                MeshEdge(input_id, 0, compound_id, 0, mesh_tolerance_mm),
+                MeshEdge(compound_id, 1, output_id, 0, mesh_tolerance_mm),
             ),
         )
 

@@ -40,9 +40,19 @@ class ValidationCertificateBinder:
         )
         return replace(certificate, subject_identity=identity)
 
-    def matches(self, certificate: ValidationCertificate, problem: Any, train: Any) -> bool:
+    def matches(
+        self,
+        certificate: ValidationCertificate,
+        problem: Any,
+        train: Any,
+        *,
+        subject_schema: str,
+        verifier_identity: str,
+    ) -> bool:
         identity = certificate.subject_identity
         return identity is not None and (
-            identity.problem_sha256 == CanonicalSubjectHasher.digest(problem)
+            identity.subject_schema == subject_schema
+            and identity.verifier_identity == verifier_identity
+            and identity.problem_sha256 == CanonicalSubjectHasher.digest(problem)
             and identity.train_sha256 == CanonicalSubjectHasher.digest(train)
         )

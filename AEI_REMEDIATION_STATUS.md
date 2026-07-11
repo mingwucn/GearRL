@@ -26,10 +26,10 @@ The defensible contribution is a fully digital, object-oriented engineering-info
 | L14 | Resolved by exclusion | The invalid zero-width load-uncertainty conclusion is absent from the submitted evidence set. |
 | L15 | Resolved for submitted assembly claims | Eight independently scrambled Sobol replicates support randomized-QMC intervals. Excluded load studies retain no submitted claim. |
 | L16 | Resolved by exclusion | The unsupported averaged Sobol-sensitivity claim is absent from the submission. |
-| L17 | Resolved within bounded-review scope | The frozen search protocol and query ledger position the contribution against 15 DOI-backed closest and neighboring methods. It is explicitly a reproducible curated audit, not a systematic review or independently screened evidence synthesis. |
+| L17 | Partial | The frozen search protocol and query ledger cover 15 DOI-backed closest and neighboring methods, but several comparisons rely on publisher metadata and formal proof/certification literature is incomplete. No absence, priority, or first-of-kind claim is retained. |
 | L18 | Resolved | `aei-knowledge-ablation-v1` compares typed executable, flat structural, and duplicated flat-semantic representations on competency and mutation endpoints. |
 | L19 | Resolved within scope | The tested mechanism is semantic mutation observability and centralization, not generic graph superiority or universal workflow novelty. |
-| L20 | Partial/external | Twelve fixed-seed planetary runs are reproducible and report an exact binomial interval plus stop reasons, but the source conversion remains `pending-independent-review`. Broad structural-generalization claims are prohibited. |
+| L20 | Partial/external | Twelve fixed-seed planetary runs are reproducible and report counts plus stop reasons without a sampling-population interval; the source conversion remains `pending-independent-review`. Broad structural-generalization claims are prohibited. |
 | L21 | Resolved for the declared digital benchmark | Exact enumeration, independently maintained OR-Tools CP-SAT, and differential evolution are compared under frozen method-specific limits using strict accuracy, decisive coverage, and accuracy conditional on a decisive outcome. No industrial-workflow comparison is claimed. |
 | L22 | Open/external | No independent engineer study measures authoring time, trace debugging, handoff quality, or adoption impact. |
 | L23 | Tested but unsupported | Across 12 independent train-select-test repetitions, robustness-trained selection improves modeled acceptance by 0.003206 with 95% interval [0.003051, 0.003362], below the preregistered 0.005 threshold. |
@@ -46,7 +46,7 @@ The defensible contribution is a fully digital, object-oriented engineering-info
 - Replayable proof study: 40 negative cases, 262,440 hashed tuple dispositions, 6,063 evaluated placements, zero engineering tolerance, complete semantic replay.
 - Confirmatory assembly study: 7,864,320 draws; interaction estimate `-0.022440`, adjusted interval `[-0.022578, -0.022301]`; global housing equivalence rejected.
 - Outer-replicated selection: mean robust-minus-nominal modeled acceptance `0.003206`, interval `[0.003051, 0.003362]` across 12 train-select-test repetitions; preregistered `0.005` claim not supported.
-- Planetary external formulation: 3 of 12 fixed-seed runs meet the threshold, exact interval `[0.055, 0.572]`, and best objective `0.525588660`; conversion remains pending independent review.
+- Planetary external formulation: 3 of 12 declared fixed-seed runs meet the threshold and the best objective is `0.525588660`; no sampling-population interval is claimed and conversion remains pending independent review.
 - Structural model: refinement gate failed; no strength admission, redesign, feasibility, safety, or qualification claim remains.
 
 ## Submission Conditions

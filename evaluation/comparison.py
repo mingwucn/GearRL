@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from time import perf_counter
 
 from benchmark.generator import BenchmarkInstance
+from physics_validator.reference_verifier import ReferenceVerifier
 from synthesis.baselines import CertifiedSynthesisSolver
 from synthesis.certified_graph import CertifiedSynthesisGraph
 
@@ -33,6 +34,6 @@ class CertifiedSolverComparison:
                 started = perf_counter()
                 result = solver.solve(graph)
                 runtime = perf_counter() - started
-                valid = result is not None and bool(result.certificate_json["valid"])
+                valid = result is not None and ReferenceVerifier.verify_with_cae(instance.problem, result.train).valid
                 outcomes.append(SolverOutcome(instance.instance_id, name, valid, valid == instance.expected_feasible, runtime, result.score if result else None))
         return outcomes

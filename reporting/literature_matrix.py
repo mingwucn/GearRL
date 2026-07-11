@@ -59,7 +59,7 @@ class LiteratureEvidenceLoader:
             raise ValueError("Every method requires a DOI and traceable HTTPS source")
         if len({item.claim_id for item in claims}) != len(claims):
             raise ValueError("Contribution claim IDs must be unique")
-        if any(item.status not in {"supported", "candidate-novelty", "unsupported"} for item in claims):
+        if any(item.status not in {"supported", "unverified-bounded-hypothesis", "unsupported"} for item in claims):
             raise ValueError("Unsupported contribution-claim status")
         search_protocol = payload.get("search_protocol", {})
         if len(search_protocol.get("query_families", ())) < 5 or "not a systematic review" not in search_protocol.get("screening_note", ""):

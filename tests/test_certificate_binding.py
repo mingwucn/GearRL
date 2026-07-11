@@ -1,7 +1,7 @@
 from dataclasses import replace
 
 from benchmark.specification import DesignSpace, PrescribedShaft, ProblemSpecification
-from common.certificate_binding import ValidationCertificateBinder
+from common.certificate_binding import CanonicalSubjectHasher, ValidationCertificateBinder
 from common.design_models import DesignConstraints, DesignProblem, GearStage, GearTrain, MeshEdge, Point2D
 from physics_validator.reference_verifier import ReferenceVerifier
 from synthesis.requirements_solver import ProductionCandidateValidator
@@ -36,9 +36,21 @@ def test_reference_certificate_is_bound_to_exact_problem_and_train() -> None:
     certificate = ReferenceVerifier.verify(specification.problem, train)
     binder = ValidationCertificateBinder()
 
-    assert binder.matches(certificate, specification.problem, train)
+    assert binder.matches(
+        certificate,
+        specification.problem,
+        train,
+        subject_schema="design-problem-v1",
+        verifier_identity=ReferenceVerifier.MODEL_VERSION,
+    )
     changed_train = replace(train, stages=(*train.stages[:-1], replace(train.stages[-1], teeth=(19,))))
-    assert not binder.matches(certificate, specification.problem, changed_train)
+    assert not binder.matches(
+        certificate,
+        specification.problem,
+        changed_train,
+        subject_schema="design-problem-v1",
+        verifier_identity=ReferenceVerifier.MODEL_VERSION,
+    )
 
 
 def test_production_certificate_binds_full_specification() -> None:
@@ -48,4 +60,25 @@ def test_production_certificate_binds_full_specification() -> None:
     assert certificate.valid
     assert certificate.subject_identity is not None
     assert certificate.subject_identity.subject_schema == "requirements-first-v1"
-    assert ValidationCertificateBinder().matches(certificate, specification, train)
+    verifier_identity = CanonicalSubjectHasher.digest(certificate.model_identity)
+    assert ValidationCertificateBinder().matches(
+        certificate,
+        specification,
+        train,
+        subject_schema=specification.schema_version,
+        verifier_identity=verifier_identity,
+    )
+    assert not ValidationCertificateBinder().matches(
+        certificate,
+        specification,
+        train,
+        subject_schema="requirements-first-v0",
+        verifier_identity=verifier_identity,
+    )
+    assert not ValidationCertificateBinder().matches(
+        certificate,
+        specification,
+        train,
+        subject_schema=specification.schema_version,
+        verifier_identity=ReferenceVerifier.MODEL_VERSION,
+    )

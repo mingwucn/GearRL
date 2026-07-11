@@ -45,8 +45,42 @@ class ReplayableProofStudy:
         }
 
 
+class ReplayableProofPopulationContract:
+    """Require one complete negative proof for every declared negative subject."""
+
+    def expected_negative_ids(self, frozen) -> set[str]:
+        return {
+            payload["instance_id"]
+            for payload in frozen.evidence_payloads
+            if not payload["expected_feasible"]
+        }
+
+    def validate_records(self, records: list[dict], frozen) -> dict[str, OracleProof]:
+        expected = self.expected_negative_ids(frozen)
+        identifiers = [record["instance_id"] for record in records]
+        if len(identifiers) != len(set(identifiers)):
+            raise ValueError("Replayable-proof records contain duplicate subjects")
+        actual = set(identifiers)
+        if actual != expected:
+            missing = sorted(expected - actual)
+            unexpected = sorted(actual - expected)
+            raise ValueError(
+                f"Replayable-proof negative subject coverage mismatch; missing={missing}, unexpected={unexpected}"
+            )
+        proofs = {record["instance_id"]: OracleProof.from_json(record["proof"]) for record in records}
+        for instance_id, proof in proofs.items():
+            if proof.feasible:
+                raise ValueError(f"Replayable proof is not infeasible: {instance_id}")
+            if not proof.design_space_complete:
+                raise ValueError(f"Replayable proof is not complete: {instance_id}")
+        return proofs
+
+
 class ReplayableProofEvidenceStore:
     """Persist and semantically verify replayable negative-proof evidence."""
+
+    def __init__(self, population_contract: ReplayableProofPopulationContract | None = None) -> None:
+        self._population_contract = population_contract or ReplayableProofPopulationContract()
 
     @staticmethod
     def _encode(payload: dict) -> bytes:
@@ -85,13 +119,11 @@ class ReplayableProofEvidenceStore:
         if summary["dataset_sha256"] != frozen.dataset_sha256:
             raise ValueError("Replayable-proof summary dataset digest mismatch")
         views = {view.instance_id: view for view in SolverInputDirectoryLoader().load(dataset_root / "solver-inputs")}
-        identifiers = []
-        for record in summary["records"]:
-            instance_id = record["instance_id"]
-            identifiers.append(instance_id)
-            ReplayableOracleProofVerifier().verify(views[instance_id], OracleProof.from_json(record["proof"]))
-        if len(set(identifiers)) != len(identifiers) or len(identifiers) != summary["negative_case_count"]:
+        proofs = self._population_contract.validate_records(summary["records"], frozen)
+        if len(proofs) != summary["negative_case_count"]:
             raise ValueError("Replayable-proof record cardinality mismatch")
+        for instance_id, proof in proofs.items():
+            ReplayableOracleProofVerifier().verify(views[instance_id], proof)
         if not summary["all_replayed"]:
             raise ValueError("Replayable-proof study is not fully replayed")
         return manifest

@@ -11,15 +11,30 @@ from benchmark import (
     SolverBenchmarkView,
 )
 from common.design_models import DesignConstraints, DesignProblem, Point2D
+from synthesis.requirements_solver import (
+    CpSatCompoundSynthesizer,
+    EnumerativeCompoundSynthesizer,
+    EvolutionaryCompoundSynthesizer,
+    ProductionCandidateValidator,
+    SolverBudget,
+)
 
 
 class OracleFixtureFactory:
-    def build(self, terminal_distance: float, target_ratio: float, minimum_teeth: int = 20, maximum_teeth: int = 20) -> SolverBenchmarkView:
+    def build(
+        self,
+        terminal_distance: float,
+        target_ratio: float,
+        minimum_teeth: int = 20,
+        maximum_teeth: int = 20,
+        input_stage_id: str = "input",
+        output_stage_id: str = "output",
+    ) -> SolverBenchmarkView:
         boundary = (Point2D(-60, -60), Point2D(60, -60), Point2D(60, 60), Point2D(-60, 60))
         problem = DesignProblem(
             boundary=boundary,
-            input_stage_id="input",
-            output_stage_id="output",
+            input_stage_id=input_stage_id,
+            output_stage_id=output_stage_id,
             constraints=DesignConstraints(target_ratio, min_teeth=minimum_teeth, max_teeth=maximum_teeth),
         )
         specification = ProblemSpecification(
@@ -40,6 +55,25 @@ def test_exact_oracle_constructs_non_collinear_witness_from_requirements() -> No
     assert result.witness is not None
     assert abs(result.witness.stage_map()["compound"].center.y) > 1.0
     assert result.to_evidence().globally_proven
+
+
+def test_oracle_and_solvers_honor_noncanonical_terminal_stage_ids() -> None:
+    view = OracleFixtureFactory().build(30.0, 1.0, input_stage_id="motor-shaft", output_stage_id="load-shaft")
+    validator = ProductionCandidateValidator()
+    budget = SolverBudget(maximum_candidate_evaluations=100, seed=2026, population_size=4, maximum_time_s=5.0)
+    oracle_result = ExactCompoundTrainOracle().solve(view)
+    solver_results = (
+        EnumerativeCompoundSynthesizer(validator, budget=budget).solve(view),
+        EvolutionaryCompoundSynthesizer(validator, budget).solve(view),
+        CpSatCompoundSynthesizer(validator, budget).solve(view),
+    )
+
+    trains = (oracle_result.witness, *(result.train for result in solver_results))
+    assert all(train is not None for train in trains)
+    for train in trains:
+        assert train is not None
+        assert {"motor-shaft", "load-shaft"}.issubset(train.stage_map())
+        assert validator.validate(view.specification, train).valid
 
 
 def test_exact_oracle_proves_bounded_ratio_infeasibility() -> None:

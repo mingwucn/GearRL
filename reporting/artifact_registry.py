@@ -296,12 +296,11 @@ class PlanetaryBaselineTable(PublicationTable):
     def render(self) -> str:
         summary = self._json(self._summary)
         analysis = summary["fixed_seed_outcome_analysis"]
-        lower, upper = analysis["threshold_run_fraction_exact_95_interval"]
         return (
-            "| Fixed seeds | Constraint-valid | At threshold | Threshold fraction exact 95% interval | Iteration-limit stops | Best objective | Conversion status |\n"
-            "| ---: | ---: | ---: | ---: | ---: | ---: | --- |\n"
+            "| Fixed seeds | Constraint-valid | At threshold | Iteration-limit stops | Best objective | Conversion status |\n"
+            "| ---: | ---: | ---: | ---: | ---: | --- |\n"
             f"| {len(summary['results'])} | {summary['valid_run_count']} | {summary['threshold_run_count']} | "
-            f"[{lower:.3f}, {upper:.3f}] | {analysis['iteration_limit_count']} | "
+            f"{analysis['iteration_limit_count']} | "
             f"{summary['best_valid_objective']:.9f} | {summary['conversion_status']} |\n"
         )
 
