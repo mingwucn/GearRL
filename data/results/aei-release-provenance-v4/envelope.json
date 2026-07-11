@@ -1,0 +1,6 @@
+{
+  "catalog": "data/protocols/aei-release-artifacts-v3.json",
+  "catalog_sha256": "676074c786ff1c2b1d3a15b6cd4bd4837825a0d6c568f4f8369bdbd3f00ab25f",
+  "manifest_sha256": "613e2be46a9aab74c79d4c71df0327667bf0ca858b9a2eaabdf3555220965ccf",
+  "schema_version": "scientific-artifact-manifest-envelope-v1"
+}
