@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 from benchmark.generator import BenchmarkInstance
-from common.design_models import MaterialLoadCase
+from common.design_models import GearTrain, MaterialLoadCase
 from physics_validator.reference_verifier import ReferenceVerifier
 
 
@@ -32,7 +32,7 @@ class StratifiedCAEStudy:
         for instance in selected:
             constraints = replace(instance.problem.constraints, min_safety_factor=self._minimum_safety_factor)
             problem = replace(instance.problem, constraints=constraints, load_case=self._load_case)
-            certificate = ReferenceVerifier.verify_with_cae(problem, instance.reference_train)
+            certificate = ReferenceVerifier.verify_with_cae(problem, self._solution_train(instance))
             safety = [float(report["safety_factor"]) for report in certificate.cae_reports]
             outcomes.append(CAEStudyOutcome(instance.instance_id, certificate.valid, min(safety) if safety else None, len(safety)))
         return outcomes
@@ -56,3 +56,10 @@ class StratifiedCAEStudy:
             if not progressed:
                 break
         return selected
+
+    @staticmethod
+    def _solution_train(instance: BenchmarkInstance) -> GearTrain:
+        """Screen the actual synthesized path rather than branch-ordering decoys."""
+        stages = tuple(stage for stage in instance.reference_train.stages if stage.id in {"input", "compound", "output"})
+        meshes = tuple(edge for edge in instance.reference_train.meshes if edge.driver_stage_id in {"input", "compound"} and edge.driven_stage_id in {"compound", "output"})
+        return GearTrain(stages, meshes)
