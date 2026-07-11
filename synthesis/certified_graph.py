@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import pi
+from random import Random
 
 from common.design_models import DesignProblem, GearStage, GearTrain, MeshEdge
 from physics_validator.reference_verifier import ReferenceVerifier
@@ -42,6 +43,32 @@ class CertifiedSynthesisGraph:
         results: list[SynthesisResult] = []
         self._search(self.problem.input_stage_id, [], {self.problem.input_stage_id}, max_stages, results)
         return min(results, key=lambda result: result.score) if results else None
+
+    def solve_greedy(self, max_stages: int = 6) -> SynthesisResult | None:
+        """Follow the first available branch and certify only its terminal train."""
+        return self._solve_ordered(max_stages, lambda edges: edges)
+
+    def solve_random(self, random: Random, max_stages: int = 6) -> SynthesisResult | None:
+        """Follow a seeded random candidate order without relaxing certification."""
+        return self._solve_ordered(max_stages, lambda edges: random.sample(edges, len(edges)))
+
+    def _solve_ordered(self, max_stages: int, order) -> SynthesisResult | None:
+        current = self.problem.input_stage_id
+        path: list[MeshEdge] = []
+        visited = {current}
+        while current != self.problem.output_stage_id and len(visited) < max_stages:
+            available = [edge for edge in self._outgoing.get(current, []) if edge.driven_stage_id not in visited]
+            if not available:
+                return None
+            edge = order(available)[0]
+            path.append(edge)
+            current = edge.driven_stage_id
+            visited.add(current)
+        if current != self.problem.output_stage_id:
+            return None
+        train = self._train_from_path(path)
+        certificate = ReferenceVerifier.verify_with_cae(self.problem, train)
+        return SynthesisResult(train, self._score(train), certificate.to_json()) if certificate.valid else None
 
     def _search(
         self,

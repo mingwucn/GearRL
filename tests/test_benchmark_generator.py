@@ -15,3 +15,10 @@ def test_suite_labels_and_certifies_infeasible_cases() -> None:
     assert len(suite) == 5
     assert sum(instance.expected_feasible for instance in suite) == 2
     assert all(not instance.certificate["valid"] for instance in suite if not instance.expected_feasible)
+
+
+def test_generator_stratifies_instances_across_four_enclosure_families() -> None:
+    instances = BenchmarkGenerator().generate_compound_instances(2026, 8)
+    assert {instance.family for instance in instances} == {
+        "compound-square", "compound-wide", "compound-tall", "compound-chamfered"
+    }

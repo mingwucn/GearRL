@@ -110,8 +110,9 @@ def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teet
         )
         train = GearTrain(stages, meshes)
         extent = output_center.x + max(stage.outer_radius_mm() for stage in stages) + 20.0
+        family = ("compound-square", "compound-wide", "compound-tall", "compound-chamfered")[index % 4]
         problem = DesignProblem(
-            boundary=(Point2D(-extent, -extent), Point2D(extent, -extent), Point2D(extent, extent), Point2D(-extent, extent)),
+            boundary=_boundary_for_family(family, extent),
             input_stage_id="input",
             output_stage_id="output",
             constraints=DesignConstraints(
@@ -123,5 +124,23 @@ def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teet
         certificate = ReferenceVerifier.verify(problem, train)
         if not certificate.valid:
             raise RuntimeError(f"Benchmark generator emitted invalid instance {index}: {certificate.issues}")
-        instances.append(BenchmarkInstance(f"compound-{seed}-{index:04d}", seed, problem, train, certificate.to_json()))
+        instances.append(BenchmarkInstance(
+            f"compound-{seed}-{index:04d}", seed, problem, train, certificate.to_json(), family=family
+        ))
     return instances
+
+
+def _boundary_for_family(family: str, extent: float) -> tuple[Point2D, ...]:
+    if family == "compound-square":
+        return (Point2D(-extent, -extent), Point2D(extent, -extent), Point2D(extent, extent), Point2D(-extent, extent))
+    if family == "compound-wide":
+        return (Point2D(-extent * 1.5, -extent * 0.8), Point2D(extent * 1.5, -extent * 0.8), Point2D(extent * 1.5, extent * 0.8), Point2D(-extent * 1.5, extent * 0.8))
+    if family == "compound-tall":
+        return (Point2D(-extent, -extent * 1.5), Point2D(extent, -extent * 1.5), Point2D(extent, extent * 1.5), Point2D(-extent, extent * 1.5))
+    if family == "compound-chamfered":
+        edge = extent * 0.7
+        return (
+            Point2D(-edge, -extent), Point2D(edge, -extent), Point2D(extent, -edge), Point2D(extent, edge),
+            Point2D(edge, extent), Point2D(-edge, extent), Point2D(-extent, edge), Point2D(-extent, -edge),
+        )
+    raise ValueError(f"Unknown benchmark family {family}")
