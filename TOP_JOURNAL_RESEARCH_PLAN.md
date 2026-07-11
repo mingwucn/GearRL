@@ -191,3 +191,13 @@ The material inputs are manufacturer data rather than inferred gear allowables:
 The frozen result contains 16 envelope cases, 384 layout-case observations, and all underlying tooth reports. Twelve cases pass every sampled layout. At 3 Nm, S355 passes 62.5-83.3% of layouts depending on width and efficiency, whereas all declared Toolox 44 cases pass. The minimum observed static screening safety factor is 0.362. These results demonstrate sensitivity to engineering inputs and identify rejected digital designs; they do not establish fatigue life, contact durability, manufacturing fitness, or physical safety.
 
 Evidence is stored under `data/results/load-envelope-v1`. Its manifest binds the dataset hash, model version, sources, configuration, summary hash, and every case-record hash. `LoadEnvelopeEvidenceStore` rejects modified summaries or records.
+
+### Implemented operating-uncertainty analysis
+
+The frozen `load-uncertainty-v1` study propagates explicitly declared independent uniform operating ranges: 1-3 Nm input torque, 8-12 mm face width, and 0.95-0.98 per-mesh efficiency. Material yield data are not assigned invented probability distributions; S355 and Toolox 44 are analyzed as separate conditions using their sourced minimum strengths.
+
+`ToothResponseSurface` uses the exact force-controlled linear-elastic scaling with torque, face width, and directed mesh-efficiency depth. `DirectCornerValidator` checks this response against all 16 directly solved CAE envelope corners before uncertainty results are admitted. The maximum relative disagreement is below `5e-13`. A scrambled six-dimensional Sobol design provides 8,192 A/B samples per material, and the study reports within-layout first-order and total-order indices. Failure-probability intervals resample the 24 layouts with 5,000 seeded bootstrap replicates; they therefore quantify variation across sampled geometries rather than treating individual Sobol draws as independent physical experiments.
+
+For the declared range, S355 has a pooled modeled-failure probability of 0.110 and a layout-bootstrap 95% interval of `[0.016, 0.223]`; Toolox 44 has no modeled failures in the evaluated sample. Mean total-order indices are 0.888 for torque, 0.123 for face width, and below 0.001 for efficiency. The artifact retains per-layout failure probabilities and safety-factor quantiles under `data/results/load-uncertainty-v1` and cryptographically binds its results to the direct-CAE envelope manifest.
+
+These are conditional digital sensitivity results. The uniform ranges are declared study assumptions, not field-measured duty distributions, and the results do not cover fatigue, contact stress, thermal effects, material variability, or physical qualification.

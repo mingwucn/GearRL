@@ -1,0 +1,13 @@
+{
+  "config": {
+    "bootstrap_samples": 5000,
+    "maximum_corner_relative_error": 1e-10,
+    "random_seed": 2026,
+    "sobol_exponent": 13
+  },
+  "method": "scrambled Sobol propagation with within-layout sensitivity indices and layout-bootstrap failure intervals",
+  "results_sha256": "71c04383a602d591729299c8218ac2943afd3f8a49ddad638288f3dd3042d208",
+  "scope": "conditional digital static-strength uncertainty; uniform operating ranges; fixed sourced material data",
+  "source_manifest": "data/results/load-envelope-v1/manifest.json",
+  "source_manifest_sha256": "b4a9257ba9489784c28b52e3466fff50f01eea7d354bd0059782ee891fbe4278"
+}

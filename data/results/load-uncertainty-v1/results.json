@@ -1,0 +1,422 @@
+{
+  "materials": [
+    {
+      "layout_bootstrap_ci95": [
+        0.0160064697265625,
+        0.22310384114583334
+      ],
+      "layout_count": 24,
+      "layout_outcomes": [
+        {
+          "failure_probability": 0.7752685546875,
+          "instance_id": "test-tight-clearance-0000",
+          "safety_q05": 0.4633122157464976,
+          "safety_q50": 0.7245765469349154,
+          "safety_q95": 1.3470953958770309
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0003",
+          "safety_q05": 2.3597588817367963,
+          "safety_q50": 3.6880015349024893,
+          "safety_q95": 6.838866322701761
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0000",
+          "safety_q05": 1.3631219966799655,
+          "safety_q50": 2.129730112063249,
+          "safety_q95": 3.9483334792909335
+        },
+        {
+          "failure_probability": 0.015625,
+          "instance_id": "train-procedural-0002",
+          "safety_q05": 1.08522345361401,
+          "safety_q50": 1.6960655572127479,
+          "safety_q95": 3.1451086748594155
+        },
+        {
+          "failure_probability": 0.0108642578125,
+          "instance_id": "train-procedural-0001",
+          "safety_q05": 1.1015531225345379,
+          "safety_q50": 1.7215867426649796,
+          "safety_q95": 3.192434028185036
+        },
+        {
+          "failure_probability": 0.006103515625,
+          "instance_id": "test-tight-clearance-0001",
+          "safety_q05": 1.1248621188629047,
+          "safety_q50": 1.7591781139427836,
+          "safety_q95": 3.270573340863083
+        },
+        {
+          "failure_probability": 0.30810546875,
+          "instance_id": "train-procedural-0007",
+          "safety_q05": 0.7621586233059289,
+          "safety_q50": 1.191944103182981,
+          "safety_q95": 2.2160010841267233
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0004",
+          "safety_q05": 3.931720895770951,
+          "safety_q50": 6.14477725272475,
+          "safety_q95": 11.394602148741846
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0006",
+          "safety_q05": 2.4784945257025766,
+          "safety_q50": 3.8735701709959955,
+          "safety_q95": 7.182976563415946
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0005",
+          "safety_q05": 3.9207090953104498,
+          "safety_q50": 6.131618725483253,
+          "safety_q95": 11.399589718039572
+        },
+        {
+          "failure_probability": 0.016357421875,
+          "instance_id": "test-tight-clearance-0002",
+          "safety_q05": 1.0809372347119957,
+          "safety_q50": 1.6893667448841245,
+          "safety_q95": 3.132686694661532
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0011",
+          "safety_q05": 1.5688759351311001,
+          "safety_q50": 2.451952570923913,
+          "safety_q95": 4.546791996548588
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0008",
+          "safety_q05": 2.395315706663951,
+          "safety_q50": 3.7435723077990373,
+          "safety_q95": 6.94191429697511
+        },
+        {
+          "failure_probability": 0.001220703125,
+          "instance_id": "train-procedural-0010",
+          "safety_q05": 1.1703773756862959,
+          "safety_q50": 1.829302772508024,
+          "safety_q95": 3.3866718255602253
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0009",
+          "safety_q05": 1.4065561421936292,
+          "safety_q50": 2.1984507766943198,
+          "safety_q95": 4.070092396516602
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0003",
+          "safety_q05": 4.159704881833305,
+          "safety_q50": 6.5010870846480495,
+          "safety_q95": 12.055327283188465
+        },
+        {
+          "failure_probability": 0.7095947265625,
+          "instance_id": "train-procedural-0015",
+          "safety_q05": 0.5050372420968453,
+          "safety_q50": 0.7898305473393537,
+          "safety_q95": 1.4684122724433835
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0012",
+          "safety_q05": 4.406212490138151,
+          "safety_q50": 6.886346970659918,
+          "safety_q95": 12.769736112740144
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0014",
+          "safety_q05": 2.436422240432504,
+          "safety_q50": 3.807816566314705,
+          "safety_q95": 7.061045997933409
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0013",
+          "safety_q05": 3.427845243559377,
+          "safety_q50": 5.35773070980172,
+          "safety_q95": 9.919011722125777
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0004",
+          "safety_q05": 4.37326846773378,
+          "safety_q50": 6.831075280483948,
+          "safety_q95": 12.655828775659028
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0019",
+          "safety_q05": 2.297456557224682,
+          "safety_q50": 3.590630964456938,
+          "safety_q95": 6.658306659496535
+        },
+        {
+          "failure_probability": 0.8006591796875,
+          "instance_id": "train-procedural-0016",
+          "safety_q05": 0.44693669618383325,
+          "safety_q50": 0.6989667809591512,
+          "safety_q95": 1.2994830380366125
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0018",
+          "safety_q05": 2.4077033826142724,
+          "safety_q50": 3.7629326620590593,
+          "safety_q95": 6.9778152784393015
+        }
+      ],
+      "material_name": "S355 (plate)",
+      "pooled_failure_probability": 0.11015828450520833,
+      "safety_quantiles": {
+        "q025": 0.5629437615439888,
+        "q05": 0.670475505062826,
+        "q50": 2.9149389003408084,
+        "q95": 9.018142595281748,
+        "q975": 10.588147207765266
+      },
+      "sample_count": 8192,
+      "sensitivity": [
+        {
+          "first_order": 0.8757483872058497,
+          "parameter": "input_torque",
+          "total_order": 0.8875531428631387
+        },
+        {
+          "first_order": 0.11144951634588728,
+          "parameter": "face_width",
+          "total_order": 0.12321033775425555
+        },
+        {
+          "first_order": 0.0008271535199682347,
+          "parameter": "per_mesh_efficiency",
+          "total_order": 0.0009210224141480413
+        }
+      ]
+    },
+    {
+      "layout_bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "layout_count": 24,
+      "layout_outcomes": [
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0000",
+          "safety_q05": 1.5008705580518784,
+          "safety_q50": 2.3472197999297633,
+          "safety_q95": 4.363830155657534
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0003",
+          "safety_q05": 7.644289335203507,
+          "safety_q50": 11.947047225740148,
+          "safety_q95": 22.154074003117803
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0000",
+          "safety_q05": 4.415747313189131,
+          "safety_q50": 6.899125715135267,
+          "safety_q95": 12.790376059676335
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0002",
+          "safety_q05": 3.515512596214514,
+          "safety_q50": 5.494296875478096,
+          "safety_q95": 10.188380214333652
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0001",
+          "safety_q05": 3.5684115237036034,
+          "safety_q50": 5.576971138210764,
+          "safety_q95": 10.341687696937935
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0001",
+          "safety_q05": 3.643919539979036,
+          "safety_q50": 5.6987460029142,
+          "safety_q95": 10.594815047868106
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0007",
+          "safety_q05": 2.4689645543710617,
+          "safety_q50": 3.8612273765078458,
+          "safety_q95": 7.1785950612548355
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0004",
+          "safety_q05": 12.736560648270867,
+          "safety_q50": 19.905616452486704,
+          "safety_q95": 36.912091467751715
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0006",
+          "safety_q05": 8.028925928333853,
+          "safety_q50": 12.54818506097539,
+          "safety_q95": 23.26879731811253
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0005",
+          "safety_q05": 12.700888618612321,
+          "safety_q50": 19.862990237482535,
+          "safety_q95": 36.92824838238464
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0002",
+          "safety_q05": 3.5016276617433415,
+          "safety_q50": 5.472596497512354,
+          "safety_q95": 10.14813999679162
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0011",
+          "safety_q05": 5.082274156058324,
+          "safety_q50": 7.942944948063116,
+          "safety_q95": 14.729044495861134
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0008",
+          "safety_q05": 7.759473415953755,
+          "safety_q50": 12.127065222447758,
+          "safety_q95": 22.48789138456758
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0010",
+          "safety_q05": 3.7913633296884526,
+          "safety_q50": 5.9259103898154315,
+          "safety_q95": 10.970908730689361
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0009",
+          "safety_q05": 4.556449474710755,
+          "safety_q50": 7.121741952670172,
+          "safety_q95": 13.184806354910034
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0003",
+          "safety_q05": 13.475100321436157,
+          "safety_q50": 21.059859569993396,
+          "safety_q95": 39.05246866386248
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0015",
+          "safety_q05": 1.6360361363701506,
+          "safety_q50": 2.558605998423397,
+          "safety_q95": 4.756828488197133
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0012",
+          "safety_q05": 14.273646094814413,
+          "safety_q50": 22.307884552843056,
+          "safety_q95": 41.36675078775174
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0014",
+          "safety_q05": 7.892635426755115,
+          "safety_q50": 12.335180426092915,
+          "safety_q95": 22.87381097922651
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0013",
+          "safety_q05": 11.104287408715875,
+          "safety_q50": 17.356029059924808,
+          "safety_q95": 32.13200980407635
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "test-tight-clearance-0004",
+          "safety_q05": 14.166926022233925,
+          "safety_q50": 22.128835415647366,
+          "safety_q95": 40.99775518874805
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0019",
+          "safety_q05": 7.442464903685475,
+          "safety_q50": 11.631621434156095,
+          "safety_q95": 21.569162418087036
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0016",
+          "safety_q05": 1.4478231003139395,
+          "safety_q50": 2.2642585862058793,
+          "safety_q95": 4.209592940118934
+        },
+        {
+          "failure_probability": 0.0,
+          "instance_id": "train-procedural-0018",
+          "safety_q05": 7.7996025070609365,
+          "safety_q50": 12.189781863009188,
+          "safety_q95": 22.604190338607978
+        }
+      ],
+      "material_name": "Toolox 44 (plate)",
+      "pooled_failure_probability": 0.0,
+      "safety_quantiles": {
+        "q025": 1.8236206359876677,
+        "q05": 2.1719629037244217,
+        "q50": 9.442759818005658,
+        "q95": 29.213701365002002,
+        "q975": 34.29963179980464
+      },
+      "sample_count": 8192,
+      "sensitivity": [
+        {
+          "first_order": 0.8757483872058498,
+          "parameter": "input_torque",
+          "total_order": 0.8875531428631388
+        },
+        {
+          "first_order": 0.11144951634588728,
+          "parameter": "face_width",
+          "total_order": 0.12321033775425555
+        },
+        {
+          "first_order": 0.0008271535199681126,
+          "parameter": "per_mesh_efficiency",
+          "total_order": 0.0009210224141479035
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "S355 (plate)": {
+      "direct_corner_count": 8,
+      "maximum_relative_error": 4.893423794161114e-13
+    },
+    "Toolox 44 (plate)": {
+      "direct_corner_count": 8,
+      "maximum_relative_error": 4.0215386671858716e-13
+    }
+  }
+}
