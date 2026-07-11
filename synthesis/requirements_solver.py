@@ -16,6 +16,7 @@ import numpy as np
 from scipy.optimize import differential_evolution
 
 from benchmark.specification import ProblemSpecification, SolverBenchmarkView
+from common.certificate_binding import ValidationCertificateBinder
 from common.design_models import CertificateModelIdentity, GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate
 from physics_validator.reference_verifier import ReferenceVerifier
 from synthesis.specification_validator import (
@@ -130,6 +131,7 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
         specification_validator: ProblemSpecificationValidator | None = None,
     ):
         self._geometry = geometry or SynthesisGeometryKernel()
+        self._certificate_binder = ValidationCertificateBinder()
         self._specification_validator = specification_validator or ProblemSpecificationValidator((
             PrescribedShaftValidationRule(),
             DesignSpaceValidationRule(),
@@ -140,7 +142,7 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
         certificate = ReferenceVerifier.verify_with_cae(specification.problem, train)
         issues = (*certificate.issues, *self._specification_validator.validate(specification, train))
         identity = certificate.model_identity
-        return replace(
+        certificate = replace(
             certificate,
             valid=not issues,
             issues=issues,
@@ -150,6 +152,13 @@ class ProductionCandidateValidator(RequirementsCandidateValidator):
                 static_strength_model=identity.static_strength_model,
                 strength_qualification_evidence=identity.strength_qualification_evidence,
             ),
+        )
+        return self._certificate_binder.bind(
+            certificate,
+            specification,
+            train,
+            subject_schema=specification.schema_version,
+            verifier_identity=certificate.model_identity.planar_model,
         )
 
 

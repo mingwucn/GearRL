@@ -19,6 +19,7 @@ from common.design_models import (
     ValidationCertificate,
     ValidationIssue,
 )
+from common.certificate_binding import ValidationCertificateBinder
 from physics_validator.contact_loads import MeshContactLoadResolver
 from cae.qualification import StaticStrengthAdmissionPolicy
 
@@ -50,12 +51,19 @@ class ReferenceVerifier:
                     f"target {problem.constraints.target_speed_ratio:.8g}",
                 ))
 
-        return ValidationCertificate(
+        certificate = ValidationCertificate(
             valid=not issues,
             issues=tuple(issues),
             signed_speed_ratio=ratio,
             minimum_clearance_mm=cls._minimum_boundary_clearance(problem, train),
             model_identity=CertificateModelIdentity(planar_model=cls.MODEL_VERSION),
+        )
+        return ValidationCertificateBinder().bind(
+            certificate,
+            problem,
+            train,
+            subject_schema="design-problem-v1",
+            verifier_identity=cls.MODEL_VERSION,
         )
 
     @classmethod

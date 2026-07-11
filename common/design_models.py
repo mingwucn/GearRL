@@ -209,6 +209,27 @@ class CertificateModelIdentity:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class CertificateSubjectIdentity:
+    """Cryptographic binding between a certificate and its exact inputs."""
+
+    subject_schema: str
+    problem_sha256: str
+    train_sha256: str
+    verifier_identity: str
+
+    def __post_init__(self) -> None:
+        for name in ("problem_sha256", "train_sha256"):
+            value = getattr(self, name)
+            if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError(f"{name} must be a lowercase SHA-256 digest")
+        if not self.subject_schema or not self.verifier_identity:
+            raise ValueError("Certificate subject schema and verifier identity are required")
+
+    def to_json(self) -> dict[str, str]:
+        return asdict(self)
+
+
 class ImmutableReport(Mapping[str, Any]):
     """Read-only report mapping that serializes through ``dataclasses.asdict``."""
 
@@ -236,6 +257,7 @@ class ValidationCertificate:
     minimum_clearance_mm: float | None = None
     cae_reports: tuple[Mapping[str, Any], ...] = ()
     model_identity: CertificateModelIdentity = field(default_factory=CertificateModelIdentity)
+    subject_identity: CertificateSubjectIdentity | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "issues", tuple(self.issues))
@@ -255,6 +277,7 @@ class ValidationCertificate:
             "cae_reports": [dict(report) for report in self.cae_reports],
             "model_version": self.model_version,
             "model_identity": self.model_identity.to_json(),
+            "subject_identity": self.subject_identity.to_json() if self.subject_identity else None,
         }
 
 
