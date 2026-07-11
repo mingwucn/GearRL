@@ -27,6 +27,15 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 
+## Learned-Policy Evidence Gate
+
+`PairedEfficiencyStudy` evaluates a fixed masked policy and the predeclared
+branch-and-bound baseline on the same instances. It retains the learned-policy
+claim only when every policy result remains valid under the declared model and
+the paired bootstrap lower confidence bound exceeds a 30% median time
+reduction. A failed gate is reported as evidence against that claim; it does
+not alter the certified deterministic-solver result.
+
 ## Verification
 
 ```bash
