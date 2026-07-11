@@ -20,7 +20,7 @@ class AEISubmissionCommand:
             store.verify_reproduction(args.verify)
             print(f"Verified byte-identical AEI package: {args.verify}")
         else:
-            store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v3"), args.output)
+            store.build(Path("paper/manuscript_source.json"), Path("paper/aei_submission_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v4"), args.output)
 
 
 if __name__ == "__main__":

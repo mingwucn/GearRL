@@ -4,8 +4,8 @@
   "competing_interests_statement": null,
   "corresponding_author": null,
   "figure_captions": {
-    "assembly-robustness-response": "Modeled-valid probability across preregistered center-distance backlash increments and shaft-location tolerances at zero housing erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.",
-    "solver-anytime-largest-domain": "Feasible recovery and negative-proof rate on the largest declared tooth domain across candidate budgets. Stochastic negative classifications are not proofs."
+    "assembly-robustness-response": "Modeled-valid probability across preregistered positive center-distance allowances derived from transverse-backlash increments and shaft-location tolerances at zero housing erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.",
+    "solver-anytime-largest-domain": "Feasible recovery and negative-proof rate on the largest declared tooth domain across method-specific evaluation limits. Incomplete stochastic non-discoveries are unknown, not negative classifications."
   },
   "funding_statement": null,
   "guide": {
@@ -19,11 +19,11 @@
     "url": "https://www.sciencedirect.com/journal/advanced-engineering-informatics/publish/guide-for-authors"
   },
   "highlights": [
-    "Executable knowledge yields independently checkable synthesis certificates.",
+    "Certificates bind exact requirements and candidates to independent checks.",
     "Complete bounded search distinguishes negative proofs from heuristic failure.",
     "Executable schema rules expose registered mutations missed by structure alone.",
     "Preregistered robustness rejects global housing-clearance equivalence.",
-    "Every reported table and figure is hash-bound and byte-reproducible."
+    "Outer-replicated selection fails its preregistered improvement threshold."
   ],
   "schema_version": "aei-submission-source-v1",
   "target": "Advanced Engineering Informatics"

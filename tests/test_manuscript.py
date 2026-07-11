@@ -30,7 +30,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     store.build(
         Path("paper/manuscript_source.json"),
         Path("literature/aei_closest_methods.json"),
-        Path("paper/generated-v3"),
+        Path("paper/generated-v4"),
         root,
     )
     manifest = store.verify(root)
@@ -45,7 +45,8 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
     assert "solver-scaling-largest-domain" in text
     assert "incomplete non-discoveries are unknown outcomes" in text
     assert "not topology transfer or external validity" in text
-    assert "conditional on the two realized selected layout sets" in text.lower()
+    assert "12 independent train-select-test repetitions" in text
+    assert "conditional on the two realized selected layout sets" not in text.lower()
     assert all(f"RQ{index} asks" in text for index in range(1, 6))
     assert "All three solvers classified" not in text
     assert "topology-transfer case" not in text
@@ -55,7 +56,7 @@ def test_manuscript_is_evidence_bound_claim_guarded_and_reproducible(tmp_path) -
 def test_manuscript_store_rejects_tampering(tmp_path) -> None:
     root = tmp_path / "manuscript"
     store = ManuscriptArtifactStore()
-    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v3"), root)
+    store.build(Path("paper/manuscript_source.json"), Path("literature/aei_closest_methods.json"), Path("paper/generated-v4"), root)
     manuscript = root / "GearRL_AEI_MANUSCRIPT.md"
     manuscript.write_text(manuscript.read_text() + "unregistered text\n")
     with pytest.raises(ValueError, match="output hash mismatch"):

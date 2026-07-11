@@ -16,7 +16,7 @@ from reporting.artifact_registry import (
     SolverComparisonTable,
     SolverScalingTable,
     ReplayableProofTable,
-    ToleranceAwareSelectionTable,
+    RepeatedSelectionTable,
 )
 from reporting.publication_figures import (
     AssemblyRobustnessFigure,
@@ -30,27 +30,27 @@ class AEIPublicationTableFactory:
 
     def create(self):
         return (
-            SolverComparisonTable(Path("data/results/requirements-comparison-v2/adjudication.json")),
+            SolverComparisonTable(Path("data/results/requirements-comparison-v5/adjudication.json")),
             CAEQualificationTable(Path("data/results/cae-refinement-audit-v1/result.json")),
             KnowledgeAblationTable(
                 Path("data/results/aei-knowledge-ablation-v1/manifest.json"),
                 Path("data/results/aei-knowledge-ablation-v1/summary.json"),
             ),
             PlanetaryBaselineTable(
-                Path("data/results/planetary-baseline-v1/manifest.json"),
-                Path("data/results/planetary-baseline-v1/summary.json"),
+                Path("data/results/planetary-baseline-v2/manifest.json"),
+                Path("data/results/planetary-baseline-v2/summary.json"),
             ),
             ReplayableProofTable(
-                Path("data/results/replayable-negative-proofs-v1/manifest.json"),
-                Path("data/results/replayable-negative-proofs-v1/summary.json"),
+                Path("data/results/replayable-negative-proofs-v3/manifest.json"),
+                Path("data/results/replayable-negative-proofs-v3/summary.json"),
             ),
-            ToleranceAwareSelectionTable(
-                Path("data/results/tolerance-aware-selection-v1/manifest.json"),
-                Path("data/results/tolerance-aware-selection-v1/summary.json"),
+            RepeatedSelectionTable(
+                Path("data/results/repeated-selection-v1/manifest.json"),
+                Path("data/results/repeated-selection-v1/summary.json"),
             ),
             SolverScalingTable(
-                Path("data/results/scaling-v1/manifest.json"),
-                Path("data/results/scaling-v1/summary.json"),
+                Path("data/results/scaling-v3/manifest.json"),
+                Path("data/results/scaling-v3/summary.json"),
             ),
             AssemblyRobustnessTable(
                 Path("data/results/assembly-robustness-confirmatory-v3/manifest.json"),
@@ -64,10 +64,10 @@ class AEIPublicationFigureFactory:
 
     def create(self):
         return (
-            SolverComparisonPlot(Path("data/results/requirements-comparison-v2/adjudication.json")),
+            SolverComparisonPlot(Path("data/results/requirements-comparison-v5/adjudication.json")),
             SolverScalingFigure(
-                Path("data/results/scaling-v1/manifest.json"),
-                Path("data/results/scaling-v1/summary.json"),
+                Path("data/results/scaling-v3/manifest.json"),
+                Path("data/results/scaling-v3/summary.json"),
             ),
             AssemblyRobustnessFigure(
                 Path("data/results/assembly-robustness-confirmatory-v3/manifest.json"),

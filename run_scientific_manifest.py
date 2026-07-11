@@ -12,7 +12,7 @@ from reproducibility.scientific_manifest import ScientificArtifactManifestBuilde
 class ScientificManifestCommand:
     def run(self) -> None:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--catalog", type=Path, default=Path("data/protocols/aei-release-artifacts-v1.json"))
+        parser.add_argument("--catalog", type=Path, default=Path("data/protocols/aei-release-artifacts-v2.json"))
         target = parser.add_mutually_exclusive_group(required=True)
         target.add_argument("--output", type=Path)
         target.add_argument("--verify", type=Path)

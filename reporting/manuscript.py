@@ -29,8 +29,9 @@ class ManuscriptClaimGuard:
         ProhibitedClaim("first ever", "The literature audit cannot prove universal priority"),
         ProhibitedClaim("novel graph-based", "Graph-based engineering design is established prior art"),
         ProhibitedClaim("topology-transfer case", "The planetary study is a bespoke external-formulation encoding"),
-        ProhibitedClaim("real but sub-threshold", "The selection interval is conditional on realized selected sets"),
+        ProhibitedClaim("real but sub-threshold", "The repeated-selection interval does not clear its preregistered effect threshold"),
         ProhibitedClaim("all three solvers classified", "Incomplete heuristic non-discoveries are unknown"),
+        ProhibitedClaim("backlash benefit", "The factor is a modeled positive center-distance allowance"),
     )
 
     def validate(self, text: str) -> None:

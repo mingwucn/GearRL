@@ -18,7 +18,7 @@ def test_registry_builds_hash_bound_evidence_tables_and_figures(tmp_path) -> Non
         "knowledge-ablation",
         "planetary-baseline",
         "replayable-negative-proofs",
-        "tolerance-aware-selection",
+        "repeated-tolerance-aware-selection",
         "solver-scaling-largest-domain",
         "assembly-robustness",
     }

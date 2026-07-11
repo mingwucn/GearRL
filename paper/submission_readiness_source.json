@@ -28,7 +28,7 @@
     {
       "check_type": "json_pointer",
       "description": "The solver scaling study retains all 2,048 raw observations.",
-      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_path": "data/results/scaling-v3/manifest.json",
       "expected": 2048,
       "pointer": "/observation_count",
       "requirement_id": "solver-scaling-observations"
@@ -36,7 +36,7 @@
     {
       "check_type": "json_length",
       "description": "The stochastic scaling comparator uses the predeclared 30 independent seeds.",
-      "evidence_path": "data/results/scaling-v1/manifest.json",
+      "evidence_path": "data/results/scaling-v3/manifest.json",
       "expected": 30,
       "pointer": "/protocol/stochastic_seeds",
       "requirement_id": "stochastic-30-seed-protocol"
@@ -52,7 +52,7 @@
     {
       "check_type": "json_pointer",
       "description": "All 40 negative curated cases retain semantically replayed tuple-elimination ledgers.",
-      "evidence_path": "data/results/replayable-negative-proofs-v1/summary.json",
+      "evidence_path": "data/results/replayable-negative-proofs-v3/summary.json",
       "expected": 40,
       "pointer": "/negative_case_count",
       "requirement_id": "replayable-negative-proofs"
@@ -68,7 +68,7 @@
     {
       "check_type": "json_pointer",
       "description": "The published planetary conversion remains pending independent review and cannot yet support external-validity claims.",
-      "evidence_path": "data/results/planetary-baseline-v1/summary.json",
+      "evidence_path": "data/results/planetary-baseline-v2/summary.json",
       "expected": "pending-independent-review",
       "pointer": "/conversion_status",
       "requirement_id": "planetary-conversion-review",
@@ -76,8 +76,8 @@
     },
     {
       "check_type": "json_pointer",
-      "description": "The preregistered tolerance-aware selector did not clear its required held-out improvement and is reported as a negative result.",
-      "evidence_path": "data/results/tolerance-aware-selection-v1/summary.json",
+      "description": "The preregistered selector did not clear its required improvement across independent train-select-test repetitions and is reported as a negative result.",
+      "evidence_path": "data/results/repeated-selection-v1/summary.json",
       "expected": false,
       "pointer": "/primary_inference/supported",
       "requirement_id": "tolerance-aware-selection-threshold",
@@ -86,29 +86,29 @@
     {
       "check_type": "file_exists",
       "description": "A shared aggregate binds the v3 submission evidence, source tree, platform, and both dependency locks.",
-      "evidence_path": "data/results/aei-release-provenance-v2/manifest.json",
+      "evidence_path": "data/results/aei-release-provenance-v3/manifest.json",
       "expected": true,
       "requirement_id": "unified-scientific-provenance"
     },
     {
       "check_type": "registry_count",
       "description": "Every reported table and vector figure is registered against immutable sources.",
-      "evidence_path": "paper/generated-v3/registry.json",
+      "evidence_path": "paper/generated-v4/registry.json",
       "expected": {"figures": 3, "tables": 8},
       "requirement_id": "publication-registry"
     },
     {
       "check_type": "json_length",
-      "description": "The bounded contribution is positioned against ten DOI-backed closest methods.",
+      "description": "The bounded contribution is positioned against fifteen DOI-backed closest and neighboring methods under a frozen search protocol.",
       "evidence_path": "literature/aei_closest_methods.json",
-      "expected": 10,
+      "expected": 15,
       "pointer": "/methods",
       "requirement_id": "closest-method-audit"
     },
     {
       "check_type": "text_contains",
       "description": "The revised manuscript contains the mandatory modeled-validity boundary.",
-      "evidence_path": "paper/manuscript-v3/GearRL_AEI_MANUSCRIPT.md",
+      "evidence_path": "paper/manuscript-v4/GearRL_AEI_MANUSCRIPT.md",
       "expected": true,
       "pointer": "valid under the declared kinematic, geometric, and digital evidence models",
       "requirement_id": "bounded-manuscript-claim"
@@ -122,7 +122,7 @@
     },
     {
       "check_type": "clean_attestation",
-      "description": "A detached committed source tree passes the full v2 paper and v3 evidence verification set in an independently created locked prefix.",
+      "description": "A detached committed source tree passes the current AEI paper and evidence verification set in an independently created locked prefix with retained transcripts.",
       "evidence_path": "data/results/clean-environment-v3/report.json",
       "expected": true,
       "requirement_id": "locked-clean-environment-attestation"
@@ -130,7 +130,7 @@
     {
       "check_type": "json_pointer",
       "description": "The editable AEI package still requires author-approved metadata, declarations, and an archival dataset identifier.",
-      "evidence_path": "paper/aei-submission-v3/validation.json",
+      "evidence_path": "paper/aei-submission-v4/validation.json",
       "expected": false,
       "pointer": "/package_ready",
       "requirement_id": "author-and-archival-metadata",

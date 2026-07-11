@@ -133,11 +133,15 @@ class SolverComparisonFigure(PublicationFigure):
 
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
-        return (EvidenceSource("requirements-comparison-adjudication-v2", self._source),)
+        return (EvidenceSource("requirements-comparison-v5-adjudication", self._source),)
 
     def render(self) -> bytes:
         methods = self._json(self._source)["methods"]
-        canvas = SVGCanvas("Bounded solver comparison", "Median candidate evaluations (log10)", "Median runtime (log10 s)")
+        canvas = SVGCanvas(
+            "Bounded solver comparison",
+            "Median method-specific evaluations (log10)",
+            "Descriptive median runtime (log10 s)",
+        )
         x_values = [log10(value["median_parameter_tuples_across_runs"]) for value in methods.values()]
         y_values = [log10(value["median_runtime_s_across_runs"]) for value in methods.values()]
         x_min, x_max = min(x_values) - 0.3, max(x_values) + 0.3
@@ -241,8 +245,8 @@ class SolverScalingFigure(PublicationFigure):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("requirements-scaling-v1-manifest", self._manifest),
-            EvidenceSource("requirements-scaling-v1-summary", self._summary),
+            EvidenceSource("requirements-scaling-v3-manifest", self._manifest),
+            EvidenceSource("requirements-scaling-v3-summary", self._summary),
         )
 
     def render(self) -> bytes:
@@ -254,7 +258,7 @@ class SolverScalingFigure(PublicationFigure):
         x_min, x_max = min(x_values), max(x_values)
         canvas = SVGCanvas(
             f"Anytime feasible recovery at {largest}^4 candidates",
-            "Candidate budget (log10)",
+            "Method-specific evaluation limit (log10)",
             "Median feasible recovery",
         )
         canvas.axes(1.0, formatter=lambda value: f"{value:.1f}")

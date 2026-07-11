@@ -51,17 +51,18 @@ class SolverComparisonTable(PublicationTable):
 
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
-        return (EvidenceSource("requirements-comparison-adjudication-v2", self._source),)
+        return (EvidenceSource("requirements-comparison-v5-adjudication", self._source),)
 
     def render(self) -> str:
         payload = self._json(self._source)
         lines = [
-            "| Method | Runs | Minimum accuracy | Median candidates | Median runtime (s) |",
-            "| --- | ---: | ---: | ---: | ---: |",
+            "| Method | Runs | Strict accuracy | Decisive coverage | Decisive accuracy | Median method-specific evaluations | Descriptive median runtime (s) |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
         for method, values in sorted(payload["methods"].items()):
             lines.append(
                 f"| {method} | {values['run_count']} | {values['accuracy_min']:.3f} | "
+                f"{values['decisive_coverage_min']:.3f} | {values['decisive_accuracy_min']:.3f} | "
                 f"{values['median_parameter_tuples_across_runs']:.1f} | {values['median_runtime_s_across_runs']:.6f} |"
             )
         return "\n".join(lines) + "\n"
@@ -188,8 +189,8 @@ class SolverScalingTable(PublicationTable):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("requirements-scaling-v1-manifest", self._manifest),
-            EvidenceSource("requirements-scaling-v1-summary", self._summary),
+            EvidenceSource("requirements-scaling-v3-manifest", self._manifest),
+            EvidenceSource("requirements-scaling-v3-summary", self._summary),
         )
 
     def render(self) -> str:
@@ -197,14 +198,16 @@ class SolverScalingTable(PublicationTable):
         largest = max(item["tooth_domain_size"] for item in records)
         selected = [item for item in records if item["tooth_domain_size"] == largest]
         lines = [
-            "| Method | Budget | Runs | Feasible recovery median (min) | Accuracy median (min) | Negative proof rate | Median runtime (s) |",
-            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| Method | Method-specific limit | Runs | Feasible recovery median (min) | Strict accuracy median (min) | Decisive coverage median (min) | Decisive accuracy median (min) | Negative proof rate | Descriptive median runtime (s) |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
         for item in sorted(selected, key=lambda value: (value["candidate_budget"], value["method"])):
             lines.append(
                 f"| {item['method']} | {item['candidate_budget']} | {item['run_count']} | "
                 f"{item['feasible_recovery_median']:.3f} ({item['feasible_recovery_min']:.3f}) | "
                 f"{item['accuracy_median']:.3f} ({item['accuracy_min']:.3f}) | "
+                f"{item['decisive_coverage_median']:.3f} ({item['decisive_coverage_min']:.3f}) | "
+                f"{item['decisive_accuracy_median']:.3f} ({item['decisive_accuracy_min']:.3f}) | "
                 f"{item['negative_proof_rate']:.3f} | {item['median_runtime_s']:.6f} |"
             )
         return "\n".join(lines) + "\n"
@@ -257,13 +260,18 @@ class KnowledgeAblationTable(PublicationTable):
         )
 
     def render(self) -> str:
+        labels = {
+            "typed-executable-graph": "Typed executable specification",
+            "flat-structural-record": "Flat structure-only record",
+            "flat-duplicated-semantic-rules": "Flat record with duplicated executable rules",
+        }
         lines = [
-            "| Representation | Competency accuracy | Mutation detection | Exact localization | Semantic rule sites |",
+            "| Specification record | Competency accuracy | Registered-mutation detection | Exact localization | Descriptive implementation rule sites |",
             "| --- | ---: | ---: | ---: | ---: |",
         ]
         for item in self._json(self._summary)["results"]:
             lines.append(
-                f"| {item['adapter_id']} | {item['competency_accuracy']:.3f} | "
+                f"| {labels.get(item['adapter_id'], item['adapter_id'])} | {item['competency_accuracy']:.3f} | "
                 f"{item['semantic_mutation_detection_rate']:.3f} | {item['exact_localization_rate']:.3f} | "
                 f"{item['semantic_rule_sites']} |"
             )
@@ -281,16 +289,19 @@ class PlanetaryBaselineTable(PublicationTable):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("planetary-baseline-v1-manifest", self._manifest),
-            EvidenceSource("planetary-baseline-v1-summary", self._summary),
+            EvidenceSource("planetary-baseline-v2-manifest", self._manifest),
+            EvidenceSource("planetary-baseline-v2-summary", self._summary),
         )
 
     def render(self) -> str:
         summary = self._json(self._summary)
+        analysis = summary["fixed_seed_outcome_analysis"]
+        lower, upper = analysis["threshold_run_fraction_exact_95_interval"]
         return (
-            "| Runs | Constraint-valid | At acceptance threshold | Best objective | Conversion status |\n"
-            "| ---: | ---: | ---: | ---: | --- |\n"
+            "| Fixed seeds | Constraint-valid | At threshold | Threshold fraction exact 95% interval | Iteration-limit stops | Best objective | Conversion status |\n"
+            "| ---: | ---: | ---: | ---: | ---: | ---: | --- |\n"
             f"| {len(summary['results'])} | {summary['valid_run_count']} | {summary['threshold_run_count']} | "
+            f"[{lower:.3f}, {upper:.3f}] | {analysis['iteration_limit_count']} | "
             f"{summary['best_valid_objective']:.9f} | {summary['conversion_status']} |\n"
         )
 
@@ -306,8 +317,8 @@ class ReplayableProofTable(PublicationTable):
     @property
     def sources(self) -> tuple[EvidenceSource, ...]:
         return (
-            EvidenceSource("replayable-negative-proofs-v1-manifest", self._manifest),
-            EvidenceSource("replayable-negative-proofs-v1-summary", self._summary),
+            EvidenceSource("replayable-negative-proofs-v3-manifest", self._manifest),
+            EvidenceSource("replayable-negative-proofs-v3-summary", self._summary),
         )
 
     def render(self) -> str:
@@ -346,6 +357,35 @@ class ToleranceAwareSelectionTable(PublicationTable):
             f"| {result['nominal_probability']:.5f} | {result['robust_probability']:.5f} | "
             f"{result['probability_improvement']:.5f} | [{lower:.5f}, {upper:.5f}] | "
             f"{result['minimum_probability_improvement']:.5f} | {'Yes' if result['supported'] else 'No'} |\n"
+        )
+
+
+class RepeatedSelectionTable(PublicationTable):
+    """Algorithm-level inference across complete train-select-test repetitions."""
+
+    def __init__(self, manifest: Path, summary: Path):
+        self._manifest, self._summary = manifest, summary
+
+    @property
+    def table_id(self) -> str:
+        return "repeated-tolerance-aware-selection"
+
+    @property
+    def sources(self) -> tuple[EvidenceSource, ...]:
+        return (
+            EvidenceSource("repeated-selection-v1-manifest", self._manifest),
+            EvidenceSource("repeated-selection-v1-summary", self._summary),
+        )
+
+    def render(self) -> str:
+        result = self._json(self._summary)["primary_inference"]
+        lower, upper = result["confidence_interval"]
+        return (
+            "| Outer train-select-test repetitions | Mean probability difference | Outer-replicate 95% CI | Required improvement | Supported |\n"
+            "| ---: | ---: | ---: | ---: | --- |\n"
+            f"| {result['outer_replicate_count']} | {result['mean_probability_difference']:.5f} | "
+            f"[{lower:.5f}, {upper:.5f}] | {result['minimum_probability_improvement']:.5f} | "
+            f"{'Yes' if result['supported'] else 'No'} |\n"
         )
 
 class PublicationArtifactRegistry:

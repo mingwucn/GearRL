@@ -39,9 +39,9 @@ conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/r
 The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 The DOI-backed closest-method matrix and bounded contribution claim register are
 generated from `literature/aei_closest_methods.json` into
-`paper/literature-v1`. They are verified by `make paper-verify` alongside the
+`paper/literature-v3`. They are verified by `make paper-verify` alongside the
 numerical publication artifacts. The claim-guarded AEI manuscript draft is
-frozen at `paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
+frozen at `paper/manuscript-v4/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
 draft to the literature matrix, manuscript source, and publication registry.
 
 The requirements-first curated benchmark is frozen at
@@ -75,11 +75,11 @@ comparison blindly, then adjudicate its sealed runs:
 ```bash
 conda run -n ai python run_requirements_comparison.py \
   data/benchmark/curated/requirements-first-50-v2/solver-inputs \
-  data/results/requirements-comparison-v1/blind
+  data/results/requirements-comparison-v5/blind
 conda run -n ai python run_requirements_comparison_adjudication.py \
   data/benchmark/curated/requirements-first-50-v2 \
-  data/results/requirements-comparison-v1/blind \
-  data/results/requirements-comparison-v1/adjudication.json
+  data/results/requirements-comparison-v5/blind \
+  data/results/requirements-comparison-v5/adjudication.json
 ```
 
 OR-Tools CP-SAT runs in a dedicated subprocess because its protobuf runtime is
@@ -88,12 +88,12 @@ and CP-SAT can prove bounded negative cases. Differential evolution is an
 incomplete stochastic comparator and is reported as such.
 
 Run the predeclared scaling and anytime protocol over four tooth-domain sizes,
-four equal candidate budgets, and 30 differential-evolution seeds:
+four method-specific evaluation limits, and 30 differential-evolution seeds:
 
 ```bash
 conda run -n ai python run_scaling_study.py \
   --dataset data/benchmark/curated/requirements-first-50-v2 \
-  --output data/results/scaling-v1
+  --output data/results/scaling-v3
 ```
 
 The frozen manifest records source identity, environment hashes, hardware, and
@@ -129,31 +129,30 @@ conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 
 conda run -n ai make release-verify
 ```
 
-This is the canonical AEI v3 release command. It runs the complete regression
-suite; byte-reproduces the v3 tables, manuscript, readiness report, and editable
+This is the canonical AEI v4 release command. It runs the complete regression
+suite; byte-reproduces the v4 tables, manuscript, readiness report, and editable
 submission; semantically replays the confirmatory assembly, negative-proof, and
-tolerance-selection evidence; validates the unified provenance aggregate; and
+outer-replicated selection evidence; validates the unified provenance aggregate; and
 checks the current clean-environment attestation.
 
 ```bash
 conda run -n ai make paper-verify
 ```
 
-The v3 release artifacts are `paper/generated-v3`, `paper/manuscript-v3`,
-`paper/aei-submission-v3`, and `paper/submission-readiness-v3`. Earlier v1/v2
-paper and robustness directories are retained only as superseded audit history
+The release artifacts are `paper/generated-v4`, `paper/manuscript-v4`,
+`paper/aei-submission-v4`, and `paper/submission-readiness-v3`. Earlier paper
+and robustness directories are retained only as superseded audit history
 and are not release verification targets.
 
-The same target verifies `paper/submission-readiness-v1`. This fail-closed audit
-hash-checks the blind 50-case benchmark, all 400 legacy benchmark members, CAE
-and uncertainty evidence, the 30-seed scaling protocol, literature positioning,
-publication assets, and manuscript scope. Its current verdict is not yet ready
-to submit: independent container execution and an archival release/DOI require
-external evidence, while the 400-case path-ranking benchmark is explicitly
-partial rather than requirements-first synthesis evidence.
+The same target verifies `paper/submission-readiness-v3`. This fail-closed audit
+hash-checks the requirements-first benchmark, negative proofs, digital robustness
+evidence, 30-seed scaling protocol, literature positioning, publication assets,
+and manuscript scope. It remains not ready for actual submission until authorship,
+declarations, an archival release identifier, and the planetary conversion decision
+are supplied externally.
 
 The provisional editable journal package is frozen at
-`paper/aei-submission-v1`. It contains an `elsarticle` LaTeX source, separate
+`paper/aei-submission-v4`. It contains an `elsarticle` LaTeX source, separate
 highlights, numbered figure files and captions, and a machine-readable
 validation report. The report enforces the current official AEI limits of a
 250-word abstract, 1-7 keywords, and 3-5 highlights of no more than 85
@@ -162,7 +161,7 @@ provide authorship/contact metadata, funding and competing-interest statements,
 and a persistent archival dataset identifier.
 
 The clean-environment attestation is stored at
-`data/results/clean-environment-v1`. It was produced from a detached local clone
+`data/results/clean-environment-v3`. It is produced from a detached local clone
 of the recorded commit in a newly created `/tmp` prefix using
 `environment-ai.lock` plus the hash-pinned pip requirements. The full test suite
 and seven acyclic scientific verification targets passed there, including both
@@ -191,7 +190,7 @@ declared 0-0.1 mm range because nominal boundary margins are 20-102 mm. These
 are conditional rigid-center model probabilities, not manufacturing-yield
 measurements.
 
-The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
+The frozen bundle is stored at `paper/generated-v4`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,
 backend-independent SVG renderer so clean reproduction does not depend on a
