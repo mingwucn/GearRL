@@ -33,6 +33,8 @@ def test_small_scaling_study_retains_truth_raw_runs_and_summaries(tmp_path) -> N
     assert len(summary) == 3
     assert {item["method"] for item in summary} == {"exact-enumerator", "cp-sat", "differential-evolution"}
     assert all(item["full_parameter_space"] == 625 for item in summary)
+    assert all("decisive_coverage_min" in item for item in summary)
+    assert all("decisive_accuracy_min" in item for item in summary)
 
 
 def test_scaling_store_rejects_tampering(tmp_path) -> None:

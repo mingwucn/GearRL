@@ -112,6 +112,7 @@ class ScalingObservation:
     seed: int
     expected_feasible: bool
     predicted_feasible: bool
+    decisive_outcome: bool
     correct_classification: bool
     search_complete: bool
     negative_proof: bool
@@ -142,6 +143,7 @@ class SolverScalingStudy:
                         result = solver.solve(case.view)
                         runtime = perf_counter() - started
                         predicted = result.train is not None
+                        decisive = predicted or result.search_complete
                         correct = (case.expected_feasible and predicted) or (
                             not case.expected_feasible and not predicted and result.search_complete
                         )
@@ -156,6 +158,7 @@ class SolverScalingStudy:
                                 seed,
                                 case.expected_feasible,
                                 predicted,
+                                decisive,
                                 correct,
                                 result.search_complete,
                                 not case.expected_feasible and not predicted and result.search_complete,
@@ -180,6 +183,13 @@ class ScalingSummaryBuilder:
             for record in records:
                 by_seed.setdefault(record.seed, []).append(record)
             seed_accuracy = [sum(item.correct_classification for item in run) / len(run) for run in by_seed.values()]
+            seed_coverage = [sum(item.decisive_outcome for item in run) / len(run) for run in by_seed.values()]
+            seed_decisive_accuracy = []
+            for run in by_seed.values():
+                decisive = [item for item in run if item.decisive_outcome]
+                seed_decisive_accuracy.append(
+                    sum(item.correct_classification for item in decisive) / len(decisive) if decisive else 0.0
+                )
             seed_feasible = [
                 sum(item.predicted_feasible for item in run if item.expected_feasible) /
                 sum(item.expected_feasible for item in run)
@@ -195,6 +205,10 @@ class ScalingSummaryBuilder:
                     "run_count": len(by_seed),
                     "accuracy_min": min(seed_accuracy),
                     "accuracy_median": median(seed_accuracy),
+                    "decisive_coverage_min": min(seed_coverage),
+                    "decisive_coverage_median": median(seed_coverage),
+                    "decisive_accuracy_min": min(seed_decisive_accuracy),
+                    "decisive_accuracy_median": median(seed_decisive_accuracy),
                     "feasible_recovery_min": min(seed_feasible),
                     "feasible_recovery_median": median(seed_feasible),
                     "negative_proof_rate": sum(item.negative_proof for item in negative_records) / len(negative_records),
