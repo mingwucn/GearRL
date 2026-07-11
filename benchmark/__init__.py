@@ -7,6 +7,7 @@ from .curated import (
     CuratedCaseCatalog,
     CuratedRequirementsFirstFactory,
     FrozenCuratedDataset,
+    FrozenGroundTruthEvidenceVerifier,
     SolverInputDirectoryLoader,
 )
 from .oracle import (
@@ -41,6 +42,7 @@ __all__ = [
     "CuratedCaseCatalog",
     "CuratedRequirementsFirstFactory",
     "FrozenCuratedDataset",
+    "FrozenGroundTruthEvidenceVerifier",
     "SolverInputDirectoryLoader",
     "DesignSpace",
     "ExternalBenchmarkRegistry",

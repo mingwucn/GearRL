@@ -84,3 +84,22 @@ def test_loader_rejects_tampered_solver_payload(tmp_path) -> None:
 
     with pytest.raises(ValueError, match="solver hash mismatch"):
         CuratedBenchmarkLoader().load(root)
+
+
+def test_loader_rejects_coordinated_truth_flag_and_hash_tampering(tmp_path) -> None:
+    cases = CuratedRequirementsFirstFactory(ExactCompoundTrainOracle()).build()
+    root = tmp_path / "curated"
+    index_path = CuratedBenchmarkFreezer().freeze(cases, root)
+    index = json.loads(index_path.read_text())
+    instance_id = "ratio-none-01"
+    evidence_path = root / "evaluator-only" / f"{instance_id}.json"
+    evidence = json.loads(evidence_path.read_text())
+    evidence["expected_feasible"] = True
+    evidence_path.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
+    record = next(item for item in index["instances"] if item["instance_id"] == instance_id)
+    import hashlib
+    record["evidence_sha256"] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+    index_path.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
+
+    with pytest.raises(ValueError, match="recomputed label mismatch"):
+        CuratedBenchmarkLoader().load(root)

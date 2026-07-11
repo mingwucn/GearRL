@@ -7,7 +7,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from benchmark.oracle import GroundTruthOracle
+from benchmark.oracle import ExactCompoundTrainOracle, GroundTruthOracle
 from benchmark.specification import (
     DesignSpace,
     PrescribedShaft,
@@ -16,7 +16,8 @@ from benchmark.specification import (
     SolverBenchmarkView,
     SolverPayloadGuard,
 )
-from common.design_models import DesignConstraints, DesignProblem, Point2D
+from common.design_models import DesignConstraints, DesignProblem, GearStage, GearTrain, MeshEdge, Point2D
+from synthesis.requirements_solver import ProductionCandidateValidator
 
 
 @dataclass(frozen=True)
@@ -205,8 +206,61 @@ class FrozenCuratedDataset:
     dataset_sha256: str
 
 
+class FrozenGroundTruthEvidenceVerifier:
+    """Recompute frozen labels and validate constructive witnesses on load."""
+
+    def __init__(
+        self,
+        oracle: GroundTruthOracle | None = None,
+        candidate_validator: ProductionCandidateValidator | None = None,
+    ) -> None:
+        self._oracle = oracle or ExactCompoundTrainOracle()
+        self._candidate_validator = candidate_validator or ProductionCandidateValidator()
+
+    def verify(self, solver_payload: dict, evidence_payload: dict) -> None:
+        view = SolverBenchmarkView.from_json(solver_payload)
+        if evidence_payload["instance_id"] != view.instance_id:
+            raise ValueError(f"Curated evidence instance mismatch: {view.instance_id}")
+        observed = self._oracle.solve(view)
+        expected_feasible = bool(evidence_payload["expected_feasible"])
+        if observed.proof.feasible != expected_feasible:
+            raise ValueError(f"Curated recomputed label mismatch: {view.instance_id}")
+        if observed.proof.to_json() != evidence_payload.get("certificate"):
+            raise ValueError(f"Curated oracle certificate mismatch: {view.instance_id}")
+        expected_kind = "constructive-witness" if expected_feasible else "exhaustive-proof"
+        if evidence_payload.get("proof_kind") != expected_kind:
+            raise ValueError(f"Curated proof kind mismatch: {view.instance_id}")
+        if evidence_payload.get("oracle_version") != observed.proof.oracle_version:
+            raise ValueError(f"Curated oracle version mismatch: {view.instance_id}")
+        if expected_feasible:
+            train = self._train(evidence_payload.get("reference_train"))
+            if not self._candidate_validator.validate(view.specification, train).valid:
+                raise ValueError(f"Curated constructive witness is invalid: {view.instance_id}")
+        elif evidence_payload.get("reference_train") is not None or not observed.proof.design_space_complete:
+            raise ValueError(f"Curated negative proof is incomplete: {view.instance_id}")
+
+    @staticmethod
+    def _train(payload: dict | None) -> GearTrain:
+        if payload is None:
+            raise ValueError("Curated feasible evidence requires a reference train")
+        stages = tuple(
+            GearStage(
+                item["id"],
+                Point2D.from_json(item["center"]),
+                tuple(item["teeth"]),
+                item["module_mm"],
+                tuple(item.get("axial_layers", ())),
+            )
+            for item in payload["stages"]
+        )
+        return GearTrain(stages, tuple(MeshEdge(**item) for item in payload["meshes"]))
+
+
 class CuratedBenchmarkLoader:
     """Verify every frozen curated payload before exposing either partition."""
+
+    def __init__(self, evidence_verifier: FrozenGroundTruthEvidenceVerifier | None = None) -> None:
+        self._evidence_verifier = evidence_verifier or FrozenGroundTruthEvidenceVerifier()
 
     def load(self, root: str | Path) -> FrozenCuratedDataset:
         source = Path(root)
@@ -227,8 +281,11 @@ class CuratedBenchmarkLoader:
             self._require_hash(instance_id, "evidence", evidence_bytes, record["evidence_sha256"])
             aggregate.update(solver_bytes)
             aggregate.update(evidence_bytes)
-            solver_payloads.append(json.loads(solver_bytes))
-            evidence_payloads.append(json.loads(evidence_bytes))
+            solver_payload = json.loads(solver_bytes)
+            evidence_payload = json.loads(evidence_bytes)
+            self._evidence_verifier.verify(solver_payload, evidence_payload)
+            solver_payloads.append(solver_payload)
+            evidence_payloads.append(evidence_payload)
         if len(identifiers) != index["instance_count"]:
             raise ValueError("Curated benchmark instance count mismatch")
         if not index["all_labels_globally_proven"]:
