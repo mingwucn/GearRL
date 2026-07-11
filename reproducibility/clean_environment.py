@@ -77,6 +77,30 @@ class SourceTreeHasher:
         return digest.hexdigest()
 
 
+class CommittedSourceTreeHasher:
+    """Hash a committed tree without trusting the caller's working tree."""
+
+    def digest(self, repository: Path, commit: str) -> str:
+        paths = subprocess.run(
+            ("git", "ls-tree", "-r", "--name-only", commit),
+            cwd=repository,
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout.splitlines()
+        digest = sha256()
+        for path in sorted(paths):
+            content = subprocess.run(
+                ("git", "show", f"{commit}:{path}"),
+                cwd=repository,
+                capture_output=True,
+                check=True,
+            ).stdout
+            digest.update(path.encode() + b"\0")
+            digest.update(content)
+        return digest.hexdigest()
+
+
 class CleanEnvironmentAttestor:
     """Create a locked prefix and execute the complete committed verification set."""
 
@@ -159,6 +183,91 @@ class CleanEnvironmentEvidenceStore:
         if sha256(report).hexdigest() != manifest["report_sha256"]:
             raise ValueError("Clean-environment report hash mismatch")
         payload = json.loads(report)
-        if not payload["all_commands_passed"] or payload["verification_count"] != len(CleanEnvironmentAttestor.VERIFICATIONS):
-            raise ValueError("Clean-environment attestation is incomplete")
+        CleanEnvironmentReportValidator().validate(payload)
         return payload
+
+
+class CleanEnvironmentReportValidator:
+    """Validate the complete internal command and digest contract."""
+
+    SETUP_COMMANDS = ("conda-create", "pip-install", "git-clone", "git-checkout")
+    INVENTORY_COMMANDS = ("conda-explicit", "pip-freeze")
+
+    @classmethod
+    def expected_command_ids(cls) -> tuple[str, ...]:
+        return (*cls.SETUP_COMMANDS, *(item[0] for item in CleanEnvironmentAttestor.VERIFICATIONS), *cls.INVENTORY_COMMANDS)
+
+    def validate(self, payload: dict) -> None:
+        if payload.get("schema_version") != "clean-environment-attestation-v1":
+            raise ValueError("Unsupported clean-environment attestation schema")
+        if not payload.get("all_commands_passed") or payload.get("verification_count") != len(CleanEnvironmentAttestor.VERIFICATIONS):
+            raise ValueError("Clean-environment attestation is incomplete")
+        commands = payload.get("commands", [])
+        identifiers = tuple(command.get("command_id") for command in commands)
+        if identifiers != self.expected_command_ids():
+            raise ValueError("Clean-environment command ledger mismatch")
+        for command in commands:
+            if command.get("exit_code") != 0 or not command.get("argv"):
+                raise ValueError("Clean-environment command did not pass")
+            for field in ("stdout_sha256", "stderr_sha256"):
+                self._require_digest(command.get(field), field)
+        for field in (
+            "source_tree_sha256",
+            "lockfile_sha256",
+            "pip_requirements_sha256",
+            "conda_explicit_sha256",
+            "pip_freeze_sha256",
+        ):
+            self._require_digest(payload.get(field), field)
+
+    @staticmethod
+    def _require_digest(value, field: str) -> None:
+        if not isinstance(value, str) or len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+            raise ValueError(f"Clean-environment {field} is not a SHA-256 digest")
+
+
+class CleanEnvironmentAttestationPolicy:
+    """Fail closed when an internally valid report is stale for the release."""
+
+    def __init__(
+        self,
+        repository: Path,
+        lockfile: Path,
+        pip_requirements: Path,
+        allowed_post_attestation_paths: tuple[Path, ...],
+        tree_hasher: CommittedSourceTreeHasher | None = None,
+    ) -> None:
+        self._repository = repository.resolve()
+        self._lockfile = lockfile.resolve()
+        self._pip_requirements = pip_requirements.resolve()
+        self._allowed_paths = frozenset(path.as_posix() for path in allowed_post_attestation_paths)
+        self._tree_hasher = tree_hasher or CommittedSourceTreeHasher()
+
+    def validate(self, payload: dict) -> None:
+        commit = payload["source_commit"]
+        ancestry = subprocess.run(
+            ("git", "merge-base", "--is-ancestor", commit, "HEAD"),
+            cwd=self._repository,
+            check=False,
+        )
+        if ancestry.returncode != 0:
+            raise ValueError("Clean-environment source commit is not an ancestor of HEAD")
+        changed = subprocess.run(
+            ("git", "diff", "--name-only", f"{commit}..HEAD"),
+            cwd=self._repository,
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout.splitlines()
+        unexpected = sorted(set(changed) - self._allowed_paths)
+        if unexpected:
+            raise ValueError(f"Clean-environment attestation is stale for committed path: {unexpected[0]}")
+        if self._tree_hasher.digest(self._repository, commit) != payload["source_tree_sha256"]:
+            raise ValueError("Clean-environment committed source tree hash mismatch")
+        self._require_current_hash(self._lockfile, payload["lockfile_sha256"], "lockfile")
+        self._require_current_hash(self._pip_requirements, payload["pip_requirements_sha256"], "pip requirements")
+
+    @staticmethod
+    def _require_current_hash(path: Path, expected: str, label: str) -> None:
+        if sha256(path.read_bytes()).hexdigest() != expected:
+            raise ValueError(f"Clean-environment current {label} hash mismatch")

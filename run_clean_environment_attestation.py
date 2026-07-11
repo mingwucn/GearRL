@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 import subprocess
 
-from reproducibility.clean_environment import CleanEnvironmentAttestor, CleanEnvironmentConfig, CleanEnvironmentEvidenceStore
+from reproducibility.clean_environment import CleanEnvironmentAttestationPolicy, CleanEnvironmentAttestor, CleanEnvironmentConfig, CleanEnvironmentEvidenceStore
 
 
 class CleanEnvironmentAttestationCommand:
@@ -19,6 +19,13 @@ class CleanEnvironmentAttestationCommand:
         store = CleanEnvironmentEvidenceStore()
         if args.verify:
             report = store.verify(args.verify)
+            destination = args.verify.resolve().relative_to(Path.cwd().resolve())
+            CleanEnvironmentAttestationPolicy(
+                Path.cwd(),
+                Path("environment-ai.lock"),
+                Path("requirements-ai-pip.txt"),
+                (destination / "report.json", destination / "manifest.json"),
+            ).validate(report)
             print(f"Verified clean environment at commit {report['source_commit']}: {args.verify}")
             return
         if not args.output:
