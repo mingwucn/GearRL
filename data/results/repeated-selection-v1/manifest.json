@@ -1,0 +1,9 @@
+{
+  "dataset": "data/benchmark/frozen/compound-v1-frozen-400-r2",
+  "dataset_index_sha256": "dc48753d3366f7775293486110f28ca136a3b31b03aafa5b869567e8117e537c",
+  "protocol_sha256": "2e6e45e932130792402b7dbb5e8ed6f48de4321599ecaa5e5394930bfae9c077",
+  "protocol_source": "data/protocols/repeated-selection-v1.json",
+  "schema_version": "repeated-selection-artifact-v1",
+  "source_commit": "1f0db37a0b87593f450dabc2064d7d057abe8759",
+  "summary_sha256": "d91155ca5c42f466479236cecce635515aed68ee512760e97ed94cbc5dba4ae7"
+}
