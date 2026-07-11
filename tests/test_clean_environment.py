@@ -49,8 +49,9 @@ def test_evidence_store_requires_complete_success(tmp_path: Path) -> None:
     store = CleanEnvironmentEvidenceStore()
     root = tmp_path / "evidence"
     digest = "0" * 64
+    empty_digest = sha256(b"").hexdigest()
     report = {
-        "schema_version": "clean-environment-attestation-v1",
+        "schema_version": "clean-environment-attestation-v2",
         "all_commands_passed": True,
         "verification_count": len(CleanEnvironmentAttestor.VERIFICATIONS),
         "source_commit": "abc",
@@ -60,7 +61,15 @@ def test_evidence_store_requires_complete_success(tmp_path: Path) -> None:
         "conda_explicit_sha256": digest,
         "pip_freeze_sha256": digest,
         "commands": [
-            {"command_id": command_id, "argv": [command_id], "exit_code": 0, "stdout_sha256": digest, "stderr_sha256": digest}
+            {
+                "command_id": command_id,
+                "argv": [command_id],
+                "exit_code": 0,
+                "stdout_sha256": empty_digest,
+                "stderr_sha256": empty_digest,
+                "stdout_text": "",
+                "stderr_text": "",
+            }
             for command_id in CleanEnvironmentReportValidator.expected_command_ids()
         ],
     }
@@ -74,6 +83,30 @@ def test_evidence_store_requires_complete_success(tmp_path: Path) -> None:
 def test_report_validator_rejects_missing_command_evidence() -> None:
     payload = {"schema_version": "clean-environment-attestation-v1", "all_commands_passed": True, "verification_count": len(CleanEnvironmentAttestor.VERIFICATIONS), "commands": []}
     with pytest.raises(ValueError, match="command ledger mismatch"):
+        CleanEnvironmentReportValidator().validate(payload)
+
+
+def test_report_validator_rejects_modified_raw_transcript() -> None:
+    digest = sha256(b"").hexdigest()
+    commands = [
+        {
+            "command_id": command_id,
+            "argv": [command_id],
+            "exit_code": 0,
+            "stdout_sha256": digest,
+            "stderr_sha256": digest,
+            "stdout_text": "modified" if index == 0 else "",
+            "stderr_text": "",
+        }
+        for index, command_id in enumerate(CleanEnvironmentReportValidator.expected_command_ids())
+    ]
+    payload = {
+        "schema_version": "clean-environment-attestation-v2",
+        "all_commands_passed": True,
+        "verification_count": len(CleanEnvironmentAttestor.VERIFICATIONS),
+        "commands": commands,
+    }
+    with pytest.raises(ValueError, match="stdout transcript hash mismatch"):
         CleanEnvironmentReportValidator().validate(payload)
 
 

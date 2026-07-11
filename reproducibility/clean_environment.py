@@ -31,6 +31,8 @@ class CommandEvidence:
     stdout_sha256: str
     stderr_sha256: str
     elapsed_seconds: float
+    stdout_text: str
+    stderr_text: str
 
 
 class CommandRunner(ABC):
@@ -50,6 +52,8 @@ class SubprocessCommandRunner(CommandRunner):
             stdout_sha256=sha256(result.stdout.encode()).hexdigest(),
             stderr_sha256=sha256(result.stderr.encode()).hexdigest(),
             elapsed_seconds=round(time.monotonic() - started, 6),
+            stdout_text=result.stdout,
+            stderr_text=result.stderr,
         )
         if result.returncode:
             raise RuntimeError(f"Clean reproduction command failed ({command_id}):\n{result.stdout}\n{result.stderr}")
@@ -144,7 +148,7 @@ class CleanEnvironmentAttestor:
         freeze, freeze_text, _ = self._runner.run("pip-freeze", [str(python), "-m", "pip", "freeze", "--all"], repository)
         records.append(freeze)
         return {
-            "schema_version": "clean-environment-attestation-v1",
+            "schema_version": "clean-environment-attestation-v2",
             "source_commit": config.source_commit,
             "source_tree_sha256": source_sha256,
             "lockfile": str(config.lockfile),
@@ -201,7 +205,8 @@ class CleanEnvironmentReportValidator:
         return (*cls.SETUP_COMMANDS, *(item[0] for item in CleanEnvironmentAttestor.VERIFICATIONS), *cls.INVENTORY_COMMANDS)
 
     def validate(self, payload: dict) -> None:
-        if payload.get("schema_version") != "clean-environment-attestation-v1":
+        schema_version = payload.get("schema_version")
+        if schema_version not in {"clean-environment-attestation-v1", "clean-environment-attestation-v2"}:
             raise ValueError("Unsupported clean-environment attestation schema")
         if not payload.get("all_commands_passed") or payload.get("verification_count") != len(CleanEnvironmentAttestor.VERIFICATIONS):
             raise ValueError("Clean-environment attestation is incomplete")
@@ -214,6 +219,13 @@ class CleanEnvironmentReportValidator:
                 raise ValueError("Clean-environment command did not pass")
             for field in ("stdout_sha256", "stderr_sha256"):
                 self._require_digest(command.get(field), field)
+            if schema_version == "clean-environment-attestation-v2":
+                for stream in ("stdout", "stderr"):
+                    text = command.get(f"{stream}_text")
+                    if not isinstance(text, str):
+                        raise ValueError(f"Clean-environment {stream} transcript is missing")
+                    if sha256(text.encode()).hexdigest() != command[f"{stream}_sha256"]:
+                        raise ValueError(f"Clean-environment {stream} transcript hash mismatch")
         for field in (
             "source_tree_sha256",
             "lockfile_sha256",
