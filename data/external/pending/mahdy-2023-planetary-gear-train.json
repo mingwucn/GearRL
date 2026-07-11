@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "case_id": "mahdy-2023-planetary-gear-train",
+    "source_doi": "10.1007/s11227-023-05331-y",
+    "source_url": "https://link.springer.com/article/10.1007/s11227-023-05331-y",
+    "source_type": "open-access peer-reviewed published optimization brief",
+    "conversion_status": "pending-independent-review",
+    "conversion_note": "Encoded from Section 4.5 and checked against the fuller nine-variable formulation reproduced in subsequent peer-reviewed benchmark papers. It may not support external-validity claims until an independent reviewer approves the conversion."
+  },
+  "topology": "planetary gear train",
+  "decisions": ["z1", "z2", "z3", "z4", "z5", "z6", "planet_count", "module_1_mm", "module_2_mm"],
+  "target_ratios": [3.11, 1.84, -3.11],
+  "planet_choices": [3, 4, 5],
+  "module_choices_mm": [1.75, 2.0, 2.25, 2.5, 2.75, 3.0],
+  "tooth_bounds": [[17, 96], [14, 54], [14, 51], [17, 46], [14, 51], [48, 124]],
+  "maximum_diameter_mm": 220.0,
+  "constraint_count": 11,
+  "scope": "Independent digital topology/generalization case; no physical-validation claim."
+}

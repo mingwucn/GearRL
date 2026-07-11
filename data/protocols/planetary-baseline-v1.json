@@ -1,0 +1,10 @@
+{
+  "schema_version": "planetary-baseline-protocol-v1",
+  "study_id": "planetary-baseline-v1",
+  "seeds": [20260711, 20260712, 20260713, 20260714, 20260715, 20260716, 20260717, 20260718, 20260719, 20260720, 20260721, 20260722],
+  "population_multiplier": 20,
+  "maximum_iterations": 1000,
+  "objective_acceptance_threshold": 0.526,
+  "solver": "scipy.optimize.differential_evolution",
+  "scope": "Independent digital baseline for a pending-review published planetary-gear conversion; no external-validity claim until conversion approval."
+}
