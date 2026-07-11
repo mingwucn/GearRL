@@ -1,0 +1,26 @@
+{
+  "schema_version": "tolerance-aware-selection-protocol-v1",
+  "study_id": "tolerance-aware-selection-v1",
+  "population_id": "complete-feasible-test-census-v1",
+  "partition": "test",
+  "expected_layout_count": 120,
+  "selection_size": 10,
+  "scenario": {
+    "shaft_location_tolerance_mm": 0.005,
+    "housing_clearance_erosion_mm": 0.1,
+    "center_distance_backlash_increment_mm": 0.005
+  },
+  "training": {
+    "scramble_replicates": 4,
+    "draws_per_replicate": 512,
+    "seed": 20260801
+  },
+  "testing": {
+    "scramble_replicates": 8,
+    "draws_per_replicate": 1024,
+    "seed": 20260901
+  },
+  "minimum_probability_improvement": 0.005,
+  "alpha": 0.05,
+  "rationale": "The v3 confirmatory study established heterogeneous finite-census layout probabilities at the declared low-error cell. This new protocol tests whether training-only digital robustness can improve held-out layout selection over a compactness-only nominal policy; no v3 draws are reused."
+}
