@@ -19,7 +19,7 @@ def test_strength_requirement_is_visible_in_solver_problem() -> None:
     assert requirements.load_case.allowable_stress_mpa == pytest.approx(355.0 / 1.5)
 
 
-def test_paired_study_proves_retention_redesign_and_complete_rejection(tmp_path) -> None:
+def test_paired_study_reports_conditional_retention_and_rejection(tmp_path) -> None:
     root = tmp_path / "coupled"
     path = StrengthCoupledStudyCommand().run(DATASET, root, StrengthCoupledStudyConfig())
     manifest, summary, records = StrengthCoupledEvidenceStore().load(root)
@@ -27,8 +27,8 @@ def test_paired_study_proves_retention_redesign_and_complete_rejection(tmp_path)
     assert summary == {
         "case_count": 10,
         "retained_count": 7,
-        "redesigned_count": 1,
-        "rejected_count": 2,
+        "redesigned_count": 0,
+        "rejected_count": 3,
         "baseline_strength_admissible_count": 7,
     }
     assert "static tooth-root admission" in manifest["scope"]

@@ -17,6 +17,7 @@ from common.design_models import (
     ValidationCertificate,
     ValidationIssue,
 )
+from physics_validator.contact_loads import MeshContactLoadResolver
 
 
 class ReferenceVerifier:
@@ -71,22 +72,20 @@ class ReferenceVerifier:
 
         ratios = cls._stage_speed_ratios(problem, train, train.stage_map())
         efficiency_factors = cls._stage_efficiency_factors(problem, train, train.stage_map(), certificate.issues)
+        contact_loads, load_issues = MeshContactLoadResolver().resolve(problem, train, ratios, efficiency_factors)
+        certificate.issues.extend(load_issues)
         screening = ToothRootScreeningAnalysis()
         reports: list[dict] = []
         for stage in train.stages:
-            speed_ratio = ratios.get(stage.id)
-            if speed_ratio is None or speed_ratio == 0:
-                certificate.issues.append(ValidationIssue("cae_missing_kinematics", f"No speed ratio for {stage.id}"))
-                continue
-            cumulative_efficiency = efficiency_factors.get(stage.id)
-            if cumulative_efficiency is None:
-                certificate.issues.append(ValidationIssue("cae_missing_power_flow", f"No directed power path reaches {stage.id}"))
-                continue
-            stage_torque = problem.load_case.input_torque_nm * cumulative_efficiency / abs(speed_ratio)
             for member in range(len(stage.teeth)):
-                report = screening.screen(stage, member, problem.load_case, stage_torque, problem.constraints.pressure_angle_deg)
+                contact = contact_loads.get((stage.id, member))
+                if contact is None:
+                    certificate.issues.append(ValidationIssue("cae_unloaded_member", f"No mesh contact load reaches {stage.id}[{member}]"))
+                    continue
+                report = screening.screen(stage, member, problem.load_case, contact.equivalent_torque_nm, problem.constraints.pressure_angle_deg)
                 report_json = report.to_json()
-                report_json["cumulative_mesh_efficiency"] = cumulative_efficiency
+                report_json["cumulative_mesh_efficiency"] = contact.upstream_efficiency
+                report_json["contact_mesh"] = contact.mesh_id
                 reports.append(report_json)
                 if report.safety_factor + 1e-12 < problem.constraints.min_safety_factor:
                     certificate.issues.append(

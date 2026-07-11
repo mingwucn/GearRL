@@ -46,7 +46,7 @@ def test_cae_certificate_rejects_excessive_safety_requirement() -> None:
     assert any(issue.code == "cae_safety_factor" for issue in certificate.issues)
 
 
-def test_per_mesh_efficiency_propagates_power_and_stage_torque() -> None:
+def test_per_mesh_efficiency_preserves_action_reaction_contact_force() -> None:
     problem = DesignProblem(
         boundary=(Point2D(-100, -100), Point2D(100, -100), Point2D(100, 100), Point2D(-100, 100)),
         input_stage_id="input",
@@ -64,14 +64,18 @@ def test_per_mesh_efficiency_propagates_power_and_stage_torque() -> None:
     )
 
     certificate = ReferenceVerifier.verify_with_cae(problem, train)
-    by_stage = {}
+    by_member = {}
     for report in certificate.cae_reports:
-        by_stage.setdefault(report["stage_id"], report)
+        by_member[(report["stage_id"], report["member"])] = report
 
     assert certificate.valid
-    assert by_stage["input"]["cumulative_mesh_efficiency"] == 1.0
-    assert by_stage["compound"]["cumulative_mesh_efficiency"] == 0.8
-    assert by_stage["output"]["cumulative_mesh_efficiency"] == pytest.approx(0.64)
-    assert by_stage["input"]["transmitted_torque_nm"] == 10.0
-    assert by_stage["compound"]["transmitted_torque_nm"] == 8.0
-    assert by_stage["output"]["transmitted_torque_nm"] == pytest.approx(6.4)
+    assert by_member[("input", 0)]["cumulative_mesh_efficiency"] == 1.0
+    assert by_member[("compound", 0)]["cumulative_mesh_efficiency"] == 1.0
+    assert by_member[("compound", 1)]["cumulative_mesh_efficiency"] == 0.8
+    assert by_member[("output", 0)]["cumulative_mesh_efficiency"] == 0.8
+    assert by_member[("input", 0)]["tangential_force_n"] == pytest.approx(by_member[("compound", 0)]["tangential_force_n"])
+    assert by_member[("compound", 1)]["tangential_force_n"] == pytest.approx(by_member[("output", 0)]["tangential_force_n"])
+    assert by_member[("input", 0)]["transmitted_torque_nm"] == 10.0
+    assert by_member[("compound", 0)]["transmitted_torque_nm"] == 10.0
+    assert by_member[("compound", 1)]["transmitted_torque_nm"] == 8.0
+    assert by_member[("output", 0)]["transmitted_torque_nm"] == 8.0
