@@ -11,6 +11,7 @@ from dataclasses import replace
 from math import ceil, cos, hypot, isclose, pi, radians, sin, sqrt, tan
 
 from common.design_models import (
+    CanonicalGeometryPrecision,
     DesignProblem,
     CertificateModelIdentity,
     GearStage,
@@ -264,7 +265,11 @@ class ReferenceVerifier:
             expansion_allowance = problem.constraints.transverse_backlash_allowance_mm / (
                 2.0 * tan(radians(problem.constraints.pressure_angle_deg))
             )
-            if deviation < -edge.center_distance_tolerance_mm or deviation > expansion_allowance + edge.center_distance_tolerance_mm:
+            epsilon = CanonicalGeometryPrecision.DISTANCE_MM
+            if (
+                deviation < -edge.center_distance_tolerance_mm - epsilon
+                or deviation > expansion_allowance + edge.center_distance_tolerance_mm + epsilon
+            ):
                 cls._add(
                     issues,
                     "mesh_center_distance",

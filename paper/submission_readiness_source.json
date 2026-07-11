@@ -4,7 +4,7 @@
     {
       "check_type": "curated_integrity",
       "description": "Fifty solver-hidden requirements cases have hash-valid, physically separated evaluator evidence.",
-      "evidence_path": "data/benchmark/curated/requirements-first-50-v1/index.json",
+      "evidence_path": "data/benchmark/curated/requirements-first-50-v2/index.json",
       "expected": {"declared": 50, "hash_valid": 50, "separated": true},
       "requirement_id": "blind-requirements-benchmark"
     },

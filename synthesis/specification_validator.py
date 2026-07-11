@@ -62,6 +62,17 @@ class DesignSpaceValidationRule(SpecificationValidationRule):
             layers = tuple(stage.layer(member) for member in range(len(stage.teeth)))
             if any(layer < 0 or layer >= space.axial_layer_count for layer in layers):
                 issues.append(ValidationIssue("design_space_axial_layer", f"Stage {stage.id} uses an undeclared axial layer"))
+        for edge in train.meshes:
+            if not isclose(
+                edge.center_distance_tolerance_mm,
+                space.mesh_center_distance_tolerance_mm,
+                rel_tol=0.0,
+                abs_tol=self.MODULE_TOLERANCE_MM,
+            ):
+                issues.append(ValidationIssue(
+                    "design_space_mesh_tolerance",
+                    "Mesh center-distance tolerance is not the fixed design-space value",
+                ))
         return tuple(issues)
 
 

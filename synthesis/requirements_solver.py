@@ -211,7 +211,13 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                 )
                 evaluated_placements += len(placements)
                 for compound_center in placements:
-                    train = self._train(terminals, compound_center, module, tooth_tuple)
+                    train = self._train(
+                        terminals,
+                        compound_center,
+                        module,
+                        tooth_tuple,
+                        space.mesh_center_distance_tolerance_mm,
+                    )
                     certificate = self._validator.validate(specification, train)
                     if certificate.valid:
                         return RequirementsSynthesisResult(train, evaluated_parameters, evaluated_placements, False, certificate)
@@ -219,7 +225,11 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
 
     @staticmethod
     def _train(
-        terminals: dict[str, Point2D], compound_center: Point2D, module: float, tooth_tuple: tuple[int, int, int, int]
+        terminals: dict[str, Point2D],
+        compound_center: Point2D,
+        module: float,
+        tooth_tuple: tuple[int, int, int, int],
+        mesh_tolerance_mm: float,
     ) -> GearTrain:
         input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
         return GearTrain(
@@ -228,7 +238,10 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                 GearStage("compound", compound_center, (first_compound, second_compound), module, (0, 1)),
                 GearStage("output", terminals["output"], (output_teeth,), module, (1,)),
             ),
-            (MeshEdge("input", 0, "compound", 0), MeshEdge("compound", 1, "output", 0)),
+            (
+                MeshEdge("input", 0, "compound", 0, mesh_tolerance_mm),
+                MeshEdge("compound", 1, "output", 0, mesh_tolerance_mm),
+            ),
         )
 
 
@@ -247,8 +260,9 @@ class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
 
     def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
         specification = view.specification
+        space = specification.design_space
         constraints = specification.problem.constraints
-        modules = specification.design_space.allowed_modules_mm
+        modules = space.allowed_modules_mm
         terminals = {shaft.role: shaft.center for shaft in specification.prescribed_shafts}
         evaluated: set[tuple[int, int, int, int, int]] = set()
         placements_evaluated = 0
@@ -285,7 +299,9 @@ class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
             )
             placements_evaluated += len(placements)
             for center in placements:
-                train = EnumerativeCompoundSynthesizer._train(terminals, center, module, tooth_tuple)
+                train = EnumerativeCompoundSynthesizer._train(
+                    terminals, center, module, tooth_tuple, space.mesh_center_distance_tolerance_mm
+                )
                 certificate = self._validator.validate(specification, train)
                 if certificate.valid:
                     best_train = train
@@ -447,7 +463,9 @@ class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                 )
                 placements_evaluated += len(placements)
                 for center in placements:
-                    train = EnumerativeCompoundSynthesizer._train(terminals, center, module, tooth_tuple)
+                    train = EnumerativeCompoundSynthesizer._train(
+                        terminals, center, module, tooth_tuple, space.mesh_center_distance_tolerance_mm
+                    )
                     certificate = self._validator.validate(specification, train)
                     if certificate.valid:
                         return RequirementsSynthesisResult(train, evaluated, placements_evaluated, False, certificate)

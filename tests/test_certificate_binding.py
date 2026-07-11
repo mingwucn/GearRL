@@ -20,7 +20,7 @@ def _subjects() -> tuple[ProblemSpecification, GearTrain]:
             GearStage("idler", Point2D(20, 0), (20, 20), 1.0, (0, 1)),
             GearStage("output", Point2D(40, 0), (20,), 1.0, (1,)),
         ),
-        (MeshEdge("input", 0, "idler", 0), MeshEdge("idler", 1, "output", 0)),
+        (MeshEdge("input", 0, "idler", 0, 0.0), MeshEdge("idler", 1, "output", 0, 0.0)),
     )
     specification = ProblemSpecification(
         "requirements-first-v1",

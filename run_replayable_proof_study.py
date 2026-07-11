@@ -12,7 +12,7 @@ from evaluation.replayable_proofs import ReplayableProofEvidenceStore, Replayabl
 class ReplayableProofCommand:
     def run(self) -> None:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--dataset", type=Path, default=Path("data/benchmark/curated/requirements-first-50-v1"))
+        parser.add_argument("--dataset", type=Path, default=Path("data/benchmark/curated/requirements-first-50-v2"))
         target = parser.add_mutually_exclusive_group(required=True)
         target.add_argument("--output", type=Path)
         target.add_argument("--verify", type=Path)

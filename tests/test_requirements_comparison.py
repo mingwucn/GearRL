@@ -11,7 +11,7 @@ from evaluation.requirements_comparison import (
 )
 
 
-DATASET = "data/benchmark/curated/requirements-first-50-v1"
+DATASET = "data/benchmark/curated/requirements-first-50-v2"
 
 
 def test_comparison_uses_frozen_equal_candidate_budgets(tmp_path) -> None:

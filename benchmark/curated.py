@@ -36,7 +36,7 @@ class CuratedCaseDefinition:
 class CuratedCaseCatalog:
     """Versioned catalog of 50 explicit, reviewable benchmark definitions."""
 
-    VERSION = "curated-compound-50-v1"
+    VERSION = "curated-compound-50-v2"
 
     def definitions(self) -> tuple[CuratedCaseDefinition, ...]:
         feasible = (

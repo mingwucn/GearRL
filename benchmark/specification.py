@@ -37,6 +37,7 @@ class DesignSpace:
     maximum_compound_members: int = 2
     axial_layer_count: int = 2
     topology_family: str = "compound-two-mesh-three-shaft"
+    mesh_center_distance_tolerance_mm: float = 0.0
 
     def __post_init__(self) -> None:
         if not self.allowed_modules_mm or any(not isfinite(value) or value <= 0 for value in self.allowed_modules_mm):
@@ -51,6 +52,8 @@ class DesignSpace:
             raise ValueError("axial_layer_count must be positive")
         if self.topology_family != "compound-two-mesh-three-shaft":
             raise ValueError("Unsupported topology family")
+        if not isfinite(self.mesh_center_distance_tolerance_mm) or self.mesh_center_distance_tolerance_mm < 0:
+            raise ValueError("Mesh center-distance tolerance must be finite and non-negative")
 
     @classmethod
     def from_json(cls, value: dict[str, Any]) -> "DesignSpace":
@@ -61,6 +64,7 @@ class DesignSpace:
             value.get("maximum_compound_members", 2),
             value.get("axial_layer_count", 2),
             value.get("topology_family", "compound-two-mesh-three-shaft"),
+            value.get("mesh_center_distance_tolerance_mm", 0.0),
         )
 
 

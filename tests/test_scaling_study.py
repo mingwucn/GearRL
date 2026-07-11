@@ -6,7 +6,7 @@ from evaluation.scaling import ScalingEvidenceStore, ScalingProtocol
 from run_scaling_study import ScalingStudyCommand
 
 
-DATASET = Path("data/benchmark/curated/requirements-first-50-v1")
+DATASET = Path("data/benchmark/curated/requirements-first-50-v2")
 
 
 def test_scaling_protocol_requires_increasing_sizes_budgets_and_multiple_seeds() -> None:

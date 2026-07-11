@@ -5,7 +5,7 @@ from common.design_models import GearStage, GearTrain, MeshEdge, Point2D
 from synthesis import ProductionCandidateValidator
 
 
-DATASET = "data/benchmark/curated/requirements-first-50-v1"
+DATASET = "data/benchmark/curated/requirements-first-50-v2"
 
 
 def _valid_case():
@@ -67,3 +67,10 @@ def test_axial_layer_limit_is_independently_enforced() -> None:
     specification, reference = _valid_case()
     train = _replace_stage(reference, "output", axial_layers=(specification.design_space.axial_layer_count,))
     assert "design_space_axial_layer" in _issue_codes(specification, train)
+
+
+def test_mesh_tolerance_is_fixed_by_design_space() -> None:
+    specification, reference = _valid_case()
+    changed = replace(reference.meshes[0], center_distance_tolerance_mm=1e-6)
+    train = GearTrain(reference.stages, (changed, *reference.meshes[1:]))
+    assert "design_space_mesh_tolerance" in _issue_codes(specification, train)

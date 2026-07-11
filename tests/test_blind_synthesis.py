@@ -7,7 +7,7 @@ from evaluation.blind_synthesis import BlindAdjudicator, BlindPredictionStore, B
 from synthesis import EnumerativeCompoundSynthesizer, ProductionCandidateValidator
 
 
-DATASET = "data/benchmark/curated/requirements-first-50-v1"
+DATASET = "data/benchmark/curated/requirements-first-50-v2"
 
 
 def test_solver_input_loader_round_trips_typed_views_without_evidence() -> None:

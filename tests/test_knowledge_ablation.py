@@ -5,7 +5,7 @@ from evaluation.knowledge_ablation import KnowledgeAblationEvidenceStore, Knowle
 
 
 PROTOCOL = Path("data/protocols/aei-knowledge-ablation-v1.json")
-INPUTS = Path("data/benchmark/curated/requirements-first-50-v1/solver-inputs")
+INPUTS = Path("data/benchmark/curated/requirements-first-50-v2/solver-inputs")
 
 
 def test_knowledge_ablation_distinguishes_semantics_from_container_choice(tmp_path: Path) -> None:

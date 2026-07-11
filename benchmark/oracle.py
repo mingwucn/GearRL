@@ -11,7 +11,7 @@ from math import ceil, cos, hypot, isclose, pi, radians, sin, sqrt
 from typing import Any
 
 from benchmark.specification import GroundTruthEvidence, SolverBenchmarkView
-from common.design_models import GearStage, GearTrain, MeshEdge, Point2D
+from common.design_models import CanonicalGeometryPrecision, GearStage, GearTrain, MeshEdge, Point2D
 
 
 @dataclass(frozen=True)
@@ -128,10 +128,11 @@ class PlanarGeometryKernel:
 
     @staticmethod
     def circle_intersections(first: Point2D, first_radius: float, second: Point2D, second_radius: float) -> tuple[Point2D, ...]:
+        epsilon = CanonicalGeometryPrecision.DISTANCE_MM
         distance = hypot(second.x - first.x, second.y - first.y)
-        if distance == 0 or distance > first_radius + second_radius + 1e-9:
+        if distance == 0 or distance > first_radius + second_radius + epsilon:
             return ()
-        if distance < abs(first_radius - second_radius) - 1e-9:
+        if distance < abs(first_radius - second_radius) - epsilon:
             return ()
         along = (first_radius ** 2 - second_radius ** 2 + distance ** 2) / (2.0 * distance)
         height_squared = first_radius ** 2 - along ** 2
@@ -151,11 +152,17 @@ class PlanarGeometryKernel:
 
     @classmethod
     def circle_inside_polygon(cls, center: Point2D, radius: float, polygon: tuple[Point2D, ...]) -> bool:
-        return cls._point_inside(center, polygon) and cls._distance_to_polygon(center, polygon) + 1e-9 >= radius
+        return (
+            cls._point_inside(center, polygon)
+            and cls._distance_to_polygon(center, polygon) + CanonicalGeometryPrecision.DISTANCE_MM >= radius
+        )
 
     @classmethod
     def circle_intersects_polygon(cls, center: Point2D, radius: float, polygon: tuple[Point2D, ...]) -> bool:
-        return cls._point_inside(center, polygon) or cls._distance_to_polygon(center, polygon) < radius - 1e-9
+        return (
+            cls._point_inside(center, polygon)
+            or cls._distance_to_polygon(center, polygon) < radius - CanonicalGeometryPrecision.DISTANCE_MM
+        )
 
     @staticmethod
     def _point_inside(point: Point2D, polygon: tuple[Point2D, ...]) -> bool:
@@ -211,6 +218,7 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
             or space.maximum_stage_count != 3
             or space.maximum_compound_members != 2
             or space.axial_layer_count != 2
+            or space.mesh_center_distance_tolerance_mm != 0
             or specification.problem.constraints.transverse_backlash_allowance_mm != 0
         ):
             return OracleResult(
@@ -256,7 +264,13 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
                 placements = self._geometry.circle_intersections(terminals["input"], input_distance, terminals["output"], output_distance)
                 placement_count += len(placements)
                 for compound_center in placements:
-                    witness = self._witness(terminals, compound_center, module, tooth_tuple)
+                    witness = self._witness(
+                        terminals,
+                        compound_center,
+                        module,
+                        tooth_tuple,
+                        space.mesh_center_distance_tolerance_mm,
+                    )
                     if self._admissible(specification.problem.boundary, specification.obstacles, constraints.boundary_clearance, witness):
                         self._ledger.record(module, tooth_tuple, "witness", len(placements))
                         proof = OracleProof(self.VERSION, True, parameter_count, placement_count, False, "Constructive witness found")
@@ -288,7 +302,11 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
 
     @staticmethod
     def _witness(
-        terminals: dict[str, Point2D], compound_center: Point2D, module: float, tooth_tuple: tuple[int, int, int, int]
+        terminals: dict[str, Point2D],
+        compound_center: Point2D,
+        module: float,
+        tooth_tuple: tuple[int, int, int, int],
+        mesh_tolerance_mm: float,
     ) -> GearTrain:
         input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
         return GearTrain(
@@ -297,7 +315,10 @@ class ExactCompoundTrainOracle(GroundTruthOracle):
                 GearStage("compound", compound_center, (first_compound, second_compound), module, (0, 1)),
                 GearStage("output", terminals["output"], (output_teeth,), module, (1,)),
             ),
-            meshes=(MeshEdge("input", 0, "compound", 0), MeshEdge("compound", 1, "output", 0)),
+            meshes=(
+                MeshEdge("input", 0, "compound", 0, mesh_tolerance_mm),
+                MeshEdge("compound", 1, "output", 0, mesh_tolerance_mm),
+            ),
         )
 
     def _admissible(

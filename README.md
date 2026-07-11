@@ -45,12 +45,12 @@ frozen at `paper/manuscript-v1/GearRL_AEI_MANUSCRIPT.md`; its manifest binds the
 draft to the literature matrix, manuscript source, and publication registry.
 
 The requirements-first curated benchmark is frozen at
-`data/benchmark/curated/requirements-first-50-v1`. Its 50 explicit briefs keep
+`data/benchmark/curated/requirements-first-50-v2`. Its 50 explicit briefs keep
 solver inputs physically separate from evaluator-only witnesses and exhaustive
 negative proofs. Regenerate it with:
 
 ```bash
-conda run -n ai python run_curated_benchmark.py data/benchmark/curated/requirements-first-50-v1
+conda run -n ai python run_curated_benchmark.py data/benchmark/curated/requirements-first-50-v2
 ```
 
 The historical 400-instance data remains a path-selection regression benchmark,
@@ -61,10 +61,10 @@ adjudicate the sealed predictions in a separate process:
 
 ```bash
 conda run -n ai python run_blind_synthesis.py \
-  data/benchmark/curated/requirements-first-50-v1/solver-inputs \
+  data/benchmark/curated/requirements-first-50-v2/solver-inputs \
   data/results/curated-blind-v1/predictions.json
 conda run -n ai python run_blind_adjudication.py \
-  data/benchmark/curated/requirements-first-50-v1 \
+  data/benchmark/curated/requirements-first-50-v2 \
   data/results/curated-blind-v1/predictions.json \
   data/results/curated-blind-v1/adjudication.json
 ```
@@ -74,10 +74,10 @@ comparison blindly, then adjudicate its sealed runs:
 
 ```bash
 conda run -n ai python run_requirements_comparison.py \
-  data/benchmark/curated/requirements-first-50-v1/solver-inputs \
+  data/benchmark/curated/requirements-first-50-v2/solver-inputs \
   data/results/requirements-comparison-v1/blind
 conda run -n ai python run_requirements_comparison_adjudication.py \
-  data/benchmark/curated/requirements-first-50-v1 \
+  data/benchmark/curated/requirements-first-50-v2 \
   data/results/requirements-comparison-v1/blind \
   data/results/requirements-comparison-v1/adjudication.json
 ```
@@ -92,7 +92,7 @@ four equal candidate budgets, and 30 differential-evolution seeds:
 
 ```bash
 conda run -n ai python run_scaling_study.py \
-  --dataset data/benchmark/curated/requirements-first-50-v1 \
+  --dataset data/benchmark/curated/requirements-first-50-v2 \
   --output data/results/scaling-v1
 ```
 

@@ -4,7 +4,7 @@ from benchmark import SolverInputDirectoryLoader
 from synthesis import CpSatCompoundSynthesizer, EnumerativeCompoundSynthesizer, ProductionCandidateValidator, SolverBudget
 
 
-DATASET = "data/benchmark/curated/requirements-first-50-v1/solver-inputs"
+DATASET = "data/benchmark/curated/requirements-first-50-v2/solver-inputs"
 
 
 def _view(instance_id: str):

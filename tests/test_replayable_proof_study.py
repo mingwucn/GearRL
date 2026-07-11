@@ -6,7 +6,7 @@ import pytest
 from evaluation.replayable_proofs import ReplayableProofEvidenceStore, ReplayableProofStudy
 
 
-DATASET = Path("data/benchmark/curated/requirements-first-50-v1")
+DATASET = Path("data/benchmark/curated/requirements-first-50-v2")
 
 
 def test_replayable_proof_study_covers_every_negative_case(tmp_path: Path) -> None:

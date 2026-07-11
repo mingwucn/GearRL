@@ -104,6 +104,9 @@ def test_exact_oracle_refuses_completeness_for_broader_stage_or_backlash_domains
         view,
         specification=replace(view.specification, problem=replace(view.specification.problem, constraints=allowance_constraints)),
     )
+    tolerant_space = replace(view.specification.design_space, mesh_center_distance_tolerance_mm=1e-6)
+    tolerant = replace(view, specification=replace(view.specification, design_space=tolerant_space))
 
     assert not ExactCompoundTrainOracle().solve(broad).proof.design_space_complete
     assert not ExactCompoundTrainOracle().solve(allowance).proof.design_space_complete
+    assert not ExactCompoundTrainOracle().solve(tolerant).proof.design_space_complete

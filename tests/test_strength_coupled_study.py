@@ -9,7 +9,7 @@ from run_strength_coupled_study import (
 )
 
 
-DATASET = Path("data/benchmark/curated/requirements-first-50-v1")
+DATASET = Path("data/benchmark/curated/requirements-first-50-v2")
 
 
 def test_strength_requirement_is_visible_in_solver_problem() -> None:

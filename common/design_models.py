@@ -22,6 +22,12 @@ class CanonicalNumericGuard:
             raise ValueError(f"Non-finite canonical values: {', '.join(sorted(invalid))}")
 
 
+class CanonicalGeometryPrecision:
+    """Shared numerical comparison precision, distinct from design tolerance."""
+
+    DISTANCE_MM = 1e-9
+
+
 @dataclass(frozen=True)
 class Point2D:
     x: float

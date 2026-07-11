@@ -1,0 +1,15 @@
+{
+  "certificate": {
+    "design_space_complete": true,
+    "evaluated_parameter_tuples": 6561,
+    "evaluated_placements": 306,
+    "feasible": false,
+    "oracle_version": "exact-compound-oracle-v1",
+    "reason": "Every bounded parameter tuple and geometric placement was eliminated"
+  },
+  "expected_feasible": false,
+  "instance_id": "obstacle-none-02",
+  "oracle_version": "exact-compound-oracle-v1",
+  "proof_kind": "exhaustive-proof",
+  "reference_train": null
+}
