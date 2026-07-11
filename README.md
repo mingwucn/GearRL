@@ -163,6 +163,16 @@ tree, explicit Conda inventory, pip inventory, commands, outputs, and runtimes.
 This is an independent locked-prefix reproduction, not a container execution;
 the host does not provide Docker or Podman.
 
+The frozen joint assembly-robustness pilot is stored at
+`data/results/assembly-robustness-v1`. It retains 1,658,880 draw-level outcomes
+from 120 feasible frozen layouts, 27 declared shaft/housing/backlash scenarios,
+and 512 seeded perturbations per layout. The pilot is diagnostic: zero declared
+backlash yields zero modeled acceptance under continuous location error, while
+0.02 and 0.05 mm allowances both yield 3.19%, and housing-clearance erosion up
+to 0.1 mm is inactive against nominal 20-102 mm boundary margins. These
+saturated factors are not used for a magnitude-effect claim; they predeclare
+the need for a finer confirmatory backlash grid.
+
 The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
 table and vector figure to the exact solver, CAE, uncertainty, or
 strength-coupling evidence files used to generate it. Figures use a structured,
