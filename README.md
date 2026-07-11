@@ -36,6 +36,13 @@ the paired bootstrap lower confidence bound exceeds a 30% median time
 reduction. A failed gate is reported as evidence against that claim; it does
 not alter the certified deterministic-solver result.
 
+Create a traceable paired-policy bundle, including the trained model checkpoint,
+raw same-instance comparisons, and the bootstrap decision summary:
+
+```bash
+conda run -n ai python run_paired_policy_study.py --seed 2026 --train-instances 40 --test-instances 120
+```
+
 ## Verification
 
 ```bash
