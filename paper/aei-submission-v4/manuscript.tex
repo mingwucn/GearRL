@@ -1,0 +1,242 @@
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{svg}
+\journal{Advanced Engineering Informatics}
+\begin{document}
+\begin{frontmatter}
+\title{Certificate-Bearing Requirements-First Synthesis of Compound Spur-Gear Layouts}
+\author{Author metadata required before submission}
+\begin{abstract}
+Engineering design synthesis requires more than recovering a plausible geometry: requirements, executable domain rules, solver decisions, validation evidence, and negative conclusions must remain traceable. This study presents an object-oriented engineering-informatics workflow for bounded requirements-first synthesis of external compound spur-gear layouts. Solver-facing briefs are physically separated from evaluator-only witnesses and labels. A typed directed mesh graph encodes the declared kinematic and geometric relations, while an independent oracle and model-versioned verifier produce subject-bound constructive certificates or complete topology-bounded infeasibility proofs. Exact enumeration, process-isolated CP-SAT, and differential evolution are compared under frozen method-specific limits. Across a 16-case scaling protocol with 2,048 observations, CP-SAT recovers feasible cases and proves negative cases across all declared limits; stochastic search recovers feasible cases at adequate limits but never proves infeasibility. A 50-case specification-schema ablation shows that executable rules detect and localize the registered mutations that a structure-only record misses; implementation rule-site counts are descriptive. Forty negative cases retain replayable hashes for 262,440 tuple dispositions. A preregistered 7,864,320-draw study supports attenuation of the modeled positive center-distance allowance as shaft error increases and rejects global housing equivalence. Across 12 independent train-select-test repetitions, robustness-trained selection produces a mean modeled-acceptance difference of 0.00321 with a 95\% interval of [0.00305, 0.00336], below its preregistered 0.005 threshold. Extended mesh refinement fails the selected peak-stress admission metric, so no strength qualification is claimed. The workflow is fully digital and supports claims only for validity under the declared kinematic, geometric, and digital evidence models.
+\end{abstract}
+\begin{keyword}
+engineering informatics \sep requirements-first synthesis \sep gear train \sep knowledge representation \sep formal certificate \sep constraint programming \sep reproducible engineering
+\end{keyword}
+\end{frontmatter}
+\section{Introduction}
+Automated mechanical design often combines domain rules, optimization, and simulation, yet the evidential boundary between a generated candidate and an independently supported engineering conclusion is frequently implicit. This is especially consequential for negative results: failure of a heuristic search is not evidence that a bounded design brief is infeasible.
+
+Prior work already establishes knowledge-graph-driven architecture generation \cite{huang-2025,sun-2026}, graph-based transmission configuration synthesis \cite{geng-2023}, constrained simulation optimization \cite{cicconi-2020}, automated gearbox sizing \cite{fuerst-2021}, and learning-guided combinatorial design \cite{lin-2023}. Therefore, graph use, optimization, and simulation coupling are not claimed as novel individually. Within the audited closest-method set, the unresolved combination is solver-hidden bounded requirements, independently replayable positive certificates and complete topology-bounded negative proofs, and hash-bound reporting in one workflow.
+
+Five research questions structure the evaluation. RQ1 asks whether solver-hidden requirements can yield certificates cryptographically bound to the exact specification and candidate. RQ2 asks how complete and incomplete solvers differ in decisive coverage, feasible recovery, and topology-bounded negative proof. RQ3 asks whether executable specification rules detect and localize registered mutations that a structure-only record misses. RQ4 asks whether the predeclared shaft-error interaction and global housing-equivalence hypotheses hold under the frozen digital assembly model. RQ5 asks whether robustness-trained selection exceeds the preregistered improvement threshold across independent train-select-test repetitions.
+
+The contribution is evaluated in a deliberately bounded family: external involute spur gears on parallel shafts, simple input and output gears, one two-member compound stage, fixed 20-degree pressure angle, and declared module and tooth-count domains. This boundedness enables complete claims where completeness is stated and prevents extrapolation to unrestricted gearbox design.
+
+\section{Related Work and Positioning}
+The closest-method audit covers explicit engineering-knowledge formalization \cite{hao-2021,bolognini-2022}, constraint-based design with simulation \cite{cicconi-2020}, gear and transmission synthesis \cite{fuerst-2021,geng-2023,kim-2026}, evolutionary engineering optimization \cite{fetanat-2023}, and constrained learning \cite{lin-2023}. The resulting contribution claim is an inference limited to this audited set, not a universal priority claim.
+
+The expanded neighboring-method audit also covers the methodological foundations of engineering-knowledge formalization \cite{sacks-2020}, formal functional verification in early mechatronic design \cite{wang-2023-formal}, cross-domain graph-network synthesis \cite{shai-2008}, continuous constraint-infeasibility diagnosis \cite{khorshid-2018}, and algorithmic engineering representations that separate representation from qualification \cite{pandey-2025}. These works prevent claims that formal semantics, graph synthesis, infeasibility reasoning, or representation-qualification separation are individually new here.
+
+Knowledge-driven product architecture and industrial robot design demonstrate that graphs can connect requirements, topology, components, simulation, and CAD \cite{huang-2025,sun-2026}. Gearbox automation and recent planetary-gear optimization provide substantially broader component and durability analysis than the present bounded planar family \cite{fuerst-2021,kim-2026}. Conversely, common four-variable gear-ratio benchmarks omit enclosure geometry, independent certification, and negative proofs. GearRL targets the evidential integration between these areas rather than replacing their domain breadth.
+
+\section{Methods}
+The canonical specification separates the design brief from any constructed answer. It contains the enclosure polygon, prescribed input and output shafts, target signed speed ratio, module and tooth-count domains, obstacles, clearance rules, fixed topology family, and an optional sourced material-load case. For every complete negative claim, engineering mesh center-distance tolerance and transverse-backlash allowance are both fixed at zero; a shared 1e-9 mm numerical comparison precision is recorded separately and is not a design allowance. The exact oracle refuses completeness outside this contract. Solver payload guards reject evaluator fields such as expected feasibility, reference trains, certificates, and oracle versions.
+
+Candidate trains are directed mesh graphs. Each edge identifies driving and driven gear members and contributes a direction reversal, ratio term, center-distance equation, axial-layer relation, and directed efficiency factor. The production validator checks finite values, module compatibility, undercut, transverse contact ratio, mesh distances, graph connectivity, unintended collisions, enclosure clearance, axial stacking, and optional static root-strength admission. Every production certificate contains canonical SHA-256 identities for the complete solver-visible specification and exact candidate train, plus the verifier model identity; substitution tests require a changed train or specification to fail certificate matching. The exact oracle is a separate implementation with independent geometry predicates.
+
+Three requirements-first strategies implement a common solver interface. Exact enumeration traverses the complete declared tuple domain and exact circle-intersection placements under the zero-engineering-tolerance contract. For negative cases, every canonical tuple disposition contributes to a streamed elimination-ledger digest; replay verification reconstructs the ledger from the solver-visible brief. CP-SAT constructs an isolated integer model for tooth products, ratio intervals, and placement bounds, then submits candidates to the same production admission strategy. Differential evolution is a seeded incomplete comparator and cannot emit an infeasibility proof.
+
+A plane-stress finite-element screen was evaluated for possible static root-strength admission. An extended representative involute-tooth refinement sequence did not meet the predeclared relative-change limit. The production admission policy therefore fails closed, and structural outputs are retained only as exploratory negative qualification evidence.
+
+All experiments use immutable configurations, hashed frozen inputs, raw per-case records, and model-versioned outputs. Publication tables and vector figures are regenerated from their registered evidence sources and must be byte-identical to the committed bundle.
+
+\begin{table}[htbp]
+\centering
+\caption{Cae Qualification}
+\small
+\begin{tabular}{ll}
+\textbf{Elements} & \textbf{Maximum stress (MPa)} \\
+\hline
+240 & 92.354 \\
+528 & 112.520 \\
+960 & 121.453 \\
+2160 & 138.999 \\
+3840 & 161.561 \\
+\end{tabular}
+\end{table}
+\section{Experimental Protocol}
+The curated requirements-first benchmark contains 50 authored cases: ten constructive feasible cases and 40 negative cases with complete independent evidence. Solver inputs and evaluator evidence reside in separate directories. Exact enumeration, CP-SAT, and differential evolution use frozen candidate, time, population, seed, and environment declarations.
+
+The scaling protocol derives 16 solver-hidden cases across four tooth-domain sizes, from 5 to 17 values per tooth decision. Each size includes two feasible and two independently proven infeasible families. Method-specific evaluation limits are 250, 1,000, 7,000, and 100,000; these counters do not represent equivalent elementary operations across solvers. Differential evolution uses 30 fixed seeds; deterministic solvers use one run. Feasible recovery, decisive coverage, accuracy conditional on a decisive outcome, proof rate, method-specific evaluations, and descriptive single-machine runtime are reported separately.
+
+The specification-schema ablation evaluates the same 50 competency cases through a typed executable record, a flat structural record, and a flat record with duplicated executable rules. Predeclared mutations test detection and exact diagnostic localization. The implementation rule-site count is descriptive and is not treated as experimental evidence of generic graph superiority or maintainability.
+
+Assembly robustness uses the finite census of 120 frozen feasible layouts, including 50 adversarial tight-clearance cases. For each movable shaft, the two coordinate offsets are modeled as independent uniforms on [-t,t] and generated by independently scrambled Sobol sequences; this distribution is an engineering assumption, not measured production data. Housing tolerance is a deterministic coordinate-wise erosion of the enclosure, and the positive center-distance allowance is derived from the declared transverse-backlash increment. Eight factor cells cross two shaft tolerances, two housing erosions, and two allowance increments. Eight scrambled replicates of 1,024 draws per layout-cell yield 7,864,320 outcomes. Familywise intervals test a directional interaction and a housing-equivalence hypothesis.
+
+A published nine-variable planetary-gear formulation is encoded as a separate external-formulation case and evaluated with 12 fixed-seed differential-evolution runs. It does not exercise the primary mesh-graph synthesis pipeline. Because the source conversion awaits independent review, these results demonstrate only reproducible execution of the bespoke encoding, not topology transfer or external validity.
+
+A separate preregistered algorithm-level selection study performs 12 independent train-select-test repetitions. In each repetition, four scrambled-QMC training replicates rerank the complete layout census, and four disjoint testing replicates evaluate the newly selected robust set against the fixed compactness baseline. The primary estimand is the mean held-out modeled-acceptance difference across complete repetitions; its 95\% interval must exceed 0.005.
+
+\begin{table}[htbp]
+\centering
+\caption{Solver Comparison}
+\small
+\begin{tabular}{lllllll}
+\textbf{Method} & \textbf{Runs} & \textbf{Strict accuracy} & \textbf{Decisive coverage} & \textbf{Decisive accuracy} & \textbf{Median method-specific evaluations} & \textbf{Descriptive median runtime (s)} \\
+\hline
+cp-sat & 1 & 1.000 & 1.000 & 1.000 & 1.0 & 0.319263 \\
+differential-evolution & 5 & 0.200 & 0.200 & 1.000 & 1244.0 & 0.143038 \\
+exact-enumerator & 1 & 1.000 & 1.000 & 1.000 & 6561.0 & 0.000692 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Solver Scaling Largest Domain}
+\small
+\begin{tabular}{lllllllll}
+\textbf{Method} & \textbf{Method-specific limit} & \textbf{Runs} & \textbf{Feasible recovery median (min)} & \textbf{Strict accuracy median (min)} & \textbf{Decisive coverage median (min)} & \textbf{Decisive accuracy median (min)} & \textbf{Negative proof rate} & \textbf{Descriptive median runtime (s)} \\
+\hline
+cp-sat & 250 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.276519 \\
+differential-evolution & 250 & 30 & 0.500 (0.000) & 0.250 (0.000) & 0.250 (0.000) & 1.000 (0.000) & 0.000 & 0.008509 \\
+exact-enumerator & 250 & 1 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.000105 \\
+cp-sat & 1000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.322324 \\
+differential-evolution & 1000 & 30 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.029454 \\
+exact-enumerator & 1000 & 1 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.000141 \\
+cp-sat & 7000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.292958 \\
+differential-evolution & 7000 & 30 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.085423 \\
+exact-enumerator & 7000 & 1 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.000435 \\
+cp-sat & 100000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.288400 \\
+differential-evolution & 100000 & 30 & 1.000 (1.000) & 0.500 (0.500) & 0.500 (0.500) & 1.000 (1.000) & 0.000 & 0.086964 \\
+exact-enumerator & 100000 & 1 & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 (1.000) & 1.000 & 0.004162 \\
+\end{tabular}
+\end{table}
+\section{Results}
+Exact enumeration and CP-SAT produce decisive outcomes for all 50 fixed benchmark cases with accuracy 1.0 and complete proofs for the 40 negative cases. Differential evolution is decisive only on the ten feasible cases: its decisive coverage is 0.2 and its accuracy conditional on those decisive outcomes is 1.0. Its 40 incomplete non-discoveries are unknown outcomes, not negative predictions.
+
+At the largest scaling domain, CP-SAT recovered both feasible cases and proved both negative cases at every declared budget. Exact enumeration recovered feasible cases throughout but required the 100,000-candidate budget to complete the negative proofs. Differential evolution showed median feasible recovery of 0.5 and worst-seed recovery of 0 at budget 250, reached full recovery by 1,000, and never proved a negative case.
+
+All three records answer the 50 unmutated competency cases correctly. The flat structure-only record detects and localizes none of the registered schema mutations. The typed executable record and duplicated executable rules both detect and localize all registered mutations. Their one-versus-seven rule-site counts describe these implementations; the experiment does not establish general mesh-graph semantics, maintainability, or superiority.
+
+Extended tooth-mesh refinement increases the predicted peak stress from 92.354 MPa at 240 elements to 161.561 MPa at 3,840 elements; successive changes remain above the declared 0.05 limit. The chosen peak-stress convergence metric therefore fails its admission gate, invalidating the earlier strength-coupled conclusions for publication use without diagnosing every aspect of the structural formulation.
+
+The confirmatory assembly interaction estimate is -0.022440 with a multiplicity-adjusted 95\% interval of [-0.022578, -0.022301], supporting attenuation of the modeled positive center-distance allowance at higher shaft error. Global housing equivalence is not supported: two low-shaft-error cells exceed the 0.001 equivalence margin. These are deterministic outcomes of the declared rigid-center geometry model and input distributions, not measured assembly behavior.
+
+All 12 fixed-seed planetary baseline runs satisfy the bespoke encoded constraints; three meet the 0.526 acceptance threshold, an observed fraction of 0.25 with exact 95\% interval [0.055, 0.572], and the best objective is 0.525588660. Eleven runs stop at the iteration limit. These descriptive algorithm outcomes remain labeled pending independent conversion review and are not a population success probability.
+
+Replay evidence covers all 40 negative cases, hashes 262,440 tuple dispositions and 6,063 evaluated placements, and reproduces semantically from the separated solver briefs. Coordinated summary-and-hash corruption is rejected by replay.
+
+Across 12 independent train-select-test repetitions, robustness-trained selection yields a mean held-out modeled-acceptance difference of 0.003206 with a 95\% interval of [0.003051, 0.003362]. Sixty-one layouts are selected at least once across repetitions, exposing selection instability rather than conditioning on one realized set. The interval does not exceed the preregistered 0.005 threshold, so the primary tolerance-aware selection claim is not supported.
+
+\begin{table}[htbp]
+\centering
+\caption{Knowledge Ablation}
+\small
+\begin{tabular}{lllll}
+\textbf{Specification record} & \textbf{Competency accuracy} & \textbf{Registered-mutation detection} & \textbf{Exact localization} & \textbf{Descriptive implementation rule sites} \\
+\hline
+Typed executable specification & 1.000 & 1.000 & 1.000 & 1 \\
+Flat structure-only record & 1.000 & 0.000 & 0.000 & 0 \\
+Flat record with duplicated executable rules & 1.000 & 1.000 & 1.000 & 7 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Cae Qualification}
+\small
+\begin{tabular}{ll}
+\textbf{Elements} & \textbf{Maximum stress (MPa)} \\
+\hline
+240 & 92.354 \\
+528 & 112.520 \\
+960 & 121.453 \\
+2160 & 138.999 \\
+3840 & 161.561 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Assembly Robustness}
+\small
+\begin{tabular}{lll}
+\textbf{Shaft tolerance (mm)} & \textbf{0.002} & \textbf{0.005} \\
+\hline
+0.005 & 0.00496 & 0.02767 \\
+0.025 & 0.00001 & 0.00029 \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Planetary Baseline}
+\small
+\begin{tabular}{lllllll}
+\textbf{Fixed seeds} & \textbf{Constraint-valid} & \textbf{At threshold} & \textbf{Threshold fraction exact 95\% interval} & \textbf{Iteration-limit stops} & \textbf{Best objective} & \textbf{Conversion status} \\
+\hline
+12 & 12 & 3 & [0.055, 0.572] & 11 & 0.525588660 & pending-independent-review \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Replayable Negative Proofs}
+\small
+\begin{tabular}{llll}
+\textbf{Negative cases} & \textbf{Tuple dispositions hashed} & \textbf{Placements evaluated} & \textbf{Semantic replay} \\
+\hline
+40 & 262440 & 6063 & Pass \\
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Repeated Tolerance Aware Selection}
+\small
+\begin{tabular}{lllll}
+\textbf{Outer train-select-test repetitions} & \textbf{Mean probability difference} & \textbf{Outer-replicate 95\% CI} & \textbf{Required improvement} & \textbf{Supported} \\
+\hline
+12 & 0.00321 & [0.00305, 0.00336] & 0.00500 & No \\
+\end{tabular}
+\end{table}
+\begin{figure}[htbp]
+\centering
+\includesvg[inkscapelatex=false,width=\linewidth]{Figure_1.svg}
+\caption{Feasible recovery and negative-proof rate on the largest declared tooth domain across method-specific evaluation limits. Incomplete stochastic non-discoveries are unknown, not negative classifications.}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includesvg[inkscapelatex=false,width=\linewidth]{Figure_2.svg}
+\caption{Modeled-valid probability across preregistered positive center-distance allowances derived from transverse-backlash increments and shaft-location tolerances at zero housing erosion. Probabilities are digital-model outcomes, not measured manufacturing yield.}
+\end{figure}
+\section{Discussion}
+The main result is epistemic rather than a claim of universal optimizer speed. The workflow distinguishes candidate recovery, modeled validity, and proof of nonexistence. This distinction matters because a stochastic method can classify a negative case correctly without possessing evidence that the bounded space was exhausted.
+
+The specification-schema ablation supports a narrow informatics claim: executable rules make the registered mutations observable in this corpus, whereas a structure-only record does not. The rule-site counts are implementation descriptors. The certificate and artifact registries expose which model, data, and computation support each reported statement.
+
+The assembly study shows that nominal modeled validity does not imply robustness under the declared perturbation model. The positive center-distance allowance can admit separation within the specified small-displacement rule; it cannot repair contractions or arbitrary two-mesh error combinations. The outer-replicated selection difference is positive but sub-threshold and does not establish the preregistered algorithm-level benefit. Assembly offsets or tolerance margins must become explicit synthesis decisions before a tolerance-aware design claim is supportable.
+
+CP-SAT performs strongly on the declared algebraic family, but its near-constant process-dominated runtime should not be generalized beyond these small structured cases. Exact enumeration remains useful as an independent completeness reference. Learning is excluded from the primary contribution because the available policy experiments rank paths in constructed reference graphs and do not establish a requirements-first advantage.
+
+\section{Limitations}
+The primary design family is restricted to one three-shaft compound topology and planar external spur gears. Shafts, bearings, hubs, lubrication, dynamics, thermal behavior, contact stress, fatigue life, noise, and production tolerances are not jointly designed. The structural model failed qualification and supports no admission or strength conclusion.
+
+Most benchmark cases are authored rather than industrial. The planetary conversion is pending independent review. Runtime evidence comes from one recorded machine and fixed thread settings. Shaft errors use declared independent uniform distributions, housing tolerance is represented conservatively as clearance erosion, and no measured manufacturing distribution is available. The literature matrix is bounded by its documented cutoff and cannot establish universal priority. No physical experiment is part of the AEI claim.
+
+Accordingly, every accepted result is described only as valid under the declared kinematic, geometric, and digital evidence models.
+
+\section{Conclusions}
+GearRL demonstrates a fully digital engineering-informatics workflow in which requirements, executable domain knowledge, synthesis, independent adjudication, negative qualification results, and publication evidence remain machine traceable. The bounded study supports independently checkable positive and topology-bounded negative conclusions, demonstrates registered schema-mutation observability, and performs preregistered interaction analysis without converting modeled outcomes into manufacturing claims. It does not support structural, operational, external-validity, algorithm-level selection, or physical qualification claims.
+
+Future work should extend the canonical model to shafts, bearings, hubs, contact and fatigue standards, external industrial briefs, and broader topologies. Learning should be reconsidered only through a frozen requirements-first 30-seed protocol with validity preservation and a confidence interval exceeding the preregistered effect threshold.
+
+\section{Data Availability}
+The source code and versioned evidence bundles supporting this study are available in the GearRL repository at \url{https://github.com/mingwucn/GearRL}. A persistent archival dataset identifier must be added before submission.
+
+\section{Declaration of Generative AI and AI-Assisted Technologies in the Manuscript Preparation Process}
+During preparation of this work, the author used OpenAI Codex to assist with code implementation, evidence organization, and manuscript language. The author reviewed and edited the resulting content, independently checked the cited sources and computational evidence, and takes full responsibility for the content of the article. No generative AI was used to create or alter submitted scientific figures.
+
+\begin{thebibliography}{99}
+\bibitem{shai-2008}Combinatorial synthesis approach employing graph networks. Advanced Engineering Informatics (2008). https://doi.org/10.1016/j.aei.2007.08.003
+\bibitem{khorshid-2018}Application of constraint infeasibility detection methods in engineering design problems. Journal of Engineering, Design and Technology (2018). https://doi.org/10.1108/JEDT-03-2017-0026
+\bibitem{cicconi-2020}Integrating a constraint-based optimization approach into the design of oil \& gas structures. Advanced Engineering Informatics (2020). https://doi.org/10.1016/j.aei.2020.101129
+\bibitem{sacks-2020}Advanced Engineering Informatics: Philosophical and methodological foundations with examples from civil and construction engineering. Developments in the Built Environment (2020). https://doi.org/10.1016/j.dibe.2020.100020
+\bibitem{fuerst-2021}Automation of gearbox design. Forschung im Ingenieurwesen / Engineering Research (2021). https://doi.org/10.1007/s10010-021-00517-3
+\bibitem{hao-2021}Integrating and navigating engineering design decision-related knowledge using decision knowledge graph. Advanced Engineering Informatics (2021). https://doi.org/10.1016/j.aei.2021.101366
+\bibitem{bolognini-2022}Engineering knowledge formalization and proposition for informatics development towards a CAD-integrated DfX system for product design. Advanced Engineering Informatics (2022). https://doi.org/10.1016/j.aei.2022.101537
+\bibitem{fetanat-2023}Portia spider algorithm: an evolutionary computation approach for engineering application. Artificial Intelligence Review (2023). https://doi.org/10.1007/s10462-023-10683-1
+\bibitem{geng-2023}Topological Graph Representation and Configuration Synthesis for Power-Split Hybrid Transmissions of Multi-Planetary Gear Trains. Journal of Mechanical Design (2023). https://doi.org/10.1115/1.4063287
+\bibitem{lin-2023}When architecture meets AI: A deep reinforcement learning approach for system of systems design. Advanced Engineering Informatics (2023). https://doi.org/10.1016/j.aei.2023.101965
+\bibitem{wang-2023-formal}A hybrid approach to system verification in early design for complex mechatronic systems based on formal functional semantics. Advanced Engineering Informatics (2023). https://doi.org/10.1016/j.aei.2023.102201
+\bibitem{huang-2025}Knowledge graph-driven methodology for complex product architecture solution generation and simulation verification. Advanced Engineering Informatics (2025). https://doi.org/10.1016/j.aei.2025.103590
+\bibitem{pandey-2025}ALDRAW: Algorithmic engineering representations. Advanced Engineering Informatics (2025). https://doi.org/10.1016/j.aei.2025.103362
+\bibitem{kim-2026}Multi-objective macro-geometry optimization of a compound planetary geartrain for an electric tractor powertrain using NSGA-II. Scientific Reports (2026). https://doi.org/10.1038/s41598-026-43864-3
+\bibitem{sun-2026}Knowledge-driven automated design of industrial robots: A unified graph-based framework with multi-engine reasoning. Advanced Engineering Informatics (2026). https://doi.org/10.1016/j.aei.2025.103995
+\end{thebibliography}
+\end{document}

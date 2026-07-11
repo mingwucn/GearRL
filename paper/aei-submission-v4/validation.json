@@ -1,0 +1,56 @@
+{
+  "constraint_results": [
+    {
+      "constraint_id": "abstract-word-limit",
+      "limit": 250,
+      "observed": 239,
+      "passed": true
+    },
+    {
+      "constraint_id": "keyword-count",
+      "limit": [
+        1,
+        7
+      ],
+      "observed": 7,
+      "passed": true
+    },
+    {
+      "constraint_id": "highlight-count",
+      "limit": [
+        3,
+        5
+      ],
+      "observed": 5,
+      "passed": true
+    },
+    {
+      "constraint_id": "highlight-length",
+      "limit": 85,
+      "observed": 78,
+      "passed": true
+    },
+    {
+      "constraint_id": "figure-caption-coverage",
+      "limit": [
+        "assembly-robustness-response",
+        "solver-anytime-largest-domain"
+      ],
+      "observed": [
+        "assembly-robustness-response",
+        "solver-anytime-largest-domain"
+      ],
+      "passed": true
+    }
+  ],
+  "failed_constraints": [],
+  "metadata_blockers": [
+    "authors",
+    "corresponding_author",
+    "competing_interests_statement",
+    "funding_statement",
+    "archival_dataset_identifier"
+  ],
+  "package_ready": false,
+  "schema_version": "aei-submission-validation-v1"
+}
