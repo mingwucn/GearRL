@@ -1,35 +1,37 @@
-# GearRL: Reinforcement Learning for Gear System Design
+# GearRL: Certified Gear-Train Synthesis Research Platform
 
-GearRL is an integrated system that generates optimized gear layouts from input images and constraints using reinforcement learning.
+GearRL develops reproducible synthesis and validation workflows for planar,
+external-spur compound gear trains. The certified model checks full-train signed
+speed ratio, mesh center distances, axial layers, boundary clearance,
+interference, and optional in-house plane-stress tooth-root screening.
 
-## System Overview
-- **Preprocessing**: Converts input images/constraints to normalized geometry
-- **Pathfinding**: Identifies optimal gear placement paths
-- **Gear Generation**: Creates gear systems using RL optimization
-- **Physics Validation**: Ensures mechanical feasibility
-- **Visualization**: Renders final designs
+## Environment
 
-## Installation
+Create or update the required research environment:
+
 ```bash
-pip install -r requirements.txt
+conda env update -n ai -f environment-ai.yml
 ```
 
-## Usage
-To generate a gear system from input files:
+## Certified Benchmark Workflow
+
+Run the deterministic certified baseline. Each run writes a UUID-backed bundle
+with a manifest, raw per-instance results, and independent certificates:
+
 ```bash
-python main.py --input_name Example1
+conda run -n ai python main.py --seed 2026 --count 100 --output-root artifacts/runs
 ```
 
-### Input Requirements
-1. `data/{input_name}.png` - Input image (PNG format)
-2. `data/{input_name}_constraints.json` - Design constraints
+The primary research plan is documented in `TOP_JOURNAL_RESEARCH_PLAN.md`.
 
-### Outputs
-Results are saved to:
-- `outputs/{input_name}/system.json` - Final system definition
-- `outputs/{input_name}/system.png` - Visualization
+## Verification
 
-## Testing
-Run integration tests:
 ```bash
-pytest tests/integration
+conda run -n ai pytest -q
+```
+
+For the full frozen protocol, including the 400-instance mixed benchmark:
+
+```bash
+scripts/reproduce_certified_run.sh
+```

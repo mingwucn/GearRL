@@ -4,6 +4,7 @@ Calculate maximum possible gear sizes for Example1 shafts.
 """
 
 import sys
+import json
 sys.path.append('.')
 
 from physics_validator.fixed_validator import FixedPhysicsValidator
@@ -12,13 +13,15 @@ def calculate_max_gear_sizes():
     # Load system data
     with open('data/intermediate/Example1_processed.json', 'r') as f:
         data = json.load(f)['normalized_space']
-    
+
     with open('data/Example1_constraints.json', 'r') as f:
         constraint_data = json.load(f)
     
-    boundary_points = [FixedPhysicsValidator._is_point_in_polygon.__globals__['Point'](p[0], p[1]) for p in data['boundaries']]
-    input_shaft = FixedPhysicsValidator._is_point_in_polygon.__globals__['Point'](data['input_shaft']['x'], data['input_shaft']['y'])
-    output_shaft = FixedPhysicsValidator._is_point_in_polygon.__globals__['Point'](data['output_shaft']['x'], data['output_shaft']['y'])
+    from common.data_models import Point
+
+    boundary_points = [Point(p[0], p[1]) for p in data['boundaries']]
+    input_shaft = Point(data['input_shaft']['x'], data['input_shaft']['y'])
+    output_shaft = Point(data['output_shaft']['x'], data['output_shaft']['y'])
     
     margin = constraint_data['boundary_margin']
     

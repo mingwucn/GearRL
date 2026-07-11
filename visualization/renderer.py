@@ -1,3 +1,6 @@
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Circle
 from typing import List, Tuple, Dict, Any
@@ -8,12 +11,14 @@ import os
 
 class Renderer:
     @staticmethod
-    def render_system(system: SystemDefinition, output_path: str, 
+    def render_system(system: SystemDefinition, output_path: str,
                       path: List[Tuple[float, float]] = None, 
                       gears: List[Gear] = None) -> None:
         """
         Render a gear system, including outlines of generated gears and their IDs.
         """
+        if len(system.boundary.points) < 3:
+            raise ValueError("Rendering requires a boundary with at least three points")
         fig, ax = plt.subplots(figsize=(12, 12))
         
         # Plot boundary polygon
@@ -40,23 +45,17 @@ class Renderer:
                 # Add a dot for the center of the gear set
                 ax.plot(gear.center.x, gear.center.y, 'ko', markersize=3)
 
-                # Add the gear ID text annotation on the edge of the largest circle
-                # Place text at a 45-degree angle from the center
-                angle_rad = np.deg2rad(45)
-                text_x = gear.center.x + (largest_radius + 1.0) * np.cos(angle_rad) # Small offset
-                text_y = gear.center.y - (largest_radius + 1.0) * np.sin(angle_rad) # Y is inverted
-                ax.text(text_x, text_y, gear.id, fontsize=9, ha='center', va='center', color='darkgreen')
 
         # Plot input and output shafts
-        ax.plot(system.input_shaft.x, system.input_shaft.y, 'ro', markersize=10, label='Input Shaft')
-        ax.plot(system.output_shaft.x, system.output_shaft.y, 'bo', markersize=10, label='Output Shaft')
+        ax.plot(system.input_shaft.x, system.input_shaft.y, 'ro', markersize=10)
+        ax.plot(system.output_shaft.x, system.output_shaft.y, 'bo', markersize=10)
         
         # Plot path if provided
         if path:
             # print(path)
             path_x = [p.x for p in path]
             path_y = [p.y for p in path]
-            ax.plot(path_x, path_y, 'm-', linewidth=1, alpha=0.7, label='Path')
+            ax.plot(path_x, path_y, 'm-', linewidth=1, alpha=0.7)
         
         # Set plot properties
         all_x = [p[0] for p in boundary_points]
@@ -66,11 +65,11 @@ class Renderer:
         ax.invert_yaxis()
         ax.set_aspect('equal')
         ax.grid(True)
-        ax.legend()
-        ax.set_title('Gear System Visualization')
+        ax.set_xticks([])
+        ax.set_yticks([])
         
-        plt.savefig(output_path, bbox_inches='tight', dpi=300)
-        plt.close()
+        fig.savefig(output_path, bbox_inches='tight', dpi=150)
+        plt.close(fig)
 
     @staticmethod
     def render_processed_data(processed_data_path: str, output_path: str, 
@@ -114,14 +113,14 @@ class Renderer:
         ax.add_patch(boundary_poly)
 
         # Plot input and output shafts
-        ax.plot(input_shaft[0], input_shaft[1], 'ro', markersize=10, label='Input Shaft')
-        ax.plot(output_shaft[0], output_shaft[1], 'bo', markersize=10, label='Output Shaft')
+        ax.plot(input_shaft[0], input_shaft[1], 'ro', markersize=10)
+        ax.plot(output_shaft[0], output_shaft[1], 'bo', markersize=10)
 
         # print(path)
         # Plot path
         path_x = [p[0] for p in path]
         path_y = [p[1] for p in path]
-        ax.plot(path_x, path_y, 'm-', linewidth=2, label='Path')
+        ax.plot(path_x, path_y, 'm-', linewidth=2)
 
         # Set plot properties
         all_x = [p[0] for p in boundary_points]
@@ -133,11 +132,11 @@ class Renderer:
         ax.invert_yaxis()
         ax.set_aspect('equal')
         ax.grid(True)
-        ax.legend()
-        ax.set_title('Path Visualization')
+        ax.set_xticks([])
+        ax.set_yticks([])
 
-        plt.savefig(output_path, bbox_inches='tight', dpi=300)
-        plt.close()
+        fig.savefig(output_path, bbox_inches='tight', dpi=150)
+        plt.close(fig)
 
 if __name__ == "__main__":
     fn = 'Example1'

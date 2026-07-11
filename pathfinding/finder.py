@@ -5,9 +5,13 @@ from typing import List, Tuple, Dict, Any
 
 class Pathfinder:
     def find_path(self, processed_data_path, margin=5.0, step_size=0.5):
-        # Your working shortest path method
         with open(processed_data_path, 'r') as f:
-            data = json.load(f)['normalized_space']
+            raw_data = json.load(f)
+        # Support the canonical normalized-space payload and the compact
+        # obstacle fixture format used by standalone geometry tests.
+        if 'normalized_space' not in raw_data:
+            return self._find_obstacle_path(raw_data, step_size)
+        data = raw_data['normalized_space']
         boundaries, start_node, end_node = self._load_data(data)
         if not self._is_valid(start_node, boundaries, margin): return None
         if not self._is_valid(end_node, boundaries, margin): return None
@@ -29,6 +33,58 @@ class Pathfinder:
                     f_score = tentative_g_score + self._distance(neighbor, end_node)
                     heappush(open_set, (f_score, neighbor))
         return None
+
+    def _find_obstacle_path(self, data, step_size):
+        start = tuple(data['input_shaft'])
+        goal = tuple(data['output_shaft'])
+        obstacles = [[tuple(point) for point in obstacle] for obstacle in data.get('boundaries', [])]
+        if any(self._point_in_polygon(start, obstacle) or self._point_in_polygon(goal, obstacle) for obstacle in obstacles):
+            return None
+        if not obstacles:
+            return [list(start), list(goal)]
+        min_x = min([start[0], goal[0]] + [point[0] for obstacle in obstacles for point in obstacle]) - 2.0
+        max_x = max([start[0], goal[0]] + [point[0] for obstacle in obstacles for point in obstacle]) + 2.0
+        min_y = min([start[1], goal[1]] + [point[1] for obstacle in obstacles for point in obstacle]) - 2.0
+        max_y = max([start[1], goal[1]] + [point[1] for obstacle in obstacles for point in obstacle]) + 2.0
+        open_set = [(0.0, start)]
+        parent = {}
+        scores = {start: 0.0}
+        while open_set:
+            _, current = heappop(open_set)
+            if self._distance(current, goal) <= step_size:
+                return self._reconstruct_generic_path(parent, current, goal)
+            for dx, dy in ((-step_size, 0), (step_size, 0), (0, -step_size), (0, step_size), (-step_size, -step_size), (-step_size, step_size), (step_size, -step_size), (step_size, step_size)):
+                neighbor = (round(current[0] + dx, 6), round(current[1] + dy, 6))
+                if not min_x <= neighbor[0] <= max_x or not min_y <= neighbor[1] <= max_y:
+                    continue
+                if any(self._point_in_polygon(neighbor, obstacle) for obstacle in obstacles):
+                    continue
+                tentative = scores[current] + self._distance(current, neighbor)
+                if tentative < scores.get(neighbor, float('inf')):
+                    parent[neighbor] = current
+                    scores[neighbor] = tentative
+                    heappush(open_set, (tentative + self._distance(neighbor, goal), neighbor))
+        return None
+
+    @staticmethod
+    def _point_in_polygon(point, polygon):
+        inside = False
+        for index, first in enumerate(polygon):
+            second = polygon[(index + 1) % len(polygon)]
+            if (first[1] > point[1]) != (second[1] > point[1]):
+                crossing = (second[0] - first[0]) * (point[1] - first[1]) / (second[1] - first[1]) + first[0]
+                if point[0] < crossing:
+                    inside = not inside
+        return inside
+
+    @staticmethod
+    def _reconstruct_generic_path(parent, current, goal):
+        path = [list(goal), list(current)]
+        while current in parent:
+            current = parent[current]
+            path.append(list(current))
+        path.reverse()
+        return path
 
     def find_centerline_path(self, processed_data_path: str, step_size: float = 0.1, smoothing_iterations: int = 500, smoothing_amount: float = 0.2) -> Dict[str, Any] | None:
         """

@@ -1,0 +1,23 @@
+name: GearRL Certified Research Checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: ai
+          environment-file: environment-ai.yml
+          python-version: "3.11"
+          auto-activate-base: false
+      - name: Run regression suite
+        shell: bash -l {0}
+        run: pytest -q
+      - name: Run certified benchmark smoke test
+        shell: bash -l {0}
+        run: python main.py --seed 2026 --count 5 --infeasible-count 2 --output-root /tmp/gearrl-ci-runs

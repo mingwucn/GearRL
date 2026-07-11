@@ -149,6 +149,12 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Generated research runs, checkpoints, and CAD/CAE artifacts.
+artifacts/
+models/
+output*/
+data/benchmark/generated/
+
 # Environments
 .env
 .venv

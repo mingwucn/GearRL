@@ -31,11 +31,23 @@ class GearFactory:
         # 3. Create the gear using the valid, integer tooth count
         return self.create_gear(gear_id, center, actual_teeth)
 
-    def create_gear(self, gear_id: str, center: tuple[float, float], num_teeth: int | list[int]):
+    def create_gear(self, gear_id, center=None, num_teeth: int | list[int] | None = None):
         """
         Creates a gear set. Accepts a single int for a simple gear or a
         list of ints for a compound gear.
         """
+        # Legacy form: create_gear(Point(...), tooth_count).
+        if isinstance(gear_id, Point):
+            if not isinstance(center, int) or num_teeth is not None:
+                raise TypeError("Legacy create_gear expects (Point, tooth_count)")
+            if center < 8:
+                raise ValueError("Gear must have at least 8 teeth")
+            if center > 200:
+                raise ValueError("Gear cannot have more than 200 teeth")
+            return Gear(center=gear_id, teeth=center, module=self._legacy_module_for_teeth(center))
+        if center is None or num_teeth is None:
+            raise TypeError("create_gear expects (gear_id, center, num_teeth)")
+
         # Ensure we are always working with a list for consistent processing.
         teeth_list = [num_teeth] if isinstance(num_teeth, int) else num_teeth
 
@@ -51,6 +63,18 @@ class GearFactory:
         
         # Pass the Point object to the constructor
         return GearSet(id=gear_id, center=center_point, teeth_count=teeth_list, module=self.module)
+
+    @staticmethod
+    def _legacy_module_for_teeth(teeth: int) -> float:
+        if teeth <= 20:
+            return 0.75
+        if teeth <= 40:
+            return 1.0
+        if teeth <= 60:
+            return 1.25
+        if teeth <= 80:
+            return 1.5
+        return 2.0
 
     def get_meshing_distance(self, num_teeth1: int, num_teeth2: int) -> float:
         """Calculates the required center-to-center distance for two gears to mesh."""

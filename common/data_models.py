@@ -5,11 +5,12 @@ import numpy as np
 
 @dataclass
 class Constraints:
-    torque_ratio: str
-    mass_space_ratio: float
-    boundary_margin: float
-    min_gear_size: int
-    max_gear_size: int
+    torque_ratio: str = "free"
+    mass_space_ratio: float = 0.0
+    boundary_margin: float = 0.0
+    min_gear_size: int = 8
+    max_gear_size: int = 200
+    boundary: Optional["Boundary"] = None
 
     @classmethod
     def from_json(cls, json_data: Dict) -> "Constraints":
@@ -41,6 +42,16 @@ class Point:
 @dataclass
 class Boundary:
     points: List[Point]
+
+    def __init__(self, points: Optional[List[Point]] = None, vertices: Optional[Tuple[Point, ...]] = None):
+        if points is not None and vertices is not None:
+            raise ValueError("Provide either points or vertices, not both")
+        self.points = list(points if points is not None else (vertices or ()))
+
+    @property
+    def vertices(self) -> Tuple[Point, ...]:
+        """Legacy alias retained for obstacle-loading clients."""
+        return tuple(self.points)
 
     @classmethod
     def from_json(cls, json_data: List[Dict]) -> "Boundary":
@@ -100,12 +111,15 @@ class SystemDefinition:
 class ValidationReport:
     is_valid: bool
     errors: List[str] = field(default_factory=list)
+    torque_ratio: Optional[float] = None
+    space_usage: float = 0.0
+    total_mass: float = 0.0
     
     def to_json(self) -> Dict:
         return asdict(self)
 
 
-@dataclass
+@dataclass(init=False)
 class Gear:
     """
     Represents a gear set on a single shaft. Can be a simple gear (one
@@ -119,11 +133,38 @@ class Gear:
     # The diameters list is calculated automatically after initialization
     diameters: List[float] = field(init=False, repr=True)
 
+    def __init__(
+        self,
+        center: Point,
+        teeth: Optional[int] = None,
+        module: float = 1.0,
+        id: Optional[str] = None,
+        teeth_count: Optional[List[int]] = None,
+    ):
+        """Accept both simple legacy and compound gear construction forms."""
+        if teeth is not None and teeth_count is not None:
+            raise ValueError("Provide either teeth or teeth_count, not both")
+        self.id = id or "gear"
+        self.center = center
+        self.teeth_count = [teeth] if teeth is not None else list(teeth_count or [])
+        self.module = module
+        self.__post_init__()
+
     def __post_init__(self):
         """Calculates derived properties after the object is created."""
         if not self.teeth_count:
             raise ValueError("Gear must have at least one teeth count.")
+        if self.module <= 0 or any(teeth <= 0 for teeth in self.teeth_count):
+            raise ValueError("Gear module and tooth counts must be positive.")
         self.diameters = [teeth * self.module for teeth in self.teeth_count]
+
+    @property
+    def teeth(self) -> int:
+        return self.teeth_count[0]
+
+    @property
+    def diameter(self) -> float:
+        return self.diameters[0]
 
     @property
     def driven_diameter(self) -> float:
@@ -149,20 +190,23 @@ class Gear:
         teeth_list = [teeth_input] if isinstance(teeth_input, int) else teeth_input
 
         return cls(
-            id=json_data["id"],
             center=Point.from_json(json_data["center"]),
+            id=json_data.get("id"),
             teeth_count=teeth_list,
             module=json_data["module"]
         )
 
     def to_json(self) -> Dict[str, Any]:
         """Serializes the Gear object to a JSON-compatible dictionary."""
-        return {
+        result = {
             "id": self.id,
             "center": self.center.to_json(),
             "teeth_count": self.teeth_count,
             "module": self.module
         }
+        if len(self.teeth_count) == 1:
+            result["teeth"] = self.teeth
+        return result
 
 
 @dataclass

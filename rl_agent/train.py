@@ -9,7 +9,8 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from geometry_env.env import GearEnv
-from rl_agent.agents.ppo_agent import PPOAgent 
+from rl_agent.agents.ppo_agent import PPOAgent
+from rl_agent.reward import compute_reward
 
 def main():
     parser = argparse.ArgumentParser(description='Train RL agent for gear train generation')

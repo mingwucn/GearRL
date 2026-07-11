@@ -45,8 +45,6 @@ def main():
     print(f"   Created simple gear: {simple_gear.teeth_count[0]} teeth")
     
     compound_gear = generator.create_compound_gear("intermediate", Point(30, 40), [20, 15])
-        driving_teeth=15
-    )
     print(f"   Created compound gear: {compound_gear.teeth_count} teeth counts")
     
     # 3. Use data model skills
