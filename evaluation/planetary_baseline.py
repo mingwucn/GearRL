@@ -9,6 +9,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.optimize import differential_evolution
+from scipy.stats import beta
 
 from benchmark.planetary_external import (
     PlanetaryGearCandidate,
@@ -109,6 +110,39 @@ class PlanetaryBaselineResult:
         )
 
 
+class PlanetaryRunOutcomeAnalyzer:
+    """Summarize fixed-seed outcomes without treating seeds as design samples."""
+
+    @staticmethod
+    def _clopper_pearson(successes: int, trials: int, alpha: float = 0.05) -> list[float]:
+        if trials < 1 or not 0 <= successes <= trials:
+            raise ValueError("Invalid binomial outcome counts")
+        lower = 0.0 if successes == 0 else float(beta.ppf(alpha / 2, successes, trials - successes + 1))
+        upper = 1.0 if successes == trials else float(beta.ppf(1 - alpha / 2, successes + 1, trials - successes))
+        return [lower, upper]
+
+    def analyze(self, protocol: PlanetaryBaselineProtocol, results: tuple[PlanetaryBaselineResult, ...]) -> dict:
+        trials = len(results)
+        valid = sum(result.evaluation.valid for result in results)
+        threshold = sum(
+            result.evaluation.valid and result.evaluation.objective <= protocol.objective_acceptance_threshold
+            for result in results
+        )
+        terminated = sum(result.optimizer_success for result in results)
+        return {
+            "fixed_seed_run_count": trials,
+            "valid_run_count": valid,
+            "valid_run_fraction": valid / trials,
+            "valid_run_fraction_exact_95_interval": self._clopper_pearson(valid, trials),
+            "threshold_run_count": threshold,
+            "threshold_run_fraction": threshold / trials,
+            "threshold_run_fraction_exact_95_interval": self._clopper_pearson(threshold, trials),
+            "optimizer_success_count": terminated,
+            "iteration_limit_count": trials - terminated,
+            "interpretation": "Descriptive fixed-seed algorithm outcomes; not a population success probability",
+        }
+
+
 class PlanetaryDifferentialEvolutionBaseline:
     def __init__(self) -> None:
         self._decoder = PlanetaryDecisionDecoder()
@@ -156,6 +190,7 @@ class PlanetaryBaselineEvidenceStore:
         if destination.exists() and any(destination.iterdir()):
             raise FileExistsError("Planetary baseline destination must be empty")
         destination.mkdir(parents=True, exist_ok=True)
+        outcome_analysis = PlanetaryRunOutcomeAnalyzer().analyze(protocol, results)
         payload = {
             "schema_version": "planetary-baseline-summary-v1",
             "study_id": protocol.study_id,
@@ -165,6 +200,7 @@ class PlanetaryBaselineEvidenceStore:
             "valid_run_count": sum(result.evaluation.valid for result in results),
             "threshold_run_count": sum(result.evaluation.valid and result.evaluation.objective <= protocol.objective_acceptance_threshold for result in results),
             "best_valid_objective": min((result.evaluation.objective for result in results if result.evaluation.valid), default=None),
+            "fixed_seed_outcome_analysis": outcome_analysis,
             "conversion_status": "pending-independent-review",
         }
         summary_bytes = self._encode(payload)

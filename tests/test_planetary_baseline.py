@@ -10,6 +10,7 @@ from evaluation.planetary_baseline import (
     PlanetaryBaselineEvidenceStore,
     PlanetaryBaselineProtocolLoader,
     PlanetaryBaselineResult,
+    PlanetaryRunOutcomeAnalyzer,
     PlanetaryDecisionDecoder,
     PlanetaryDifferentialEvolutionBaseline,
 )
@@ -40,6 +41,19 @@ def test_planetary_result_round_trip() -> None:
     protocol = replace(PlanetaryBaselineProtocolLoader().load(PROTOCOL), population_multiplier=4, maximum_iterations=2)
     result = PlanetaryDifferentialEvolutionBaseline().solve(PublishedPlanetaryGearBrief(), protocol, 11)
     assert PlanetaryBaselineResult.from_json(result.to_json()) == result
+
+
+def test_planetary_outcome_analysis_reports_exact_interval_and_termination() -> None:
+    protocol = replace(PlanetaryBaselineProtocolLoader().load(PROTOCOL), seeds=(11, 12), population_multiplier=4, maximum_iterations=2)
+    solver = PlanetaryDifferentialEvolutionBaseline()
+    results = tuple(solver.solve(PublishedPlanetaryGearBrief(), protocol, seed) for seed in protocol.seeds)
+
+    analysis = PlanetaryRunOutcomeAnalyzer().analyze(protocol, results)
+
+    assert analysis["fixed_seed_run_count"] == 2
+    assert len(analysis["threshold_run_fraction_exact_95_interval"]) == 2
+    assert analysis["optimizer_success_count"] + analysis["iteration_limit_count"] == 2
+    assert "not a population success probability" in analysis["interpretation"]
 
 
 def test_planetary_batch_merger_requires_exact_seed_coverage(tmp_path: Path) -> None:
