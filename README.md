@@ -118,8 +118,10 @@ conda run -n ai make paper-verify
 ```
 
 The frozen bundle is stored at `paper/generated-v1`. Its registry maps each
-table to the exact solver, CAE, uncertainty, or strength-coupling evidence files
-used to generate it. This verifies reporting provenance; the underlying
+table and vector figure to the exact solver, CAE, uncertainty, or
+strength-coupling evidence files used to generate it. Figures use a structured,
+backend-independent SVG renderer so clean reproduction does not depend on a
+host font rasterizer. This verifies reporting provenance; the underlying
 scientific experiments retain their separate commands and manifests.
 
 For the full frozen protocol, including the 400-instance mixed benchmark:

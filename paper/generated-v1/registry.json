@@ -1,6 +1,71 @@
 {
-  "generation_policy": "deterministic evidence-only Markdown; no manually supplied metrics",
-  "schema_version": "publication-artifact-registry-v1",
+  "figures": [
+    {
+      "figure_id": "load-total-order-sensitivity",
+      "output": "figures/load-total-order-sensitivity.svg",
+      "output_sha256": "455aad1216a64b2fee7622329e82c3fb165f82e695ab82999833e8b19960ec1e",
+      "sources": [
+        {
+          "path": "data/results/load-uncertainty-v1/manifest.json",
+          "sha256": "f2f1fb8aa4f607a28337fc64e38ebb55749bc265555e96ee17d071bbdd6318e1",
+          "source_id": "load-uncertainty-v1-manifest"
+        },
+        {
+          "path": "data/results/load-uncertainty-v1/results.json",
+          "sha256": "71c04383a602d591729299c8218ac2943afd3f8a49ddad638288f3dd3042d208",
+          "source_id": "load-uncertainty-v1-results"
+        }
+      ]
+    },
+    {
+      "figure_id": "material-failure-probability",
+      "output": "figures/material-failure-probability.svg",
+      "output_sha256": "d04d4e3ac2668cd290a93e008148608badaf5f8fe920256b80a1f80c5e34a5a4",
+      "sources": [
+        {
+          "path": "data/results/load-uncertainty-v1/manifest.json",
+          "sha256": "f2f1fb8aa4f607a28337fc64e38ebb55749bc265555e96ee17d071bbdd6318e1",
+          "source_id": "load-uncertainty-v1-manifest"
+        },
+        {
+          "path": "data/results/load-uncertainty-v1/results.json",
+          "sha256": "71c04383a602d591729299c8218ac2943afd3f8a49ddad638288f3dd3042d208",
+          "source_id": "load-uncertainty-v1-results"
+        }
+      ]
+    },
+    {
+      "figure_id": "solver-runtime-candidates",
+      "output": "figures/solver-runtime-candidates.svg",
+      "output_sha256": "9ac93a0d24e6382da6a96bb83ee130a2f5f5a7121b0a69fee64ccdb13eea3a6f",
+      "sources": [
+        {
+          "path": "data/results/requirements-comparison-v2/adjudication.json",
+          "sha256": "d95da151562709e0af6d19cf3a442c26215940fe6b5b8d44f1f22a341f5225f8",
+          "source_id": "requirements-comparison-adjudication-v2"
+        }
+      ]
+    },
+    {
+      "figure_id": "strength-coupling-outcomes",
+      "output": "figures/strength-coupling-outcomes.svg",
+      "output_sha256": "3fa5b87178a4baf5fea06455eb5b094c88cf62fc39a2000c1aa4fbb451c47dcd",
+      "sources": [
+        {
+          "path": "data/results/strength-coupled-v1/manifest.json",
+          "sha256": "be2ff0b240c8923a3c30d0fae1cb9d8a293e84caa81af62cdc9956fefeb5fa00",
+          "source_id": "strength-coupled-v1-manifest"
+        },
+        {
+          "path": "data/results/strength-coupled-v1/summary.json",
+          "sha256": "23d8b8a6eebc3fe69085e5207446ecae57470cd7e6078dc01a56846b2b70c9e0",
+          "source_id": "strength-coupled-v1-summary"
+        }
+      ]
+    }
+  ],
+  "generation_policy": "deterministic evidence-only tables and figures; no manually supplied metrics",
+  "schema_version": "publication-artifact-registry-v2",
   "tables": [
     {
       "output": "tables/cae-verification.md",

@@ -159,7 +159,7 @@ class PublicationArtifactRegistry:
     def _encode(value) -> bytes:
         return (json.dumps(value, indent=2, sort_keys=True) + "\n").encode()
 
-    def build(self, output: Path, tables: tuple[PublicationTable, ...]) -> Path:
+    def build(self, output: Path, tables: tuple[PublicationTable, ...], figures=()) -> Path:
         if output.exists() and any(output.iterdir()):
             raise FileExistsError("Publication artifact destination must be empty")
         if not tables or len({table.table_id for table in tables}) != len(tables):
@@ -179,10 +179,28 @@ class PublicationArtifactRegistry:
                     "sources": [source.record() for source in table.sources],
                 }
             )
+        figure_root = output / "figures"
+        figure_root.mkdir(parents=True, exist_ok=True)
+        figure_records = []
+        if len({figure.figure_id for figure in figures}) != len(figures):
+            raise ValueError("Publication figure IDs must be unique")
+        for figure in sorted(figures, key=lambda item: item.figure_id):
+            payload = figure.render()
+            destination = figure_root / f"{figure.figure_id}.svg"
+            destination.write_bytes(payload)
+            figure_records.append(
+                {
+                    "figure_id": figure.figure_id,
+                    "output": str(destination.relative_to(output)),
+                    "output_sha256": sha256(payload).hexdigest(),
+                    "sources": [source.record() for source in figure.sources],
+                }
+            )
         manifest = {
-            "schema_version": "publication-artifact-registry-v1",
-            "generation_policy": "deterministic evidence-only Markdown; no manually supplied metrics",
+            "schema_version": "publication-artifact-registry-v2",
+            "generation_policy": "deterministic evidence-only tables and figures; no manually supplied metrics",
             "tables": records,
+            "figures": figure_records,
         }
         path = output / "registry.json"
         path.write_bytes(self._encode(manifest))
@@ -190,15 +208,19 @@ class PublicationArtifactRegistry:
 
     def verify(self, root: Path) -> dict:
         registry = json.loads((root / "registry.json").read_text())
-        if registry["schema_version"] != "publication-artifact-registry-v1":
+        if registry["schema_version"] != "publication-artifact-registry-v2":
             raise ValueError("Unsupported publication registry schema")
-        for table in registry["tables"]:
-            output = root / table["output"]
-            if sha256(output.read_bytes()).hexdigest() != table["output_sha256"]:
-                raise ValueError(f"Publication table hash mismatch: {table['table_id']}")
-            for source in table["sources"]:
-                if sha256(Path(source["path"]).read_bytes()).hexdigest() != source["sha256"]:
-                    raise ValueError(f"Publication source hash mismatch: {source['source_id']}")
+        for kind, records, identifier in (
+            ("table", registry["tables"], "table_id"),
+            ("figure", registry["figures"], "figure_id"),
+        ):
+            for record in records:
+                output = root / record["output"]
+                if sha256(output.read_bytes()).hexdigest() != record["output_sha256"]:
+                    raise ValueError(f"Publication {kind} hash mismatch: {record[identifier]}")
+                for source in record["sources"]:
+                    if sha256(Path(source["path"]).read_bytes()).hexdigest() != source["sha256"]:
+                        raise ValueError(f"Publication source hash mismatch: {source['source_id']}")
         return registry
 
 
@@ -208,11 +230,11 @@ class PublicationReproducer:
     def __init__(self, registry: PublicationArtifactRegistry):
         self._registry = registry
 
-    def verify_reproduction(self, frozen: Path, tables: tuple[PublicationTable, ...]) -> None:
+    def verify_reproduction(self, frozen: Path, tables: tuple[PublicationTable, ...], figures=()) -> None:
         self._registry.verify(frozen)
         with TemporaryDirectory(prefix="gearrl-paper-") as temporary:
             generated = Path(temporary)
-            self._registry.build(generated, tables)
+            self._registry.build(generated, tables, figures)
             frozen_files = {path.relative_to(frozen): path.read_bytes() for path in frozen.rglob("*") if path.is_file()}
             generated_files = {path.relative_to(generated): path.read_bytes() for path in generated.rglob("*") if path.is_file()}
             if frozen_files != generated_files:

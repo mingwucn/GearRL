@@ -14,6 +14,12 @@ from reporting.artifact_registry import (
     SolverComparisonTable,
     StrengthCouplingTable,
 )
+from reporting.publication_figures import (
+    FailureProbabilityFigure,
+    SensitivityIndicesFigure,
+    SolverComparisonFigure as SolverComparisonPlot,
+    StrengthCouplingFigure,
+)
 
 
 class AEIPublicationTableFactory:
@@ -37,6 +43,22 @@ class AEIPublicationTableFactory:
         )
 
 
+class AEIPublicationFigureFactory:
+    """Declare the complete evidence-derived AEI figure set."""
+
+    def create(self):
+        uncertainty_manifest = Path("data/results/load-uncertainty-v1/manifest.json")
+        uncertainty_results = Path("data/results/load-uncertainty-v1/results.json")
+        strength_manifest = Path("data/results/strength-coupled-v1/manifest.json")
+        strength_summary = Path("data/results/strength-coupled-v1/summary.json")
+        return (
+            SolverComparisonPlot(Path("data/results/requirements-comparison-v2/adjudication.json")),
+            FailureProbabilityFigure(uncertainty_manifest, uncertainty_results),
+            SensitivityIndicesFigure(uncertainty_manifest, uncertainty_results),
+            StrengthCouplingFigure(strength_manifest, strength_summary),
+        )
+
+
 class PublicationArtifactCommand:
     def run(self) -> None:
         parser = argparse.ArgumentParser(description=__doc__)
@@ -46,10 +68,11 @@ class PublicationArtifactCommand:
         arguments = parser.parse_args()
         registry = PublicationArtifactRegistry()
         tables = AEIPublicationTableFactory().create()
+        figures = AEIPublicationFigureFactory().create()
         if arguments.output:
-            print(registry.build(arguments.output, tables))
+            print(registry.build(arguments.output, tables, figures))
         else:
-            PublicationReproducer(registry).verify_reproduction(arguments.verify, tables)
+            PublicationReproducer(registry).verify_reproduction(arguments.verify, tables, figures)
             print(f"Verified byte-identical publication bundle: {arguments.verify}")
 
 
