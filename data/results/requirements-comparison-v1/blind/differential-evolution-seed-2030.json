@@ -1,0 +1,1207 @@
+{
+  "prediction_count": 50,
+  "records": [
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-01",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10693768784403801,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-02",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.1064499756321311,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-03",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10698645748198032,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-04",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10712421033531427,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-05",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10703337378799915,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-06",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.1066399747505784,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-07",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10652685631066561,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-08",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 87,
+      "predicted_feasible": false,
+      "runtime_s": 0.10620149224996567,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-09",
+      "parameter_tuples_evaluated": 1098,
+      "placements_evaluated": 122,
+      "predicted_feasible": false,
+      "runtime_s": 0.07993784081190825,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "boundary-none-10",
+      "parameter_tuples_evaluated": 1433,
+      "placements_evaluated": 114,
+      "predicted_feasible": false,
+      "runtime_s": 0.12592665944248438,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-01",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10726345516741276,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-02",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10636628326028585,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-03",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10700887907296419,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-04",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10689041297882795,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-05",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10659146588295698,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-06",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10694305878132582,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-07",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10682298894971609,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-08",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.1070176362991333,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-09",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 88,
+      "predicted_feasible": false,
+      "runtime_s": 0.10722881276160479,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "obstacle-none-10",
+      "parameter_tuples_evaluated": 1221,
+      "placements_evaluated": 87,
+      "predicted_feasible": false,
+      "runtime_s": 0.10698725935071707,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-01",
+      "parameter_tuples_evaluated": 2496,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.2210705140605569,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-02",
+      "parameter_tuples_evaluated": 1477,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.22892170771956444,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-03",
+      "parameter_tuples_evaluated": 1352,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.24666588194668293,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-04",
+      "parameter_tuples_evaluated": 1694,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.13078496046364307,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-05",
+      "parameter_tuples_evaluated": 1603,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.13113631308078766,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-06",
+      "parameter_tuples_evaluated": 1482,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.233753920532763,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-07",
+      "parameter_tuples_evaluated": 980,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.2429116563871503,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-08",
+      "parameter_tuples_evaluated": 1364,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.24171343445777893,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-09",
+      "parameter_tuples_evaluated": 1405,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.17118225060403347,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "ratio-none-10",
+      "parameter_tuples_evaluated": 1542,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.2365188803523779,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-01",
+      "parameter_tuples_evaluated": 845,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.0731050418689847,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-02",
+      "parameter_tuples_evaluated": 919,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.25076639745384455,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-03",
+      "parameter_tuples_evaluated": 817,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.07752446737140417,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-04",
+      "parameter_tuples_evaluated": 861,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.24955877847969532,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-05",
+      "parameter_tuples_evaluated": 861,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.2504610475152731,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-06",
+      "parameter_tuples_evaluated": 861,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.250186356715858,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-07",
+      "parameter_tuples_evaluated": 796,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.07862132508307695,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-08",
+      "parameter_tuples_evaluated": 861,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.2496001049876213,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-09",
+      "parameter_tuples_evaluated": 919,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.25048490334302187,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": null,
+      "instance_id": "spacing-none-10",
+      "parameter_tuples_evaluated": 999,
+      "placements_evaluated": 0,
+      "predicted_feasible": false,
+      "runtime_s": 0.24572827201336622,
+      "search_complete": false,
+      "train": null
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 14.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 0.8,
+        "valid": true
+      },
+      "instance_id": "valid-down-34",
+      "parameter_tuples_evaluated": 119,
+      "placements_evaluated": 6,
+      "predicted_feasible": true,
+      "runtime_s": 0.0032169055193662643,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 17.327205882352942,
+              "y": 14.353324921792636
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              25,
+              22
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 34.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              22
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 11.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.1,
+        "valid": true
+      },
+      "instance_id": "valid-eleven-ten-38",
+      "parameter_tuples_evaluated": 118,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.003076818771660328,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              22
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 19.526315789473685,
+              "y": 6.242835228463958
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              19,
+              19
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 38.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 13.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.2500000000000002,
+        "valid": true
+      },
+      "instance_id": "valid-five-four-36",
+      "parameter_tuples_evaluated": 175,
+      "placements_evaluated": 4,
+      "predicted_feasible": true,
+      "runtime_s": 0.0049616871401667595,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              25
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 19.54513888888889,
+              "y": 13.047511096528838
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              22,
+              22
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 36.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 13.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.3333333333333333,
+        "valid": true
+      },
+      "instance_id": "valid-four-three-37",
+      "parameter_tuples_evaluated": 118,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.00303056463599205,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 17.945945945945947,
+              "y": 8.8285346522051
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              20,
+              24
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 37.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              18
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 14.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.5,
+        "valid": true
+      },
+      "instance_id": "valid-high-35",
+      "parameter_tuples_evaluated": 436,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.014215007424354553,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              24
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 17.182142857142857,
+              "y": 13.73950387884274
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              20,
+              25
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 35.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 15.5,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 0.6666666666666667,
+        "valid": true
+      },
+      "instance_id": "valid-low-31",
+      "parameter_tuples_evaluated": 331,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.010517281480133533,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 15.141129032258064,
+              "y": 15.960771022369565
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              24,
+              20
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 31.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 19.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 0.9,
+        "valid": true
+      },
+      "instance_id": "valid-nine-ten-30",
+      "parameter_tuples_evaluated": 386,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.012337572872638702,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              23
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 17.8,
+              "y": 14.565713164826498
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              23,
+              18
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 30.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 14.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 0.75,
+        "valid": true
+      },
+      "instance_id": "valid-three-four-33",
+      "parameter_tuples_evaluated": 283,
+      "placements_evaluated": 4,
+      "predicted_feasible": true,
+      "runtime_s": 0.008751191198825836,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              18
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 14.590909090909092,
+              "y": 12.936590427961551
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              21,
+              21
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 33.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              24
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 17.5,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.0,
+        "valid": true
+      },
+      "instance_id": "valid-unit-30",
+      "parameter_tuples_evaluated": 119,
+      "placements_evaluated": 10,
+      "predicted_feasible": true,
+      "runtime_s": 0.0031806593760848045,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              23
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 15.0,
+              "y": 13.97318861248212
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              18,
+              18
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 30.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              23
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "certificate": {
+        "cae_reports": [],
+        "issues": [],
+        "minimum_clearance_mm": 17.0,
+        "model_version": "certified-planar-v2",
+        "signed_speed_ratio": 1.2,
+        "valid": true
+      },
+      "instance_id": "valid-up-32",
+      "parameter_tuples_evaluated": 234,
+      "placements_evaluated": 2,
+      "predicted_feasible": true,
+      "runtime_s": 0.006730574183166027,
+      "search_complete": false,
+      "train": {
+        "meshes": [
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "compound",
+            "driver_member": 0,
+            "driver_stage_id": "input"
+          },
+          {
+            "center_distance_tolerance_mm": 1e-06,
+            "driven_member": 0,
+            "driven_stage_id": "output",
+            "driver_member": 1,
+            "driver_stage_id": "compound"
+          }
+        ],
+        "stages": [
+          {
+            "axial_layers": [
+              0
+            ],
+            "center": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "id": "input",
+            "module_mm": 1.0,
+            "teeth": [
+              24
+            ]
+          },
+          {
+            "axial_layers": [
+              0,
+              1
+            ],
+            "center": {
+              "x": 17.34375,
+              "y": 14.333329548206864
+            },
+            "id": "compound",
+            "module_mm": 1.0,
+            "teeth": [
+              21,
+              21
+            ]
+          },
+          {
+            "axial_layers": [
+              1
+            ],
+            "center": {
+              "x": 32.0,
+              "y": 0.0
+            },
+            "id": "output",
+            "module_mm": 1.0,
+            "teeth": [
+              20
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "records_sha256": "1efa670725d481f1746f22a6d4dbba5265f2f75942beea8c4996844840c42098",
+  "schema_version": "blind-predictions-v1"
+}

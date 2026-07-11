@@ -1,0 +1,46 @@
+{
+  "protocol": {
+    "maximum_candidate_evaluations": 7000,
+    "population_size": 12,
+    "seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ]
+  },
+  "runs": [
+    {
+      "method": "exact-enumerator",
+      "predictions": "exact-enumerator-seed-2026.json",
+      "seed": 2026
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2026.json",
+      "seed": 2026
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2027.json",
+      "seed": 2027
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2028.json",
+      "seed": 2028
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2029.json",
+      "seed": 2029
+    },
+    {
+      "method": "differential-evolution",
+      "predictions": "differential-evolution-seed-2030.json",
+      "seed": 2030
+    }
+  ],
+  "schema_version": "requirements-comparison-v1"
+}

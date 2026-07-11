@@ -7,10 +7,12 @@ from .certified_environment import CertifiedBranchOrderingEnvironment
 from .learned_policy import PPOBranchRefinementTrainer
 from .requirements_solver import (
     EnumerativeCompoundSynthesizer,
+    EvolutionaryCompoundSynthesizer,
     ProductionCandidateValidator,
     RequirementsCandidateValidator,
     RequirementsFirstSynthesisSolver,
     RequirementsSynthesisResult,
+    SolverBudget,
 )
 
 __all__ = [
@@ -21,6 +23,7 @@ __all__ = [
     "CertifiedSynthesisGraph",
     "CertifiedSynthesisSolver",
     "EnumerativeCompoundSynthesizer",
+    "EvolutionaryCompoundSynthesizer",
     "LearnedBranchOrderingPolicy",
     "PPOBranchRefinementTrainer",
     "ProductionCandidateValidator",
@@ -28,6 +31,7 @@ __all__ = [
     "RequirementsCandidateValidator",
     "RequirementsFirstSynthesisSolver",
     "RequirementsSynthesisResult",
+    "SolverBudget",
     "RouteFirstSolver",
     "SynthesisResult",
 ]

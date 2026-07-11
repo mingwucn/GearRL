@@ -53,6 +53,23 @@ conda run -n ai python run_blind_adjudication.py \
   data/results/curated-blind-v1/adjudication.json
 ```
 
+Run the frozen 7,000-candidate exact-versus-differential-evolution comparison
+blindly, then adjudicate its sealed runs:
+
+```bash
+conda run -n ai python run_requirements_comparison.py \
+  data/benchmark/curated/requirements-first-50-v1/solver-inputs \
+  data/results/requirements-comparison-v1/blind
+conda run -n ai python run_requirements_comparison_adjudication.py \
+  data/benchmark/curated/requirements-first-50-v1 \
+  data/results/requirements-comparison-v1/blind \
+  data/results/requirements-comparison-v1/adjudication.json
+```
+
+Both methods classify the curated set correctly, but only exact enumeration
+proves bounded negative cases. Differential evolution is an incomplete
+stochastic comparator and is reported as such.
+
 Freeze the predeclared 400-instance benchmark (250 procedural, 50 tight
 clearance, and 100 certificate-backed near-infeasible cases):
 

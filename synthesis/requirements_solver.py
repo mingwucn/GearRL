@@ -6,6 +6,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from itertools import product
 from math import hypot, isclose, sqrt
+import numpy as np
+from scipy.optimize import differential_evolution
 
 from benchmark.specification import ProblemSpecification, SolverBenchmarkView
 from common.design_models import GearStage, GearTrain, MeshEdge, Point2D, ValidationCertificate, ValidationIssue
@@ -21,6 +23,19 @@ class RequirementsSynthesisResult:
     placements_evaluated: int
     search_complete: bool
     certificate: ValidationCertificate | None
+
+
+@dataclass(frozen=True)
+class SolverBudget:
+    """Frozen compute and randomness limits shared by stochastic solvers."""
+
+    maximum_candidate_evaluations: int
+    seed: int
+    population_size: int = 12
+
+    def __post_init__(self) -> None:
+        if self.maximum_candidate_evaluations < 1 or self.population_size < 4:
+            raise ValueError("Solver evaluation and population budgets must be positive")
 
 
 class RequirementsFirstSynthesisSolver(ABC):
@@ -122,9 +137,11 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
         self,
         validator: RequirementsCandidateValidator,
         geometry: SynthesisGeometryKernel | None = None,
+        budget: SolverBudget | None = None,
     ):
         self._validator = validator
         self._geometry = geometry or SynthesisGeometryKernel()
+        self._budget = budget
 
     def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
         specification = view.specification
@@ -138,6 +155,14 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
         for module in space.allowed_modules_mm:
             for tooth_tuple in product(range(constraints.min_teeth, constraints.max_teeth + 1), repeat=4):
                 evaluated_parameters += 1
+                if self._budget is not None and evaluated_parameters > self._budget.maximum_candidate_evaluations:
+                    return RequirementsSynthesisResult(
+                        None,
+                        self._budget.maximum_candidate_evaluations,
+                        evaluated_placements,
+                        False,
+                        None,
+                    )
                 input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
                 ratio = input_teeth / first_compound * second_compound / output_teeth
                 if constraints.target_speed_ratio is not None and not isclose(
@@ -173,3 +198,121 @@ class EnumerativeCompoundSynthesizer(RequirementsFirstSynthesisSolver):
             ),
             (MeshEdge("input", 0, "compound", 0), MeshEdge("compound", 1, "output", 0)),
         )
+
+
+class EvolutionaryCompoundSynthesizer(RequirementsFirstSynthesisSolver):
+    """Seeded differential-evolution baseline over discrete design decisions."""
+
+    def __init__(
+        self,
+        validator: RequirementsCandidateValidator,
+        budget: SolverBudget,
+        geometry: SynthesisGeometryKernel | None = None,
+    ):
+        self._validator = validator
+        self._budget = budget
+        self._geometry = geometry or SynthesisGeometryKernel()
+
+    def solve(self, view: SolverBenchmarkView) -> RequirementsSynthesisResult:
+        specification = view.specification
+        constraints = specification.problem.constraints
+        modules = specification.design_space.allowed_modules_mm
+        terminals = {shaft.role: shaft.center for shaft in specification.prescribed_shafts}
+        evaluated: set[tuple[int, int, int, int, int]] = set()
+        placements_evaluated = 0
+        best_train: GearTrain | None = None
+        best_certificate: ValidationCertificate | None = None
+        bounds = (
+            (0, len(modules) - 1),
+            *((constraints.min_teeth, constraints.max_teeth),) * 4,
+        )
+
+        def objective(vector: np.ndarray) -> float:
+            nonlocal placements_evaluated, best_train, best_certificate
+            module_index = int(np.clip(np.rint(vector[0]), 0, len(modules) - 1))
+            tooth_tuple = tuple(
+                int(np.clip(np.rint(value), constraints.min_teeth, constraints.max_teeth))
+                for value in vector[1:]
+            )
+            key = (module_index, *tooth_tuple)
+            if key in evaluated:
+                return self._algebraic_penalty(specification, modules[module_index], tooth_tuple, terminals)
+            if len(evaluated) >= self._budget.maximum_candidate_evaluations:
+                return 1e6
+            evaluated.add(key)
+            module = modules[module_index]
+            penalty = self._algebraic_penalty(specification, module, tooth_tuple, terminals)
+            if penalty > 1e-12:
+                return penalty
+            input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
+            placements = self._geometry.circle_intersections(
+                terminals["input"],
+                module * (input_teeth + first_compound) / 2.0,
+                terminals["output"],
+                module * (second_compound + output_teeth) / 2.0,
+            )
+            placements_evaluated += len(placements)
+            for center in placements:
+                train = EnumerativeCompoundSynthesizer._train(terminals, center, module, tooth_tuple)
+                certificate = self._validator.validate(specification, train)
+                if certificate.valid:
+                    best_train = train
+                    best_certificate = certificate
+                    return 0.0
+            return 1.0
+
+        def stop(_vector: np.ndarray, _convergence: float) -> bool:
+            return best_train is not None or len(evaluated) >= self._budget.maximum_candidate_evaluations
+
+        dimensions = len(bounds)
+        maximum_iterations = max(1, self._budget.maximum_candidate_evaluations // (self._budget.population_size * dimensions))
+        differential_evolution(
+            objective,
+            bounds,
+            seed=self._budget.seed,
+            popsize=self._budget.population_size,
+            maxiter=maximum_iterations,
+            polish=False,
+            updating="immediate",
+            workers=1,
+            callback=stop,
+            integrality=np.ones(dimensions, dtype=bool),
+            tol=0.0,
+            atol=0.0,
+        )
+        return RequirementsSynthesisResult(
+            best_train,
+            len(evaluated),
+            placements_evaluated,
+            False,
+            best_certificate,
+        )
+
+    @staticmethod
+    def _algebraic_penalty(
+        specification: ProblemSpecification,
+        module: float,
+        tooth_tuple: tuple[int, int, int, int],
+        terminals: dict[str, Point2D],
+    ) -> float:
+        constraints = specification.problem.constraints
+        input_teeth, first_compound, second_compound, output_teeth = tooth_tuple
+        ratio = input_teeth / first_compound * second_compound / output_teeth
+        ratio_penalty = 0.0
+        if constraints.target_speed_ratio is not None:
+            scale = max(abs(constraints.target_speed_ratio), 1e-12)
+            ratio_penalty = abs(ratio - constraints.target_speed_ratio) / scale
+            if ratio_penalty <= constraints.ratio_tolerance / scale:
+                ratio_penalty = 0.0
+        first_radius = module * (input_teeth + first_compound) / 2.0
+        second_radius = module * (second_compound + output_teeth) / 2.0
+        terminal_distance = hypot(
+            terminals["output"].x - terminals["input"].x,
+            terminals["output"].y - terminals["input"].y,
+        )
+        triangle_violation = max(
+            0.0,
+            terminal_distance - first_radius - second_radius,
+            abs(first_radius - second_radius) - terminal_distance,
+        ) / max(terminal_distance, 1.0)
+        return ratio_penalty + triangle_violation
