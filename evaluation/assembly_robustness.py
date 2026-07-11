@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, replace
+from decimal import Decimal
 import gzip
 from hashlib import sha256
 import json
@@ -69,15 +70,37 @@ class AssemblyDrawOutcome:
     failure_codes: tuple[str, ...]
 
 
+class AssemblyScenarioIdentity:
+    """Create readable, injective identities from protocol decimal values."""
+
+    @staticmethod
+    def _decimal(value: float) -> str:
+        return format(Decimal(str(value)).normalize(), "f")
+
+    def create(self, shaft: float, housing: float, backlash: float) -> str:
+        return "--".join((
+            f"shaft-{self._decimal(shaft)}",
+            f"housing-{self._decimal(housing)}",
+            f"backlash-{self._decimal(backlash)}",
+        ))
+
+
 class AssemblyScenarioFactory:
+    def __init__(self) -> None:
+        self._identity = AssemblyScenarioIdentity()
+
     def create(self, protocol: AssemblyRobustnessProtocol) -> tuple[AssemblyScenario, ...]:
         scenarios = []
         for shaft in protocol.shaft_location_tolerances_mm:
             for housing in protocol.housing_clearance_erosions_mm:
                 for backlash in protocol.transverse_backlash_allowances_mm:
-                    identifier = f"shaft-{shaft:.3f}--housing-{housing:.3f}--backlash-{backlash:.3f}"
+                    identifier = self._identity.create(shaft, housing, backlash)
                     scenarios.append(AssemblyScenario(identifier, shaft, housing, backlash))
-        return tuple(scenarios)
+        result = tuple(scenarios)
+        identifiers = tuple(scenario.scenario_id for scenario in result)
+        if len(set(identifiers)) != len(identifiers):
+            raise ValueError("Assembly robustness scenario identifiers must be unique")
+        return result
 
 
 class AssemblyPerturbationSampler:
@@ -197,8 +220,8 @@ class AssemblyRobustnessEvidenceStore:
                 for outcome in outcomes:
                     compressed.write(json.dumps(asdict(outcome), sort_keys=True, separators=(",", ":")).encode() + b"\n")
         manifest = {
-            "schema_version": "assembly-robustness-artifact-v1",
-            "model_version": "certified-planar-v3+assembly-robustness-v1",
+            "schema_version": "assembly-robustness-artifact-v2",
+            "model_version": "certified-planar-v3+assembly-robustness-v2",
             "source_index": str(source_index),
             "source_index_sha256": sha256(source_index.read_bytes()).hexdigest(),
             "summary_sha256": sha256(summary_bytes).hexdigest(),
@@ -228,4 +251,83 @@ class AssemblyRobustnessEvidenceStore:
             count = sum(1 for _ in source)
         if count != manifest["draw_count"]:
             raise ValueError("Assembly robustness draw count mismatch")
+        AssemblyRobustnessSemanticVerifier().verify(destination)
         return manifest
+
+
+class AssemblyRobustnessSemanticVerifier:
+    """Independently reconstruct summary evidence from ordered raw outcomes."""
+
+    def __init__(self) -> None:
+        self._bootstrap = LayoutBootstrapInterval()
+
+    @staticmethod
+    def _scenario_map(summary: dict) -> dict[str, dict]:
+        scenarios = summary.get("scenarios", [])
+        identifiers = [scenario["scenario_id"] for scenario in scenarios]
+        if len(identifiers) != len(set(identifiers)):
+            raise ValueError("Assembly robustness scenario identifiers are not unique")
+        if len(scenarios) != summary.get("scenario_count"):
+            raise ValueError("Assembly robustness scenario cardinality mismatch")
+        return dict(zip(identifiers, scenarios, strict=True))
+
+    def verify(self, destination: Path) -> None:
+        summary = json.loads((destination / "summary.json").read_text())
+        scenarios = self._scenario_map(summary)
+        protocol = summary["protocol"]
+        layout_count = int(summary["layout_count"])
+        draws_per_layout = int(protocol["draws_per_layout"])
+        expected_scenarios = tuple(scenarios)
+        rates = {identifier: [] for identifier in expected_scenarios}
+        failures = {identifier: {} for identifier in expected_scenarios}
+        layout_ids: list[str] = []
+        line_count = 0
+
+        with gzip.open(destination / "draws.jsonl.gz", "rt") as source:
+            for layout_index in range(layout_count):
+                layout_id = None
+                for scenario_id in expected_scenarios:
+                    valid_count = 0
+                    for draw_index in range(draws_per_layout):
+                        line = source.readline()
+                        if not line:
+                            raise ValueError("Assembly robustness raw evidence ended early")
+                        line_count += 1
+                        outcome = json.loads(line)
+                        if layout_id is None:
+                            layout_id = outcome["layout_id"]
+                        if outcome["layout_id"] != layout_id:
+                            raise ValueError("Assembly robustness layout ordering mismatch")
+                        if outcome["scenario_id"] != scenario_id or outcome["draw_index"] != draw_index:
+                            raise ValueError("Assembly robustness scenario/draw ordering mismatch")
+                        valid_count += int(outcome["valid"])
+                        for code in set(outcome["failure_codes"]):
+                            failures[scenario_id][code] = failures[scenario_id].get(code, 0) + 1
+                    rates[scenario_id].append(valid_count / draws_per_layout)
+                if layout_id in layout_ids:
+                    raise ValueError("Assembly robustness layout identifiers are not unique")
+                layout_ids.append(layout_id)
+            if source.readline():
+                raise ValueError("Assembly robustness raw evidence has undeclared extra draws")
+
+        expected_count = layout_count * len(expected_scenarios) * draws_per_layout
+        if line_count != expected_count or summary.get("draw_count") != expected_count:
+            raise ValueError("Assembly robustness semantic draw count mismatch")
+        for scenario_index, scenario_id in enumerate(expected_scenarios):
+            recorded = scenarios[scenario_id]
+            probabilities = np.asarray(rates[scenario_id])
+            interval = self._bootstrap.calculate(
+                probabilities,
+                int(protocol["bootstrap_samples"]),
+                int(protocol["random_seed"]) + 10000 + scenario_index,
+            )
+            reconstructed = {
+                "modeled_valid_probability": float(probabilities.mean()),
+                "layout_bootstrap_95_interval": list(interval),
+                "minimum_layout_probability": float(probabilities.min()),
+                "maximum_layout_probability": float(probabilities.max()),
+                "failure_code_counts": failures[scenario_id],
+            }
+            for field, value in reconstructed.items():
+                if recorded.get(field) != value:
+                    raise ValueError(f"Assembly robustness semantic {field} mismatch for {scenario_id}")

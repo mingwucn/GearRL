@@ -1,9 +1,11 @@
+from dataclasses import replace
+from hashlib import sha256
 import json
 from pathlib import Path
 
 import pytest
 
-from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessProtocolLoader, AssemblyRobustnessStudy
+from evaluation.assembly_robustness import AssemblyRobustnessEvidenceStore, AssemblyRobustnessProtocol, AssemblyRobustnessProtocolLoader, AssemblyRobustnessStudy, AssemblyScenarioFactory
 
 
 DATASET = Path("data/benchmark/frozen/compound-v1-frozen-400-r2")
@@ -16,6 +18,10 @@ def test_confirmatory_protocol_is_frozen_and_resolves_pilot_saturation() -> None
     assert protocol.draws_per_layout == 512
     assert protocol.transverse_backlash_allowances_mm == (0.0, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02)
     assert len(protocol.shaft_location_tolerances_mm) * len(protocol.housing_clearance_erosions_mm) * len(protocol.transverse_backlash_allowances_mm) == 56
+    scenarios = AssemblyScenarioFactory().create(protocol)
+    assert len({scenario.scenario_id for scenario in scenarios}) == 56
+    assert any(scenario.scenario_id.endswith("backlash-0.0005") for scenario in scenarios)
+    assert any(scenario.scenario_id.endswith("backlash-0.001") for scenario in scenarios)
 
 
 def test_small_joint_robustness_study_is_seeded_and_factorial(tmp_path: Path) -> None:
@@ -47,3 +53,26 @@ def test_evidence_store_verifies_draw_count_and_hashes(tmp_path: Path) -> None:
     (root / "summary.json").write_text(json.dumps({}))
     with pytest.raises(ValueError, match="summary_sha256 mismatch"):
         store.verify(root)
+
+
+def test_semantic_verifier_rejects_coordinated_summary_corruption(tmp_path: Path) -> None:
+    protocol = AssemblyRobustnessProtocol(sample_size=2, draws_per_layout=4, bootstrap_samples=5, shaft_location_tolerances_mm=(0.01,), housing_clearance_erosions_mm=(0.0,), transverse_backlash_allowances_mm=(0.0,))
+    summary, outcomes, _, _ = AssemblyRobustnessStudy().run(DATASET, protocol)
+    root = tmp_path / "evidence"
+    store = AssemblyRobustnessEvidenceStore()
+    store.write(summary, outcomes, DATASET / "index.json", root)
+    corrupted = json.loads((root / "summary.json").read_text())
+    corrupted["scenarios"][0]["modeled_valid_probability"] = 0.123
+    summary_bytes = store._json_bytes(corrupted)
+    (root / "summary.json").write_bytes(summary_bytes)
+    manifest = json.loads((root / "manifest.json").read_text())
+    manifest["summary_sha256"] = sha256(summary_bytes).hexdigest()
+    (root / "manifest.json").write_bytes(store._json_bytes(manifest))
+    with pytest.raises(ValueError, match="semantic modeled_valid_probability mismatch"):
+        store.verify(root)
+
+
+def test_scenario_factory_rejects_duplicate_factor_values() -> None:
+    protocol = replace(AssemblyRobustnessProtocol(), transverse_backlash_allowances_mm=(0.001, 0.001))
+    with pytest.raises(ValueError, match="identifiers must be unique"):
+        AssemblyScenarioFactory().create(protocol)
