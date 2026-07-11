@@ -42,6 +42,22 @@ def test_small_confirmatory_study_streams_raw_draws_and_primary_inference(tmp_pa
     assert set(summary["primary_inference"]) == {"familywise_alpha", "interaction", "housing_equivalence"}
     assert ConfirmatoryAssemblyEvidenceVerifier().verify(root) == manifest
 
+    raw_path = root / "draws.jsonl.gz"
+    original_raw = raw_path.read_bytes()
+    first = json.loads(lines[0])
+    first["valid"] = not first["valid"]
+    first["failure_codes"] = [] if first["valid"] else ["coordinated-corruption"]
+    lines[0] = json.dumps(first, sort_keys=True, separators=(",", ":")) + "\n"
+    with raw_path.open("wb") as target:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=target, mtime=0) as compressed:
+            compressed.write("".join(lines).encode())
+    manifest["draws_sha256"] = sha256(raw_path.read_bytes()).hexdigest()
+    (root / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+    with pytest.raises(ValueError, match="modeled outcome replay mismatch"):
+        ConfirmatoryAssemblyEvidenceVerifier().verify(root)
+    raw_path.write_bytes(original_raw)
+    manifest["draws_sha256"] = sha256(original_raw).hexdigest()
+
     summary["primary_inference"]["interaction"]["supported"] = not summary["primary_inference"]["interaction"]["supported"]
     summary_bytes = (json.dumps(summary, indent=2, sort_keys=True) + "\n").encode()
     (root / "summary.json").write_bytes(summary_bytes)

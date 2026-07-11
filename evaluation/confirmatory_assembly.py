@@ -429,11 +429,13 @@ class ScientificSourceCommit:
 
 
 class ConfirmatoryAssemblyEvidenceVerifier:
-    """Reconstruct all v3 statistics from the ordered raw evidence stream."""
+    """Regenerate every modeled outcome, then reconstruct all v3 statistics."""
 
     def __init__(self) -> None:
         self._census = HeldOutFeasibleLayoutCensus()
         self._scenarios = ConfirmatoryScenarioFactory()
+        self._sampler = ScrambledSobolAssemblySampler()
+        self._evaluator = AssemblyRobustnessEvaluator()
         self._summary = ConfirmatoryAssemblySummaryBuilder()
 
     def verify(self, destination: Path) -> dict:
@@ -459,9 +461,13 @@ class ConfirmatoryAssemblyEvidenceVerifier:
         count = 0
         with gzip.open(raw_path, "rt") as source:
             for layout_index, instance in enumerate(selected):
+                movable_count = sum(stage.id != instance.problem.input_stage_id for stage in instance.reference_train.stages)
                 for replicate_index in range(protocol.scramble_replicates):
+                    seed = protocol.random_seed + layout_index * protocol.scramble_replicates + replicate_index
+                    errors = self._sampler.sample(seed, protocol.draws_per_replicate, movable_count)
                     for scenario in scenarios:
-                        for draw_index in range(protocol.draws_per_replicate):
+                        expected_outcomes = self._evaluator.evaluate(instance.problem, instance.reference_train, scenario, errors)
+                        for draw_index, expected in enumerate(expected_outcomes):
                             line = source.readline()
                             if not line:
                                 raise ValueError("Confirmatory assembly raw evidence ended early")
@@ -481,6 +487,8 @@ class ConfirmatoryAssemblyEvidenceVerifier:
                                 bool(record["valid"]),
                                 tuple(record["failure_codes"]),
                             )
+                            if outcome.valid != expected.valid or outcome.failure_codes != expected.failure_codes:
+                                raise ValueError("Confirmatory assembly modeled outcome replay mismatch")
                             accumulator.add(layout_index, replicate_index, outcome)
             if source.readline():
                 raise ValueError("Confirmatory assembly raw evidence has extra draws")
