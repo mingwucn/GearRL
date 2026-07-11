@@ -5,6 +5,7 @@ import subprocess
 import pytest
 
 from reproducibility.clean_environment import CleanEnvironmentAttestationPolicy, CleanEnvironmentAttestor, CleanEnvironmentEvidenceStore, CleanEnvironmentReportValidator, CommittedSourceTreeHasher, SourceTreeHasher
+from run_clean_environment_attestation import CondaExecutableResolver
 
 
 def test_source_tree_hash_is_path_and_content_sensitive(tmp_path: Path) -> None:
@@ -34,6 +35,14 @@ def test_committed_and_checked_out_tree_hashes_share_canonical_order(tmp_path: P
     commit = subprocess.run(("git", "rev-parse", "HEAD"), cwd=repository, text=True, capture_output=True, check=True).stdout.strip()
 
     assert CommittedSourceTreeHasher().digest(repository, commit) == SourceTreeHasher().digest(repository)
+
+
+def test_conda_executable_resolver_accepts_injected_path_and_rejects_missing(tmp_path: Path) -> None:
+    executable = tmp_path / "conda"
+    executable.write_text("stub")
+    assert CondaExecutableResolver().resolve(executable) == executable.resolve()
+    with pytest.raises(FileNotFoundError, match="does not exist"):
+        CondaExecutableResolver().resolve(tmp_path / "missing")
 
 
 def test_evidence_store_requires_complete_success(tmp_path: Path) -> None:
