@@ -1,0 +1,8 @@
+{
+  "claim_count": 6,
+  "matrix_sha256": "160e7aa2caf743e217efc4d49c83edc7c18e3dd6034cd40274ad5a0bcc358b34",
+  "method_count": 15,
+  "schema_version": "aei-literature-artifact-v1",
+  "source": "literature/aei_closest_methods.json",
+  "source_sha256": "e34530c123d540c4d5262abc2174e5f26c7290e6ce546053d8a41c9fbcb0d20b"
+}
