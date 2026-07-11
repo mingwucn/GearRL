@@ -1,0 +1,159 @@
+{
+  "baseline_admissible_under_strength": false,
+  "baseline_minimum_safety_factor": 2.0012030565289325,
+  "baseline_parameter_tuples_evaluated": 7,
+  "baseline_strength_certificate": {
+    "cae_reports": [
+      {
+        "cumulative_mesh_efficiency": 1.0,
+        "fillet_radius_mm": 0.6851010661460091,
+        "max_von_mises_mpa": 97.57295561817655,
+        "member": 0,
+        "mesh_element_count": 240,
+        "model_version": "involute-tooth-root-plane-stress-v3",
+        "pressure_angle_deg": 20.0,
+        "radial_force_n": 40.44113714068915,
+        "root_width_mm": 2.5931002477882723,
+        "safety_factor": 2.4255354894935537,
+        "section_height_mm": 2.151531385114744,
+        "stage_id": "input",
+        "tangential_force_n": 111.11111111111111,
+        "tooth_count": 18,
+        "transmitted_torque_nm": 1.0
+      },
+      {
+        "cumulative_mesh_efficiency": 0.98,
+        "fillet_radius_mm": 0.6851010661460091,
+        "max_von_mises_mpa": 95.62149650581287,
+        "member": 0,
+        "mesh_element_count": 240,
+        "model_version": "involute-tooth-root-plane-stress-v3",
+        "pressure_angle_deg": 20.0,
+        "radial_force_n": 39.63231439787536,
+        "root_width_mm": 2.5931002477882723,
+        "safety_factor": 2.475036213768936,
+        "section_height_mm": 2.151531385114744,
+        "stage_id": "compound",
+        "tangential_force_n": 108.88888888888889,
+        "tooth_count": 18,
+        "transmitted_torque_nm": 0.98
+      },
+      {
+        "cumulative_mesh_efficiency": 0.98,
+        "fillet_radius_mm": 0.6851010661460091,
+        "max_von_mises_mpa": 95.62149650581287,
+        "member": 1,
+        "mesh_element_count": 240,
+        "model_version": "involute-tooth-root-plane-stress-v3",
+        "pressure_angle_deg": 20.0,
+        "radial_force_n": 39.63231439787536,
+        "root_width_mm": 2.5931002477882723,
+        "safety_factor": 2.475036213768936,
+        "section_height_mm": 2.151531385114744,
+        "stage_id": "compound",
+        "tangential_force_n": 108.88888888888889,
+        "tooth_count": 18,
+        "transmitted_torque_nm": 0.98
+      },
+      {
+        "cumulative_mesh_efficiency": 0.9603999999999999,
+        "fillet_radius_mm": 0.5119099085510701,
+        "max_von_mises_mpa": 118.26219528025443,
+        "member": 0,
+        "mesh_element_count": 240,
+        "model_version": "involute-tooth-root-plane-stress-v3",
+        "pressure_angle_deg": 20.0,
+        "radial_force_n": 38.83966810991786,
+        "root_width_mm": 2.163267255548777,
+        "safety_factor": 2.0012030565289325,
+        "section_height_mm": 2.1805955700354804,
+        "stage_id": "output",
+        "tangential_force_n": 106.71111111111111,
+        "tooth_count": 24,
+        "transmitted_torque_nm": 1.2805333333333333
+      }
+    ],
+    "issues": [
+      {
+        "code": "cae_safety_factor",
+        "message": "output[0] safety factor 2.0012 is below 2.3"
+      }
+    ],
+    "minimum_clearance_mm": 14.0,
+    "model_version": "certified-planar-v3",
+    "signed_speed_ratio": 0.75,
+    "valid": false
+  },
+  "baseline_train": {
+    "meshes": [
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "compound",
+        "driver_member": 0,
+        "driver_stage_id": "input"
+      },
+      {
+        "center_distance_tolerance_mm": 1e-06,
+        "driven_member": 0,
+        "driven_stage_id": "output",
+        "driver_member": 1,
+        "driver_stage_id": "compound"
+      }
+    ],
+    "stages": [
+      {
+        "axial_layers": [
+          0
+        ],
+        "center": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "id": "input",
+        "module_mm": 1.0,
+        "teeth": [
+          18
+        ]
+      },
+      {
+        "axial_layers": [
+          0,
+          1
+        ],
+        "center": {
+          "x": 14.727272727272727,
+          "y": 10.349272342369241
+        },
+        "id": "compound",
+        "module_mm": 1.0,
+        "teeth": [
+          18,
+          18
+        ]
+      },
+      {
+        "axial_layers": [
+          1
+        ],
+        "center": {
+          "x": 33.0,
+          "y": 0.0
+        },
+        "id": "output",
+        "module_mm": 1.0,
+        "teeth": [
+          24
+        ]
+      }
+    ]
+  },
+  "classification": "rejected",
+  "design_changed": false,
+  "instance_id": "valid-three-four-33",
+  "strength_certificate": null,
+  "strength_minimum_safety_factor": null,
+  "strength_parameter_tuples_evaluated": 6561,
+  "strength_search_complete": true,
+  "strength_train": null
+}

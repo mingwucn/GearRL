@@ -1,0 +1,71 @@
+{
+  "config": {
+    "allowable_stress_mpa": 236.66666666666666,
+    "case_ids": [
+      "valid-unit-30",
+      "valid-up-32",
+      "valid-down-34",
+      "valid-high-35",
+      "valid-low-31",
+      "valid-five-four-36",
+      "valid-three-four-33",
+      "valid-four-three-37",
+      "valid-nine-ten-30",
+      "valid-eleven-ten-38"
+    ],
+    "efficiency": 0.98,
+    "face_width_mm": 8.0,
+    "input_torque_nm": 1.0,
+    "material_name": "S355 (plate)",
+    "minimum_safety_factor": 2.3,
+    "poisson_ratio": 0.3,
+    "youngs_modulus_mpa": 210000.0
+  },
+  "model_version": "requirements-first-v1+certified-planar-v3+involute-tooth-root-plane-stress-v3",
+  "records": [
+    {
+      "instance_id": "valid-unit-30",
+      "sha256": "46e8b0c37e5f5ceeebfd06a7c61830c5616aed46447ad203425a04418ad67c5c"
+    },
+    {
+      "instance_id": "valid-up-32",
+      "sha256": "d66ba83985617308bd3d89f0cba6ae50a799c8b4ca0c4e79521302df7712054c"
+    },
+    {
+      "instance_id": "valid-down-34",
+      "sha256": "85fffac82fb79888367a0a5e264a5ac915785f604125c0225d96d5400465767f"
+    },
+    {
+      "instance_id": "valid-high-35",
+      "sha256": "ad46a6288bd5e13f41ce6e63e51cbf848da64f4c34d6058b2c5edd712ffedb3b"
+    },
+    {
+      "instance_id": "valid-low-31",
+      "sha256": "4080143ae5b70f2a2a4f94a0e9490aca92ddb79d943415f4cb9a4f45a8b34b5a"
+    },
+    {
+      "instance_id": "valid-five-four-36",
+      "sha256": "12ff435b04bbbee51db565fbfcd3207df75fe5bd10a458ec7ce7031a5d7be04b"
+    },
+    {
+      "instance_id": "valid-three-four-33",
+      "sha256": "dd0a986996f4149b35918e63657f2f25b9639cac4e87ef587da2f8440ceab2c2"
+    },
+    {
+      "instance_id": "valid-four-three-37",
+      "sha256": "b32856c1239c99dc8b2c2568a137cfbc54dfc45b7cfbf2bd0ca80948ea99ed3f"
+    },
+    {
+      "instance_id": "valid-nine-ten-30",
+      "sha256": "95f63d550750311243b09626a2d584c5997db69f76d193f85309b0fa1510eb46"
+    },
+    {
+      "instance_id": "valid-eleven-ten-38",
+      "sha256": "692175f0e2d3e9a6ce03af9fd453be888046c968f85839b4987476daf2423825"
+    }
+  ],
+  "scope": "paired requirements-first synthesis with and without static tooth-root admission",
+  "source_index": "data/benchmark/curated/requirements-first-50-v1/index.json",
+  "source_index_sha256": "ce79afc76573134eacbfc4bffe4b5b9e49c0dddc0b72609938596ba9a640589c",
+  "summary_sha256": "23d8b8a6eebc3fe69085e5207446ecae57470cd7e6078dc01a56846b2b70c9e0"
+}

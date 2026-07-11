@@ -201,3 +201,13 @@ The frozen `load-uncertainty-v1` study propagates explicitly declared independen
 For the declared range, S355 has a pooled modeled-failure probability of 0.110 and a layout-bootstrap 95% interval of `[0.016, 0.223]`; Toolox 44 has no modeled failures in the evaluated sample. Mean total-order indices are 0.888 for torque, 0.123 for face width, and below 0.001 for efficiency. The artifact retains per-layout failure probabilities and safety-factor quantiles under `data/results/load-uncertainty-v1` and cryptographically binds its results to the direct-CAE envelope manifest.
 
 These are conditional digital sensitivity results. The uniform ranges are declared study assumptions, not field-measured duty distributions, and the results do not cover fatigue, contact stress, thermal effects, material variability, or physical qualification.
+
+### Implemented strength-coupled synthesis ablation
+
+The frozen `strength-coupled-v1` study demonstrates that CAE-derived static strength is an admission constraint inside requirements-first synthesis rather than a post-processing label. Ten case IDs are fixed in `StrengthCoupledStudyConfig` and loaded from hash-checked blind solver inputs. Each case is solved first under its original geometric and kinematic requirements, then under the same bounded design space with the S355 plate load case, 1 Nm input torque, 8 mm face width, 0.98 per-mesh efficiency, and a required static screening factor of 2.3.
+
+Seven baseline designs are retained. `valid-down-34` is redesigned from tooth sequence `[18]-[18,20]-[25]`, whose minimum screening factor is 2.259, to `[26]-[25,20]-[26]`, whose factor is 2.336. `valid-low-31` and `valid-three-four-33` become infeasible under the declared coupled model after the complete enumerator eliminates all 6,561 bounded parameter tuples in each case. Thus the strength constraint changes both design selection and modeled feasibility.
+
+`StrengthCouplingRequirements`, `StrengthCoupledSynthesisStudy`, `PredeclaredSolverViewRepository`, and `StrengthCoupledEvidenceStore` separate requirement injection, paired evaluation, frozen-input selection, and persistence. Evidence under `data/results/strength-coupled-v1` contains the baseline-under-strength certificate, accepted strength certificate where present, search accounting, selected trains, source-index hash, and per-record hashes. Rejection is reported only when the bounded search is complete.
+
+This ablation establishes coupling only for the declared static tooth-root model and bounded three-shaft compound family. It does not convert the CAE screen into fatigue, contact, reliability, or physical-validation evidence.
