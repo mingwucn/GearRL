@@ -44,8 +44,10 @@ class DesignSpace:
             raise ValueError("Allowed modules must be unique")
         if self.minimum_stage_count < 2 or self.maximum_stage_count < self.minimum_stage_count:
             raise ValueError("Invalid stage-count bounds")
-        if self.maximum_compound_members < 1 or self.axial_layer_count < 1:
-            raise ValueError("Compound-member and axial-layer limits must be positive")
+        if self.maximum_compound_members < 1:
+            raise ValueError("maximum_compound_members must be positive")
+        if self.axial_layer_count < 1:
+            raise ValueError("axial_layer_count must be positive")
 
     @classmethod
     def from_json(cls, value: dict[str, Any]) -> "DesignSpace":

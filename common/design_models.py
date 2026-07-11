@@ -66,8 +66,12 @@ class DesignConstraints:
         )
         if self.min_teeth < 1 or self.max_teeth < self.min_teeth:
             raise ValueError("Invalid tooth-count bounds")
-        if self.ratio_tolerance < 0 or self.boundary_clearance < 0 or self.transverse_backlash_allowance_mm < 0:
-            raise ValueError("Tolerances and clearances must be non-negative")
+        if self.ratio_tolerance < 0:
+            raise ValueError("ratio_tolerance must be non-negative")
+        if self.boundary_clearance < 0:
+            raise ValueError("boundary_clearance must be non-negative")
+        if self.transverse_backlash_allowance_mm < 0:
+            raise ValueError("transverse_backlash_allowance_mm must be non-negative")
         if not 0 < self.pressure_angle_deg < 90:
             raise ValueError("Pressure angle must be between 0 and 90 degrees")
 

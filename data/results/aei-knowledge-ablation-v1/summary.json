@@ -1,0 +1,72 @@
+{
+  "hypotheses": {
+    "H1-competency-parity": {
+      "interpretation": "Representation choice did not change answers to the frozen competency questions.",
+      "supported": true
+    },
+    "H2-early-semantic-detection": {
+      "advantage_over_structural_flat": 1.0,
+      "supported": true
+    },
+    "H3-equivalent-semantics": {
+      "interpretation": "Equivalent duplicated flat rules can match typed detection; the tested contribution is executable semantics and centralization, not graph superiority by itself.",
+      "supported": true
+    },
+    "H4-rule-centralization": {
+      "interpretation": "The typed adapter reused one canonical construction boundary while the semantic flat baseline duplicated seven cross-field rule sites.",
+      "supported": true
+    }
+  },
+  "protocol": {
+    "case_count": 50,
+    "competency_ids": [
+      "CQ-target-ratio",
+      "CQ-allowed-modules",
+      "CQ-stage-bounds",
+      "CQ-prescribed-roles",
+      "CQ-obstacle-count",
+      "CQ-boundary-vertices"
+    ],
+    "maximum_typed_rule_sites": 1,
+    "minimum_detection_advantage": 0.5,
+    "mutation_ids": [
+      "M-duplicate-module",
+      "M-reversed-stage-bounds",
+      "M-duplicate-shaft-role",
+      "M-negative-ratio-tolerance",
+      "M-negative-boundary-clearance",
+      "M-zero-axial-layers",
+      "M-short-obstacle"
+    ],
+    "study_id": "aei-knowledge-ablation-v1"
+  },
+  "results": [
+    {
+      "adapter_id": "typed-executable-graph",
+      "case_count": 50,
+      "competency_accuracy": 1.0,
+      "exact_localization_rate": 1.0,
+      "semantic_mutation_detection_rate": 1.0,
+      "semantic_rule_sites": 1
+    },
+    {
+      "adapter_id": "flat-structural-record",
+      "case_count": 50,
+      "competency_accuracy": 1.0,
+      "exact_localization_rate": 0.0,
+      "semantic_mutation_detection_rate": 0.0,
+      "semantic_rule_sites": 0
+    },
+    {
+      "adapter_id": "flat-duplicated-semantic-rules",
+      "case_count": 50,
+      "competency_accuracy": 1.0,
+      "exact_localization_rate": 1.0,
+      "semantic_mutation_detection_rate": 1.0,
+      "semantic_rule_sites": 7
+    }
+  ],
+  "schema_version": "aei-knowledge-ablation-summary-v1",
+  "scope": "Authored representation ablation on frozen solver briefs; no human authoring-time or industrial adoption claim.",
+  "study_id": "aei-knowledge-ablation-v1"
+}

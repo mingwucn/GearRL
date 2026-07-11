@@ -1,0 +1,32 @@
+{
+  "schema_version": "aei-knowledge-ablation-protocol-v1",
+  "study_id": "aei-knowledge-ablation-v1",
+  "case_count": 50,
+  "competency_questions": [
+    "CQ-target-ratio",
+    "CQ-allowed-modules",
+    "CQ-stage-bounds",
+    "CQ-prescribed-roles",
+    "CQ-obstacle-count",
+    "CQ-boundary-vertices"
+  ],
+  "semantic_mutations": [
+    "M-duplicate-module",
+    "M-reversed-stage-bounds",
+    "M-duplicate-shaft-role",
+    "M-negative-ratio-tolerance",
+    "M-negative-boundary-clearance",
+    "M-zero-axial-layers",
+    "M-short-obstacle"
+  ],
+  "representations": [
+    "typed-executable-graph",
+    "flat-structural-record",
+    "flat-duplicated-semantic-rules"
+  ],
+  "hypotheses": {
+    "minimum_detection_advantage": 0.5,
+    "maximum_typed_rule_sites": 1
+  },
+  "scope": "The experiment tests machine competency answers, early semantic mutation detection, exact field localization, and declared semantic rule sites. It does not measure human authoring time or prove generic graph superiority."
+}

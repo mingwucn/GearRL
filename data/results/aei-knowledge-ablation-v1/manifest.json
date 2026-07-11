@@ -1,0 +1,6 @@
+{
+  "protocol_sha256": "1690945abfe9753a7cce400eadf20c0d28fe50c85d846fedcbda826c483b95e1",
+  "protocol_source": "data/protocols/aei-knowledge-ablation-v1.json",
+  "schema_version": "aei-knowledge-ablation-artifact-v1",
+  "summary_sha256": "31e71b4f722da882a67f9aa1f0c5a5c929c99c11a2a1ea7fcca5c111f42c8b46"
+}
