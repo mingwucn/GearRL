@@ -67,9 +67,10 @@ class ReferenceVerifier:
         if problem.load_case is None or problem.constraints.min_safety_factor is None:
             return certificate
 
-        from cae.gear_screening import screen_tooth_root
+        from cae.gear_screening import ToothRootScreeningAnalysis
 
         ratios = cls._stage_speed_ratios(problem, train, train.stage_map())
+        screening = ToothRootScreeningAnalysis()
         reports: list[dict] = []
         for stage in train.stages:
             speed_ratio = ratios.get(stage.id)
@@ -79,7 +80,7 @@ class ReferenceVerifier:
             # Ideal power transmission gives T_stage = T_input / |omega_stage/omega_input|.
             stage_torque = problem.load_case.input_torque_nm / abs(speed_ratio)
             for member in range(len(stage.teeth)):
-                report = screen_tooth_root(stage, member, problem.load_case, stage_torque, problem.constraints.pressure_angle_deg)
+                report = screening.screen(stage, member, problem.load_case, stage_torque, problem.constraints.pressure_angle_deg)
                 reports.append(report.to_json())
                 if report.safety_factor + 1e-12 < problem.constraints.min_safety_factor:
                     certificate.issues.append(

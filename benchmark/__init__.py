@@ -1,6 +1,6 @@
 """Versioned benchmark generation for certified GearRL experiments."""
 
-from .generator import BenchmarkInstance, generate_benchmark_suite, generate_compound_instances
-from .freeze import freeze_benchmark
+from .generator import BenchmarkGenerator, BenchmarkInstance
+from .freeze import BenchmarkFreezer
 
-__all__ = ["BenchmarkInstance", "freeze_benchmark", "generate_benchmark_suite", "generate_compound_instances"]
+__all__ = ["BenchmarkFreezer", "BenchmarkGenerator", "BenchmarkInstance"]

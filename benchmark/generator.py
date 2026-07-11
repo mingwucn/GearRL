@@ -32,7 +32,51 @@ class BenchmarkInstance:
         }
 
 
-def generate_compound_instances(seed: int, count: int, *, min_teeth: int = 18, max_teeth: int = 48) -> list[BenchmarkInstance]:
+class BenchmarkGenerator:
+    """Seeded benchmark factory with one canonical generation policy."""
+
+    def __init__(self, min_teeth: int = 18, max_teeth: int = 48):
+        if min_teeth < 3 or max_teeth < min_teeth:
+            raise ValueError("Invalid benchmark tooth-count bounds")
+        self._min_teeth = min_teeth
+        self._max_teeth = max_teeth
+
+    def generate_compound_instances(self, seed: int, count: int) -> list[BenchmarkInstance]:
+        return _generate_compound_instances(seed, count, self._min_teeth, self._max_teeth)
+
+    def generate_suite(self, seed: int, feasible_count: int, infeasible_count: int) -> list[BenchmarkInstance]:
+        if infeasible_count < 0:
+            raise ValueError("infeasible_count must be non-negative")
+        valid = self.generate_compound_instances(seed, feasible_count)
+        invalid: list[BenchmarkInstance] = []
+        for index, source in enumerate(self.generate_compound_instances(seed + 1, infeasible_count)):
+            maximum_radius = max(stage.outer_radius_mm() for stage in source.reference_train.stages)
+            enclosure_half_extent = max(abs(point.x) for point in source.problem.boundary)
+            problem = replace(
+                source.problem,
+                constraints=replace(
+                    source.problem.constraints,
+                    boundary_clearance=enclosure_half_extent + maximum_radius + 1.0,
+                ),
+            )
+            certificate = ReferenceVerifier.verify(problem, source.reference_train)
+            if certificate.valid:
+                raise RuntimeError("Adversarial benchmark construction must be infeasible")
+            invalid.append(BenchmarkInstance(
+                instance_id=f"infeasible-{seed}-{index:04d}",
+                seed=seed,
+                problem=problem,
+                reference_train=source.reference_train,
+                certificate=certificate.to_json(),
+                expected_feasible=False,
+                family="clearance-infeasible",
+            ))
+        if not valid and not invalid:
+            raise ValueError("Benchmark suite must contain at least one instance")
+        return [*valid, *invalid]
+
+
+def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teeth: int) -> list[BenchmarkInstance]:
     """Generate reproducible two-mesh compound layouts with exact certificates.
 
     This is the first benchmark family.  Later families can share the JSON
@@ -81,38 +125,3 @@ def generate_compound_instances(seed: int, count: int, *, min_teeth: int = 18, m
             raise RuntimeError(f"Benchmark generator emitted invalid instance {index}: {certificate.issues}")
         instances.append(BenchmarkInstance(f"compound-{seed}-{index:04d}", seed, problem, train, certificate.to_json()))
     return instances
-
-
-def generate_benchmark_suite(seed: int, feasible_count: int, infeasible_count: int) -> list[BenchmarkInstance]:
-    """Generate a labeled suite with both satisfiable and infeasible cases."""
-    if infeasible_count < 0:
-        raise ValueError("infeasible_count must be non-negative")
-    valid = generate_compound_instances(seed, feasible_count)
-    invalid: list[BenchmarkInstance] = []
-    # Derive adversarial cases from independently certified valid cases, then
-    # make the specified enclosure clearance mathematically impossible.
-    for index, source in enumerate(generate_compound_instances(seed + 1, infeasible_count)):
-        maximum_radius = max(stage.outer_radius_mm() for stage in source.reference_train.stages)
-        enclosure_half_extent = max(abs(point.x) for point in source.problem.boundary)
-        invalid_constraints = replace(
-            source.problem.constraints,
-            boundary_clearance=enclosure_half_extent + maximum_radius + 1.0,
-        )
-        problem = replace(source.problem, constraints=invalid_constraints)
-        certificate = ReferenceVerifier.verify(problem, source.reference_train)
-        if certificate.valid:
-            raise RuntimeError("Adversarial benchmark construction must be infeasible")
-        invalid.append(
-            BenchmarkInstance(
-                instance_id=f"infeasible-{seed}-{index:04d}",
-                seed=seed,
-                problem=problem,
-                reference_train=source.reference_train,
-                certificate=certificate.to_json(),
-                expected_feasible=False,
-                family="clearance-infeasible",
-            )
-        )
-    if not valid and not invalid:
-        raise ValueError("Benchmark suite must contain at least one instance")
-    return [*valid, *invalid]

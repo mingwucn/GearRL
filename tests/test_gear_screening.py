@@ -1,4 +1,4 @@
-from cae.gear_screening import screen_tooth_root
+from cae.gear_screening import ToothRootScreeningAnalysis
 from common.design_models import GearStage, MaterialLoadCase, Point2D
 
 
@@ -14,7 +14,7 @@ def _load_case(allowable_stress_mpa: float = 300.0) -> MaterialLoadCase:
 
 
 def test_tooth_screening_returns_physical_loads_and_safety_factor() -> None:
-    report = screen_tooth_root(GearStage("input", Point2D(0, 0), (24,), 2.0), 0, _load_case())
+    report = ToothRootScreeningAnalysis().screen(GearStage("input", Point2D(0, 0), (24,), 2.0), 0, _load_case())
     assert report.tangential_force_n > 0
     assert report.radial_force_n > 0
     assert report.max_von_mises_mpa > 0
@@ -24,6 +24,7 @@ def test_tooth_screening_returns_physical_loads_and_safety_factor() -> None:
 
 def test_increasing_allowable_stress_increases_safety_factor() -> None:
     stage = GearStage("input", Point2D(0, 0), (24,), 2.0)
-    weak = screen_tooth_root(stage, 0, _load_case(150.0))
-    strong = screen_tooth_root(stage, 0, _load_case(300.0))
+    screening = ToothRootScreeningAnalysis()
+    weak = screening.screen(stage, 0, _load_case(150.0))
+    strong = screening.screen(stage, 0, _load_case(300.0))
     assert strong.safety_factor == weak.safety_factor * 2.0

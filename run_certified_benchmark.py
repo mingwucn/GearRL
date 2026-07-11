@@ -9,54 +9,61 @@ import json
 from pathlib import Path
 from time import perf_counter
 
-from benchmark.generator import generate_benchmark_suite
-from common.provenance import create_run_bundle, write_result
-from reporting.aggregate import write_aggregate
+from benchmark.generator import BenchmarkGenerator
+from common.provenance import RunBundleStore
+from reporting.aggregate import ResultAggregator
 from synthesis.certified_graph import CertifiedSynthesisGraph
 
 
-def _dataset_hash(instances) -> str:
-    payload = json.dumps([instance.to_json() for instance in instances], sort_keys=True, separators=(",", ":"))
-    return hashlib.sha256(payload.encode()).hexdigest()
+class CertifiedBenchmarkRunner:
+    """Orchestrate one immutable deterministic certified benchmark run."""
 
-
-def run(seed: int, count: int, output_root: Path, infeasible_count: int = 0) -> Path:
-    instances = generate_benchmark_suite(seed, count, infeasible_count)
-    bundle, _ = create_run_bundle(
-        output_root,
-        random_seed=seed,
-        dataset_id="compound-v1",
-        dataset_hash=_dataset_hash(instances),
-        config={"method": "certified-branch-and-bound", "feasible_instance_count": count, "infeasible_instance_count": infeasible_count},
-        model_version="certified-planar-v1",
-        repository_root=Path(__file__).parent,
-        environment_file=Path(__file__).parent / "environment-ai.yml",
-    )
-    for instance in instances:
-        started = perf_counter()
-        result = CertifiedSynthesisGraph(
-            instance.problem,
-            instance.reference_train.stages,
-            instance.reference_train.meshes,
-        ).solve()
-        elapsed = perf_counter() - started
-        successful = result is not None
-        correct = successful == instance.expected_feasible
-        write_result(
-            bundle,
-            instance.instance_id,
-            {
-                "instance_id": instance.instance_id,
-                "valid": successful,
-                "expected_feasible": instance.expected_feasible,
-                "correct_classification": correct,
-                "runtime_s": elapsed,
-                "score": list(result.score) if result else None,
-                "certificate": result.certificate_json if result else None,
-            },
+    def __init__(self, output_root: Path, generator: BenchmarkGenerator | None = None):
+        self._generator = generator or BenchmarkGenerator()
+        self._store = RunBundleStore(
+            output_root,
+            repository_root=Path(__file__).parent,
+            environment_file=Path(__file__).parent / "environment-ai.yml",
         )
-    write_aggregate(bundle)
-    return bundle
+
+    def run(self, seed: int, count: int, infeasible_count: int = 0) -> Path:
+        instances = self._generator.generate_suite(seed, count, infeasible_count)
+        bundle, _ = self._store.create(
+            random_seed=seed,
+            dataset_id="compound-v1",
+            dataset_hash=self._dataset_hash(instances),
+            config={"method": "certified-branch-and-bound", "feasible_instance_count": count, "infeasible_instance_count": infeasible_count},
+            model_version="certified-planar-v1",
+        )
+        for instance in instances:
+            started = perf_counter()
+            result = CertifiedSynthesisGraph(
+                instance.problem,
+                instance.reference_train.stages,
+                instance.reference_train.meshes,
+            ).solve()
+            elapsed = perf_counter() - started
+            successful = result is not None
+            self._store.write_result(
+                bundle,
+                instance.instance_id,
+                {
+                    "instance_id": instance.instance_id,
+                    "valid": successful,
+                    "expected_feasible": instance.expected_feasible,
+                    "correct_classification": successful == instance.expected_feasible,
+                    "runtime_s": elapsed,
+                    "score": list(result.score) if result else None,
+                    "certificate": result.certificate_json if result else None,
+                },
+            )
+        ResultAggregator().write(bundle)
+        return bundle
+
+    @staticmethod
+    def _dataset_hash(instances) -> str:
+        payload = json.dumps([instance.to_json() for instance in instances], sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(payload.encode()).hexdigest()
 
 
 def main() -> None:
@@ -66,7 +73,7 @@ def main() -> None:
     parser.add_argument("--infeasible-count", type=int, default=0)
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"))
     args = parser.parse_args()
-    print(run(args.seed, args.count, args.output_root, args.infeasible_count))
+    print(CertifiedBenchmarkRunner(args.output_root).run(args.seed, args.count, args.infeasible_count))
 
 
 if __name__ == "__main__":

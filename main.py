@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from run_certified_benchmark import run
+from run_certified_benchmark import CertifiedBenchmarkRunner
 
 
 def main() -> None:
@@ -15,7 +15,7 @@ def main() -> None:
     parser.add_argument("--infeasible-count", type=int, default=0, help="Number of labeled infeasible benchmark instances")
     parser.add_argument("--output-root", type=Path, default=Path("artifacts/runs"), help="Immutable run-bundle root")
     args = parser.parse_args()
-    bundle = run(args.seed, args.count, args.output_root, args.infeasible_count)
+    bundle = CertifiedBenchmarkRunner(args.output_root).run(args.seed, args.count, args.infeasible_count)
     print(f"Certified benchmark bundle: {bundle}")
 
 

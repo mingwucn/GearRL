@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from benchmark.freeze import freeze_benchmark
+from benchmark.freeze import BenchmarkFreezer
 
 
 def main() -> None:
@@ -16,7 +16,7 @@ def main() -> None:
     parser.add_argument("--feasible-count", type=int, default=300)
     parser.add_argument("--infeasible-count", type=int, default=100)
     args = parser.parse_args()
-    print(freeze_benchmark(args.output, args.seed, args.feasible_count, args.infeasible_count))
+    print(BenchmarkFreezer().freeze(args.output, args.seed, args.feasible_count, args.infeasible_count))
 
 
 if __name__ == "__main__":

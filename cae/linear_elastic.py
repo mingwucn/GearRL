@@ -72,7 +72,20 @@ class LinearElasticResult:
         return float(np.max(self.element_von_mises_mpa))
 
 
-def solve_plane_stress(
+class PlaneStressSolver:
+    """Object-oriented entry point for the owned CST plane-stress solver."""
+
+    def solve(
+        self,
+        mesh: TriangularMesh,
+        material: PlaneStressMaterial,
+        nodal_forces_n: np.ndarray,
+        fixed_dofs: np.ndarray,
+    ) -> LinearElasticResult:
+        return _solve_plane_stress_kernel(mesh, material, nodal_forces_n, fixed_dofs)
+
+
+def _solve_plane_stress_kernel(
     mesh: TriangularMesh,
     material: PlaneStressMaterial,
     nodal_forces_n: np.ndarray,
