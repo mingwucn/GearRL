@@ -63,6 +63,7 @@ class ScientificArtifactManifestBuilder:
             absolute = (repository / relative).resolve()
             if not absolute.is_relative_to(repository) or not absolute.is_file():
                 raise ValueError(f"Scientific artifact path is invalid: {relative}")
+            ScientificReleaseFreshnessVerifier().require_committed_blob(repository, commit, relative, absolute.read_bytes())
             references.append(ScientificArtifactReference(identifier, relative.as_posix(), sha256(absolute.read_bytes()).hexdigest()))
         environment = ScientificEnvironmentIdentity(
             commit,
@@ -79,6 +80,28 @@ class ScientificArtifactManifestBuilder:
             environment,
             tuple(references),
         )
+
+
+class ScientificReleaseFreshnessVerifier:
+    """Require release inputs to come from one reachable committed source state."""
+
+    def require_committed_blob(self, repository: Path, commit: str, relative: Path, observed: bytes) -> None:
+        completed = subprocess.run(
+            ("git", "show", f"{commit}:{relative.as_posix()}"),
+            cwd=repository,
+            capture_output=True,
+        )
+        if completed.returncode != 0 or completed.stdout != observed:
+            raise ValueError(f"Scientific artifact is not frozen at source commit: {relative}")
+
+    def require_reachable_commit(self, repository: Path, commit: str) -> None:
+        completed = subprocess.run(
+            ("git", "merge-base", "--is-ancestor", commit, "HEAD"),
+            cwd=repository,
+            capture_output=True,
+        )
+        if completed.returncode != 0:
+            raise ValueError("Scientific aggregate source commit is not an ancestor of HEAD")
 
 
 class ScientificArtifactManifestStore:
@@ -119,10 +142,13 @@ class ScientificArtifactManifestStore:
         )
         if len({item.artifact_id for item in references}) != len(references):
             raise ValueError("Scientific aggregate contains duplicate artifact ids")
+        freshness = ScientificReleaseFreshnessVerifier()
+        freshness.require_reachable_commit(repository, environment.source_commit)
         for item in references:
             path = (repository / item.path).resolve()
             if not path.is_relative_to(repository) or sha256(path.read_bytes()).hexdigest() != item.sha256:
                 raise ValueError(f"Scientific aggregate artifact mismatch: {item.artifact_id}")
+            freshness.require_committed_blob(repository, environment.source_commit, Path(item.path), path.read_bytes())
         if CommittedSourceTreeHasher().digest(repository, environment.source_commit) != environment.source_tree_sha256:
             raise ValueError("Scientific aggregate source tree mismatch")
         if sha256((repository / "environment-ai.lock").read_bytes()).hexdigest() != environment.conda_lock_sha256:

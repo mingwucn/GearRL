@@ -26,3 +26,15 @@ def test_scientific_manifest_rejects_duplicate_catalog_ids(tmp_path: Path) -> No
     catalog.write_text(json.dumps(payload))
     with pytest.raises(ValueError, match="Duplicate scientific artifact id"):
         ScientificArtifactManifestBuilder().build(catalog, Path.cwd())
+
+
+def test_scientific_manifest_rejects_catalog_artifact_changed_after_commit(tmp_path: Path) -> None:
+    payload = json.loads(CATALOG.read_text())
+    source = Path(payload["artifacts"][0]["path"])
+    original = source.read_bytes()
+    try:
+        source.write_bytes(original + b" ")
+        with pytest.raises(ValueError, match="not frozen at source commit"):
+            ScientificArtifactManifestBuilder().build(CATALOG, Path.cwd())
+    finally:
+        source.write_bytes(original)
