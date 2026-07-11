@@ -111,7 +111,7 @@ class LiteratureMatrixRenderer:
                 "knowledge formalization, constrained learning, or simulation-coupled generation by themselves. "
                 "The candidate contribution is the integration of an executable engineering-knowledge schema, "
                 "blind requirements-first bounded synthesis, independent positive certificates and complete negative "
-                "proofs, strength-coupled admission, and hash-bound reporting. The phrase `within the audited "
+                "proofs, and hash-bound reporting. The phrase `within the audited "
                 "closest-method set` is mandatory because the matrix cannot prove a universal first.",
                 "",
             ]

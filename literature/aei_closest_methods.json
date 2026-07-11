@@ -148,13 +148,13 @@
     {
       "claim_id": "C2",
       "status": "supported",
-      "claim": "Static tooth-root screening can alter accepted design parameters and modeled feasibility under the declared digital model.",
-      "required_evidence": "strength-coupled-v1 paired ablation"
+      "claim": "On the frozen competency corpus, executable specification-schema rules detect and localize the registered semantic mutations that a structure-only record does not detect.",
+      "required_evidence": "knowledge-ablation-v1 frozen protocol and results; do not generalize to arbitrary mesh-graph semantics"
     },
     {
       "claim_id": "C3",
       "status": "candidate-novelty",
-      "claim": "Within the audited closest-method set, no single method combines blind bounded synthesis, independent positive certificates and negative proofs, strength-coupled admission, and hash-bound publication artifacts.",
+      "claim": "Within the audited closest-method set, no single method combines solver-hidden bounded requirements, independently replayable positive certificates and complete topology-bounded negative proofs, and hash-bound publication artifacts.",
       "required_evidence": "This matrix plus repository evidence; phrase as a bounded literature inference, not a universal first claim"
     },
     {
@@ -168,6 +168,12 @@
       "status": "unsupported",
       "claim": "Learning improves synthesis speed or valid-within-budget rate at the preregistered threshold.",
       "required_evidence": "Retain only after the 30-seed learned-policy gate passes"
+    },
+    {
+      "claim_id": "C6",
+      "status": "unsupported",
+      "claim": "The failed static tooth-root screening model supports strength-coupled admission or structural qualification.",
+      "required_evidence": "Prohibited unless a future independently qualified structural model passes the frozen admission gate"
     }
   ]
 }
