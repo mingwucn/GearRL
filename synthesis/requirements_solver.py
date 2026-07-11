@@ -399,6 +399,7 @@ class CpSatCompoundSynthesizer(RequirementsFirstSynthesisSolver):
                     "minimum_teeth": constraints.min_teeth,
                     "maximum_teeth": constraints.max_teeth,
                     "target_speed_ratio": constraints.target_speed_ratio,
+                    "ratio_tolerance": constraints.ratio_tolerance,
                     "module_mm": module,
                     "terminal_distance_mm": terminal_distance,
                     "maximum_candidates": remaining,

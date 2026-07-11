@@ -9,6 +9,33 @@ import sys
 from ortools.sat.python import cp_model
 
 
+class RatioToleranceConstraint:
+    """Soundly enclose the positive-ratio ``isclose`` acceptance interval."""
+
+    SCALE = 1_000_000_000_000
+
+    @staticmethod
+    def _bounds(target: Fraction, tolerance: Fraction) -> tuple[Fraction, Fraction]:
+        if target < 0:
+            raise ValueError("CP-SAT positive-ratio model does not support negative targets")
+        if tolerance < 0 or tolerance >= 1:
+            raise ValueError("CP-SAT ratio tolerance must be in [0, 1)")
+        absolute_low = max(Fraction(0), target - tolerance)
+        absolute_high = target + tolerance
+        relative_low = target * (1 - tolerance)
+        relative_high = target / (1 - tolerance)
+        return min(absolute_low, relative_low), max(absolute_high, relative_high)
+
+    def add(self, model: cp_model.CpModel, numerator, denominator, target_value, tolerance_value) -> None:
+        target = Fraction(str(target_value))
+        tolerance = Fraction(str(tolerance_value))
+        low, high = self._bounds(target, tolerance)
+        scaled_low = (low.numerator * self.SCALE) // low.denominator
+        scaled_high = -((-high.numerator * self.SCALE) // high.denominator)
+        model.add(self.SCALE * numerator >= scaled_low * denominator)
+        model.add(self.SCALE * numerator <= scaled_high * denominator)
+
+
 class CandidateCollector(cp_model.CpSolverSolutionCallback):
     def __init__(self, variables: tuple[cp_model.IntVar, ...], maximum_candidates: int):
         super().__init__()
@@ -56,8 +83,13 @@ class CpSatWorker:
         model.add_multiplication_equality(numerator_product, (input_teeth, second_compound))
         model.add_multiplication_equality(denominator_product, (first_compound, output_teeth))
         if request["target_speed_ratio"] is not None:
-            target = Fraction(str(request["target_speed_ratio"])).limit_denominator(1_000_000)
-            model.add(target.denominator * numerator_product == target.numerator * denominator_product)
+            RatioToleranceConstraint().add(
+                model,
+                numerator_product,
+                denominator_product,
+                request["target_speed_ratio"],
+                request["ratio_tolerance"],
+            )
 
         module = Fraction(str(request["module_mm"])).limit_denominator(1_000_000)
         distance = Fraction(str(request["terminal_distance_mm"])).limit_denominator(1_000_000)

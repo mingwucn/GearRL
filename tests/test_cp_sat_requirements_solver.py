@@ -1,5 +1,7 @@
+from dataclasses import replace
+
 from benchmark import SolverInputDirectoryLoader
-from synthesis import CpSatCompoundSynthesizer, ProductionCandidateValidator, SolverBudget
+from synthesis import CpSatCompoundSynthesizer, EnumerativeCompoundSynthesizer, ProductionCandidateValidator, SolverBudget
 
 
 DATASET = "data/benchmark/curated/requirements-first-50-v1/solver-inputs"
@@ -40,3 +42,25 @@ def test_cp_sat_proves_shaft_spacing_infeasibility() -> None:
 
     assert result.train is None
     assert result.search_complete is True
+
+
+def test_cp_sat_matches_enumerator_for_non_exact_tolerance_witness() -> None:
+    original = _view("valid-high-35")
+    target = original.specification.problem.constraints.target_speed_ratio
+    assert target is not None
+    constraints = replace(
+        original.specification.problem.constraints,
+        target_speed_ratio=target + 5e-5,
+        ratio_tolerance=1e-4,
+    )
+    problem = replace(original.specification.problem, constraints=constraints)
+    specification = replace(original.specification, problem=problem)
+    view = replace(original, specification=specification)
+    budget = SolverBudget(7000, 2026, maximum_time_s=5.0)
+
+    cp_sat = CpSatCompoundSynthesizer(ProductionCandidateValidator(), budget).solve(view)
+    enumeration = EnumerativeCompoundSynthesizer(ProductionCandidateValidator(), budget=budget).solve(view)
+
+    assert enumeration.train is not None
+    assert cp_sat.train is not None
+    assert cp_sat.certificate is not None and cp_sat.certificate.valid
