@@ -61,3 +61,9 @@ For the full frozen protocol, including the 400-instance mixed benchmark:
 ```bash
 scripts/reproduce_certified_run.sh
 ```
+
+Persist the preregistered 120-layout static-strength screening study:
+
+```bash
+conda run -n ai python run_cae_study.py --dataset data/benchmark/frozen/compound-v1-frozen-400-r2
+```
