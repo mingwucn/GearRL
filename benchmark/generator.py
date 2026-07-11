@@ -101,9 +101,13 @@ def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teet
         )
         decoy_teeth = rng.randint(min_teeth, max_teeth)
         decoy_center = Point2D(-module_mm * (input_teeth + decoy_teeth) / 2.0, 0.0)
+        decoy_two_teeth = min_teeth
+        decoy_distance = module_mm * (input_teeth + decoy_two_teeth) / 2.0
+        decoy_two_center = Point2D(0.0, -decoy_distance)
         stages = (
             GearStage("input", input_center, (input_teeth,), module_mm, (0,)),
             GearStage("decoy", decoy_center, (decoy_teeth,), module_mm, (0,)),
+            GearStage("decoy_two", decoy_two_center, (decoy_two_teeth,), module_mm, (0,)),
             GearStage("compound", compound_center, (first_compound, second_compound), module_mm, (0, 1)),
             GearStage("output", output_center, (output_teeth,), module_mm, (1,)),
         )
@@ -111,6 +115,7 @@ def _generate_compound_instances(seed: int, count: int, min_teeth: int, max_teet
             # The dead-end is intentionally ordered first to expose a genuine
             # branch-ordering problem while remaining a valid candidate mesh.
             MeshEdge("input", 0, "decoy", 0),
+            MeshEdge("input", 0, "decoy_two", 0),
             MeshEdge("input", 0, "compound", 0),
             MeshEdge("compound", 1, "output", 0),
         )
